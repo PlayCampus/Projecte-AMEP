@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Playcampus/Playcampus.vcxproj" Id="e03a85b2-bfa9-4488-8c37-cd42aa3095be" />
+</Solution>
