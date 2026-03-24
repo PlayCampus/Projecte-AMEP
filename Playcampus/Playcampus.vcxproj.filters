@@ -29,6 +29,36 @@
     <ClInclude Include="Form1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Domini\Usuari.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\Administrador.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\Capita.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\Estudiant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dades\UsuariTx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dades\UsuariTx.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\Usuari.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\Administrador.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\Capita.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\Estudiant.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CppCLR_WinFormsProject.cpp">
@@ -41,6 +71,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Form1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dades\UsuariTx.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\Usuari.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\Administrador.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\Capita.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\Estudiant.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -130,6 +130,16 @@
     <ResourceCompile Include="app.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Dades\UsuariTx.h" />
+    <ClInclude Include="Dades\UsuariTx.hxx" />
+    <ClInclude Include="Domini\Administrador.h" />
+    <ClInclude Include="Domini\Administrador.hxx" />
+    <ClInclude Include="Domini\Capita.h" />
+    <ClInclude Include="Domini\Capita.hxx" />
+    <ClInclude Include="Domini\Estudiant.h" />
+    <ClInclude Include="Domini\Estudiant.hxx" />
+    <ClInclude Include="Domini\Usuari.h" />
+    <ClInclude Include="Domini\Usuari.hxx" />
     <ClInclude Include="Form1.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -139,6 +149,11 @@
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="CppCLR_WinFormsProject.cpp" />
+    <ClCompile Include="Dades\UsuariTx.cxx" />
+    <ClCompile Include="Domini\Administrador.cxx" />
+    <ClCompile Include="Domini\Capita.cxx" />
+    <ClCompile Include="Domini\Estudiant.cxx" />
+    <ClCompile Include="Domini\Usuari.cxx" />
     <ClCompile Include="Form1.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
