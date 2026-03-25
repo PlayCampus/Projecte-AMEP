@@ -49,7 +49,7 @@ namespace Playcampus {
                 }
             }
             catch (Exception^ ex) {
-                Console::WriteLine(ex->Message);
+                throw ex;
             }
             finally {
                 conn->Close();
@@ -81,7 +81,7 @@ namespace Playcampus {
                 reader->Close();
             }
             catch (Exception^ ex) {
-                Console::WriteLine(ex->Message);
+                throw ex;
             }
             finally {
                 conn->Close();

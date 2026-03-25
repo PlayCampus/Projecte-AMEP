@@ -277,15 +277,20 @@ namespace CppCLRWinFormsProject {
 			String^ correu = txtLoginCorreu->Text;
 			String^ pass = txtLoginPass->Text;
 
-			Playcampus::Domini::CtrlIniciSessio^ ctrlInici = gcnew Playcampus::Domini::CtrlIniciSessio();
-			bool valid = ctrlInici->IniciarSessio(correu, pass);
-			if (valid) {
-				pnlLogin->Visible = false;
-				pnlMain->Visible = true;
-				txtLoginCorreu->Text = "";
-				txtLoginPass->Text = "";
-			} else {
-				MessageBox::Show("Credencials incorrectes.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			try {
+				Playcampus::Domini::CtrlIniciSessio^ ctrlInici = gcnew Playcampus::Domini::CtrlIniciSessio();
+				bool valid = ctrlInici->IniciarSessio(correu, pass);
+				if (valid) {
+					pnlLogin->Visible = false;
+					pnlMain->Visible = true;
+					txtLoginCorreu->Text = "";
+					txtLoginPass->Text = "";
+				} else {
+					MessageBox::Show("Credencials incorrectes.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				}
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show("Error en iniciar sessió: " + ex->Message, "Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
 		}
 
@@ -301,17 +306,22 @@ namespace CppCLRWinFormsProject {
 				return;
 			}
 
-			Playcampus::Domini::CtrlRegistrarUsuari^ ctrlReg = gcnew Playcampus::Domini::CtrlRegistrarUsuari();
-			ctrlReg->CrearUsuari(id, nom, pass, DateTime::Now, correu, tipus);
-			MessageBox::Show("Usuari registrat correctament!", "Exit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			try {
+				Playcampus::Domini::CtrlRegistrarUsuari^ ctrlReg = gcnew Playcampus::Domini::CtrlRegistrarUsuari();
+				ctrlReg->CrearUsuari(id, nom, pass, DateTime::Now, correu, tipus);
+				MessageBox::Show("Usuari registrat correctament!", "Exit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
-			pnlRegister->Visible = false;
-			pnlInici->Visible = true;
+				pnlRegister->Visible = false;
+				pnlInici->Visible = true;
 
-			txtRegId->Text = "";
-			txtRegNom->Text = "";
-			txtRegCorreu->Text = "";
-			txtRegPass->Text = "";
+				txtRegId->Text = "";
+				txtRegNom->Text = "";
+				txtRegCorreu->Text = "";
+				txtRegPass->Text = "";
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show("Error al registrar: " + ex->Message, "Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
 		}
 
 		private: System::Void btnLogout_Click(System::Object^ sender, System::EventArgs^ e) {

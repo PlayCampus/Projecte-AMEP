@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\ConnexioBD.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\ConnexioBD.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlRegistrarUsuari.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\CtrlRegistrarUsuari.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -117,10 +121,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\ConnexioBD.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\ConnexioBD.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\ConnexioBD.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\ConnexioBD.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -130,7 +130,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -138,44 +138,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Form1.h",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Form1.h",
-              "RelativeDocumentMoniker": "Playcampus\\Form1.h",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Form1.h",
-              "RelativeToolTip": "Playcampus\\Form1.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003525|",
-              "WhenOpened": "2026-03-25T16:24:16.408Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "PassarellaUsuari.hxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.hxx",
-              "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaUsuari.hxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.hxx",
-              "RelativeToolTip": "Playcampus\\Dades\\PassarellaUsuari.hxx",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAACYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-25T16:24:16.409Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "PassarellaUsuari.cxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaUsuari.cxx",
               "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.cxx",
               "RelativeToolTip": "Playcampus\\Dades\\PassarellaUsuari.cxx",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFwAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACYAAAAAAAAAAAAYwFwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-03-25T16:24:16.411Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "CtrlRegistrarUsuari.cxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlRegistrarUsuari.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlRegistrarUsuari.cxx",
@@ -188,7 +164,45 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
+              "Title": "ConnexioBD.cxx",
+              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\ConnexioBD.cxx",
+              "RelativeDocumentMoniker": "Playcampus\\Dades\\ConnexioBD.cxx",
+              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\ConnexioBD.cxx",
+              "RelativeToolTip": "Playcampus\\Dades\\ConnexioBD.cxx",
+              "ViewState": "AgIAABYAAAAAAAAAAAAYwC8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-03-25T16:24:16.407Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PassarellaUsuari.hxx",
+              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.hxx",
+              "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaUsuari.hxx",
+              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.hxx",
+              "RelativeToolTip": "Playcampus\\Dades\\PassarellaUsuari.hxx",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-03-25T16:24:16.409Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Form1.h",
+              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Form1.h",
+              "RelativeDocumentMoniker": "Playcampus\\Form1.h",
+              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Form1.h",
+              "RelativeToolTip": "Playcampus\\Form1.h",
+              "ViewState": "AgIAADcBAAAAAAAAAABBwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-03-25T16:24:16.408Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "CtrlIniciSessio.cxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlIniciSessio.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlIniciSessio.cxx",
@@ -201,7 +215,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "ConnexioBD.hxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\ConnexioBD.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\ConnexioBD.hxx",
@@ -214,20 +228,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "ConnexioBD.cxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\ConnexioBD.cxx",
-              "RelativeDocumentMoniker": "Playcampus\\Dades\\ConnexioBD.cxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\ConnexioBD.cxx",
-              "RelativeToolTip": "Playcampus\\Dades\\ConnexioBD.cxx",
-              "ViewState": "AgIAABQAAAAAAAAAAABBwCAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-03-25T16:24:16.407Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "CtrlTancarSessio.hxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlTancarSessio.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlTancarSessio.hxx",
@@ -239,7 +240,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "CtrlTancarSessio.cxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlTancarSessio.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlTancarSessio.cxx",
@@ -251,7 +252,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "CtrlRegistrarUsuari.hxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlRegistrarUsuari.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlRegistrarUsuari.hxx",
@@ -263,7 +264,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "CtrlIniciSessio.hxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlIniciSessio.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlIniciSessio.hxx",
@@ -275,7 +276,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "CtrlUsuari.hxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlUsuari.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlUsuari.hxx",
@@ -288,7 +289,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "CtrlUsuari.cxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlUsuari.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlUsuari.cxx",
@@ -301,18 +302,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Form1.h [Design]",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Form1.h",
               "RelativeDocumentMoniker": "Playcampus\\Form1.h",
               "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Form1.h [Design]",
               "RelativeToolTip": "Playcampus\\Form1.h [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003525|",
-              "WhenOpened": "2026-03-25T16:24:16.437Z"
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-03-25T16:24:16.437Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "schema_usuari.sql",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\schema_usuari.sql",
               "RelativeDocumentMoniker": "schema_usuari.sql",
@@ -325,7 +327,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "Estudiant.hxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\Estudiant.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\Estudiant.hxx",
@@ -337,7 +339,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "Administrador.cxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\Administrador.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\Administrador.cxx",
@@ -349,7 +351,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "Administrador.hxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\Administrador.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\Administrador.hxx",
@@ -361,7 +363,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "Usuari.cxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\Usuari.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\Usuari.cxx",
@@ -373,7 +375,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "Capita.cxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\Capita.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\Capita.cxx",
@@ -385,7 +387,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "Estudiant.cxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\Estudiant.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\Estudiant.cxx",
@@ -397,7 +399,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "Capita.hxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\Capita.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\Capita.hxx",
@@ -409,7 +411,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "Capita.h",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\Capita.h",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\Capita.h",
@@ -421,7 +423,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "UsuariTx.hxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\UsuariTx.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\UsuariTx.hxx",
@@ -433,7 +435,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "UsuariTx.cxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\UsuariTx.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\UsuariTx.cxx",
@@ -445,7 +447,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "Usuari.hxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\Usuari.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\Usuari.hxx",
@@ -457,7 +459,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "Estudiant.h",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\Estudiant.h",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\Estudiant.h",
@@ -469,7 +471,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "Administrador.h",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\Administrador.h",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\Administrador.h",
@@ -481,7 +483,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "Usuari.h",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\Usuari.h",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\Usuari.h",
@@ -493,7 +495,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "pch.h",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\pch.h",
               "RelativeDocumentMoniker": "Playcampus\\pch.h",
