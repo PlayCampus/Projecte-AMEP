@@ -40,8 +40,15 @@ namespace Playcampus {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
-                String^ query = "INSERT INTO Usuari (nom, contrasenya, data_registre, correu_electronic, Tipus) VALUES (@nom, @pwd, @data, @correu, @tipus)";
+
+                // Ensure identificador exists: generate a new GUID if not provided
+                if (String::IsNullOrEmpty(identificador)) {
+                    identificador = Guid::NewGuid().ToString();
+                }
+
+                String^ query = "INSERT INTO Usuari (identificador, nom, contrasenya, data_registre, correu_electronic, Tipus) VALUES (@id, @nom, @pwd, @data, @correu, @tipus)";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@id", identificador);
                 cmd->Parameters->AddWithValue("@nom", nom);
                 cmd->Parameters->AddWithValue("@pwd", contrasenya);
                 cmd->Parameters->AddWithValue("@data", dataRegistre);
@@ -49,7 +56,7 @@ namespace Playcampus {
                 cmd->Parameters->AddWithValue("@tipus", tipus);
                 cmd->ExecuteNonQuery();
 
-                identificador = cmd->LastInsertedId.ToString();
+                // identificador already set (GUID) so no need to use LastInsertedId
 
                 if (tipus == "Estudiant") {
                     String^ queryEstud = "INSERT INTO Estudiant (identificador, carrera) VALUES (@id, '')";
