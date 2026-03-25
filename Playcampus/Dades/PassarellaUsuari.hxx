@@ -33,6 +33,8 @@ namespace Playcampus {
             void Esborra();
 
             static PassarellaUsuari^ LlegeixPerCorreu(String^ connStr, String^ correu);
+            static PassarellaUsuari^ LlegeixPerNomUsuari(String^ connStr, String^ nomUsuari); 
+
         };
     }
 }
