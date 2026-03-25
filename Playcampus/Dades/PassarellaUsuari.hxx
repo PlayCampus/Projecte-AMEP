@@ -20,6 +20,7 @@ namespace Playcampus {
         public:
             PassarellaUsuari(String^ connStr);
             PassarellaUsuari(String^ connStr, String^ id, String^ n, String^ pwd, DateTime d, String^ correu, String^ t);
+            PassarellaUsuari(String^ connStr, String^ n, String^ pwd, DateTime d, String^ correu, String^ t);
 
             String^ GetIdentificador();
             String^ GetNom();

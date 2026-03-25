@@ -10,7 +10,7 @@ namespace Playcampus {
             String^ connectionString;
         public:
             CtrlRegistrarUsuari();
-            void CrearUsuari(String^ id, String^ nom, String^ pass, DateTime dataReg, String^ correu, String^ tipus);
+            void CrearUsuari(String^ nom, String^ pass, DateTime dataReg, String^ correu, String^ tipus);
         };
     }
 }

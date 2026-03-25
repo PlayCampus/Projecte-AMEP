@@ -20,6 +20,15 @@ namespace Playcampus {
             tipus = t;
         }
 
+        PassarellaUsuari::PassarellaUsuari(String^ connStr, String^ n, String^ pwd, DateTime d, String^ correu, String^ t) {
+            connectionString = connStr;
+            nom = n;
+            contrasenya = pwd;
+            dataRegistre = d;
+            correuElectronic = correu;
+            tipus = t;
+        }
+
         String^ PassarellaUsuari::GetIdentificador() { return identificador; }
         String^ PassarellaUsuari::GetNom() { return nom; }
         String^ PassarellaUsuari::GetContrasenya() { return contrasenya; }
@@ -31,16 +40,17 @@ namespace Playcampus {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
-                String^ query = "INSERT INTO Usuari (identificador, nom, contrasenya, data_registre, correu_electronic, Tipus) VALUES (@id, @nom, @pwd, @data, @correu, @tipus)";
+                String^ query = "INSERT INTO Usuari (nom, contrasenya, data_registre, correu_electronic, Tipus) VALUES (@nom, @pwd, @data, @correu, @tipus)";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                cmd->Parameters->AddWithValue("@id", identificador);
                 cmd->Parameters->AddWithValue("@nom", nom);
                 cmd->Parameters->AddWithValue("@pwd", contrasenya);
                 cmd->Parameters->AddWithValue("@data", dataRegistre);
                 cmd->Parameters->AddWithValue("@correu", correuElectronic);
                 cmd->Parameters->AddWithValue("@tipus", tipus);
                 cmd->ExecuteNonQuery();
-                
+
+                identificador = cmd->LastInsertedId.ToString();
+
                 if (tipus == "Estudiant") {
                     String^ queryEstud = "INSERT INTO Estudiant (identificador, carrera) VALUES (@id, '')";
                     MySqlCommand^ cmdEst = gcnew MySqlCommand(queryEstud, conn);
@@ -67,10 +77,10 @@ namespace Playcampus {
                 String^ query = "SELECT identificador, nom, contrasenya, data_registre, correu_electronic, Tipus FROM Usuari WHERE correu_electronic = @correu";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@correu", correu);
-                
+
                 MySqlDataReader^ reader = cmd->ExecuteReader();
                 if (reader->Read()) {
-                    String^ id = reader->GetString("identificador");
+                    String^ id = reader["identificador"]->ToString();
                     String^ nom = reader->GetString("nom");
                     String^ pwd = reader->GetString("contrasenya");
                     DateTime data = reader->GetDateTime("data_registre");
@@ -97,10 +107,10 @@ namespace Playcampus {
                 String^ query = "SELECT identificador, nom, contrasenya, data_registre, correu_electronic, Tipus FROM Usuari WHERE nom = @nom";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@nom", nomUsuari);
-                
+
                 MySqlDataReader^ reader = cmd->ExecuteReader();
                 if (reader->Read()) {
-                    String^ id = reader->GetString("identificador");
+                    String^ id = reader["identificador"]->ToString();
                     String^ nom = reader->GetString("nom");
                     String^ pwd = reader->GetString("contrasenya");
                     DateTime data = reader->GetDateTime("data_registre");

@@ -99,7 +99,7 @@ namespace CppCLRWinFormsProject {
 			this->pnlInici->Controls->Add(this->btnShowRegister);
 			this->pnlInici->Dock = System::Windows::Forms::DockStyle::Fill;
 
-			this->btnShowLogin->Text = L"Iniciar Sessió";
+			this->btnShowLogin->Text = L"Iniciar Sessi\u00F3";
 			this->btnShowLogin->Location = System::Drawing::Point(100, 100);
 			this->btnShowLogin->Size = System::Drawing::Size(200, 40);
 			this->btnShowLogin->Click += gcnew System::EventHandler(this, &Form1::btnShowLogin_Click);
@@ -128,10 +128,10 @@ namespace CppCLRWinFormsProject {
 			this->pnlLogin->Controls->Add(this->lblLoginTitle);
 			this->pnlLogin->Dock = System::Windows::Forms::DockStyle::Fill;
 
-			this->lblLoginTitle->Text = L"Iniciar Sessió";
+			this->lblLoginTitle->Text = L"Iniciar Sessi\u00F3";
 			this->lblLoginTitle->Location = System::Drawing::Point(150, 20);
 
-			this->lblLoginUsuari->Text = L"Usuari";
+			this->lblLoginUsuari->Text = L"Correu";
 			this->lblLoginUsuari->Location = System::Drawing::Point(50, 50);
 			this->lblLoginUsuari->Size = System::Drawing::Size(100, 20);
 
@@ -170,11 +170,9 @@ namespace CppCLRWinFormsProject {
 			this->btnRegBack = gcnew System::Windows::Forms::Button();
 			this->lblRegTitle = gcnew System::Windows::Forms::Label();
 
-			this->pnlRegister->Controls->Add(this->lblRegId);
 			this->pnlRegister->Controls->Add(this->lblRegNom);
 			this->pnlRegister->Controls->Add(this->lblRegCorreu);
 			this->pnlRegister->Controls->Add(this->lblRegPass);
-			this->pnlRegister->Controls->Add(this->txtRegId);
 			this->pnlRegister->Controls->Add(this->txtRegNom);
 			this->pnlRegister->Controls->Add(this->txtRegCorreu);
 			this->pnlRegister->Controls->Add(this->txtRegPass);
@@ -185,14 +183,6 @@ namespace CppCLRWinFormsProject {
 
 			this->lblRegTitle->Text = L"Registrar-se";
 			this->lblRegTitle->Location = System::Drawing::Point(150, 10);
-
-			this->lblRegId->Text = L"Id";
-			this->lblRegId->Location = System::Drawing::Point(50, 40);
-			this->lblRegId->Size = System::Drawing::Size(100, 20);
-
-			this->txtRegId->Text = L"";
-			this->txtRegId->Location = System::Drawing::Point(150, 40);
-			this->txtRegId->Size = System::Drawing::Size(150, 20);
 
 			this->lblRegNom->Text = L"Nom";
 			this->lblRegNom->Location = System::Drawing::Point(50, 70);
@@ -236,11 +226,11 @@ namespace CppCLRWinFormsProject {
 			this->pnlMain->Controls->Add(this->btnLogout);
 			this->pnlMain->Dock = System::Windows::Forms::DockStyle::Fill;
 
-			this->lblWelcome->Text = L"Sessió Iniciada!";
+			this->lblWelcome->Text = L"Sessi\u00F3 Iniciada!";
 			this->lblWelcome->Location = System::Drawing::Point(50, 50);
 			this->lblWelcome->Size = System::Drawing::Size(200, 20);
 
-			this->btnLogout->Text = L"Tancar Sessió";
+			this->btnLogout->Text = L"Tancar Sessi\u00F3";
 			this->btnLogout->Location = System::Drawing::Point(50, 100);
 			this->btnLogout->Click += gcnew System::EventHandler(this, &Form1::btnLogout_Click);
 
@@ -286,41 +276,39 @@ namespace CppCLRWinFormsProject {
 					txtLoginCorreu->Text = "";
 					txtLoginPass->Text = "";
 				} else {
-					MessageBox::Show("Credencials incorrectes.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+					MessageBox::Show(L"Credencials incorrectes.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 				}
 			}
 			catch (Exception^ ex) {
-				MessageBox::Show("Error en iniciar sessió: " + ex->Message, "Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				MessageBox::Show(L"Error en iniciar sessi\u00F3: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
 		}
 
 		private: System::Void btnRegAct_Click(System::Object^ sender, System::EventArgs^ e) {
-			String^ id = txtRegId->Text;
 			String^ nom = txtRegNom->Text;
 			String^ correu = txtRegCorreu->Text;
 			String^ pass = txtRegPass->Text;
 			String^ tipus = L"Estudiant";
 
-			if (String::IsNullOrEmpty(id) || String::IsNullOrEmpty(nom) || String::IsNullOrEmpty(correu) || String::IsNullOrEmpty(pass)) {
-				MessageBox::Show("Omple tots els camps.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			if (String::IsNullOrEmpty(nom) || String::IsNullOrEmpty(correu) || String::IsNullOrEmpty(pass)) {
+				MessageBox::Show(L"Omple tots els camps.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				return;
 			}
 
 			try {
 				Playcampus::Domini::CtrlRegistrarUsuari^ ctrlReg = gcnew Playcampus::Domini::CtrlRegistrarUsuari();
-				ctrlReg->CrearUsuari(id, nom, pass, DateTime::Now, correu, tipus);
-				MessageBox::Show("Usuari registrat correctament!", "Exit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				ctrlReg->CrearUsuari(nom, pass, DateTime::Now, correu, tipus);
+				MessageBox::Show(L"Usuari registrat correctament!", L"\u00C8xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
 				pnlRegister->Visible = false;
 				pnlInici->Visible = true;
 
-				txtRegId->Text = "";
-				txtRegNom->Text = "";
-				txtRegCorreu->Text = "";
-				txtRegPass->Text = "";
+				txtRegNom->Text = L"";
+				txtRegCorreu->Text = L"";
+				txtRegPass->Text = L"";
 			}
 			catch (Exception^ ex) {
-				MessageBox::Show("Error al registrar: " + ex->Message, "Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				MessageBox::Show(L"Error al registrar: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
 		}
 

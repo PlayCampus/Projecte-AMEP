@@ -11,8 +11,8 @@ namespace Playcampus {
             connectionString = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
         }
 
-        bool CtrlIniciSessio::IniciarSessio(String^ nom, String^ contrasenya) {
-            Playcampus::Dades::PassarellaUsuari^ pu = Playcampus::Dades::PassarellaUsuari::LlegeixPerNomUsuari(connectionString, nom);
+        bool CtrlIniciSessio::IniciarSessio(String^ correu, String^ contrasenya) {
+            Playcampus::Dades::PassarellaUsuari^ pu = Playcampus::Dades::PassarellaUsuari::LlegeixPerCorreu(connectionString, correu);
             if (pu != nullptr) {
                 if (pu->GetContrasenya() == contrasenya) {
                     return true;
