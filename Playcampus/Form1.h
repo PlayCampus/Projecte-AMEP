@@ -1,5 +1,7 @@
 #pragma once
-#include "Dades/UsuariTx.hxx"
+#include "Domini/CtrlIniciSessio.hxx"
+#include "Domini/CtrlTancarSessio.hxx"
+#include "Domini/CtrlRegistrarUsuari.hxx"
 
 namespace CppCLRWinFormsProject {
 
@@ -22,7 +24,6 @@ namespace CppCLRWinFormsProject {
 			//
 			//TODO: Add the constructor code here
 			//
-			usuariTx = gcnew Playcampus::Dades::UsuariTx("Server=localhost;Database=playcampus_db;Uid=root;Pwd=;");
 			pnlInici->Visible = true;
 			pnlLogin->Visible = false;
 			pnlRegister->Visible = false;
@@ -42,7 +43,6 @@ namespace CppCLRWinFormsProject {
 		}
 
 	private: 
-		Playcampus::Dades::UsuariTx^ usuariTx;
 		System::Windows::Forms::Panel^ pnlInici;
 		System::Windows::Forms::Button^ btnShowLogin;
 		System::Windows::Forms::Button^ btnShowRegister;
@@ -277,7 +277,8 @@ namespace CppCLRWinFormsProject {
 			String^ correu = txtLoginCorreu->Text;
 			String^ pass = txtLoginPass->Text;
 
-			bool valid = usuariTx->IniciarSessio(correu, pass);
+			Playcampus::Domini::CtrlIniciSessio^ ctrlInici = gcnew Playcampus::Domini::CtrlIniciSessio();
+			bool valid = ctrlInici->IniciarSessio(correu, pass);
 			if (valid) {
 				pnlLogin->Visible = false;
 				pnlMain->Visible = true;
@@ -300,7 +301,8 @@ namespace CppCLRWinFormsProject {
 				return;
 			}
 
-			usuariTx->CrearUsuari(id, nom, pass, DateTime::Now, correu, tipus, "", "");
+			Playcampus::Domini::CtrlRegistrarUsuari^ ctrlReg = gcnew Playcampus::Domini::CtrlRegistrarUsuari();
+			ctrlReg->CrearUsuari(id, nom, pass, DateTime::Now, correu, tipus);
 			MessageBox::Show("Usuari registrat correctament!", "Exit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
 			pnlRegister->Visible = false;
@@ -313,6 +315,9 @@ namespace CppCLRWinFormsProject {
 		}
 
 		private: System::Void btnLogout_Click(System::Object^ sender, System::EventArgs^ e) {
+			Playcampus::Domini::CtrlTancarSessio^ ctrlTancar = gcnew Playcampus::Domini::CtrlTancarSessio();
+			ctrlTancar->TancarSessio();
+
 			pnlMain->Visible = false;
 			pnlInici->Visible = true;
 		}
