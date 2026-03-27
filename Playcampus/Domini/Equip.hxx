@@ -9,18 +9,14 @@ namespace Playcampus {
         public ref class Equip {
         private:
             String^ nom;
-            int quantitatJugadors;
             DateTime dataFundacio;
             Disciplina esport;
 
         public:
-            Equip(String^ nom, int quantitatJugadors, DateTime dataFundacio, Disciplina esport);
+            Equip(String^ nom, DateTime dataFundacio, Disciplina esport);
 
             String^ GetNom();
             void SetNom(String^ nom);
-
-            int GetQuantitatJugadors();
-            void SetQuantitatJugadors(int quantitatJugadors);
 
             DateTime GetDataFundacio();
             void SetDataFundacio(DateTime dataFundacio);
@@ -29,7 +25,6 @@ namespace Playcampus {
             void SetEsport(Disciplina esport);
 
             // Validacions relacionades
-            bool ValidarQuantitatJugadors();
             bool ValidarDataFundacio();
         };
     }
