@@ -44,21 +44,6 @@
     <ClInclude Include="Dades\UsuariTx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Dades\PassarellaUsuari.hxx">
-      <Filter>Header Files\Dades</Filter>
-    </ClInclude>
-    <ClInclude Include="Dades\ConnexioBD.hxx">
-      <Filter>Header Files\Dades</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlIniciSessio.hxx">
-      <Filter>Header Files\Domini</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlRegistrarUsuari.hxx">
-      <Filter>Header Files\Domini</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlTancarSessio.hxx">
-      <Filter>Header Files\Domini</Filter>
-    </ClInclude>
     <ClInclude Include="Dades\UsuariTx.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -72,6 +57,42 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Domini\Estudiant.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dades\PassarellaUsuari.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dades\ConnexioBD.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\CtrlIniciSessio.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\CtrlRegistrarUsuari.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\CtrlTancarSessio.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\Disciplina.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\Lliga.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\Equip.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\Jugador.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\Temporada.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\Jornada.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\Partit.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -103,10 +124,46 @@
     <ClCompile Include="Domini\Estudiant.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Dades\PassarellaUsuari.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dades\ConnexioBD.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\CtrlIniciSessio.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\CtrlRegistrarUsuari.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\CtrlTancarSessio.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\Lliga.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\Equip.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\Jugador.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\Temporada.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\Jornada.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\Partit.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="configuracio.env" />
   </ItemGroup>
 </Project>
