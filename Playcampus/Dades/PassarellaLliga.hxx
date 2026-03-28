@@ -1,0 +1,33 @@
+#pragma once
+#include <string>
+#include "../Domini/Disciplina.hxx"
+
+using namespace System;
+
+namespace Playcampus {
+    namespace Dades {
+        public ref class PassarellaLliga {
+        private:
+            String^ connectionString;
+            String^ idLliga;
+            String^ nom;
+            Playcampus::Domini::Disciplina disciplina;
+            String^ descripcio;
+            String^ estat;
+            String^ contrasenya;
+
+        public:
+            PassarellaLliga(String^ connStr);
+            PassarellaLliga(String^ connStr, String^ idLliga, String^ nom, Playcampus::Domini::Disciplina disciplina, String^ descripcio, String^ estat, String^ contrasenya);
+
+            String^ GetIdLliga();
+            String^ GetNom();
+            Playcampus::Domini::Disciplina GetDisciplina();
+            String^ GetDescripcio();
+            String^ GetEstat();
+            String^ GetContrasenya();
+
+            void Insereix();
+        };
+    }
+}
