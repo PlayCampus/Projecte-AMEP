@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/.vs/Playcampus.slnx/v18/.suo
+/.vs/Playcampus.slnx/v18/Browse.VC.db
+/Playcampus/x64/Debug/Playcampus.vcxproj.AssemblyReference.cache
