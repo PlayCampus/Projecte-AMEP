@@ -91,16 +91,16 @@
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\CtrlRegistrarUsuari.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlUsuari.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Playcampus\\Domini\\CtrlUsuari.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlUsuari.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\CtrlUsuari.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlTancarSessio.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\CtrlTancarSessio.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlUsuari.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Playcampus\\Domini\\CtrlUsuari.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlUsuari.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\CtrlUsuari.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\ConnexioBD.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -144,9 +144,48 @@
               "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaUsuari.cxx",
               "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.cxx",
               "RelativeToolTip": "Playcampus\\Dades\\PassarellaUsuari.cxx",
-              "ViewState": "AgIAACAAAAAAAAAAAAAAAGYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAGoAAAAAAAAAAAAAAHAAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-03-25T16:24:16.411Z",
+              "WhenOpened": "2026-03-28T15:48:50.322Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "CtrlUsuari.hxx",
+              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlUsuari.hxx",
+              "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlUsuari.hxx",
+              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlUsuari.hxx",
+              "RelativeToolTip": "Playcampus\\Domini\\CtrlUsuari.hxx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-03-27T18:30:28.029Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "CtrlUsuari.cxx",
+              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlUsuari.cxx",
+              "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlUsuari.cxx",
+              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlUsuari.cxx",
+              "RelativeToolTip": "Playcampus\\Domini\\CtrlUsuari.cxx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-03-27T18:30:28.037Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "schema_usuari.sql",
+              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\schema_usuari.sql",
+              "RelativeDocumentMoniker": "schema_usuari.sql",
+              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\schema_usuari.sql",
+              "RelativeToolTip": "schema_usuari.sql",
+              "ViewState": "AgIAAAYAAAAAAAAAAABBwCIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2026-03-27T18:30:28.046Z",
               "EditorCaption": ""
             },
             {
@@ -159,7 +198,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\CtrlRegistrarUsuari.cxx",
               "ViewState": "AgIAAA4AAAAAAAAAAABBwBMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-03-25T16:24:16.419Z"
+              "WhenOpened": "2026-03-28T15:48:50.328Z"
             },
             {
               "$type": "Document",
@@ -171,7 +210,7 @@
               "RelativeToolTip": "Playcampus\\Dades\\ConnexioBD.cxx",
               "ViewState": "AgIAABIAAAAAAAAAAAAAAC8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-03-25T16:24:16.407Z"
+              "WhenOpened": "2026-03-28T15:48:50.329Z"
             },
             {
               "$type": "Document",
@@ -183,8 +222,7 @@
               "RelativeToolTip": "Playcampus\\Dades\\PassarellaUsuari.hxx",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABsAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-25T16:24:16.409Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-28T15:48:50.33Z"
             },
             {
               "$type": "Document",
@@ -196,7 +234,7 @@
               "RelativeToolTip": "Playcampus\\Form1.h",
               "ViewState": "AgIAAFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-25T16:24:16.408Z"
+              "WhenOpened": "2026-03-27T18:30:28.022Z"
             },
             {
               "$type": "Document",
@@ -208,7 +246,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\CtrlIniciSessio.cxx",
               "ViewState": "AgIAAA4AAAAAAAAAAABBwBgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-03-25T16:24:16.42Z"
+              "WhenOpened": "2026-03-27T18:30:28.022Z"
             },
             {
               "$type": "Document",
@@ -220,7 +258,7 @@
               "RelativeToolTip": "Playcampus\\Dades\\ConnexioBD.hxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-25T16:24:16.408Z"
+              "WhenOpened": "2026-03-27T18:30:28.023Z"
             },
             {
               "$type": "Document",
@@ -232,7 +270,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\CtrlTancarSessio.hxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-25T16:24:16.417Z"
+              "WhenOpened": "2026-03-27T18:30:28.024Z"
             },
             {
               "$type": "Document",
@@ -244,7 +282,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\CtrlTancarSessio.cxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-03-25T16:24:16.418Z"
+              "WhenOpened": "2026-03-27T18:30:28.024Z"
             },
             {
               "$type": "Document",
@@ -256,7 +294,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\CtrlRegistrarUsuari.hxx",
               "ViewState": "AgIAAAwAAAAAAAAAAABBwBAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-25T16:24:16.419Z"
+              "WhenOpened": "2026-03-27T18:30:28.025Z"
             },
             {
               "$type": "Document",
@@ -268,31 +306,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\CtrlIniciSessio.hxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-25T16:24:16.42Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "CtrlUsuari.hxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlUsuari.hxx",
-              "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlUsuari.hxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlUsuari.hxx",
-              "RelativeToolTip": "Playcampus\\Domini\\CtrlUsuari.hxx",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-25T16:10:46.236Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "CtrlUsuari.cxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlUsuari.cxx",
-              "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlUsuari.cxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlUsuari.cxx",
-              "RelativeToolTip": "Playcampus\\Domini\\CtrlUsuari.cxx",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-03-25T16:10:46.244Z"
+              "WhenOpened": "2026-03-27T18:30:28.025Z"
             },
             {
               "$type": "Document",
@@ -302,19 +316,7 @@
               "RelativeDocumentMoniker": "Playcampus\\Form1.h",
               "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio1\\Playcampus\\Form1.h [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-25T16:24:16.437Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "schema_usuari.sql",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\schema_usuari.sql",
-              "RelativeDocumentMoniker": "schema_usuari.sql",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\schema_usuari.sql",
-              "RelativeToolTip": "schema_usuari.sql",
-              "ViewState": "AgIAAAYAAAAAAAAAAABBwCIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-03-24T18:05:39.942Z"
+              "WhenOpened": "2026-03-27T18:30:28.043Z"
             },
             {
               "$type": "Document",
@@ -326,7 +328,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\Estudiant.hxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-25T16:24:16.444Z"
+              "WhenOpened": "2026-03-27T18:30:28.05Z"
             },
             {
               "$type": "Document",
@@ -338,7 +340,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\Administrador.cxx",
               "ViewState": "AgIAACMAAAAAAAAAAAAAACMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-03-25T16:24:16.444Z"
+              "WhenOpened": "2026-03-27T18:30:28.051Z"
             },
             {
               "$type": "Document",
@@ -350,7 +352,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\Administrador.hxx",
               "ViewState": "AgIAAAsAAAAAAAAAAABBwBwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-25T16:24:16.446Z"
+              "WhenOpened": "2026-03-27T18:30:28.052Z"
             },
             {
               "$type": "Document",
@@ -362,7 +364,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\Usuari.cxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAowBoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-03-25T16:24:16.446Z"
+              "WhenOpened": "2026-03-27T18:30:28.052Z"
             },
             {
               "$type": "Document",
@@ -374,7 +376,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\Capita.cxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-03-25T16:24:16.447Z"
+              "WhenOpened": "2026-03-27T18:30:28.053Z"
             },
             {
               "$type": "Document",
@@ -386,7 +388,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\Estudiant.cxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-03-25T16:24:16.448Z"
+              "WhenOpened": "2026-03-27T18:30:28.054Z"
             },
             {
               "$type": "Document",
@@ -398,7 +400,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\Capita.hxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-25T16:24:16.448Z"
+              "WhenOpened": "2026-03-27T18:30:28.054Z"
             },
             {
               "$type": "Document",
@@ -410,7 +412,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\Capita.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-25T16:24:16.448Z"
+              "WhenOpened": "2026-03-27T18:30:28.055Z"
             },
             {
               "$type": "Document",
@@ -422,7 +424,7 @@
               "RelativeToolTip": "Playcampus\\Dades\\UsuariTx.hxx",
               "ViewState": "AgIAAAQAAAAAAAAAAAAowB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-25T16:24:16.449Z"
+              "WhenOpened": "2026-03-27T18:30:28.056Z"
             },
             {
               "$type": "Document",
@@ -434,7 +436,7 @@
               "RelativeToolTip": "Playcampus\\Dades\\UsuariTx.cxx",
               "ViewState": "AgIAAHgAAAAAAAAAAAAAAJUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-03-25T16:24:16.45Z"
+              "WhenOpened": "2026-03-27T18:30:28.056Z"
             },
             {
               "$type": "Document",
@@ -446,7 +448,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\Usuari.hxx",
               "ViewState": "AgIAAAIAAAAAAAAAAAAowBwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-25T16:24:16.45Z"
+              "WhenOpened": "2026-03-27T18:30:28.057Z"
             },
             {
               "$type": "Document",
@@ -458,7 +460,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\Estudiant.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-25T16:24:16.452Z"
+              "WhenOpened": "2026-03-27T18:30:28.058Z"
             },
             {
               "$type": "Document",
@@ -470,7 +472,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\Administrador.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-25T16:24:16.452Z"
+              "WhenOpened": "2026-03-27T18:30:28.058Z"
             },
             {
               "$type": "Document",
@@ -482,7 +484,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\Usuari.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-25T16:24:16.452Z"
+              "WhenOpened": "2026-03-27T18:30:28.059Z"
             },
             {
               "$type": "Document",
@@ -494,7 +496,7 @@
               "RelativeToolTip": "Playcampus\\pch.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-25T16:24:16.453Z"
+              "WhenOpened": "2026-03-27T18:30:28.06Z"
             }
           ]
         }
