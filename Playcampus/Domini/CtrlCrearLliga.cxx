@@ -25,5 +25,9 @@ namespace Playcampus {
             Playcampus::Dades::PassarellaLliga^ pl = gcnew Playcampus::Dades::PassarellaLliga(connectionString, idLliga, nom, disciplina, descripcio, estat, contrasenya);
             pl->Insereix();
         }
+        bool CtrlCrearLliga::ExisteixLliga(String^ nomLliga) {
+            Playcampus::Dades::PassarellaLliga^ p = gcnew Playcampus::Dades::PassarellaLliga(connectionString);
+            return p->ExisteixPerNom(nomLliga);
+        }
     }
 }

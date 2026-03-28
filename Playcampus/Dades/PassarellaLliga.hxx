@@ -28,6 +28,7 @@ namespace Playcampus {
             String^ GetContrasenya();
 
             void Insereix();
+            bool ExisteixPerNom(String^ nomLliga);
         };
     }
 }

@@ -2,6 +2,7 @@
 #include "Domini/CtrlIniciSessio.hxx"
 #include "Domini/CtrlTancarSessio.hxx"
 #include "Domini/CtrlRegistrarUsuari.hxx"
+#include "Domini/CtrlCrearLliga.hxx"
 
 namespace CppCLRWinFormsProject {
 
@@ -21,13 +22,13 @@ namespace CppCLRWinFormsProject {
 		Form1(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
+
 			pnlInici->Visible = true;
 			pnlLogin->Visible = false;
 			pnlRegister->Visible = false;
 			pnlMain->Visible = false;
+
+			Form1_Resize(nullptr, nullptr);
 		}
 
 	protected:
@@ -83,6 +84,9 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Label^ lblNoticies;
 		System::Windows::Forms::ListBox^ lstNoticies;
 		System::Windows::Forms::PictureBox^ picLogoMain;
+		System::Windows::Forms::Label^ lblNomLliga;
+		System::Windows::Forms::TextBox^ txtNomLliga;
+		System::Windows::Forms::Button^ btnComprovarLliga;
 
 		/// <summary>
 		/// Required designer variable.
@@ -118,7 +122,7 @@ namespace CppCLRWinFormsProject {
 			this->picLogoInici->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->picLogoInici->Size = System::Drawing::Size(150, 150);
 
-			this->btnShowLogin->Text = L"Iniciar Sessi\u00F3";
+			this->btnShowLogin->Text = L"Iniciar Sessió";
 			this->btnShowLogin->Location = System::Drawing::Point(100, 100);
 			this->btnShowLogin->Size = System::Drawing::Size(200, 40);
 			this->btnShowLogin->Click += gcnew System::EventHandler(this, &Form1::btnShowLogin_Click);
@@ -153,7 +157,7 @@ namespace CppCLRWinFormsProject {
 			this->picLogoLogin->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->picLogoLogin->Size = System::Drawing::Size(150, 150);
 
-			this->lblLoginTitle->Text = L"Iniciar Sessi\u00F3";
+			this->lblLoginTitle->Text = L"Iniciar Sessió";
 			this->lblLoginTitle->Location = System::Drawing::Point(150, 20);
 
 			this->lblLoginUsuari->Text = L"Correu";
@@ -260,6 +264,9 @@ namespace CppCLRWinFormsProject {
 			this->lstNoticies = gcnew System::Windows::Forms::ListBox();
 			this->btnLogoutMainMenu = gcnew System::Windows::Forms::Button();
 			this->picLogoMain = gcnew System::Windows::Forms::PictureBox();
+			this->lblNomLliga = gcnew System::Windows::Forms::Label();
+			this->txtNomLliga = gcnew System::Windows::Forms::TextBox();
+			this->btnComprovarLliga = gcnew System::Windows::Forms::Button();
 
 			this->pnlMain->Controls->Add(this->lblMainTitle);
 			this->pnlMain->Controls->Add(this->btnProgPartits);
@@ -271,6 +278,9 @@ namespace CppCLRWinFormsProject {
 			this->pnlMain->Controls->Add(this->lstNoticies);
 			this->pnlMain->Controls->Add(this->btnLogoutMainMenu);
 			this->pnlMain->Controls->Add(this->picLogoMain);
+			this->pnlMain->Controls->Add(this->lblNomLliga);
+			this->pnlMain->Controls->Add(this->txtNomLliga);
+			this->pnlMain->Controls->Add(this->btnComprovarLliga);
 			this->pnlMain->Dock = System::Windows::Forms::DockStyle::Fill;
 
 			this->picLogoMain->ImageLocation = L"imatges\\logo.png";
@@ -283,7 +293,7 @@ namespace CppCLRWinFormsProject {
 			this->lblMainTitle->Location = System::Drawing::Point(230, 20);
 			this->lblMainTitle->AutoSize = true;
 
-			this->btnProgPartits->Text = L"Programaci\u00F3 de partits";
+			this->btnProgPartits->Text = L"Programació de partits";
 			this->btnProgPartits->Location = System::Drawing::Point(20, 60);
 			this->btnProgPartits->Size = System::Drawing::Size(130, 40);
 
@@ -291,7 +301,7 @@ namespace CppCLRWinFormsProject {
 			this->btnEstatLligues->Location = System::Drawing::Point(160, 60);
 			this->btnEstatLligues->Size = System::Drawing::Size(130, 40);
 
-			this->btnEstadistiques->Text = L"Estad\u00EDstiques de partits";
+			this->btnEstadistiques->Text = L"Estadístiques de partits";
 			this->btnEstadistiques->Location = System::Drawing::Point(300, 60);
 			this->btnEstadistiques->Size = System::Drawing::Size(130, 40);
 
@@ -310,10 +320,27 @@ namespace CppCLRWinFormsProject {
 			this->lstNoticies->Location = System::Drawing::Point(20, 350);
 			this->lstNoticies->Size = System::Drawing::Size(550, 80);
 
-			this->btnLogoutMainMenu->Text = L"Tancar Sessi\u00F3";
+			this->btnLogoutMainMenu->Text = L"Tancar Sessió";
 			this->btnLogoutMainMenu->Location = System::Drawing::Point(470, 20);
 			this->btnLogoutMainMenu->Size = System::Drawing::Size(100, 25);
 			this->btnLogoutMainMenu->Click += gcnew System::EventHandler(this, &Form1::btnLogout_Click);
+
+			this->lblNomLliga->Text = L"Nom de la lliga";
+			this->lblNomLliga->Location = System::Drawing::Point(1120, 80);
+			this->lblNomLliga->Size = System::Drawing::Size(120, 20);
+			this->lblNomLliga->Visible = true;
+
+			this->txtNomLliga->Text = L"";
+			this->txtNomLliga->Location = System::Drawing::Point(1120, 105);
+			this->txtNomLliga->Size = System::Drawing::Size(180, 20);
+			this->txtNomLliga->Visible = true;
+
+			this->btnComprovarLliga->Text = L"Comprovar lliga";
+			this->btnComprovarLliga->Location = System::Drawing::Point(1120, 135);
+			this->btnComprovarLliga->Size = System::Drawing::Size(180, 30);
+			this->btnComprovarLliga->UseVisualStyleBackColor = true;
+			this->btnComprovarLliga->Visible = true;
+			this->btnComprovarLliga->Click += gcnew System::EventHandler(this, &Form1::btnComprovarLliga_Click);
 
 			// Form
 			this->Controls->Add(this->pnlInici);
@@ -374,12 +401,10 @@ namespace CppCLRWinFormsProject {
 		// --- PANEL MAIN ---
 		this->lblMainTitle->Location = System::Drawing::Point(centerX - this->lblMainTitle->Width / 2, 20);
 
-		// Logo adalt a la dreta (segons instruccions)
 		this->picLogoMain->Location = System::Drawing::Point(cw - this->picLogoMain->Width - 30, 20);
 		this->btnLogoutMainMenu->Location = System::Drawing::Point(20, 20);
 		this->btnLogoutMainMenu->BringToFront();
 
-		// Botons centrats a la part superior
 		int totalBtnWidth = 130 * 4 + 20 * 3;
 		int startBtnX = centerX - totalBtnWidth / 2;
 		this->btnProgPartits->Location = System::Drawing::Point(startBtnX, 80);
@@ -387,14 +412,20 @@ namespace CppCLRWinFormsProject {
 		this->btnEstadistiques->Location = System::Drawing::Point(startBtnX + 300, 80);
 		this->btnConsultar->Location = System::Drawing::Point(startBtnX + 450, 80);
 
-		// Box Imatge
+		int ligaX = cw - 320;
+		this->lblNomLliga->Location = System::Drawing::Point(ligaX, 80);
+		this->txtNomLliga->Location = System::Drawing::Point(ligaX, 105);
+		this->btnComprovarLliga->Location = System::Drawing::Point(ligaX, 135);
+		this->lblNomLliga->BringToFront();
+		this->txtNomLliga->BringToFront();
+		this->btnComprovarLliga->BringToFront();
+
 		int picY = 140;
 		int picBottomMargin = 160;
 		int picH = System::Math::Max(10, ch - picY - picBottomMargin);
 		this->picImatge->Location = System::Drawing::Point(50, picY);
 		this->picImatge->Size = System::Drawing::Size(cw - 100, picH);
 
-		// Noticies
 		int noticiesY = this->picImatge->Bottom + 20;
 		this->lblNoticies->Location = System::Drawing::Point(50, noticiesY);
 		this->lstNoticies->Location = System::Drawing::Point(50, noticiesY + 25);
@@ -440,7 +471,7 @@ namespace CppCLRWinFormsProject {
 			}
 		}
 		catch (Exception^ ex) {
-			MessageBox::Show(L"Error en iniciar sessi\u00F3: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			MessageBox::Show(L"Error en iniciar sessió: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
 
@@ -458,7 +489,7 @@ namespace CppCLRWinFormsProject {
 		try {
 			Playcampus::Domini::CtrlRegistrarUsuari^ ctrlReg = gcnew Playcampus::Domini::CtrlRegistrarUsuari();
 			ctrlReg->CrearUsuari(nom, pass, DateTime::Now, correu, tipus);
-			MessageBox::Show(L"Usuari registrat correctament!", L"\u00C8xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			MessageBox::Show(L"Usuari registrat correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
 			pnlRegister->Visible = false;
 			pnlInici->Visible = true;
@@ -478,6 +509,30 @@ namespace CppCLRWinFormsProject {
 
 		pnlMain->Visible = false;
 		pnlInici->Visible = true;
+	}
+
+	private: System::Void btnComprovarLliga_Click(System::Object^ sender, System::EventArgs^ e) {
+		String^ nomLliga = txtNomLliga->Text->Trim();
+
+		if (String::IsNullOrEmpty(nomLliga)) {
+			MessageBox::Show(L"Introdueix el nom de la lliga.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		try {
+			Playcampus::Domini::CtrlCrearLliga^ ctrlLliga = gcnew Playcampus::Domini::CtrlCrearLliga();
+			bool existeix = ctrlLliga->ExisteixLliga(nomLliga);
+
+			if (existeix) {
+				MessageBox::Show(L"La lliga existeix.", L"Informació", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			}
+			else {
+				MessageBox::Show(L"La lliga indicada no existeix.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error comprovant la lliga: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
 	}
 	};
 }

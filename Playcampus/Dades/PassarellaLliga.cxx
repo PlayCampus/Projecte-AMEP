@@ -54,5 +54,28 @@ namespace Playcampus {
                 }
             }
         }
+        bool PassarellaLliga::ExisteixPerNom(String^ nomLliga) {
+            bool existeix = false;
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+
+            try {
+                conn->Open();
+
+                String^ query = "SELECT COUNT(*) FROM Lliga WHERE nom = @nom";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@nom", nomLliga);
+
+                int count = Convert::ToInt32(cmd->ExecuteScalar());
+                existeix = (count > 0);
+            }
+            catch (Exception^ ex) {
+                throw ex;
+            }
+            finally {
+                conn->Close();
+            }
+
+            return existeix;
+        }
     }
 }
