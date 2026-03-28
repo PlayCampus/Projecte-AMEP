@@ -150,12 +150,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 34,
@@ -166,8 +162,7 @@
               "RelativeToolTip": "Playcampus\\Dades\\PassarellaLliga.cxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-03-27T19:03:27.181Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-27T19:03:27.181Z"
             },
             {
               "$type": "Document",
@@ -179,8 +174,7 @@
               "RelativeToolTip": "Playcampus\\Dades\\PassarellaLliga.hxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-27T19:03:19.32Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-27T19:03:19.32Z"
             },
             {
               "$type": "Document",
@@ -205,8 +199,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\CtrlCrearLliga.hxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-27T18:59:45.7Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-27T18:59:45.7Z"
             },
             {
               "$type": "Document",
@@ -218,8 +211,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\Lliga.cxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-03-27T18:55:56.255Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-27T18:55:56.255Z"
             },
             {
               "$type": "Document",
@@ -231,8 +223,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\Lliga.hxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-27T18:55:53.848Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-27T18:55:53.848Z"
             },
             {
               "$type": "Document",
@@ -244,8 +235,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\Equip.cxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-03-27T18:51:33.245Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-27T18:51:33.245Z"
             },
             {
               "$type": "Document",
@@ -257,8 +247,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\Equip.hxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-27T18:49:15.662Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-27T18:49:15.662Z"
             },
             {
               "$type": "Document",
@@ -270,8 +259,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\Jugador.hxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-27T18:45:54.934Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-27T18:45:54.934Z"
             },
             {
               "$type": "Document",
@@ -283,8 +271,7 @@
               "RelativeToolTip": "Playcampus\\Form1.h",
               "ViewState": "AgIAAFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-27T18:30:28.022Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-27T18:30:28.022Z"
             },
             {
               "$type": "Document",
@@ -368,8 +355,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\CtrlUsuari.hxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-27T18:30:28.029Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-27T18:30:28.029Z"
             },
             {
               "$type": "Document",
@@ -381,8 +367,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\CtrlUsuari.cxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-03-27T18:30:28.037Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-27T18:30:28.037Z"
             },
             {
               "$type": "Document",
@@ -393,8 +378,7 @@
               "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Form1.h [Design]",
               "RelativeToolTip": "Playcampus\\Form1.h [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-27T18:30:28.043Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2026-03-27T18:30:28.043Z"
             },
             {
               "$type": "Document",
@@ -406,8 +390,7 @@
               "RelativeToolTip": "schema_usuari.sql",
               "ViewState": "AgIAAAYAAAAAAAAAAABBwCIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-03-27T18:30:28.046Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-27T18:30:28.046Z"
             },
             {
               "$type": "Document",
