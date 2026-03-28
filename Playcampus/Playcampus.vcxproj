@@ -130,10 +130,12 @@
     <ResourceCompile Include="app.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Dades\PassarellaPartit.hxx" />
     <ClInclude Include="Dades\UsuariTx.h" />
     <ClInclude Include="Dades\UsuariTx.hxx" />
     <ClInclude Include="Dades\PassarellaUsuari.hxx" />
     <ClInclude Include="Dades\ConnexioBD.hxx" />
+    <ClInclude Include="Domini\CtrlCrearPartit.hxx" />
     <ClInclude Include="Domini\CtrlIniciSessio.hxx" />
     <ClInclude Include="Domini\CtrlRegistrarUsuari.hxx" />
     <ClInclude Include="Domini\CtrlTancarSessio.hxx" />
@@ -143,6 +145,7 @@
     <ClInclude Include="Domini\Capita.hxx" />
     <ClInclude Include="Domini\Estudiant.h" />
     <ClInclude Include="Domini\Estudiant.hxx" />
+    <ClInclude Include="Domini\Partit.hxx" />
     <ClInclude Include="Domini\Usuari.h" />
     <ClInclude Include="Domini\Usuari.hxx" />
     <ClInclude Include="Form1.h">
@@ -154,15 +157,18 @@
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="CppCLR_WinFormsProject.cpp" />
+    <ClCompile Include="Dades\PassarellaPartit.cxx" />
     <ClCompile Include="Dades\UsuariTx.cxx" />
     <ClCompile Include="Dades\PassarellaUsuari.cxx" />
     <ClCompile Include="Dades\ConnexioBD.cxx" />
+    <ClCompile Include="Domini\CtrlCrearPartit.cxx" />
     <ClCompile Include="Domini\CtrlIniciSessio.cxx" />
     <ClCompile Include="Domini\CtrlRegistrarUsuari.cxx" />
     <ClCompile Include="Domini\CtrlTancarSessio.cxx" />
     <ClCompile Include="Domini\Administrador.cxx" />
     <ClCompile Include="Domini\Capita.cxx" />
     <ClCompile Include="Domini\Estudiant.cxx" />
+    <ClCompile Include="Domini\Partit.cxx" />
     <ClCompile Include="Domini\Usuari.cxx" />
     <ClCompile Include="Form1.cpp" />
     <ClCompile Include="pch.cpp">
