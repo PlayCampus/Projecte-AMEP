@@ -7,7 +7,7 @@ using namespace System::IO;
 namespace Playcampus {
     namespace Dades {
         String^ ConnexioBD::ObtenirConnectionString() {
-            String^ connectionString = "Server=localhost;Database=playcampus_db;Uid=root;Pwd=;";
+            String^ connectionString = "Server=ubiwan.epsevg.upc.edu;Port=3306;Database=amep06;Uid=amep06;Pwd=ali5ief6XaeroG;";
             String^ path = "configuracio.env";
 
             if (!File::Exists(path)) {

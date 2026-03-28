@@ -27,6 +27,7 @@ namespace CppCLRWinFormsProject {
 			pnlLogin->Visible = false;
 			pnlRegister->Visible = false;
 			pnlMain->Visible = false;
+			pnlConsultar->Visible = false;
 
 			Form1_Resize(nullptr, nullptr);
 		}
@@ -84,6 +85,10 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Label^ lblNoticies;
 		System::Windows::Forms::ListBox^ lstNoticies;
 		System::Windows::Forms::PictureBox^ picLogoMain;
+
+		System::Windows::Forms::Panel^ pnlConsultar;
+		System::Windows::Forms::Label^ lblConsultarTitle;
+		System::Windows::Forms::Button^ btnTornarConsultar;
 		System::Windows::Forms::Label^ lblNomLliga;
 		System::Windows::Forms::TextBox^ txtNomLliga;
 		System::Windows::Forms::Button^ btnComprovarLliga;
@@ -264,9 +269,6 @@ namespace CppCLRWinFormsProject {
 			this->lstNoticies = gcnew System::Windows::Forms::ListBox();
 			this->btnLogoutMainMenu = gcnew System::Windows::Forms::Button();
 			this->picLogoMain = gcnew System::Windows::Forms::PictureBox();
-			this->lblNomLliga = gcnew System::Windows::Forms::Label();
-			this->txtNomLliga = gcnew System::Windows::Forms::TextBox();
-			this->btnComprovarLliga = gcnew System::Windows::Forms::Button();
 
 			this->pnlMain->Controls->Add(this->lblMainTitle);
 			this->pnlMain->Controls->Add(this->btnProgPartits);
@@ -278,9 +280,6 @@ namespace CppCLRWinFormsProject {
 			this->pnlMain->Controls->Add(this->lstNoticies);
 			this->pnlMain->Controls->Add(this->btnLogoutMainMenu);
 			this->pnlMain->Controls->Add(this->picLogoMain);
-			this->pnlMain->Controls->Add(this->lblNomLliga);
-			this->pnlMain->Controls->Add(this->txtNomLliga);
-			this->pnlMain->Controls->Add(this->btnComprovarLliga);
 			this->pnlMain->Dock = System::Windows::Forms::DockStyle::Fill;
 
 			this->picLogoMain->ImageLocation = L"imatges\\logo.png";
@@ -308,6 +307,7 @@ namespace CppCLRWinFormsProject {
 			this->btnConsultar->Text = L"Consultar";
 			this->btnConsultar->Location = System::Drawing::Point(440, 60);
 			this->btnConsultar->Size = System::Drawing::Size(130, 40);
+			this->btnConsultar->Click += gcnew System::EventHandler(this, &Form1::btnConsultar_Click);
 
 			this->picImatge->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->picImatge->Location = System::Drawing::Point(20, 120);
@@ -325,19 +325,45 @@ namespace CppCLRWinFormsProject {
 			this->btnLogoutMainMenu->Size = System::Drawing::Size(100, 25);
 			this->btnLogoutMainMenu->Click += gcnew System::EventHandler(this, &Form1::btnLogout_Click);
 
+			// pnlConsultar
+			this->pnlConsultar = gcnew System::Windows::Forms::Panel();
+			this->lblConsultarTitle = gcnew System::Windows::Forms::Label();
+			this->btnTornarConsultar = gcnew System::Windows::Forms::Button();
+			this->lblNomLliga = gcnew System::Windows::Forms::Label();
+			this->txtNomLliga = gcnew System::Windows::Forms::TextBox();
+			this->btnComprovarLliga = gcnew System::Windows::Forms::Button();
+
+			this->pnlConsultar->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->pnlConsultar->Visible = false;
+			this->pnlConsultar->Controls->Add(this->lblConsultarTitle);
+			this->pnlConsultar->Controls->Add(this->btnTornarConsultar);
+			this->pnlConsultar->Controls->Add(this->lblNomLliga);
+			this->pnlConsultar->Controls->Add(this->txtNomLliga);
+			this->pnlConsultar->Controls->Add(this->btnComprovarLliga);
+
+			this->lblConsultarTitle->Text = L"Consultar";
+			this->lblConsultarTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
+			this->lblConsultarTitle->AutoSize = true;
+			this->lblConsultarTitle->Location = System::Drawing::Point(350, 30);
+
+			this->btnTornarConsultar->Text = L"Tornar";
+			this->btnTornarConsultar->Size = System::Drawing::Size(100, 30);
+			this->btnTornarConsultar->Location = System::Drawing::Point(30, 30);
+			this->btnTornarConsultar->Click += gcnew System::EventHandler(this, &Form1::btnTornarConsultar_Click);
+
 			this->lblNomLliga->Text = L"Nom de la lliga";
-			this->lblNomLliga->Location = System::Drawing::Point(1120, 80);
+			this->lblNomLliga->Location = System::Drawing::Point(300, 140);
 			this->lblNomLliga->Size = System::Drawing::Size(120, 20);
 			this->lblNomLliga->Visible = true;
 
 			this->txtNomLliga->Text = L"";
-			this->txtNomLliga->Location = System::Drawing::Point(1120, 105);
-			this->txtNomLliga->Size = System::Drawing::Size(180, 20);
+			this->txtNomLliga->Location = System::Drawing::Point(430, 140);
+			this->txtNomLliga->Size = System::Drawing::Size(200, 20);
 			this->txtNomLliga->Visible = true;
 
 			this->btnComprovarLliga->Text = L"Comprovar lliga";
-			this->btnComprovarLliga->Location = System::Drawing::Point(1120, 135);
-			this->btnComprovarLliga->Size = System::Drawing::Size(180, 30);
+			this->btnComprovarLliga->Location = System::Drawing::Point(430, 180);
+			this->btnComprovarLliga->Size = System::Drawing::Size(200, 35);
 			this->btnComprovarLliga->UseVisualStyleBackColor = true;
 			this->btnComprovarLliga->Visible = true;
 			this->btnComprovarLliga->Click += gcnew System::EventHandler(this, &Form1::btnComprovarLliga_Click);
@@ -347,6 +373,7 @@ namespace CppCLRWinFormsProject {
 			this->Controls->Add(this->pnlLogin);
 			this->Controls->Add(this->pnlRegister);
 			this->Controls->Add(this->pnlMain);
+			this->Controls->Add(this->pnlConsultar);
 
 			String^ logoPath = L"imatges\\logo.png";
 			if (!System::IO::File::Exists(logoPath)) {
@@ -412,14 +439,6 @@ namespace CppCLRWinFormsProject {
 		this->btnEstadistiques->Location = System::Drawing::Point(startBtnX + 300, 80);
 		this->btnConsultar->Location = System::Drawing::Point(startBtnX + 450, 80);
 
-		int ligaX = cw - 320;
-		this->lblNomLliga->Location = System::Drawing::Point(ligaX, 80);
-		this->txtNomLliga->Location = System::Drawing::Point(ligaX, 105);
-		this->btnComprovarLliga->Location = System::Drawing::Point(ligaX, 135);
-		this->lblNomLliga->BringToFront();
-		this->txtNomLliga->BringToFront();
-		this->btnComprovarLliga->BringToFront();
-
 		int picY = 140;
 		int picBottomMargin = 160;
 		int picH = System::Math::Max(10, ch - picY - picBottomMargin);
@@ -430,6 +449,13 @@ namespace CppCLRWinFormsProject {
 		this->lblNoticies->Location = System::Drawing::Point(50, noticiesY);
 		this->lstNoticies->Location = System::Drawing::Point(50, noticiesY + 25);
 		this->lstNoticies->Size = System::Drawing::Size(cw - 100, ch - (noticiesY + 25) - 20);
+
+		// --- PANEL CONSULTAR ---
+		this->lblConsultarTitle->Location = System::Drawing::Point(centerX - this->lblConsultarTitle->Width / 2, 30);
+		this->btnTornarConsultar->Location = System::Drawing::Point(30, 30);
+		this->lblNomLliga->Location = System::Drawing::Point(centerX - 170, centerY - 30);
+		this->txtNomLliga->Location = System::Drawing::Point(centerX - 30, centerY - 30);
+		this->btnComprovarLliga->Location = System::Drawing::Point(centerX - 30, centerY + 15);
 	}
 
 	private: System::Void btnShowLogin_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -463,6 +489,7 @@ namespace CppCLRWinFormsProject {
 			if (valid) {
 				pnlLogin->Visible = false;
 				pnlMain->Visible = true;
+				pnlConsultar->Visible = false;
 				txtLoginCorreu->Text = "";
 				txtLoginPass->Text = "";
 			}
@@ -507,8 +534,21 @@ namespace CppCLRWinFormsProject {
 		Playcampus::Domini::CtrlTancarSessio^ ctrlTancar = gcnew Playcampus::Domini::CtrlTancarSessio();
 		ctrlTancar->TancarSessio();
 
+		pnlConsultar->Visible = false;
 		pnlMain->Visible = false;
 		pnlInici->Visible = true;
+	}
+
+	private: System::Void btnConsultar_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlMain->Visible = false;
+		pnlConsultar->Visible = true;
+		txtNomLliga->Text = L"";
+	}
+
+	private: System::Void btnTornarConsultar_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlConsultar->Visible = false;
+		pnlMain->Visible = true;
+		txtNomLliga->Text = L"";
 	}
 
 	private: System::Void btnComprovarLliga_Click(System::Object^ sender, System::EventArgs^ e) {
