@@ -1,33 +1,37 @@
 #include "pch.h"
 #include "Partit.hxx"
 
+using namespace System;
+
 namespace Playcampus {
     namespace Domini {
-        Partit::Partit(String^ idPartit, DateTime dataHora, String^ ubicacio, String^ estat, int golsLocal, int golsVisitant) {
-            this->idPartit = idPartit;
+        Partit::Partit(String^ identificador, DateTime dataHora, String^ ubicacio, String^ estat, int golsLocal, int golsVisitant, String^ idJornada) {
+            this->identificador = identificador;
             this->dataHora = dataHora;
             this->ubicacio = ubicacio;
             this->estat = estat;
             this->golsLocal = golsLocal;
             this->golsVisitant = golsVisitant;
+            this->idJornada = idJornada;
         }
 
-        String^ Partit::GetIdPartit() { return idPartit; }
-        void Partit::SetIdPartit(String^ idPartit) { this->idPartit = idPartit; }
 
+        String^ Partit::GetIdentificador() { return identificador; }
         DateTime Partit::GetDataHora() { return dataHora; }
-        void Partit::SetDataHora(DateTime dataHora) { this->dataHora = dataHora; }
-
         String^ Partit::GetUbicacio() { return ubicacio; }
-        void Partit::SetUbicacio(String^ ubicacio) { this->ubicacio = ubicacio; }
-
         String^ Partit::GetEstat() { return estat; }
-        void Partit::SetEstat(String^ estat) { this->estat = estat; }
-
         int Partit::GetGolsLocal() { return golsLocal; }
-        void Partit::SetGolsLocal(int golsLocal) { this->golsLocal = golsLocal; }
-
         int Partit::GetGolsVisitant() { return golsVisitant; }
-        void Partit::SetGolsVisitant(int golsVisitant) { this->golsVisitant = golsVisitant; }
+        String^ Partit::GetIdJornada() { return idJornada; }
+
+        void Partit::SetEstat(String^ nouEstat) { estat = nouEstat; }
+        void Partit::SetResultat(int golsLocal, int golsVisitant) {
+            this->golsLocal = golsLocal;
+            this->golsVisitant = golsVisitant;
+        }
+
+        void Partit::MostrarInformacio() {
+            Console::WriteLine("Partit: " + identificador + " - " + ubicacio);
+        }
     }
 }

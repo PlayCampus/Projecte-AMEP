@@ -1,211 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<ItemGroup Label="ProjectConfigurations">
-		<ProjectConfiguration Include="Debug|Win32">
-			<Configuration>Debug</Configuration>
-			<Platform>Win32</Platform>
-		</ProjectConfiguration>
-		<ProjectConfiguration Include="Release|Win32">
-			<Configuration>Release</Configuration>
-			<Platform>Win32</Platform>
-		</ProjectConfiguration>
-		<ProjectConfiguration Include="Debug|x64">
-			<Configuration>Debug</Configuration>
-			<Platform>x64</Platform>
-		</ProjectConfiguration>
-		<ProjectConfiguration Include="Release|x64">
-			<Configuration>Release</Configuration>
-			<Platform>x64</Platform>
-		</ProjectConfiguration>
-	</ItemGroup>
-	<PropertyGroup Label="Globals">
-		<VCProjectVersion>17.0</VCProjectVersion>
-		<ProjectGuid>{e03a85b2-bfa9-4488-8c37-cd42aa3095be}</ProjectGuid>
-		<TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-		<Keyword>ManagedCProj</Keyword>
-		<RootNamespace>Playcampus</RootNamespace>
-		<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-	</PropertyGroup>
-	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-		<ConfigurationType>Application</ConfigurationType>
-		<UseDebugLibraries>true</UseDebugLibraries>
-		<PlatformToolset>v143</PlatformToolset>
-		<CLRSupport>true</CLRSupport>
-		<CharacterSet>Unicode</CharacterSet>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-		<ConfigurationType>Application</ConfigurationType>
-		<UseDebugLibraries>false</UseDebugLibraries>
-		<PlatformToolset>v143</PlatformToolset>
-		<CLRSupport>true</CLRSupport>
-		<CharacterSet>Unicode</CharacterSet>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-		<ConfigurationType>Application</ConfigurationType>
-		<UseDebugLibraries>true</UseDebugLibraries>
-		<PlatformToolset>v143</PlatformToolset>
-		<CLRSupport>true</CLRSupport>
-		<CharacterSet>Unicode</CharacterSet>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-		<ConfigurationType>Application</ConfigurationType>
-		<UseDebugLibraries>false</UseDebugLibraries>
-		<PlatformToolset>v143</PlatformToolset>
-		<CLRSupport>true</CLRSupport>
-		<CharacterSet>Unicode</CharacterSet>
-	</PropertyGroup>
-	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-	<ImportGroup Label="ExtensionSettings">
-	</ImportGroup>
-	<ImportGroup Label="Shared">
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-	</ImportGroup>
-	<PropertyGroup Label="UserMacros" />
-	<PropertyGroup />
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-		<ClCompile>
-			<PrecompiledHeader>Use</PrecompiledHeader>
-			<PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-			<WarningLevel>Level3</WarningLevel>
-			<PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-		</ClCompile>
-		<Link>
-			<AdditionalDependencies />
-			<SubSystem>Windows</SubSystem>
-			<EntryPointSymbol>main</EntryPointSymbol>
-		</Link>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-		<ClCompile>
-			<PrecompiledHeader>Use</PrecompiledHeader>
-			<PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-			<WarningLevel>Level3</WarningLevel>
-			<PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-		</ClCompile>
-		<Link>
-			<AdditionalDependencies />
-			<SubSystem>Windows</SubSystem>
-			<EntryPointSymbol>main</EntryPointSymbol>
-		</Link>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-		<ClCompile>
-			<PrecompiledHeader>Use</PrecompiledHeader>
-			<PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-			<WarningLevel>Level3</WarningLevel>
-			<PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-		</ClCompile>
-		<Link>
-			<AdditionalDependencies />
-			<SubSystem>Windows</SubSystem>
-			<EntryPointSymbol>main</EntryPointSymbol>
-		</Link>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-		<ClCompile>
-			<PrecompiledHeader>Use</PrecompiledHeader>
-			<PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-			<WarningLevel>Level3</WarningLevel>
-			<PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-		</ClCompile>
-		<Link>
-			<AdditionalDependencies />
-			<SubSystem>Windows</SubSystem>
-			<EntryPointSymbol>main</EntryPointSymbol>
-		</Link>
-	</ItemDefinitionGroup>
-	<ItemGroup>
-		<ResourceCompile Include="app.rc" />
-	</ItemGroup>
-	<ItemGroup>
-		<ClInclude Include="Dades\PassarellaLliga.hxx" />
-		<ClInclude Include="Dades\UsuariTx.h" />
-		<ClInclude Include="Dades\UsuariTx.hxx" />
-		<ClInclude Include="Dades\PassarellaUsuari.hxx" />
-		<ClInclude Include="Dades\ConnexioBD.hxx" />
-		<ClInclude Include="Domini\CtrlCrearLliga.hxx" />
-		<ClInclude Include="Domini\CtrlIniciSessio.hxx" />
-		<ClInclude Include="Domini\CtrlRegistrarUsuari.hxx" />
-		<ClInclude Include="Domini\CtrlTancarSessio.hxx" />
-		<ClInclude Include="Domini\Administrador.h" />
-		<ClInclude Include="Domini\Administrador.hxx" />
-		<ClInclude Include="Domini\Capita.h" />
-		<ClInclude Include="Domini\Capita.hxx" />
-		<ClInclude Include="Domini\Disciplina.hxx" />
-		<ClInclude Include="Domini\Equip.hxx" />
-		<ClInclude Include="Domini\Estudiant.h" />
-		<ClInclude Include="Domini\Estudiant.hxx" />
-		<ClInclude Include="Domini\Jornada.hxx" />
-		<ClInclude Include="Domini\Jugador.hxx" />
-		<ClInclude Include="Domini\Lliga.hxx" />
-		<ClInclude Include="Domini\Partit.hxx" />
-		<ClInclude Include="Domini\Temporada.hxx" />
-		<ClInclude Include="Domini\Usuari.h" />
-		<ClInclude Include="Domini\Usuari.hxx" />
-		<ClInclude Include="Form1.h">
-			<FileType>CppForm</FileType>
-		</ClInclude>
-		<ClInclude Include="pch.h" />
-		<ClInclude Include="Resource.h" />
-	</ItemGroup>
-	<ItemGroup>
-		<ClCompile Include="AssemblyInfo.cpp" />
-		<ClCompile Include="CppCLR_WinFormsProject.cpp" />
-		<ClCompile Include="Dades\PassarellaLliga.cxx" />
-		<ClCompile Include="Dades\UsuariTx.cxx" />
-		<ClCompile Include="Dades\PassarellaUsuari.cxx" />
-		<ClCompile Include="Dades\ConnexioBD.cxx" />
-		<ClCompile Include="Domini\CtrlCrearLliga.cxx" />
-		<ClCompile Include="Domini\CtrlIniciSessio.cxx" />
-		<ClCompile Include="Domini\CtrlRegistrarUsuari.cxx" />
-		<ClCompile Include="Domini\CtrlTancarSessio.cxx" />
-		<ClCompile Include="Domini\Administrador.cxx" />
-		<ClCompile Include="Domini\Capita.cxx" />
-		<ClCompile Include="Domini\Equip.cxx" />
-		<ClCompile Include="Domini\Estudiant.cxx" />
-		<ClCompile Include="Domini\Jornada.cxx" />
-		<ClCompile Include="Domini\Jugador.cxx" />
-		<ClCompile Include="Domini\Lliga.cxx" />
-		<ClCompile Include="Domini\Partit.cxx" />
-		<ClCompile Include="Domini\Temporada.cxx" />
-		<ClCompile Include="Domini\Usuari.cxx" />
-		<ClCompile Include="Form1.cpp" />
-		<ClCompile Include="pch.cpp">
-			<PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-			<PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-			<PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-			<PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-		</ClCompile>
-	</ItemGroup>
-	<ItemGroup>
-		<Image Include="app.ico" />
-	</ItemGroup>
-	<ItemGroup>
-		<Reference Include="MySql.Data">
-			<HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\MySql.Data\v4.0_9.6.0.0__c5687fc88969c44d\MySql.Data.dll</HintPath>
-		</Reference>
-		<Reference Include="System" />
-		<Reference Include="System.Data" />
-		<Reference Include="System.Drawing" />
-		<Reference Include="System.Windows.Forms" />
-		<Reference Include="System.Xml" />
-	</ItemGroup>
-	<ItemGroup>
-		<None Include="configuracio.env" />
-	</ItemGroup>
-	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-	<ImportGroup Label="ExtensionTargets">
-	</ImportGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{e03a85b2-bfa9-4488-8c37-cd42aa3095be}</ProjectGuid>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <Keyword>ManagedCProj</Keyword>
+    <RootNamespace>Playcampus</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies />
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>main</EntryPointSymbol>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies />
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>main</EntryPointSymbol>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies />
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>main</EntryPointSymbol>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies />
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>main</EntryPointSymbol>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ResourceCompile Include="app.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Dades\PassarellaLliga.hxx" />
+    <ClInclude Include="Dades\PassarellaPartit.hxx" />
+    <ClInclude Include="Dades\UsuariTx.h" />
+    <ClInclude Include="Dades\UsuariTx.hxx" />
+    <ClInclude Include="Dades\PassarellaUsuari.hxx" />
+    <ClInclude Include="Dades\ConnexioBD.hxx" />
+    <ClInclude Include="Domini\CtrlCrearLliga.hxx" />
+    <ClInclude Include="Domini\CtrlCrearPartit.hxx" />
+    <ClInclude Include="Domini\CtrlIniciSessio.hxx" />
+    <ClInclude Include="Domini\CtrlRegistrarUsuari.hxx" />
+    <ClInclude Include="Domini\CtrlTancarSessio.hxx" />
+    <ClInclude Include="Domini\Administrador.h" />
+    <ClInclude Include="Domini\Administrador.hxx" />
+    <ClInclude Include="Domini\Capita.h" />
+    <ClInclude Include="Domini\Capita.hxx" />
+    <ClInclude Include="Domini\Disciplina.hxx" />
+    <ClInclude Include="Domini\Equip.hxx" />
+    <ClInclude Include="Domini\Estudiant.h" />
+    <ClInclude Include="Domini\Estudiant.hxx" />
+    <ClInclude Include="Domini\Jornada.hxx" />
+    <ClInclude Include="Domini\Jugador.hxx" />
+    <ClInclude Include="Domini\Lliga.hxx" />
+    <ClInclude Include="Domini\Partit.hxx" />
+    <ClInclude Include="Domini\Temporada.hxx" />
+    <ClInclude Include="Domini\Usuari.h" />
+    <ClInclude Include="Domini\Usuari.hxx" />
+    <ClInclude Include="Form1.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="CppCLR_WinFormsProject.cpp" />
+    <ClCompile Include="Dades\PassarellaLliga.cxx" />
+    <ClCompile Include="Dades\PassarellaPartit.cxx" />
+    <ClCompile Include="Dades\UsuariTx.cxx" />
+    <ClCompile Include="Dades\PassarellaUsuari.cxx" />
+    <ClCompile Include="Dades\ConnexioBD.cxx" />
+    <ClCompile Include="Domini\CtrlCrearLliga.cxx" />
+    <ClCompile Include="Domini\CtrlCrearPartit.cxx" />
+    <ClCompile Include="Domini\CtrlIniciSessio.cxx" />
+    <ClCompile Include="Domini\CtrlRegistrarUsuari.cxx" />
+    <ClCompile Include="Domini\CtrlTancarSessio.cxx" />
+    <ClCompile Include="Domini\Administrador.cxx" />
+    <ClCompile Include="Domini\Capita.cxx" />
+    <ClCompile Include="Domini\Equip.cxx" />
+    <ClCompile Include="Domini\Estudiant.cxx" />
+    <ClCompile Include="Domini\Jornada.cxx" />
+    <ClCompile Include="Domini\Jugador.cxx" />
+    <ClCompile Include="Domini\Lliga.cxx" />
+    <ClCompile Include="Domini\Partit.cxx" />
+    <ClCompile Include="Domini\Temporada.cxx" />
+    <ClCompile Include="Domini\Usuari.cxx" />
+    <ClCompile Include="Form1.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="app.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\MySql.Data\v4.0_9.6.0.0__c5687fc88969c44d\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="configuracio.env" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
 </Project>
