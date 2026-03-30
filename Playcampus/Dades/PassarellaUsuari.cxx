@@ -35,6 +35,8 @@ namespace Playcampus {
         DateTime PassarellaUsuari::GetDataRegistre() { return dataRegistre; }
         String^ PassarellaUsuari::GetCorreuElectronic() { return correuElectronic; }
         String^ PassarellaUsuari::GetTipus() { return tipus; }
+        String^ PassarellaUsuari::GetTelefon() { return telefon; }
+        void PassarellaUsuari::SetTelefon(String^ tel) { telefon = tel; }
 
         void PassarellaUsuari::Insereix() {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
@@ -63,6 +65,20 @@ namespace Playcampus {
                     MySqlCommand^ cmdEst = gcnew MySqlCommand(queryEstud, conn);
                     cmdEst->Parameters->AddWithValue("@id", identificador);
                     cmdEst->ExecuteNonQuery();
+                }
+                else if (tipus == "Administrador") {
+                    String^ queryAdmin = "INSERT INTO Administrador (identificador, telefonContacte) VALUES (@id, @tel)";
+                    MySqlCommand^ cmdAdm = gcnew MySqlCommand(queryAdmin, conn);
+                    cmdAdm->Parameters->AddWithValue("@id", identificador);
+                    cmdAdm->Parameters->AddWithValue("@tel", (telefon != nullptr) ? telefon : "");
+                    cmdAdm->ExecuteNonQuery();
+                }
+                else if (tipus == "Capita") {
+                    String^ queryCapita = "INSERT INTO Capita (identificador, telefonContacte, idEquip, validatPerAdmin) VALUES (@id, @tel, NULL, false)";
+                    MySqlCommand^ cmdCap = gcnew MySqlCommand(queryCapita, conn);
+                    cmdCap->Parameters->AddWithValue("@id", identificador);
+                    cmdCap->Parameters->AddWithValue("@tel", (telefon != nullptr) ? telefon : "");
+                    cmdCap->ExecuteNonQuery();
                 }
             }
             catch (Exception^ ex) {

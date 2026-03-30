@@ -16,6 +16,7 @@ namespace Playcampus {
             DateTime dataRegistre;
             String^ correuElectronic;
             String^ tipus;
+            String^ telefon;
 
         public:
             PassarellaUsuari(String^ connStr);
@@ -28,6 +29,8 @@ namespace Playcampus {
             DateTime GetDataRegistre();
             String^ GetCorreuElectronic();
             String^ GetTipus();
+            String^ GetTelefon();
+            void SetTelefon(String^ tel);
 
             void Insereix();
             void Modifica();

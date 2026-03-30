@@ -65,10 +65,14 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Label^ lblRegNom;
 		System::Windows::Forms::Label^ lblRegCorreu;
 		System::Windows::Forms::Label^ lblRegPass;
+		System::Windows::Forms::Label^ lblRegTipus;
+		System::Windows::Forms::Label^ lblRegTelefon;
 		System::Windows::Forms::TextBox^ txtRegId;
 		System::Windows::Forms::TextBox^ txtRegNom;
 		System::Windows::Forms::TextBox^ txtRegCorreu;
 		System::Windows::Forms::TextBox^ txtRegPass;
+		System::Windows::Forms::ComboBox^ cmbRegTipus;
+		System::Windows::Forms::TextBox^ txtRegTelefon;
 		System::Windows::Forms::Button^ btnRegAct;
 		System::Windows::Forms::Button^ btnRegBack;
 		System::Windows::Forms::Label^ lblRegTitle;
@@ -196,10 +200,14 @@ namespace CppCLRWinFormsProject {
 			this->lblRegNom = gcnew System::Windows::Forms::Label();
 			this->lblRegCorreu = gcnew System::Windows::Forms::Label();
 			this->lblRegPass = gcnew System::Windows::Forms::Label();
+			this->lblRegTipus = gcnew System::Windows::Forms::Label();
+			this->lblRegTelefon = gcnew System::Windows::Forms::Label();
 			this->txtRegId = gcnew System::Windows::Forms::TextBox();
 			this->txtRegNom = gcnew System::Windows::Forms::TextBox();
 			this->txtRegCorreu = gcnew System::Windows::Forms::TextBox();
 			this->txtRegPass = gcnew System::Windows::Forms::TextBox();
+			this->cmbRegTipus = gcnew System::Windows::Forms::ComboBox();
+			this->txtRegTelefon = gcnew System::Windows::Forms::TextBox();
 			this->btnRegAct = gcnew System::Windows::Forms::Button();
 			this->btnRegBack = gcnew System::Windows::Forms::Button();
 			this->lblRegTitle = gcnew System::Windows::Forms::Label();
@@ -208,9 +216,13 @@ namespace CppCLRWinFormsProject {
 			this->pnlRegister->Controls->Add(this->lblRegNom);
 			this->pnlRegister->Controls->Add(this->lblRegCorreu);
 			this->pnlRegister->Controls->Add(this->lblRegPass);
+			this->pnlRegister->Controls->Add(this->lblRegTipus);
+			this->pnlRegister->Controls->Add(this->lblRegTelefon);
 			this->pnlRegister->Controls->Add(this->txtRegNom);
 			this->pnlRegister->Controls->Add(this->txtRegCorreu);
 			this->pnlRegister->Controls->Add(this->txtRegPass);
+			this->pnlRegister->Controls->Add(this->cmbRegTipus);
+			this->pnlRegister->Controls->Add(this->txtRegTelefon);
 			this->pnlRegister->Controls->Add(this->btnRegAct);
 			this->pnlRegister->Controls->Add(this->btnRegBack);
 			this->pnlRegister->Controls->Add(this->lblRegTitle);
@@ -249,12 +261,33 @@ namespace CppCLRWinFormsProject {
 			this->txtRegPass->Location = System::Drawing::Point(150, 130);
 			this->txtRegPass->Size = System::Drawing::Size(150, 20);
 
+			this->lblRegTipus->Text = L"Tipus";
+			this->lblRegTipus->Location = System::Drawing::Point(50, 160);
+			this->lblRegTipus->Size = System::Drawing::Size(100, 20);
+
+			this->cmbRegTipus->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Estudiant", L"Capita", L"Administrador" });
+			this->cmbRegTipus->SelectedIndex = 0;
+			this->cmbRegTipus->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cmbRegTipus->Location = System::Drawing::Point(150, 160);
+			this->cmbRegTipus->Size = System::Drawing::Size(150, 20);
+			this->cmbRegTipus->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbRegTipus_SelectedIndexChanged);
+
+			this->lblRegTelefon->Text = L"Telèfon";
+			this->lblRegTelefon->Location = System::Drawing::Point(50, 190);
+			this->lblRegTelefon->Size = System::Drawing::Size(100, 20);
+			this->lblRegTelefon->Visible = false;
+
+			this->txtRegTelefon->Text = L"";
+			this->txtRegTelefon->Location = System::Drawing::Point(150, 190);
+			this->txtRegTelefon->Size = System::Drawing::Size(150, 20);
+			this->txtRegTelefon->Visible = false;
+
 			this->btnRegAct->Text = L"Registrar";
-			this->btnRegAct->Location = System::Drawing::Point(50, 170);
+			this->btnRegAct->Location = System::Drawing::Point(50, 230);
 			this->btnRegAct->Click += gcnew System::EventHandler(this, &Form1::btnRegAct_Click);
 
 			this->btnRegBack->Text = L"Tornar";
-			this->btnRegBack->Location = System::Drawing::Point(150, 170);
+			this->btnRegBack->Location = System::Drawing::Point(150, 230);
 			this->btnRegBack->Click += gcnew System::EventHandler(this, &Form1::btnBack_Click);
 
 			// pnlMain
@@ -422,8 +455,12 @@ namespace CppCLRWinFormsProject {
 		this->txtRegCorreu->Location = System::Drawing::Point(rgStartX + 100, rgStartY + 60);
 		this->lblRegPass->Location = System::Drawing::Point(rgStartX, rgStartY + 90);
 		this->txtRegPass->Location = System::Drawing::Point(rgStartX + 100, rgStartY + 90);
-		this->btnRegAct->Location = System::Drawing::Point(rgStartX, rgStartY + 130);
-		this->btnRegBack->Location = System::Drawing::Point(rgStartX + 100, rgStartY + 130);
+		this->lblRegTipus->Location = System::Drawing::Point(rgStartX, rgStartY + 120);
+		this->cmbRegTipus->Location = System::Drawing::Point(rgStartX + 100, rgStartY + 120);
+		this->lblRegTelefon->Location = System::Drawing::Point(rgStartX, rgStartY + 150);
+		this->txtRegTelefon->Location = System::Drawing::Point(rgStartX + 100, rgStartY + 150);
+		this->btnRegAct->Location = System::Drawing::Point(rgStartX, rgStartY + 190);
+		this->btnRegBack->Location = System::Drawing::Point(rgStartX + 100, rgStartY + 190);
 
 		// --- PANEL MAIN ---
 		this->lblMainTitle->Location = System::Drawing::Point(centerX - this->lblMainTitle->Width / 2, 20);
@@ -473,6 +510,18 @@ namespace CppCLRWinFormsProject {
 		pnlRegister->Visible = true;
 	}
 
+	private: System::Void cmbRegTipus_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		String^ tipus = cmbRegTipus->Text;
+		if (tipus == L"Capita" || tipus == L"Administrador") {
+			lblRegTelefon->Visible = true;
+			txtRegTelefon->Visible = true;
+		}
+		else {
+			lblRegTelefon->Visible = false;
+			txtRegTelefon->Visible = false;
+		}
+	}
+
 	private: System::Void btnBack_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlLogin->Visible = false;
 		pnlRegister->Visible = false;
@@ -506,16 +555,21 @@ namespace CppCLRWinFormsProject {
 		String^ nom = txtRegNom->Text;
 		String^ correu = txtRegCorreu->Text;
 		String^ pass = txtRegPass->Text;
-		String^ tipus = L"Estudiant";
+		String^ tipus = cmbRegTipus->Text;
+		String^ telefon = txtRegTelefon->Text;
 
 		if (String::IsNullOrEmpty(nom) || String::IsNullOrEmpty(correu) || String::IsNullOrEmpty(pass)) {
 			MessageBox::Show(L"Omple tots els camps.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
+		if ((tipus == L"Capita" || tipus == L"Administrador") && String::IsNullOrEmpty(telefon)) {
+			MessageBox::Show(L"Cal introduir el telèfon per al capità i administrador.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
 
 		try {
 			Playcampus::Domini::CtrlRegistrarUsuari^ ctrlReg = gcnew Playcampus::Domini::CtrlRegistrarUsuari();
-			ctrlReg->CrearUsuari(nom, pass, DateTime::Now, correu, tipus);
+			ctrlReg->CrearUsuari(nom, pass, DateTime::Now, correu, tipus, telefon);
 			MessageBox::Show(L"Usuari registrat correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
 			pnlRegister->Visible = false;
@@ -524,6 +578,8 @@ namespace CppCLRWinFormsProject {
 			txtRegNom->Text = L"";
 			txtRegCorreu->Text = L"";
 			txtRegPass->Text = L"";
+			cmbRegTipus->SelectedIndex = 0;
+			txtRegTelefon->Text = L"";
 		}
 		catch (Exception^ ex) {
 			MessageBox::Show(L"Error al registrar: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);

@@ -11,9 +11,10 @@ namespace Playcampus {
             connectionString = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
         }
 
-        void CtrlRegistrarUsuari::CrearUsuari(String^ nom, String^ pass, DateTime dataReg, String^ correu, String^ tipus) {
-            Playcampus::Dades::PassarellaUsuari^ pu = gcnew Playcampus::Dades::PassarellaUsuari(connectionString, nom, pass, dataReg, correu, tipus);
-            pu->Insereix();
+        void CtrlRegistrarUsuari::CrearUsuari(String^ nom, String^ pass, DateTime dataReg, String^ correu, String^ tipus, String^ telefon) {
+            Playcampus::Dades::PassarellaUsuari^ u = gcnew Playcampus::Dades::PassarellaUsuari(connectionString, nom, pass, dataReg, correu, tipus);
+            u->SetTelefon(telefon);
+            u->Insereix();
         }
     }
 }
