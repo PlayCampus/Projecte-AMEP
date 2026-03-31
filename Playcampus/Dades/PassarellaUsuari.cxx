@@ -43,14 +43,8 @@ namespace Playcampus {
             try {
                 conn->Open();
 
-                // Ensure identificador exists: generate a new GUID if not provided
-                if (String::IsNullOrEmpty(identificador)) {
-                    identificador = Guid::NewGuid().ToString();
-                }
-
-                String^ query = "INSERT INTO Usuari (identificador, nom, contrasenya, data_registre, correu_electronic, Tipus) VALUES (@id, @nom, @pwd, @data, @correu, @tipus)";
+                String^ query = "INSERT INTO Usuari (nom, contrasenya, data_registre, correu_electronic, Tipus) VALUES (@nom, @pwd, @data, @correu, @tipus)";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                cmd->Parameters->AddWithValue("@id", identificador);
                 cmd->Parameters->AddWithValue("@nom", nom);
                 cmd->Parameters->AddWithValue("@pwd", contrasenya);
                 cmd->Parameters->AddWithValue("@data", dataRegistre);
@@ -58,25 +52,26 @@ namespace Playcampus {
                 cmd->Parameters->AddWithValue("@tipus", tipus);
                 cmd->ExecuteNonQuery();
 
-                // identificador already set (GUID) so no need to use LastInsertedId
+                long long lastId = cmd->LastInsertedId;
+                identificador = lastId.ToString();
 
                 if (tipus == "Estudiant") {
                     String^ queryEstud = "INSERT INTO Estudiant (identificador, carrera) VALUES (@id, '')";
                     MySqlCommand^ cmdEst = gcnew MySqlCommand(queryEstud, conn);
-                    cmdEst->Parameters->AddWithValue("@id", identificador);
+                    cmdEst->Parameters->AddWithValue("@id", lastId);
                     cmdEst->ExecuteNonQuery();
                 }
                 else if (tipus == "Administrador") {
                     String^ queryAdmin = "INSERT INTO Administrador (identificador, telefonContacte) VALUES (@id, @tel)";
                     MySqlCommand^ cmdAdm = gcnew MySqlCommand(queryAdmin, conn);
-                    cmdAdm->Parameters->AddWithValue("@id", identificador);
+                    cmdAdm->Parameters->AddWithValue("@id", lastId);
                     cmdAdm->Parameters->AddWithValue("@tel", (telefon != nullptr) ? telefon : "");
                     cmdAdm->ExecuteNonQuery();
                 }
                 else if (tipus == "Capita") {
                     String^ queryCapita = "INSERT INTO Capita (identificador, telefonContacte, idEquip, validatPerAdmin) VALUES (@id, @tel, NULL, false)";
                     MySqlCommand^ cmdCap = gcnew MySqlCommand(queryCapita, conn);
-                    cmdCap->Parameters->AddWithValue("@id", identificador);
+                    cmdCap->Parameters->AddWithValue("@id", lastId);
                     cmdCap->Parameters->AddWithValue("@tel", (telefon != nullptr) ? telefon : "");
                     cmdCap->ExecuteNonQuery();
                 }

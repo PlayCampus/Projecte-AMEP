@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\PassarellaUsuari.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\schema_lliga.sql||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:schema_lliga.sql||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\schema_usuari.sql||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:schema_usuari.sql||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearLliga.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\CtrlCrearLliga.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -42,7 +54,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,7 +62,50 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 0,
+              "Title": "PassarellaUsuari.cxx",
+              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.cxx",
+              "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaUsuari.cxx",
+              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.cxx",
+              "RelativeToolTip": "Playcampus\\Dades\\PassarellaUsuari.cxx",
+              "ViewState": "AgIAACAAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-03-31T17:56:15.506Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "schema_lliga.sql",
+              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\schema_lliga.sql",
+              "RelativeDocumentMoniker": "schema_lliga.sql",
+              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\schema_lliga.sql",
+              "RelativeToolTip": "schema_lliga.sql",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2026-03-31T17:44:01.865Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "schema_usuari.sql",
+              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\schema_usuari.sql",
+              "RelativeDocumentMoniker": "schema_usuari.sql",
+              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\schema_usuari.sql",
+              "RelativeToolTip": "schema_usuari.sql",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2026-03-31T17:40:16.569Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "PassarellaLliga.cxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaLliga.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaLliga.cxx",
@@ -63,7 +118,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "PassarellaLliga.hxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaLliga.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaLliga.hxx",
@@ -76,7 +131,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "PassarellaUsuari.hxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaUsuari.hxx",
@@ -89,7 +144,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "CtrlCrearLliga.cxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearLliga.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlCrearLliga.cxx",
@@ -101,12 +156,8 @@
               "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "CtrlCrearLliga.hxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearLliga.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlCrearLliga.hxx",
@@ -119,7 +170,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "CtrlRegistrarUsuari.cxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlRegistrarUsuari.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlRegistrarUsuari.cxx",
@@ -131,7 +182,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "CtrlRegistrarUsuari.hxx",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlRegistrarUsuari.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlRegistrarUsuari.hxx",
@@ -143,7 +194,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "Form1.h",
               "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Form1.h",
               "RelativeDocumentMoniker": "Playcampus\\Form1.h",
