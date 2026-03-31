@@ -146,6 +146,7 @@
     <ClInclude Include="Domini\Administrador.hxx" />
     <ClInclude Include="Domini\Capita.h" />
     <ClInclude Include="Domini\Capita.hxx" />
+    <ClInclude Include="Domini\CtrlUnirEquipLliga.hxx" />
     <ClInclude Include="Domini\Disciplina.hxx" />
     <ClInclude Include="Domini\Equip.hxx" />
     <ClInclude Include="Domini\Estudiant.h" />
@@ -179,6 +180,7 @@
     <ClCompile Include="Domini\CtrlTancarSessio.cxx" />
     <ClCompile Include="Domini\Administrador.cxx" />
     <ClCompile Include="Domini\Capita.cxx" />
+    <ClCompile Include="Domini\CtrlUnirEquipLliga.cxx" />
     <ClCompile Include="Domini\Equip.cxx" />
     <ClCompile Include="Domini\Estudiant.cxx" />
     <ClCompile Include="Domini\Jornada.cxx" />

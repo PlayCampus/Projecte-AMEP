@@ -4,6 +4,7 @@
 #include "Domini/CtrlRegistrarUsuari.hxx"
 #include "Domini/CtrlCrearLliga.hxx"
 #include "Domini/CtrlEnregistrarEquip.hxx"
+#include "Domini/CtrlUnirEquipLliga.hxx"
 
 namespace CppCLRWinFormsProject {
 
@@ -86,6 +87,10 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Button^ btnEstadistiques;
 		System::Windows::Forms::Button^ btnConsultar;
 		System::Windows::Forms::Button^ btnEnregistrarEquip;
+
+		System::Windows::Forms::Button^ btnUnirEquipLliga;
+
+
 		System::Windows::Forms::Button^ btnLogoutMainMenu;
 		System::Windows::Forms::PictureBox^ picImatge;
 		System::Windows::Forms::Label^ lblNoticies;
@@ -121,6 +126,16 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::ComboBox^ cmbEEEscollirEsport;
 		System::Windows::Forms::Button^ btnEEEnregistrar;
 		System::Windows::Forms::Button^ btnEETornar;
+
+		System::Windows::Forms::Panel^ pnlUnirEquipLliga;
+		System::Windows::Forms::Label^ lblUELTitle;
+		System::Windows::Forms::Label^ lblUELNom;
+		System::Windows::Forms::TextBox^ txtUELNom;
+		System::Windows::Forms::Button^ btnUELComprovar;
+		System::Windows::Forms::Label^ lblUELPass;
+		System::Windows::Forms::TextBox^ txtUELPass;
+		System::Windows::Forms::Button^ btnUELUnir;
+		System::Windows::Forms::Button^ btnUELTornar;
 
 		String^ currentUsuariTipus;
 		String^ currentUsuariCorreu;
@@ -378,7 +393,6 @@ namespace CppCLRWinFormsProject {
 			this->btnConsultar->Location = System::Drawing::Point(440, 60);
 			this->btnConsultar->Size = System::Drawing::Size(130, 40);
 			this->btnConsultar->Click += gcnew System::EventHandler(this, &Form1::btnConsultar_Click);
-
 			this->picImatge->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->picImatge->Location = System::Drawing::Point(20, 120);
 			this->picImatge->Size = System::Drawing::Size(550, 200);
@@ -402,7 +416,6 @@ namespace CppCLRWinFormsProject {
 			this->lblNomLliga = gcnew System::Windows::Forms::Label();
 			this->txtNomLliga = gcnew System::Windows::Forms::TextBox();
 			this->btnComprovarLliga = gcnew System::Windows::Forms::Button();
-
 			this->btnCrearLligaMainMenu = gcnew System::Windows::Forms::Button();
 			this->pnlMain->Controls->Add(this->btnCrearLligaMainMenu);
 
@@ -410,7 +423,6 @@ namespace CppCLRWinFormsProject {
 			this->btnCrearLligaMainMenu->Size = System::Drawing::Size(130, 40);
 			this->btnCrearLligaMainMenu->Visible = false;
 			this->btnCrearLligaMainMenu->Click += gcnew System::EventHandler(this, &Form1::btnCrearLligaMainMenu_Click);
-
 			this->pnlConsultar->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->pnlConsultar->Visible = false;
 			this->pnlConsultar->Controls->Add(this->lblConsultarTitle);
@@ -500,6 +512,25 @@ namespace CppCLRWinFormsProject {
 			this->btnCLTornar->Size = System::Drawing::Size(100, 30);
 			this->btnCLTornar->Click += gcnew System::EventHandler(this, &Form1::btnCLTornar_Click);
 
+
+
+			this->btnEnregistrarEquip = gcnew System::Windows::Forms::Button();
+			this->pnlMain->Controls->Add(this->btnEnregistrarEquip);
+			this->btnEnregistrarEquip->Text = L"Enregistrar Equip";
+			this->btnEnregistrarEquip->Size = System::Drawing::Size(130, 40);
+			this->btnEnregistrarEquip->Visible = false;
+			this->btnEnregistrarEquip->Click += gcnew System::EventHandler(this, &Form1::btnEnregistrarEquip_Click);
+
+			this->btnUnirEquipLliga = gcnew System::Windows::Forms::Button();
+			this->pnlMain->Controls->Add(this->btnUnirEquipLliga);
+			this->btnUnirEquipLliga->Text = L"Unir equip a lliga";
+			this->btnUnirEquipLliga->Size = System::Drawing::Size(130, 40);
+			this->btnUnirEquipLliga->Visible = false;
+			this->btnUnirEquipLliga->Click += gcnew System::EventHandler(this, &Form1::btnUnirEquipLligaAct_Click);
+	
+
+			
+
 			// pnlGestionarLliga
 			this->pnlGestionarLliga = gcnew System::Windows::Forms::Panel();
 			this->lblGLTitle = gcnew System::Windows::Forms::Label();
@@ -509,7 +540,6 @@ namespace CppCLRWinFormsProject {
 			this->btnGLEsborrarEquip = gcnew System::Windows::Forms::Button();
 			this->btnGLTornar = gcnew System::Windows::Forms::Button();
 			this->picLogoGL = gcnew System::Windows::Forms::PictureBox();
-
 			this->pnlGestionarLliga->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->pnlGestionarLliga->Visible = false;
 			this->pnlGestionarLliga->Controls->Add(this->lblGLTitle);
@@ -519,13 +549,13 @@ namespace CppCLRWinFormsProject {
 			this->pnlGestionarLliga->Controls->Add(this->btnGLEsborrarEquip);
 			this->pnlGestionarLliga->Controls->Add(this->btnGLTornar);
 			this->pnlGestionarLliga->Controls->Add(this->picLogoGL);
-
+			
 			this->picLogoGL->ImageLocation = L"imatges\\logo.png";
 			this->picLogoGL->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-			this->picLogoGL->Size = System::Drawing::Size(150, 150);
+			this->picLogoGL->Size = System::Drawing::Size(150, 100);
 
 			this->lblGLTitle->Text = L"Gestionar Lliga";
-			this->lblGLTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Bold);
+			this->lblGLTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
 			this->lblGLTitle->AutoSize = true;
 
 			System::Drawing::Font^ actionBtnFont = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
@@ -629,6 +659,60 @@ namespace CppCLRWinFormsProject {
 			this->btnEnregistrarEquip->Size = System::Drawing::Size(130, 40);
 			this->btnEnregistrarEquip->Visible = false;
 			this->btnEnregistrarEquip->Click += gcnew System::EventHandler(this, &Form1::btnEnregistrarEquip_Click);
+			
+			// pnlUnirEquipLliga
+			this->pnlUnirEquipLliga = gcnew System::Windows::Forms::Panel();
+			this->lblUELTitle = gcnew System::Windows::Forms::Label();
+			this->lblUELNom = gcnew System::Windows::Forms::Label();
+			this->txtUELNom = gcnew System::Windows::Forms::TextBox();
+			this->btnUELComprovar = gcnew System::Windows::Forms::Button();
+			this->lblUELPass = gcnew System::Windows::Forms::Label();
+			this->txtUELPass = gcnew System::Windows::Forms::TextBox();
+			this->btnUELUnir = gcnew System::Windows::Forms::Button();
+			this->btnUELTornar = gcnew System::Windows::Forms::Button();
+
+			this->pnlUnirEquipLliga->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->pnlUnirEquipLliga->Visible = false;
+			this->pnlUnirEquipLliga->Controls->Add(this->lblUELTitle);
+			this->pnlUnirEquipLliga->Controls->Add(this->lblUELNom);
+			this->pnlUnirEquipLliga->Controls->Add(this->txtUELNom);
+			this->pnlUnirEquipLliga->Controls->Add(this->btnUELComprovar);
+			this->pnlUnirEquipLliga->Controls->Add(this->lblUELPass);
+			this->pnlUnirEquipLliga->Controls->Add(this->txtUELPass);
+			this->pnlUnirEquipLliga->Controls->Add(this->btnUELUnir);
+			this->pnlUnirEquipLliga->Controls->Add(this->btnUELTornar);
+
+			this->lblUELTitle->Text = L"Unir Equip a Lliga";
+			this->lblUELTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
+			this->lblUELTitle->AutoSize = true;
+
+			this->lblUELNom->Text = L"Nom de la Lliga:";
+			this->lblUELNom->Size = System::Drawing::Size(100, 20);
+
+			this->txtUELNom->Size = System::Drawing::Size(150, 20);
+
+			this->btnUELComprovar->Text = L"Comprovar";
+			this->btnUELComprovar->Size = System::Drawing::Size(100, 30);
+			this->btnUELComprovar->Click += gcnew System::EventHandler(this, &Form1::btnUELComprovar_Click);
+
+			this->lblUELPass->Text = L"Contrasenya:";
+			this->lblUELPass->Size = System::Drawing::Size(100, 20);
+			this->lblUELPass->Visible = false;
+
+			this->txtUELPass->UseSystemPasswordChar = true;
+			this->txtUELPass->Size = System::Drawing::Size(150, 20);
+			this->txtUELPass->Visible = false;
+
+			this->btnUELUnir->Text = L"Unir";
+			this->btnUELUnir->Size = System::Drawing::Size(100, 30);
+			this->btnUELUnir->Visible = false;
+			this->btnUELUnir->Click += gcnew System::EventHandler(this, &Form1::btnUELUnir_Click);
+
+			this->btnUELTornar->Text = L"Tornar";
+			this->btnUELTornar->Size = System::Drawing::Size(100, 30);
+			this->btnUELTornar->Click += gcnew System::EventHandler(this, &Form1::btnUELTornar_Click);
+
+			this->Controls->Add(this->pnlUnirEquipLliga);
 
 			String^ logoPath = L"imatges\\logo.png";
 			if (!System::IO::File::Exists(logoPath)) {
@@ -700,6 +784,7 @@ namespace CppCLRWinFormsProject {
 		this->btnConsultar->Location = System::Drawing::Point(startBtnX + 450, 80);
 		this->btnCrearLligaMainMenu->Location = System::Drawing::Point(startBtnX + 600, 80);
 		this->btnEnregistrarEquip->Location = System::Drawing::Point(startBtnX - 150, 80); // Posicionament a l'esquerra
+		this->btnUnirEquipLliga->Location = System::Drawing::Point(startBtnX - 300, 80);
 
 		int picY = 140;
 		int picBottomMargin = 160;
@@ -763,6 +848,99 @@ namespace CppCLRWinFormsProject {
 		this->lblEEEscollirEsport->Location = System::Drawing::Point(eeStartX, eeStartY + 80);
 		this->cmbEEEscollirEsport->Location = System::Drawing::Point(eeStartX + 120, eeStartY + 80);
 		this->btnEEEnregistrar->Location = System::Drawing::Point(centerX - 50, eeStartY + 130);
+
+		// --- PANEL UNIR EQUIP LLIGA ---
+		this->lblUELTitle->Location = System::Drawing::Point(centerX - this->lblUELTitle->Width / 2, 30);
+		this->btnUELTornar->Location = System::Drawing::Point(30, 30);
+
+		int uelStartX = centerX - 125;
+		int uelStartY = centerY - 50;
+		this->lblUELNom->Location = System::Drawing::Point(uelStartX, uelStartY);
+		this->txtUELNom->Location = System::Drawing::Point(uelStartX + 120, uelStartY);
+		this->btnUELComprovar->Location = System::Drawing::Point(uelStartX + 120, uelStartY + 30);
+		this->lblUELPass->Location = System::Drawing::Point(uelStartX, uelStartY + 70);
+		this->txtUELPass->Location = System::Drawing::Point(uelStartX + 120, uelStartY + 70);
+		this->btnUELUnir->Location = System::Drawing::Point(centerX - 50, uelStartY + 120);
+	}
+
+	private: System::Void btnUnirEquipLligaAct_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlMain->Visible = false;
+		pnlUnirEquipLliga->Visible = true;
+		
+		txtUELNom->Text = L"";
+		txtUELPass->Text = L"";
+		txtUELNom->Enabled = true;
+		btnUELComprovar->Visible = true;
+		lblUELPass->Visible = false;
+		txtUELPass->Visible = false;
+		btnUELUnir->Visible = false;
+	}
+
+	private: System::Void btnUELTornar_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlUnirEquipLliga->Visible = false;
+		pnlMain->Visible = true;
+	}
+
+	private: System::Void btnUELComprovar_Click(System::Object^ sender, System::EventArgs^ e) {
+		String^ nomLliga = txtUELNom->Text;
+		if (String::IsNullOrWhiteSpace(nomLliga)) { 
+			MessageBox::Show(L"Introdueix nom de la lliga", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return; 
+		}
+
+		try {
+			Playcampus::Domini::CtrlUnirEquipLliga^ ctrl = gcnew Playcampus::Domini::CtrlUnirEquipLliga();
+			String^ lligaTroba = ctrl->ComprovarSiLligaExisteix(nomLliga);
+			
+			if (lligaTroba != nullptr) {
+				txtUELNom->Enabled = false;
+				btnUELComprovar->Visible = false;
+				
+				lblUELPass->Visible = true;
+				txtUELPass->Visible = true;
+				btnUELUnir->Visible = true;
+			}
+			else {
+				MessageBox::Show(L"La lliga no existeix, si us plau, introdueix una d'existent.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				txtUELNom->Text = L""; 
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error de BD: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
+
+	private: System::Void btnUELUnir_Click(System::Object^ sender, System::EventArgs^ e) {
+		String^ nomLliga = txtUELNom->Text;
+		String^ passLliga = txtUELPass->Text;
+
+		if(String::IsNullOrWhiteSpace(passLliga)) return;
+
+		try {
+			Playcampus::Domini::CtrlUnirEquipLliga^ ctrl = gcnew Playcampus::Domini::CtrlUnirEquipLliga();
+			
+			if (ctrl->ValidarContrasenyaLliga(nomLliga, passLliga)) {
+				String^ missatgeExit = ctrl->VincularEquip(currentUsuariCorreu, nomLliga);
+				MessageBox::Show(missatgeExit, L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+				pnlUnirEquipLliga->Visible = false;
+				pnlMain->Visible = true;
+			}
+			else {
+				MessageBox::Show(L"Contrasenya incorrecta. Torna a intentar-ho.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				txtUELPass->Text = L""; 
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"No s'ha pogut vincular: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			txtUELNom->Enabled = true;
+			btnUELComprovar->Visible = true;
+			lblUELPass->Visible = false;
+			txtUELPass->Visible = false;
+			btnUELUnir->Visible = false;
+			txtUELNom->Text = L"";
+			txtUELPass->Text = L"";
+		}
 	}
 
 	private: System::Void btnShowLogin_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -830,8 +1008,10 @@ namespace CppCLRWinFormsProject {
 
 				if (currentUsuariTipus->ToLower() == "capita") {
 					btnEnregistrarEquip->Visible = true;
+					btnUnirEquipLliga->Visible = true;
 				} else {
 					btnEnregistrarEquip->Visible = false;
+					btnUnirEquipLliga->Visible = false;
 				}
 
 				txtLoginCorreu->Text = "";

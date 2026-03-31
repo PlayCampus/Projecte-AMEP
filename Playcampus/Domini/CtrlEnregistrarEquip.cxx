@@ -32,8 +32,21 @@ namespace Playcampus {
                 Playcampus::Dades::PassarellaEquip^ pe = gcnew Playcampus::Dades::PassarellaEquip(connectionString, idEquip, nom, dataFundacio, esport);
                 pe->Insereix();
                 
-                // Aquí, s'hauria d'actualitzar l'ID de l'equip al Capità a la base de dades si fos necessari, depenent dels requeriments addicionals
-                // Aquest arxiu es pot estendre si s'ha de vincular directament el capità amb l'equip un cop es crea l'equip
+                // Actualitzem l'ID de l'equip al Capit a la base de dades
+                if (idCapita != nullptr) {
+                    MySql::Data::MySqlClient::MySqlConnection^ conn = gcnew MySql::Data::MySqlClient::MySqlConnection(connectionString);
+                    try {
+                        conn->Open();
+                        String^ queryUpdateCapita = "UPDATE Capita SET idEquip = @idEquip WHERE identificador = @idCapita";
+                        MySql::Data::MySqlClient::MySqlCommand^ cmd = gcnew MySql::Data::MySqlClient::MySqlCommand(queryUpdateCapita, conn);
+                        cmd->Parameters->AddWithValue("@idEquip", idEquip);
+                        cmd->Parameters->AddWithValue("@idCapita", idCapita);
+                        cmd->ExecuteNonQuery();
+                    }
+                    finally {
+                        delete conn;
+                    }
+                }
             }
             catch (Exception^ ex) {
                 throw gcnew Exception("Error al inserir l'equip: " + ex->Message);
