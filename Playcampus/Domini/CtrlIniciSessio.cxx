@@ -20,5 +20,13 @@ namespace Playcampus {
             }
             return false;
         }
+
+        String^ CtrlIniciSessio::ObtenirTipusUsuari(String^ correu) {
+            Playcampus::Dades::PassarellaUsuari^ pu = Playcampus::Dades::PassarellaUsuari::LlegeixPerCorreu(connectionString, correu);
+            if (pu != nullptr) {
+                return pu->GetTipus();
+            }
+            return "";
+        }
     }
 }

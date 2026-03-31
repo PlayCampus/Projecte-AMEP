@@ -11,6 +11,7 @@ namespace Playcampus {
         public:
             CtrlIniciSessio();
             bool IniciarSessio(String^ correu, String^ contrasenya);
+            String^ ObtenirTipusUsuari(String^ correu);
         };
     }
 }

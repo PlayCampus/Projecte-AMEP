@@ -97,6 +97,20 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::TextBox^ txtNomLliga;
 		System::Windows::Forms::Button^ btnComprovarLliga;
 
+		System::Windows::Forms::Button^ btnCrearLligaMainMenu;
+		System::Windows::Forms::Panel^ pnlCrearLliga;
+		System::Windows::Forms::Label^ lblCLTitle;
+		System::Windows::Forms::Label^ lblCLNom;
+		System::Windows::Forms::TextBox^ txtCLNom;
+		System::Windows::Forms::Label^ lblCLPass;
+		System::Windows::Forms::TextBox^ txtCLPass;
+		System::Windows::Forms::Label^ lblCLEsport;
+		System::Windows::Forms::ComboBox^ cmbCLEsport;
+		System::Windows::Forms::Button^ btnCLGuarda;
+		System::Windows::Forms::Button^ btnCLTornar;
+
+		String^ currentUsuariTipus;
+
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -366,6 +380,14 @@ namespace CppCLRWinFormsProject {
 			this->txtNomLliga = gcnew System::Windows::Forms::TextBox();
 			this->btnComprovarLliga = gcnew System::Windows::Forms::Button();
 
+			this->btnCrearLligaMainMenu = gcnew System::Windows::Forms::Button();
+			this->pnlMain->Controls->Add(this->btnCrearLligaMainMenu);
+
+			this->btnCrearLligaMainMenu->Text = L"Crear Lliga";
+			this->btnCrearLligaMainMenu->Size = System::Drawing::Size(130, 40);
+			this->btnCrearLligaMainMenu->Visible = false;
+			this->btnCrearLligaMainMenu->Click += gcnew System::EventHandler(this, &Form1::btnCrearLligaMainMenu_Click);
+
 			this->pnlConsultar->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->pnlConsultar->Visible = false;
 			this->pnlConsultar->Controls->Add(this->lblConsultarTitle);
@@ -401,12 +423,67 @@ namespace CppCLRWinFormsProject {
 			this->btnComprovarLliga->Visible = true;
 			this->btnComprovarLliga->Click += gcnew System::EventHandler(this, &Form1::btnComprovarLliga_Click);
 
+			// pnlCrearLliga
+			this->pnlCrearLliga = gcnew System::Windows::Forms::Panel();
+			this->lblCLTitle = gcnew System::Windows::Forms::Label();
+			this->lblCLNom = gcnew System::Windows::Forms::Label();
+			this->txtCLNom = gcnew System::Windows::Forms::TextBox();
+			this->lblCLPass = gcnew System::Windows::Forms::Label();
+			this->txtCLPass = gcnew System::Windows::Forms::TextBox();
+			this->lblCLEsport = gcnew System::Windows::Forms::Label();
+			this->cmbCLEsport = gcnew System::Windows::Forms::ComboBox();
+			this->btnCLGuarda = gcnew System::Windows::Forms::Button();
+			this->btnCLTornar = gcnew System::Windows::Forms::Button();
+
+			this->pnlCrearLliga->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->pnlCrearLliga->Visible = false;
+			this->pnlCrearLliga->Controls->Add(this->lblCLTitle);
+			this->pnlCrearLliga->Controls->Add(this->lblCLNom);
+			this->pnlCrearLliga->Controls->Add(this->txtCLNom);
+			this->pnlCrearLliga->Controls->Add(this->lblCLPass);
+			this->pnlCrearLliga->Controls->Add(this->txtCLPass);
+			this->pnlCrearLliga->Controls->Add(this->lblCLEsport);
+			this->pnlCrearLliga->Controls->Add(this->cmbCLEsport);
+			this->pnlCrearLliga->Controls->Add(this->btnCLGuarda);
+			this->pnlCrearLliga->Controls->Add(this->btnCLTornar);
+
+			this->lblCLTitle->Text = L"Crear Nova Lliga";
+			this->lblCLTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
+			this->lblCLTitle->AutoSize = true;
+
+			this->lblCLNom->Text = L"Nom de la Lliga:";
+			this->lblCLNom->Size = System::Drawing::Size(100, 20);
+
+			this->txtCLNom->Size = System::Drawing::Size(150, 20);
+
+			this->lblCLPass->Text = L"Contrasenya:";
+			this->lblCLPass->Size = System::Drawing::Size(100, 20);
+
+			this->txtCLPass->UseSystemPasswordChar = true;
+			this->txtCLPass->Size = System::Drawing::Size(150, 20);
+
+			this->lblCLEsport->Text = L"Esport:";
+			this->lblCLEsport->Size = System::Drawing::Size(100, 20);
+
+			this->cmbCLEsport->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Futbol", L"Basquet", L"Voley" });
+			this->cmbCLEsport->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cmbCLEsport->Size = System::Drawing::Size(150, 20);
+
+			this->btnCLGuarda->Text = L"Crear";
+			this->btnCLGuarda->Size = System::Drawing::Size(100, 30);
+			this->btnCLGuarda->Click += gcnew System::EventHandler(this, &Form1::btnCLGuarda_Click);
+
+			this->btnCLTornar->Text = L"Tornar";
+			this->btnCLTornar->Size = System::Drawing::Size(100, 30);
+			this->btnCLTornar->Click += gcnew System::EventHandler(this, &Form1::btnCLTornar_Click);
+
 			// Form
 			this->Controls->Add(this->pnlInici);
 			this->Controls->Add(this->pnlLogin);
 			this->Controls->Add(this->pnlRegister);
 			this->Controls->Add(this->pnlMain);
 			this->Controls->Add(this->pnlConsultar);
+			this->Controls->Add(this->pnlCrearLliga);
 
 			String^ logoPath = L"imatges\\logo.png";
 			if (!System::IO::File::Exists(logoPath)) {
@@ -475,6 +552,7 @@ namespace CppCLRWinFormsProject {
 		this->btnEstatLligues->Location = System::Drawing::Point(startBtnX + 150, 80);
 		this->btnEstadistiques->Location = System::Drawing::Point(startBtnX + 300, 80);
 		this->btnConsultar->Location = System::Drawing::Point(startBtnX + 450, 80);
+		this->btnCrearLligaMainMenu->Location = System::Drawing::Point(startBtnX + 600, 80);
 
 		int picY = 140;
 		int picBottomMargin = 160;
@@ -493,6 +571,20 @@ namespace CppCLRWinFormsProject {
 		this->lblNomLliga->Location = System::Drawing::Point(centerX - 170, centerY - 30);
 		this->txtNomLliga->Location = System::Drawing::Point(centerX - 30, centerY - 30);
 		this->btnComprovarLliga->Location = System::Drawing::Point(centerX - 30, centerY + 15);
+
+		// --- PANEL CREAR LLIGA ---
+		this->lblCLTitle->Location = System::Drawing::Point(centerX - this->lblCLTitle->Width / 2, 30);
+		this->btnCLTornar->Location = System::Drawing::Point(30, 30);
+		
+		int clStartX = centerX - 125;
+		int clStartY = centerY - 50;
+		this->lblCLNom->Location = System::Drawing::Point(clStartX, clStartY);
+		this->txtCLNom->Location = System::Drawing::Point(clStartX + 120, clStartY);
+		this->lblCLPass->Location = System::Drawing::Point(clStartX, clStartY + 40);
+		this->txtCLPass->Location = System::Drawing::Point(clStartX + 120, clStartY + 40);
+		this->lblCLEsport->Location = System::Drawing::Point(clStartX, clStartY + 80);
+		this->cmbCLEsport->Location = System::Drawing::Point(clStartX + 120, clStartY + 80);
+		this->btnCLGuarda->Location = System::Drawing::Point(centerX - 50, clStartY + 130);
 	}
 
 	private: System::Void btnShowLogin_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -536,9 +628,18 @@ namespace CppCLRWinFormsProject {
 			Playcampus::Domini::CtrlIniciSessio^ ctrlInici = gcnew Playcampus::Domini::CtrlIniciSessio();
 			bool valid = ctrlInici->IniciarSessio(correu, pass);
 			if (valid) {
+				currentUsuariTipus = ctrlInici->ObtenirTipusUsuari(correu);
 				pnlLogin->Visible = false;
 				pnlMain->Visible = true;
 				pnlConsultar->Visible = false;
+				pnlCrearLliga->Visible = false;
+
+				if (currentUsuariTipus->ToLower() == "administrador") {
+					btnCrearLligaMainMenu->Visible = true;
+				} else {
+					btnCrearLligaMainMenu->Visible = false;
+				}
+
 				txtLoginCorreu->Text = "";
 				txtLoginPass->Text = "";
 			}
@@ -590,7 +691,9 @@ namespace CppCLRWinFormsProject {
 		Playcampus::Domini::CtrlTancarSessio^ ctrlTancar = gcnew Playcampus::Domini::CtrlTancarSessio();
 		ctrlTancar->TancarSessio();
 
+		currentUsuariTipus = L"";
 		pnlConsultar->Visible = false;
+		pnlCrearLliga->Visible = false;
 		pnlMain->Visible = false;
 		pnlInici->Visible = true;
 	}
@@ -608,27 +711,62 @@ namespace CppCLRWinFormsProject {
 	}
 
 	private: System::Void btnComprovarLliga_Click(System::Object^ sender, System::EventArgs^ e) {
-		String^ nomLliga = txtNomLliga->Text->Trim();
+		String^ nom = txtNomLliga->Text;
+		try {
+			Playcampus::Domini::CtrlCrearLliga^ ctrlTornar = gcnew Playcampus::Domini::CtrlCrearLliga();
+			bool check = ctrlTornar->ExisteixLliga(nom);
+			if (check) MessageBox::Show(L"Aquesta lliga ja existeix");
+			else MessageBox::Show(L"Aquesta lliga no existeix");
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error : " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
 
-		if (String::IsNullOrEmpty(nomLliga)) {
-			MessageBox::Show(L"Introdueix el nom de la lliga.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+	private: System::Void btnCrearLligaMainMenu_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlMain->Visible = false;
+		pnlCrearLliga->Visible = true;
+		txtCLNom->Text = L"";
+		txtCLPass->Text = L"";
+		cmbCLEsport->SelectedIndex = -1;
+	}
+
+	private: System::Void btnCLTornar_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlCrearLliga->Visible = false;
+		pnlMain->Visible = true;
+	}
+
+	private: System::Void btnCLGuarda_Click(System::Object^ sender, System::EventArgs^ e) {
+		String^ nom = txtCLNom->Text;
+		String^ pass = txtCLPass->Text;
+		String^ esport = cmbCLEsport->Text;
+
+		if (String::IsNullOrEmpty(nom) || String::IsNullOrEmpty(pass) || String::IsNullOrEmpty(esport)) {
+			MessageBox::Show(L"Omple tots els camps.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
-		try {
-			Playcampus::Domini::CtrlCrearLliga^ ctrlLliga = gcnew Playcampus::Domini::CtrlCrearLliga();
-			bool existeix = ctrlLliga->ExisteixLliga(nomLliga);
+		Playcampus::Domini::Disciplina disc;
+		if (esport == L"Futbol") disc = Playcampus::Domini::Disciplina::Futbol;
+		else if (esport == L"Basquet") disc = Playcampus::Domini::Disciplina::Basquet;
+		else if (esport == L"Voley") disc = Playcampus::Domini::Disciplina::Voley;
+		else disc = Playcampus::Domini::Disciplina::Futbol;
 
-			if (existeix) {
-				MessageBox::Show(L"La lliga existeix.", L"Informació", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			}
-			else {
-				MessageBox::Show(L"La lliga indicada no existeix.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-			}
+		try {
+			Playcampus::Domini::CtrlCrearLliga^ ctrlCrear = gcnew Playcampus::Domini::CtrlCrearLliga();
+			// El mètode CrearLliga requereix: idLliga, nom, disciplina, descripcio, estat, contrasenya, tipusUsuari
+			// Generem un ID aleatori o utilitzem el nom com a ID base per fer-ho simple.
+			String^ idLliga = "L-" + Guid::NewGuid().ToString()->Substring(0, 8);
+			
+			ctrlCrear->CrearLliga(idLliga, nom, disc, L"Nova Lliga " + nom, L"en_curs", pass, currentUsuariTipus);
+			MessageBox::Show(L"Lliga creada correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			
+			pnlCrearLliga->Visible = false;
+			pnlMain->Visible = true;
 		}
 		catch (Exception^ ex) {
-			MessageBox::Show(L"Error comprovant la lliga: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			MessageBox::Show(L"Error al crear lliga: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
-	};
+};
 }
