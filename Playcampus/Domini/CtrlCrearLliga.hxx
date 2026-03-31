@@ -14,6 +14,7 @@ namespace Playcampus {
             CtrlCrearLliga();
             void CrearLliga(String^ idLliga, String^ nom, Disciplina disciplina, String^ descripcio, String^ estat, String^ contrasenya, String^ tipusUsuari, String^ correuUsuari);
             bool ExisteixLliga(String^ nomLliga);
+            bool TeLligaActiva(String^ correuUsuari);
         };
     }
 }

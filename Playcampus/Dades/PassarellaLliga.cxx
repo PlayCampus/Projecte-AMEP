@@ -90,5 +90,29 @@ namespace Playcampus {
 
             return existeix;
         }
+
+        bool PassarellaLliga::TeLligaActivaAdmin(String^ idAdmin) {
+            bool teActiva = false;
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+
+            try {
+                conn->Open();
+
+                String^ query = "SELECT COUNT(*) FROM Lliga WHERE idAdministrador = @idAdmin AND estat = 'en_curs'";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idAdmin", idAdmin);
+
+                int count = Convert::ToInt32(cmd->ExecuteScalar());
+                teActiva = (count > 0);
+            }
+            catch (Exception^ ex) {
+                throw ex;
+            }
+            finally {
+                conn->Close();
+            }
+
+            return teActiva;
+        }
     }
 }

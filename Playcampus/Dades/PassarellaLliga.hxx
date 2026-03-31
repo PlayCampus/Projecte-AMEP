@@ -31,6 +31,7 @@ namespace Playcampus {
 
             void Insereix();
             bool ExisteixPerNom(String^ nomLliga);
+            bool TeLligaActivaAdmin(String^ idAdmin);
         };
     }
 }

@@ -45,5 +45,20 @@ namespace Playcampus {
             Playcampus::Dades::PassarellaLliga^ p = gcnew Playcampus::Dades::PassarellaLliga(connectionString);
             return p->ExisteixPerNom(nomLliga);
         }
+
+        bool CtrlCrearLliga::TeLligaActiva(String^ correuUsuari) {
+            String^ idAdmin = nullptr;
+            if (!String::IsNullOrEmpty(correuUsuari)) {
+                Playcampus::Dades::PassarellaUsuari^ adminUser = Playcampus::Dades::PassarellaUsuari::LlegeixPerCorreu(connectionString, correuUsuari);
+                if (adminUser != nullptr && adminUser->GetIdentificador() != nullptr) {
+                    idAdmin = adminUser->GetIdentificador()->Trim();
+                }
+            }
+
+            if (idAdmin == nullptr) return false;
+
+            Playcampus::Dades::PassarellaLliga^ pl = gcnew Playcampus::Dades::PassarellaLliga(connectionString);
+            return pl->TeLligaActivaAdmin(idAdmin);
+        }
     }
 }

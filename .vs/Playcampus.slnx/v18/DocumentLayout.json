@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\PassarellaUsuari.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearLliga.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\CtrlCrearLliga.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -23,10 +23,16 @@
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\CtrlRegistrarUsuari.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\M1502\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-331693903\\UsuariTx.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaLliga.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\PassarellaLliga.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\M1502\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-331693903\\UsuariTx.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaLliga.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\PassarellaLliga.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearLliga.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\CtrlCrearLliga.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -36,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -45,40 +51,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "UsuariTx.hxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-331693903\\UsuariTx.hxx",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-331693903\\UsuariTx.hxx",
-              "ToolTip": "C:\\Users\\M1502\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-331693903\\UsuariTx.hxx",
-              "RelativeToolTip": "..\\..\\..\\..\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-331693903\\UsuariTx.hxx",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-30T16:27:22.708Z",
+              "Title": "PassarellaLliga.cxx",
+              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaLliga.cxx",
+              "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaLliga.cxx",
+              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaLliga.cxx",
+              "RelativeToolTip": "Playcampus\\Dades\\PassarellaLliga.cxx",
+              "ViewState": "AgIAAHIAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-03-31T16:37:50.357Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "UsuariTx.cxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-331693903\\UsuariTx.cxx",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-331693903\\UsuariTx.cxx",
-              "ToolTip": "C:\\Users\\M1502\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-331693903\\UsuariTx.cxx",
-              "RelativeToolTip": "..\\..\\..\\..\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-331693903\\UsuariTx.cxx",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-03-30T16:27:14.782Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PassarellaUsuari.cxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.cxx",
-              "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaUsuari.cxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.cxx",
-              "RelativeToolTip": "Playcampus\\Dades\\PassarellaUsuari.cxx",
-              "ViewState": "AgIAABgAAAAAAAAAAAAtwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-03-30T16:18:11.689Z",
+              "Title": "PassarellaLliga.hxx",
+              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaLliga.hxx",
+              "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaLliga.hxx",
+              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaLliga.hxx",
+              "RelativeToolTip": "Playcampus\\Dades\\PassarellaLliga.hxx",
+              "ViewState": "AgIAACAAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-03-31T16:37:50.233Z",
               "EditorCaption": ""
             },
             {
@@ -89,9 +82,35 @@
               "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaUsuari.hxx",
               "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.hxx",
               "RelativeToolTip": "Playcampus\\Dades\\PassarellaUsuari.hxx",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-03-30T16:18:08.664Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CtrlCrearLliga.cxx",
+              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearLliga.cxx",
+              "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlCrearLliga.cxx",
+              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearLliga.cxx",
+              "RelativeToolTip": "Playcampus\\Domini\\CtrlCrearLliga.cxx",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-03-31T16:37:50.605Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CtrlCrearLliga.hxx",
+              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearLliga.hxx",
+              "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlCrearLliga.hxx",
+              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearLliga.hxx",
+              "RelativeToolTip": "Playcampus\\Domini\\CtrlCrearLliga.hxx",
+              "ViewState": "AgIAAA8AAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-03-31T16:37:50.461Z",
               "EditorCaption": ""
             },
             {
@@ -104,8 +123,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\CtrlRegistrarUsuari.cxx",
               "ViewState": "AgIAAA8AAAAAAAAAAABBwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-03-30T16:13:46.829Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-30T16:13:46.829Z"
             },
             {
               "$type": "Document",
@@ -117,8 +135,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\CtrlRegistrarUsuari.hxx",
               "ViewState": "AgIAAAwAAAAAAAAAAABBwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-30T16:13:46.723Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-30T16:13:46.723Z"
             },
             {
               "$type": "Document",
@@ -128,7 +145,7 @@
               "RelativeDocumentMoniker": "Playcampus\\Form1.h",
               "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Form1.h",
               "RelativeToolTip": "Playcampus\\Form1.h",
-              "ViewState": "AgIAADYAAAAAAAAAAAAtwAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAcCAAAAAAAAAABBwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-03-30T16:11:03.526Z",
               "EditorCaption": ""

@@ -112,6 +112,15 @@ namespace CppCLRWinFormsProject {
 		String^ currentUsuariTipus;
 		String^ currentUsuariCorreu;
 
+		System::Windows::Forms::Panel^ pnlGestionarLliga;
+		System::Windows::Forms::Label^ lblGLTitle;
+		System::Windows::Forms::Button^ btnGLAfegirPartit;
+		System::Windows::Forms::Button^ btnGLEditarPartit;
+		System::Windows::Forms::Button^ btnGLMostrarEquips;
+		System::Windows::Forms::Button^ btnGLEsborrarEquip;
+		System::Windows::Forms::Button^ btnGLTornar;
+		System::Windows::Forms::PictureBox^ picLogoGL;
+
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -478,6 +487,64 @@ namespace CppCLRWinFormsProject {
 			this->btnCLTornar->Size = System::Drawing::Size(100, 30);
 			this->btnCLTornar->Click += gcnew System::EventHandler(this, &Form1::btnCLTornar_Click);
 
+			// pnlGestionarLliga
+			this->pnlGestionarLliga = gcnew System::Windows::Forms::Panel();
+			this->lblGLTitle = gcnew System::Windows::Forms::Label();
+			this->btnGLAfegirPartit = gcnew System::Windows::Forms::Button();
+			this->btnGLEditarPartit = gcnew System::Windows::Forms::Button();
+			this->btnGLMostrarEquips = gcnew System::Windows::Forms::Button();
+			this->btnGLEsborrarEquip = gcnew System::Windows::Forms::Button();
+			this->btnGLTornar = gcnew System::Windows::Forms::Button();
+			this->picLogoGL = gcnew System::Windows::Forms::PictureBox();
+
+			this->pnlGestionarLliga->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->pnlGestionarLliga->Visible = false;
+			this->pnlGestionarLliga->Controls->Add(this->lblGLTitle);
+			this->pnlGestionarLliga->Controls->Add(this->btnGLAfegirPartit);
+			this->pnlGestionarLliga->Controls->Add(this->btnGLEditarPartit);
+			this->pnlGestionarLliga->Controls->Add(this->btnGLMostrarEquips);
+			this->pnlGestionarLliga->Controls->Add(this->btnGLEsborrarEquip);
+			this->pnlGestionarLliga->Controls->Add(this->btnGLTornar);
+			this->pnlGestionarLliga->Controls->Add(this->picLogoGL);
+
+			this->picLogoGL->ImageLocation = L"imatges\\logo.png";
+			this->picLogoGL->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->picLogoGL->Size = System::Drawing::Size(150, 150);
+
+			this->lblGLTitle->Text = L"Gestionar Lliga";
+			this->lblGLTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Bold);
+			this->lblGLTitle->AutoSize = true;
+
+			System::Drawing::Font^ actionBtnFont = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
+
+			this->btnGLAfegirPartit->Text = L"Crear partit";
+			this->btnGLAfegirPartit->Size = System::Drawing::Size(220, 60);
+			this->btnGLAfegirPartit->Font = actionBtnFont;
+			this->btnGLAfegirPartit->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnGLAfegirPartit->Click += gcnew System::EventHandler(this, &Form1::btnGL_EnDesenvolupament_Click);
+
+			this->btnGLEditarPartit->Text = L"Editar partit";
+			this->btnGLEditarPartit->Size = System::Drawing::Size(220, 60);
+			this->btnGLEditarPartit->Font = actionBtnFont;
+			this->btnGLEditarPartit->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnGLEditarPartit->Click += gcnew System::EventHandler(this, &Form1::btnGL_EnDesenvolupament_Click);
+
+			this->btnGLMostrarEquips->Text = L"Mostrar equips";
+			this->btnGLMostrarEquips->Size = System::Drawing::Size(220, 60);
+			this->btnGLMostrarEquips->Font = actionBtnFont;
+			this->btnGLMostrarEquips->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnGLMostrarEquips->Click += gcnew System::EventHandler(this, &Form1::btnGL_EnDesenvolupament_Click);
+
+			this->btnGLEsborrarEquip->Text = L"Esborrar equip";
+			this->btnGLEsborrarEquip->Size = System::Drawing::Size(220, 60);
+			this->btnGLEsborrarEquip->Font = actionBtnFont;
+			this->btnGLEsborrarEquip->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnGLEsborrarEquip->Click += gcnew System::EventHandler(this, &Form1::btnGL_EnDesenvolupament_Click);
+
+			this->btnGLTornar->Text = L"Tornar";
+			this->btnGLTornar->Size = System::Drawing::Size(100, 30);
+			this->btnGLTornar->Click += gcnew System::EventHandler(this, &Form1::btnGLTornar_Click);
+
 			// Form
 			this->Controls->Add(this->pnlInici);
 			this->Controls->Add(this->pnlLogin);
@@ -485,6 +552,7 @@ namespace CppCLRWinFormsProject {
 			this->Controls->Add(this->pnlMain);
 			this->Controls->Add(this->pnlConsultar);
 			this->Controls->Add(this->pnlCrearLliga);
+			this->Controls->Add(this->pnlGestionarLliga);
 
 			String^ logoPath = L"imatges\\logo.png";
 			if (!System::IO::File::Exists(logoPath)) {
@@ -495,6 +563,7 @@ namespace CppCLRWinFormsProject {
 				this->picLogoLogin->ImageLocation = logoPath;
 				this->picLogoRegister->ImageLocation = logoPath;
 				this->picLogoMain->ImageLocation = logoPath;
+				this->picLogoGL->ImageLocation = logoPath;
 			}
 		}
 #pragma endregion
@@ -586,6 +655,23 @@ namespace CppCLRWinFormsProject {
 		this->lblCLEsport->Location = System::Drawing::Point(clStartX, clStartY + 80);
 		this->cmbCLEsport->Location = System::Drawing::Point(clStartX + 120, clStartY + 80);
 		this->btnCLGuarda->Location = System::Drawing::Point(centerX - 50, clStartY + 130);
+
+		// --- PANEL GESTIONAR LLIGA ---
+		this->lblGLTitle->Location = System::Drawing::Point(centerX - this->lblGLTitle->Width / 2, 40);
+		this->btnGLTornar->Location = System::Drawing::Point(30, 30);
+
+		int glStartY = centerY - 20;
+		int glSpacingX = 40;
+		int glSpacingY = 40;
+		int btnGLW = this->btnGLAfegirPartit->Width;
+		int btnGLH = this->btnGLAfegirPartit->Height;
+
+		this->btnGLAfegirPartit->Location = System::Drawing::Point(centerX - btnGLW - (glSpacingX / 2), glStartY);
+		this->btnGLEditarPartit->Location = System::Drawing::Point(centerX + (glSpacingX / 2), glStartY);
+		this->btnGLMostrarEquips->Location = System::Drawing::Point(centerX - btnGLW - (glSpacingX / 2), glStartY + btnGLH + glSpacingY);
+		this->btnGLEsborrarEquip->Location = System::Drawing::Point(centerX + (glSpacingX / 2), glStartY + btnGLH + glSpacingY);
+
+		this->picLogoGL->Location = System::Drawing::Point(centerX - (this->picLogoGL->Width / 2), glStartY - this->picLogoGL->Height - 40);
 	}
 
 	private: System::Void btnShowLogin_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -635,9 +721,17 @@ namespace CppCLRWinFormsProject {
 				pnlMain->Visible = true;
 				pnlConsultar->Visible = false;
 				pnlCrearLliga->Visible = false;
+				pnlGestionarLliga->Visible = false;
 
 				if (currentUsuariTipus->ToLower() == "administrador") {
 					btnCrearLligaMainMenu->Visible = true;
+					Playcampus::Domini::CtrlCrearLliga^ ctrlCrear = gcnew Playcampus::Domini::CtrlCrearLliga();
+					if (ctrlCrear->TeLligaActiva(currentUsuariCorreu)) {
+						btnCrearLligaMainMenu->Text = L"Gestionar Lliga";
+					}
+					else {
+						btnCrearLligaMainMenu->Text = L"Crear Lliga";
+					}
 				} else {
 					btnCrearLligaMainMenu->Visible = false;
 				}
@@ -697,6 +791,7 @@ namespace CppCLRWinFormsProject {
 		currentUsuariCorreu = L"";
 		pnlConsultar->Visible = false;
 		pnlCrearLliga->Visible = false;
+		pnlGestionarLliga->Visible = false;
 		pnlMain->Visible = false;
 		pnlInici->Visible = true;
 	}
@@ -728,7 +823,8 @@ namespace CppCLRWinFormsProject {
 
 	private: System::Void btnCrearLligaMainMenu_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (btnCrearLligaMainMenu->Text == L"Gestionar Lliga") {
-			MessageBox::Show(L"Funcionalitat Gestionar Lliga en desenvolupament.");
+			pnlMain->Visible = false;
+			pnlGestionarLliga->Visible = true;
 			return;
 		}
 		pnlMain->Visible = false;
@@ -736,6 +832,15 @@ namespace CppCLRWinFormsProject {
 		txtCLNom->Text = L"";
 		txtCLPass->Text = L"";
 		cmbCLEsport->SelectedIndex = -1;
+	}
+
+	private: System::Void btnGLTornar_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlGestionarLliga->Visible = false;
+		pnlMain->Visible = true;
+	}
+
+	private: System::Void btnGL_EnDesenvolupament_Click(System::Object^ sender, System::EventArgs^ e) {
+		MessageBox::Show(L"Funcionalitat en desenvolupament.");
 	}
 
 	private: System::Void btnCLTornar_Click(System::Object^ sender, System::EventArgs^ e) {
