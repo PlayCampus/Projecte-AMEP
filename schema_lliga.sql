@@ -6,13 +6,7 @@ CREATE TABLE IF NOT EXISTS Lliga (
     disciplina VARCHAR(50) NOT NULL,
     descripcio TEXT,
     estat VARCHAR(50) NOT NULL,
-    contrasenya VARCHAR(255)
+    contrasenya VARCHAR(255),
+    idAdministrador VARCHAR(36),
+    FOREIGN KEY (idAdministrador) REFERENCES Administrador(identificador) ON DELETE SET NULL
 );
-
-DELETE FROM Lliga WHERE nom IN ('Lliga UPC', 'Lliga EPSEVG');
-
-INSERT INTO Lliga (idLliga, nom, disciplina, descripcio, estat, contrasenya)
-VALUES ('LL1', 'Lliga UPC', 'Futbol', 'Lliga universitària', 'Activa', NULL);
-
-INSERT INTO Lliga (idLliga, nom, disciplina, descripcio, estat, contrasenya)
-VALUES ('LL2', 'Lliga EPSEVG', 'Basquet', 'Competició interna', 'Activa', NULL);

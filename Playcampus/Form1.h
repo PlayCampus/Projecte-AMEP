@@ -110,6 +110,7 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Button^ btnCLTornar;
 
 		String^ currentUsuariTipus;
+		String^ currentUsuariCorreu;
 
 		/// <summary>
 		/// Required designer variable.
@@ -629,6 +630,7 @@ namespace CppCLRWinFormsProject {
 			bool valid = ctrlInici->IniciarSessio(correu, pass);
 			if (valid) {
 				currentUsuariTipus = ctrlInici->ObtenirTipusUsuari(correu);
+				currentUsuariCorreu = correu;
 				pnlLogin->Visible = false;
 				pnlMain->Visible = true;
 				pnlConsultar->Visible = false;
@@ -692,6 +694,7 @@ namespace CppCLRWinFormsProject {
 		ctrlTancar->TancarSessio();
 
 		currentUsuariTipus = L"";
+		currentUsuariCorreu = L"";
 		pnlConsultar->Visible = false;
 		pnlCrearLliga->Visible = false;
 		pnlMain->Visible = false;
@@ -724,6 +727,10 @@ namespace CppCLRWinFormsProject {
 	}
 
 	private: System::Void btnCrearLligaMainMenu_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (btnCrearLligaMainMenu->Text == L"Gestionar Lliga") {
+			MessageBox::Show(L"Funcionalitat Gestionar Lliga en desenvolupament.");
+			return;
+		}
 		pnlMain->Visible = false;
 		pnlCrearLliga->Visible = true;
 		txtCLNom->Text = L"";
@@ -758,9 +765,11 @@ namespace CppCLRWinFormsProject {
 			// Generem un ID aleatori o utilitzem el nom com a ID base per fer-ho simple.
 			String^ idLliga = "L-" + Guid::NewGuid().ToString()->Substring(0, 8);
 			
-			ctrlCrear->CrearLliga(idLliga, nom, disc, L"Nova Lliga " + nom, L"en_curs", pass, currentUsuariTipus);
+			ctrlCrear->CrearLliga(idLliga, nom, disc, L"Nova Lliga " + nom, L"en_curs", pass, currentUsuariTipus, currentUsuariCorreu);
 			MessageBox::Show(L"Lliga creada correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			
+			btnCrearLligaMainMenu->Text = L"Gestionar Lliga";
+
 			pnlCrearLliga->Visible = false;
 			pnlMain->Visible = true;
 		}
