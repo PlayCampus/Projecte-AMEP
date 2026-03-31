@@ -1,6 +1,6 @@
 -- Creació de la base de dades utilitzada al mètode de connexió Transaction Script
-CREATE DATABASE IF NOT EXISTS playcampus_db;
-USE playcampus_db;
+CREATE DATABASE IF NOT EXISTS amep06;
+USE amep06;
 
 -- Taula d'Usuari basada en el diagrama UML
 CREATE TABLE IF NOT EXISTS Usuari (
