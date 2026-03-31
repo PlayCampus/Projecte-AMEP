@@ -3,6 +3,7 @@
 #include "Domini/CtrlTancarSessio.hxx"
 #include "Domini/CtrlRegistrarUsuari.hxx"
 #include "Domini/CtrlCrearLliga.hxx"
+#include "Domini/CtrlEnregistrarEquip.hxx"
 
 namespace CppCLRWinFormsProject {
 
@@ -84,6 +85,7 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Button^ btnEstatLligues;
 		System::Windows::Forms::Button^ btnEstadistiques;
 		System::Windows::Forms::Button^ btnConsultar;
+		System::Windows::Forms::Button^ btnEnregistrarEquip;
 		System::Windows::Forms::Button^ btnLogoutMainMenu;
 		System::Windows::Forms::PictureBox^ picImatge;
 		System::Windows::Forms::Label^ lblNoticies;
@@ -108,6 +110,17 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::ComboBox^ cmbCLEsport;
 		System::Windows::Forms::Button^ btnCLGuarda;
 		System::Windows::Forms::Button^ btnCLTornar;
+
+		System::Windows::Forms::Panel^ pnlEnregistrarEquip;
+		System::Windows::Forms::Label^ lblEETitle;
+		System::Windows::Forms::Label^ lblEENom;
+		System::Windows::Forms::TextBox^ txtEENom;
+		System::Windows::Forms::Label^ lblEEData;
+		System::Windows::Forms::DateTimePicker^ dtpEEData;
+		System::Windows::Forms::Label^ lblEEEscollirEsport;
+		System::Windows::Forms::ComboBox^ cmbEEEscollirEsport;
+		System::Windows::Forms::Button^ btnEEEnregistrar;
+		System::Windows::Forms::Button^ btnEETornar;
 
 		String^ currentUsuariTipus;
 		String^ currentUsuariCorreu;
@@ -554,6 +567,69 @@ namespace CppCLRWinFormsProject {
 			this->Controls->Add(this->pnlCrearLliga);
 			this->Controls->Add(this->pnlGestionarLliga);
 
+			// pnlEnregistrarEquip
+			this->pnlEnregistrarEquip = gcnew System::Windows::Forms::Panel();
+			this->lblEETitle = gcnew System::Windows::Forms::Label();
+			this->lblEENom = gcnew System::Windows::Forms::Label();
+			this->txtEENom = gcnew System::Windows::Forms::TextBox();
+			this->lblEEData = gcnew System::Windows::Forms::Label();
+			this->dtpEEData = gcnew System::Windows::Forms::DateTimePicker();
+			this->lblEEEscollirEsport = gcnew System::Windows::Forms::Label();
+			this->cmbEEEscollirEsport = gcnew System::Windows::Forms::ComboBox();
+			this->btnEEEnregistrar = gcnew System::Windows::Forms::Button();
+			this->btnEETornar = gcnew System::Windows::Forms::Button();
+
+			this->pnlEnregistrarEquip->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->pnlEnregistrarEquip->Visible = false;
+			this->pnlEnregistrarEquip->Controls->Add(this->lblEETitle);
+			this->pnlEnregistrarEquip->Controls->Add(this->lblEENom);
+			this->pnlEnregistrarEquip->Controls->Add(this->txtEENom);
+			this->pnlEnregistrarEquip->Controls->Add(this->lblEEData);
+			this->pnlEnregistrarEquip->Controls->Add(this->dtpEEData);
+			this->pnlEnregistrarEquip->Controls->Add(this->lblEEEscollirEsport);
+			this->pnlEnregistrarEquip->Controls->Add(this->cmbEEEscollirEsport);
+			this->pnlEnregistrarEquip->Controls->Add(this->btnEEEnregistrar);
+			this->pnlEnregistrarEquip->Controls->Add(this->btnEETornar);
+
+			this->lblEETitle->Text = L"Enregistrar Equip";
+			this->lblEETitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
+			this->lblEETitle->AutoSize = true;
+
+			this->lblEENom->Text = L"Nom Equip:";
+			this->lblEENom->Size = System::Drawing::Size(100, 20);
+
+			this->txtEENom->Size = System::Drawing::Size(150, 20);
+
+			this->lblEEData->Text = L"Data Fundació:";
+			this->lblEEData->Size = System::Drawing::Size(100, 20);
+
+			this->dtpEEData->Size = System::Drawing::Size(150, 20);
+			this->dtpEEData->Format = System::Windows::Forms::DateTimePickerFormat::Short;
+
+			this->lblEEEscollirEsport->Text = L"Esport:";
+			this->lblEEEscollirEsport->Size = System::Drawing::Size(100, 20);
+
+			this->cmbEEEscollirEsport->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Futbol", L"Basquet", L"Voley" });
+			this->cmbEEEscollirEsport->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cmbEEEscollirEsport->Size = System::Drawing::Size(150, 20);
+
+			this->btnEEEnregistrar->Text = L"Enregistrar";
+			this->btnEEEnregistrar->Size = System::Drawing::Size(100, 30);
+			this->btnEEEnregistrar->Click += gcnew System::EventHandler(this, &Form1::btnEEEnregistrar_Click);
+
+			this->btnEETornar->Text = L"Tornar";
+			this->btnEETornar->Size = System::Drawing::Size(100, 30);
+			this->btnEETornar->Click += gcnew System::EventHandler(this, &Form1::btnEETornar_Click);
+
+			this->Controls->Add(this->pnlEnregistrarEquip);
+
+			this->btnEnregistrarEquip = gcnew System::Windows::Forms::Button();
+			this->pnlMain->Controls->Add(this->btnEnregistrarEquip);
+			this->btnEnregistrarEquip->Text = L"Enregistrar Equip";
+			this->btnEnregistrarEquip->Size = System::Drawing::Size(130, 40);
+			this->btnEnregistrarEquip->Visible = false;
+			this->btnEnregistrarEquip->Click += gcnew System::EventHandler(this, &Form1::btnEnregistrarEquip_Click);
+
 			String^ logoPath = L"imatges\\logo.png";
 			if (!System::IO::File::Exists(logoPath)) {
 				logoPath = L"..\\..\\imatges\\logo.png";
@@ -616,13 +692,14 @@ namespace CppCLRWinFormsProject {
 		this->btnLogoutMainMenu->Location = System::Drawing::Point(20, 20);
 		this->btnLogoutMainMenu->BringToFront();
 
-		int totalBtnWidth = 130 * 4 + 20 * 3;
+		int totalBtnWidth = 130 * 5 + 20 * 4;
 		int startBtnX = centerX - totalBtnWidth / 2;
 		this->btnProgPartits->Location = System::Drawing::Point(startBtnX, 80);
 		this->btnEstatLligues->Location = System::Drawing::Point(startBtnX + 150, 80);
 		this->btnEstadistiques->Location = System::Drawing::Point(startBtnX + 300, 80);
 		this->btnConsultar->Location = System::Drawing::Point(startBtnX + 450, 80);
 		this->btnCrearLligaMainMenu->Location = System::Drawing::Point(startBtnX + 600, 80);
+		this->btnEnregistrarEquip->Location = System::Drawing::Point(startBtnX - 150, 80); // Posicionament a l'esquerra
 
 		int picY = 140;
 		int picBottomMargin = 160;
@@ -672,6 +749,20 @@ namespace CppCLRWinFormsProject {
 		this->btnGLEsborrarEquip->Location = System::Drawing::Point(centerX + (glSpacingX / 2), glStartY + btnGLH + glSpacingY);
 
 		this->picLogoGL->Location = System::Drawing::Point(centerX - (this->picLogoGL->Width / 2), glStartY - this->picLogoGL->Height - 40);
+
+		// --- PANEL ENREGISTRAR EQUIP ---
+		this->lblEETitle->Location = System::Drawing::Point(centerX - this->lblEETitle->Width / 2, 30);
+		this->btnEETornar->Location = System::Drawing::Point(30, 30);
+		
+		int eeStartX = centerX - 125;
+		int eeStartY = centerY - 50;
+		this->lblEENom->Location = System::Drawing::Point(eeStartX, eeStartY);
+		this->txtEENom->Location = System::Drawing::Point(eeStartX + 120, eeStartY);
+		this->lblEEData->Location = System::Drawing::Point(eeStartX, eeStartY + 40);
+		this->dtpEEData->Location = System::Drawing::Point(eeStartX + 120, eeStartY + 40);
+		this->lblEEEscollirEsport->Location = System::Drawing::Point(eeStartX, eeStartY + 80);
+		this->cmbEEEscollirEsport->Location = System::Drawing::Point(eeStartX + 120, eeStartY + 80);
+		this->btnEEEnregistrar->Location = System::Drawing::Point(centerX - 50, eeStartY + 130);
 	}
 
 	private: System::Void btnShowLogin_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -722,6 +813,7 @@ namespace CppCLRWinFormsProject {
 				pnlConsultar->Visible = false;
 				pnlCrearLliga->Visible = false;
 				pnlGestionarLliga->Visible = false;
+				pnlEnregistrarEquip->Visible = false;
 
 				if (currentUsuariTipus->ToLower() == "administrador") {
 					btnCrearLligaMainMenu->Visible = true;
@@ -734,6 +826,12 @@ namespace CppCLRWinFormsProject {
 					}
 				} else {
 					btnCrearLligaMainMenu->Visible = false;
+				}
+
+				if (currentUsuariTipus->ToLower() == "capita") {
+					btnEnregistrarEquip->Visible = true;
+				} else {
+					btnEnregistrarEquip->Visible = false;
 				}
 
 				txtLoginCorreu->Text = "";
@@ -792,6 +890,7 @@ namespace CppCLRWinFormsProject {
 		pnlConsultar->Visible = false;
 		pnlCrearLliga->Visible = false;
 		pnlGestionarLliga->Visible = false;
+		pnlEnregistrarEquip->Visible = false;
 		pnlMain->Visible = false;
 		pnlInici->Visible = true;
 	}
@@ -880,6 +979,43 @@ namespace CppCLRWinFormsProject {
 		}
 		catch (Exception^ ex) {
 			MessageBox::Show(L"Error al crear lliga: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
+
+	private: System::Void btnEnregistrarEquip_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlMain->Visible = false;
+		pnlEnregistrarEquip->Visible = true;
+		txtEENom->Text = L"";
+		dtpEEData->Value = DateTime::Now;
+		cmbEEEscollirEsport->SelectedIndex = -1;
+	}
+
+	private: System::Void btnEETornar_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlEnregistrarEquip->Visible = false;
+		pnlMain->Visible = true;
+	}
+
+	private: System::Void btnEEEnregistrar_Click(System::Object^ sender, System::EventArgs^ e) {
+		String^ nom = txtEENom->Text;
+		DateTime data = dtpEEData->Value;
+		String^ esport = cmbEEEscollirEsport->Text;
+
+		if (String::IsNullOrEmpty(nom) || String::IsNullOrEmpty(esport)) {
+			MessageBox::Show(L"Omple tots els camps.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		try {
+			Playcampus::Domini::CtrlEnregistrarEquip^ ctrlEE = gcnew Playcampus::Domini::CtrlEnregistrarEquip();
+			String^ idEquip = "E-" + Guid::NewGuid().ToString()->Substring(0, 8);
+			ctrlEE->EnregistrarEquip(idEquip, nom, data, esport, currentUsuariTipus, currentUsuariCorreu);
+			MessageBox::Show(L"Equip enregistrat correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+			pnlEnregistrarEquip->Visible = false;
+			pnlMain->Visible = true;
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error al enregistrar equip: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
 };

@@ -130,6 +130,7 @@
     <ResourceCompile Include="app.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Dades\PassarellaEquip.hxx" />
     <ClInclude Include="Dades\PassarellaLliga.hxx" />
     <ClInclude Include="Dades\PassarellaPartit.hxx" />
     <ClInclude Include="Dades\UsuariTx.h" />
@@ -137,6 +138,7 @@
     <ClInclude Include="Dades\ConnexioBD.hxx" />
     <ClInclude Include="Domini\CtrlCrearLliga.hxx" />
     <ClInclude Include="Domini\CtrlCrearPartit.hxx" />
+    <ClInclude Include="Domini\CtrlEnregistrarEquip.hxx" />
     <ClInclude Include="Domini\CtrlIniciSessio.hxx" />
     <ClInclude Include="Domini\CtrlRegistrarUsuari.hxx" />
     <ClInclude Include="Domini\CtrlTancarSessio.hxx" />
@@ -164,12 +166,14 @@
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="CppCLR_WinFormsProject.cpp" />
+    <ClCompile Include="Dades\PassarellaEquip.cxx" />
     <ClCompile Include="Dades\PassarellaLliga.cxx" />
     <ClCompile Include="Dades\PassarellaPartit.cxx" />
     <ClCompile Include="Dades\PassarellaUsuari.cxx" />
     <ClCompile Include="Dades\ConnexioBD.cxx" />
     <ClCompile Include="Domini\CtrlCrearLliga.cxx" />
     <ClCompile Include="Domini\CtrlCrearPartit.cxx" />
+    <ClCompile Include="Domini\CtrlEnregistrarEquip.cxx" />
     <ClCompile Include="Domini\CtrlIniciSessio.cxx" />
     <ClCompile Include="Domini\CtrlRegistrarUsuari.cxx" />
     <ClCompile Include="Domini\CtrlTancarSessio.cxx" />
@@ -205,6 +209,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="amep06_equip.sql" />
     <None Include="configuracio.env" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
