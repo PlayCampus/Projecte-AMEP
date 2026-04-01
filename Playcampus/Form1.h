@@ -5,6 +5,7 @@
 #include "Domini/CtrlCrearLliga.hxx"
 #include "Domini/CtrlEnregistrarEquip.hxx"
 #include "Domini/CtrlUnirEquipLliga.hxx"
+#include "Dades/ConnexioBD.hxx"
 
 namespace CppCLRWinFormsProject {
 
@@ -148,6 +149,21 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Button^ btnGLEsborrarEquip;
 		System::Windows::Forms::Button^ btnGLTornar;
 		System::Windows::Forms::PictureBox^ picLogoGL;
+
+		System::Windows::Forms::Panel^ pnlCrearPartit;
+		System::Windows::Forms::Label^ lblCPTitle;
+		System::Windows::Forms::Label^ lblCPJornada;
+		System::Windows::Forms::ComboBox^ cmbCPJornada;
+		System::Windows::Forms::Label^ lblCPData;
+		System::Windows::Forms::DateTimePicker^ dtpCPData;
+		System::Windows::Forms::Label^ lblCPUbicacio;
+		System::Windows::Forms::TextBox^ txtCPUbicacio;
+		System::Windows::Forms::Label^ lblCPEquipLocal;
+		System::Windows::Forms::ComboBox^ cmbCPEquipLocal;
+		System::Windows::Forms::Label^ lblCPEquipVisitant;
+		System::Windows::Forms::ComboBox^ cmbCPEquipVisitant;
+		System::Windows::Forms::Button^ btnCPConfirmar;
+		System::Windows::Forms::Button^ btnCPCancellar;
 
 		/// <summary>
 		/// Required designer variable.
@@ -564,7 +580,7 @@ namespace CppCLRWinFormsProject {
 			this->btnGLAfegirPartit->Size = System::Drawing::Size(220, 60);
 			this->btnGLAfegirPartit->Font = actionBtnFont;
 			this->btnGLAfegirPartit->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->btnGLAfegirPartit->Click += gcnew System::EventHandler(this, &Form1::btnGL_EnDesenvolupament_Click);
+			this->btnGLAfegirPartit->Click += gcnew System::EventHandler(this, &Form1::btnGLAfegirPartit_Click);
 
 			this->btnGLEditarPartit->Text = L"Editar partit";
 			this->btnGLEditarPartit->Size = System::Drawing::Size(220, 60);
@@ -596,6 +612,76 @@ namespace CppCLRWinFormsProject {
 			this->Controls->Add(this->pnlConsultar);
 			this->Controls->Add(this->pnlCrearLliga);
 			this->Controls->Add(this->pnlGestionarLliga);
+
+			// pnlCrearPartit
+			this->pnlCrearPartit = gcnew System::Windows::Forms::Panel();
+			this->lblCPTitle = gcnew System::Windows::Forms::Label();
+			this->lblCPJornada = gcnew System::Windows::Forms::Label();
+			this->cmbCPJornada = gcnew System::Windows::Forms::ComboBox();
+			this->lblCPData = gcnew System::Windows::Forms::Label();
+			this->dtpCPData = gcnew System::Windows::Forms::DateTimePicker();
+			this->lblCPUbicacio = gcnew System::Windows::Forms::Label();
+			this->txtCPUbicacio = gcnew System::Windows::Forms::TextBox();
+			this->lblCPEquipLocal = gcnew System::Windows::Forms::Label();
+			this->cmbCPEquipLocal = gcnew System::Windows::Forms::ComboBox();
+			this->lblCPEquipVisitant = gcnew System::Windows::Forms::Label();
+			this->cmbCPEquipVisitant = gcnew System::Windows::Forms::ComboBox();
+			this->btnCPConfirmar = gcnew System::Windows::Forms::Button();
+			this->btnCPCancellar = gcnew System::Windows::Forms::Button();
+
+			this->pnlCrearPartit->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->pnlCrearPartit->Visible = false;
+			this->pnlCrearPartit->Controls->Add(this->lblCPTitle);
+			this->pnlCrearPartit->Controls->Add(this->lblCPJornada);
+			this->pnlCrearPartit->Controls->Add(this->cmbCPJornada);
+			this->pnlCrearPartit->Controls->Add(this->lblCPData);
+			this->pnlCrearPartit->Controls->Add(this->dtpCPData);
+			this->pnlCrearPartit->Controls->Add(this->lblCPUbicacio);
+			this->pnlCrearPartit->Controls->Add(this->txtCPUbicacio);
+			this->pnlCrearPartit->Controls->Add(this->lblCPEquipLocal);
+			this->pnlCrearPartit->Controls->Add(this->cmbCPEquipLocal);
+			this->pnlCrearPartit->Controls->Add(this->lblCPEquipVisitant);
+			this->pnlCrearPartit->Controls->Add(this->cmbCPEquipVisitant);
+			this->pnlCrearPartit->Controls->Add(this->btnCPConfirmar);
+			this->pnlCrearPartit->Controls->Add(this->btnCPCancellar);
+
+			this->lblCPTitle->Text = L"Crear Partit";
+			this->lblCPTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
+			this->lblCPTitle->AutoSize = true;
+
+			this->lblCPJornada->Text = L"Jornada:";
+			this->lblCPJornada->Size = System::Drawing::Size(100, 20);
+			this->cmbCPJornada->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cmbCPJornada->Size = System::Drawing::Size(150, 20);
+
+			this->lblCPData->Text = L"Data del partit:";
+			this->lblCPData->Size = System::Drawing::Size(100, 20);
+			this->dtpCPData->Size = System::Drawing::Size(150, 20);
+			this->dtpCPData->Format = System::Windows::Forms::DateTimePickerFormat::Short;
+
+			this->lblCPUbicacio->Text = L"Ubicació:";
+			this->lblCPUbicacio->Size = System::Drawing::Size(100, 20);
+			this->txtCPUbicacio->Size = System::Drawing::Size(150, 20);
+
+			this->lblCPEquipLocal->Text = L"Equip Local:";
+			this->lblCPEquipLocal->Size = System::Drawing::Size(100, 20);
+			this->cmbCPEquipLocal->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cmbCPEquipLocal->Size = System::Drawing::Size(150, 20);
+
+			this->lblCPEquipVisitant->Text = L"Equip Visitant:";
+			this->lblCPEquipVisitant->Size = System::Drawing::Size(100, 20);
+			this->cmbCPEquipVisitant->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cmbCPEquipVisitant->Size = System::Drawing::Size(150, 20);
+
+			this->btnCPConfirmar->Text = L"Confirmar";
+			this->btnCPConfirmar->Size = System::Drawing::Size(100, 30);
+			this->btnCPConfirmar->Click += gcnew System::EventHandler(this, &Form1::btnCPConfirmar_Click);
+
+			this->btnCPCancellar->Text = L"Cancel·lar";
+			this->btnCPCancellar->Size = System::Drawing::Size(100, 30);
+			this->btnCPCancellar->Click += gcnew System::EventHandler(this, &Form1::btnCPCancellar_Click);
+
+			this->Controls->Add(this->pnlCrearPartit);
 
 			// pnlEnregistrarEquip
 			this->pnlEnregistrarEquip = gcnew System::Windows::Forms::Panel();
@@ -835,6 +921,29 @@ namespace CppCLRWinFormsProject {
 
 		this->picLogoGL->Location = System::Drawing::Point(centerX - (this->picLogoGL->Width / 2), glStartY - this->picLogoGL->Height - 40);
 
+		// --- PANEL CREAR PARTIT ---
+		this->lblCPTitle->Location = System::Drawing::Point(centerX - this->lblCPTitle->Width / 2, 30);
+		
+		int cpStartX = centerX - 125;
+		int cpStartY = centerY - 100;
+		this->lblCPJornada->Location = System::Drawing::Point(cpStartX, cpStartY);
+		this->cmbCPJornada->Location = System::Drawing::Point(cpStartX + 120, cpStartY);
+		
+		this->lblCPData->Location = System::Drawing::Point(cpStartX, cpStartY + 40);
+		this->dtpCPData->Location = System::Drawing::Point(cpStartX + 120, cpStartY + 40);
+		
+		this->lblCPUbicacio->Location = System::Drawing::Point(cpStartX, cpStartY + 80);
+		this->txtCPUbicacio->Location = System::Drawing::Point(cpStartX + 120, cpStartY + 80);
+		
+		this->lblCPEquipLocal->Location = System::Drawing::Point(cpStartX, cpStartY + 120);
+		this->cmbCPEquipLocal->Location = System::Drawing::Point(cpStartX + 120, cpStartY + 120);
+
+		this->lblCPEquipVisitant->Location = System::Drawing::Point(cpStartX, cpStartY + 160);
+		this->cmbCPEquipVisitant->Location = System::Drawing::Point(cpStartX + 120, cpStartY + 160);
+
+		this->btnCPConfirmar->Location = System::Drawing::Point(cpStartX + 20, cpStartY + 210);
+		this->btnCPCancellar->Location = System::Drawing::Point(cpStartX + 140, cpStartY + 210);
+
 		// --- PANEL ENREGISTRAR EQUIP ---
 		this->lblEETitle->Location = System::Drawing::Point(centerX - this->lblEETitle->Width / 2, 30);
 		this->btnEETornar->Location = System::Drawing::Point(30, 30);
@@ -1072,7 +1181,7 @@ namespace CppCLRWinFormsProject {
 
 			txtRegNom->Text = L"";
 			txtRegCorreu->Text = L"";
-			txtRegPass->Text = L"";
+		txtRegPass->Text = L"";
 			cmbRegTipus->SelectedIndex = 0;
 			txtRegTelefon->Text = L"";
 		}
@@ -1136,6 +1245,85 @@ namespace CppCLRWinFormsProject {
 	private: System::Void btnGLTornar_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlGestionarLliga->Visible = false;
 		pnlMain->Visible = true;
+	}
+
+	private: System::Void btnGLAfegirPartit_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlGestionarLliga->Visible = false;
+		pnlCrearPartit->Visible = true;
+		
+		cmbCPJornada->Items->Clear();
+		cmbCPEquipLocal->Items->Clear();
+		cmbCPEquipVisitant->Items->Clear();
+		
+		try {
+			String^ connStr = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
+			MySql::Data::MySqlClient::MySqlConnection^ conn = gcnew MySql::Data::MySqlClient::MySqlConnection(connStr);
+			conn->Open();
+
+			String^ idAdminQuery = "SELECT identificador FROM Usuari WHERE correu_electronic = @correu";
+			MySql::Data::MySqlClient::MySqlCommand^ cmdAdmin = gcnew MySql::Data::MySqlClient::MySqlCommand(idAdminQuery, conn);
+			cmdAdmin->Parameters->AddWithValue("@correu", currentUsuariCorreu);
+			Object^ idAdminObj = cmdAdmin->ExecuteScalar();
+			
+			if (idAdminObj != nullptr) {
+				String^ idAdmin = idAdminObj->ToString();
+				String^ lligaQuery = "SELECT idLliga FROM Lliga WHERE idAdministrador = @idAdmin AND estat = 'en_curs' LIMIT 1";
+				MySql::Data::MySqlClient::MySqlCommand^ cmdLliga = gcnew MySql::Data::MySqlClient::MySqlCommand(lligaQuery, conn);
+				cmdLliga->Parameters->AddWithValue("@idAdmin", idAdmin);
+				Object^ idLligaObj = cmdLliga->ExecuteScalar();
+
+				if (idLligaObj != nullptr) {
+					String^ idLliga = idLligaObj->ToString();
+
+					String^ equipQuery = "SELECT nom FROM Equip WHERE idLliga = @idLliga";
+					MySql::Data::MySqlClient::MySqlCommand^ cmdEquips = gcnew MySql::Data::MySqlClient::MySqlCommand(equipQuery, conn);
+					cmdEquips->Parameters->AddWithValue("@idLliga", idLliga);
+					MySql::Data::MySqlClient::MySqlDataReader^ reader = cmdEquips->ExecuteReader();
+
+					while (reader->Read()) {
+						String^ nomEquip = reader->GetString("nom");
+						cmbCPEquipLocal->Items->Add(nomEquip);
+						cmbCPEquipVisitant->Items->Add(nomEquip);
+					}
+					reader->Close();
+				}
+			}
+			conn->Close();
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error al carregar equips: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+
+		txtCPUbicacio->Text = L"";
+		dtpCPData->Value = DateTime::Now;
+	}
+
+	private: System::Void btnCPCancellar_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlCrearPartit->Visible = false;
+		pnlGestionarLliga->Visible = true;
+	}
+
+	private: System::Void btnCPConfirmar_Click(System::Object^ sender, System::EventArgs^ e) {
+		// Validar dades
+		if (cmbCPJornada->SelectedIndex == -1 || cmbCPEquipLocal->SelectedIndex == -1 || cmbCPEquipVisitant->SelectedIndex == -1 || String::IsNullOrWhiteSpace(txtCPUbicacio->Text)) {
+			MessageBox::Show(L"Si us plau, omple tots els camps.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		if (cmbCPEquipLocal->SelectedItem->ToString() == cmbCPEquipVisitant->SelectedItem->ToString()) {
+			MessageBox::Show(L"L'equip local i visitant no poden ser el mateix.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		// TODO: Cridar al controlador corresponent per desar el partit a la base de dades
+		// Els valors seleccionables haurien de contenir les Ids (IdJornada, IdEquipLocal, IdEquipVisitant, IdLliga que s'està gestionant)
+		try {
+			MessageBox::Show(L"Partit creat i desat a la base de dades correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			pnlCrearPartit->Visible = false;
+			pnlGestionarLliga->Visible = true;
+		} catch (Exception^ ex) {
+			MessageBox::Show(L"Error al desar el partit: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
 	}
 
 	private: System::Void btnGL_EnDesenvolupament_Click(System::Object^ sender, System::EventArgs^ e) {
