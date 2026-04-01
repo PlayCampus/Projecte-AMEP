@@ -14,4 +14,6 @@ CREATE TABLE IF NOT EXISTS Equip (
     golsEnContra INT DEFAULT 0,
     diferenciaGols INT DEFAULT 0,
     posicioClassificacio INT DEFAULT 0
+    idliga VARCHAR(36) NULL,
+    CONSTRAINT fk_equip_lliga FOREIGN KEY (idLliga) REFERENCES Lliga(idLliga) ON DELETE SET NULL
 );
