@@ -62,16 +62,16 @@ namespace Playcampus {
             try {
                 conn->Open();
 
-                // 1. Obtenir l'idEquip associat al Capità a través del correu
+                // 1. Obtenir l'idEquip associat al Capita a traves del correu
                 String^ queryCap = "SELECT C.idEquip FROM Capita C JOIN Usuari U ON C.identificador = U.identificador WHERE U.correu_electronic = @correu";
                 MySqlCommand^ cmdCap = gcnew MySqlCommand(queryCap, conn);
                 cmdCap->Parameters->AddWithValue("@correu", correuCapita);
                 Object^ idEquipObj = cmdCap->ExecuteScalar();
 
-                if (idEquipObj == nullptr || idEquipObj == DBNull::Value) {
-                    throw gcnew Exception("Aquest capità no té un equip actiu. Primer enregistra't un.");
+                if (idEquipObj == nullptr || idEquipObj == DBNull::Value || String::IsNullOrWhiteSpace(idEquipObj->ToString())) {
+                    throw gcnew Exception("Aquest capita no te un equip actiu. Primer enregistra't un.");
                 }
-                String^ idEquipRecuperat = idEquipObj->ToString();
+                String^ idEquipRecuperat = idEquipObj->ToString()->Trim();
 
                 // 2. Obtenir ID de la Lliga
                 String^ idLligaEncontrado = ComprovarSiLligaExisteix(nomLliga);
@@ -79,15 +79,15 @@ namespace Playcampus {
                     throw gcnew Exception("La lliga no existeix.");
                 }
 
-                // 3. Modificar l'Equip mitjançant la seva Passarella
+                // 3. Modificar l'Equip mitjancant la seva Passarella
                 Playcampus::Dades::PassarellaEquip^ equipDB = Playcampus::Dades::PassarellaEquip::Llegeix(connectionString, idEquipRecuperat);
                 if (equipDB != nullptr) {
                     equipDB->SetIdLliga(idLligaEncontrado);
                     equipDB->Modifica();
-                    missatgeExit = "L'equip " + equipDB->GetNom() + " ha sigut enregistrat amb èxit a la lliga " + nomLliga + ".";
+                    missatgeExit = "L'equip " + equipDB->GetNom() + " ha sigut enregistrat amb exit a la lliga " + nomLliga + ".";
                 }
                 else {
-                    throw gcnew Exception("Equip no trobat a la base de dades.");
+                    throw gcnew Exception("Equip no trobat a la base de dades. (" + idEquipRecuperat + ")");
                 }
             }
             finally {

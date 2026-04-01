@@ -12,6 +12,8 @@ namespace Playcampus {
             CtrlIniciSessio();
             bool IniciarSessio(String^ correu, String^ contrasenya);
             String^ ObtenirTipusUsuari(String^ correu);
+            bool CapitaTeEquip(String^ correu);
+            bool EquipEstaEnLliga(String^ correu);
         };
     }
 }

@@ -864,6 +864,11 @@ namespace CppCLRWinFormsProject {
 	}
 
 	private: System::Void btnUnirEquipLligaAct_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (btnUnirEquipLliga->Text == L"Abandonar Lliga") {
+			MessageBox::Show(L"Funcionalitat en desenvolupament.");
+			return;
+		}
+
 		pnlMain->Visible = false;
 		pnlUnirEquipLliga->Visible = true;
 		
@@ -921,7 +926,9 @@ namespace CppCLRWinFormsProject {
 			
 			if (ctrl->ValidarContrasenyaLliga(nomLliga, passLliga)) {
 				String^ missatgeExit = ctrl->VincularEquip(currentUsuariCorreu, nomLliga);
-				MessageBox::Show(missatgeExit, L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				MessageBox::Show(missatgeExit, L"Exit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+				btnUnirEquipLliga->Text = L"Abandonar Lliga";
 
 				pnlUnirEquipLliga->Visible = false;
 				pnlMain->Visible = true;
@@ -1009,6 +1016,19 @@ namespace CppCLRWinFormsProject {
 				if (currentUsuariTipus->ToLower() == "capita") {
 					btnEnregistrarEquip->Visible = true;
 					btnUnirEquipLliga->Visible = true;
+
+					if (ctrlInici->CapitaTeEquip(currentUsuariCorreu)) {
+						btnEnregistrarEquip->Text = L"Gestionar Equip";
+					} else {
+						btnEnregistrarEquip->Text = L"Enregistrar Equip";
+					}
+
+					if (ctrlInici->EquipEstaEnLliga(currentUsuariCorreu)) {
+						btnUnirEquipLliga->Text = L"Abandonar Lliga";
+					} else {
+						btnUnirEquipLliga->Text = L"Unir equip a lliga";
+					}
+
 				} else {
 					btnEnregistrarEquip->Visible = false;
 					btnUnirEquipLliga->Visible = false;
@@ -1163,6 +1183,11 @@ namespace CppCLRWinFormsProject {
 	}
 
 	private: System::Void btnEnregistrarEquip_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (btnEnregistrarEquip->Text == L"Gestionar Equip") {
+			MessageBox::Show(L"Funcionalitat en desenvolupament.");
+			return;
+		}
+
 		pnlMain->Visible = false;
 		pnlEnregistrarEquip->Visible = true;
 		txtEENom->Text = L"";
@@ -1189,7 +1214,9 @@ namespace CppCLRWinFormsProject {
 			Playcampus::Domini::CtrlEnregistrarEquip^ ctrlEE = gcnew Playcampus::Domini::CtrlEnregistrarEquip();
 			String^ idEquip = "E-" + Guid::NewGuid().ToString()->Substring(0, 8);
 			ctrlEE->EnregistrarEquip(idEquip, nom, data, esport, currentUsuariTipus, currentUsuariCorreu);
-			MessageBox::Show(L"Equip enregistrat correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			MessageBox::Show(L"Equip enregistrat correctament!", L"Exit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+			btnEnregistrarEquip->Text = L"Gestionar Equip";
 
 			pnlEnregistrarEquip->Visible = false;
 			pnlMain->Visible = true;
