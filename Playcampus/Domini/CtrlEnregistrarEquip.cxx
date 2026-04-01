@@ -32,14 +32,19 @@ namespace Playcampus {
                 Playcampus::Dades::PassarellaEquip^ pe = gcnew Playcampus::Dades::PassarellaEquip(connectionString, idEquip, nom, dataFundacio, esport);
                 pe->Insereix();
                 
-                // Actualitzem l'ID de l'equip al Capit a la base de dades
+                // Actualitzem l'ID de l'equip al Capita a la base de dades
                 if (idCapita != nullptr) {
                     MySql::Data::MySqlClient::MySqlConnection^ conn = gcnew MySql::Data::MySqlClient::MySqlConnection(connectionString);
                     try {
                         conn->Open();
+                        // Assegurem que s'agafa el ID generat
+                        String^ realIdEquip = pe->GetIdEquip();
+                        if (String::IsNullOrEmpty(realIdEquip)) {
+                            realIdEquip = idEquip;
+                        }
                         String^ queryUpdateCapita = "UPDATE Capita SET idEquip = @idEquip WHERE identificador = @idCapita";
                         MySql::Data::MySqlClient::MySqlCommand^ cmd = gcnew MySql::Data::MySqlClient::MySqlCommand(queryUpdateCapita, conn);
-                        cmd->Parameters->AddWithValue("@idEquip", idEquip);
+                        cmd->Parameters->AddWithValue("@idEquip", realIdEquip);
                         cmd->Parameters->AddWithValue("@idCapita", idCapita);
                         cmd->ExecuteNonQuery();
                     }
