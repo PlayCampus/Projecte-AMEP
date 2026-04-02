@@ -139,6 +139,7 @@
     <ClInclude Include="Domini\CtrlCrearLliga.hxx" />
     <ClInclude Include="Domini\CtrlCrearPartit.hxx" />
     <ClInclude Include="Domini\CtrlEnregistrarEquip.hxx" />
+    <ClInclude Include="Domini\CtrlEsborrarEquip.hxx" />
     <ClInclude Include="Domini\CtrlIniciSessio.hxx" />
     <ClInclude Include="Domini\CtrlRegistrarUsuari.hxx" />
     <ClInclude Include="Domini\CtrlTancarSessio.hxx" />
@@ -175,6 +176,7 @@
     <ClCompile Include="Domini\CtrlCrearLliga.cxx" />
     <ClCompile Include="Domini\CtrlCrearPartit.cxx" />
     <ClCompile Include="Domini\CtrlEnregistrarEquip.cxx" />
+    <ClCompile Include="Domini\CtrlEsborrarEquip.cxx" />
     <ClCompile Include="Domini\CtrlIniciSessio.cxx" />
     <ClCompile Include="Domini\CtrlRegistrarUsuari.cxx" />
     <ClCompile Include="Domini\CtrlTancarSessio.cxx" />

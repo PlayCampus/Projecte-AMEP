@@ -50,6 +50,7 @@ namespace Playcampus {
 
             void Insereix();
             void Modifica();
+            void Esborra();
             static PassarellaEquip^ Llegeix(String^ connStr, String^ idEq);
         };
     }

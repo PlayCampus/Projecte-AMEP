@@ -139,6 +139,20 @@ namespace Playcampus {
             }
         }
 
+        void PassarellaEquip::Esborra() {
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "DELETE FROM Equip WHERE idEquip=@idEquip";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idEquip", idEquip);
+                cmd->ExecuteNonQuery();
+            }
+            finally {
+                delete conn;
+            }
+        }
+
         PassarellaEquip^ PassarellaEquip::Llegeix(String^ connStr, String^ idEq) {
             PassarellaEquip^ equip = nullptr;
             MySqlConnection^ conn = gcnew MySqlConnection(connStr);
