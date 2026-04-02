@@ -1,11 +1,11 @@
 #include "pch.h"
+#include <msclr\marshal_cppstd.h>
 #include "CtrlEsborrarEquip.hxx"
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/PassarellaEquip.hxx"
 #include <stdexcept>
-#include <msclr\marshal_cppstd.h>
-using namespace MySql::Data::MySqlClient;
 
+using namespace MySql::Data::MySqlClient;
 using namespace System;
 
 namespace Playcampus {

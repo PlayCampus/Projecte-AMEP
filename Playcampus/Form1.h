@@ -356,6 +356,7 @@ namespace CppCLRWinFormsProject {
 			this->btnEstadistiques = gcnew System::Windows::Forms::Button();
 			this->btnConsultar = gcnew System::Windows::Forms::Button();
 			this->picImatge = gcnew System::Windows::Forms::PictureBox();
+          this->btnUnirEquipLliga = gcnew System::Windows::Forms::Button();
 			this->lblNoticies = gcnew System::Windows::Forms::Label();
 			this->lstNoticies = gcnew System::Windows::Forms::ListBox();
 			this->btnLogoutMainMenu = gcnew System::Windows::Forms::Button();
@@ -366,6 +367,7 @@ namespace CppCLRWinFormsProject {
 			this->pnlMain->Controls->Add(this->btnEstatLligues);
 			this->pnlMain->Controls->Add(this->btnEstadistiques);
 			this->pnlMain->Controls->Add(this->btnConsultar);
+          this->pnlMain->Controls->Add(this->btnUnirEquipLliga);
 			this->pnlMain->Controls->Add(this->picImatge);
 			this->pnlMain->Controls->Add(this->lblNoticies);
 			this->pnlMain->Controls->Add(this->lstNoticies);
@@ -518,6 +520,68 @@ namespace CppCLRWinFormsProject {
 			this->btnCLTornar->Size = System::Drawing::Size(100, 30);
 			this->btnCLTornar->Click += gcnew System::EventHandler(this, &Form1::btnCLTornar_Click);
 
+			this->Controls->Add(this->pnlCrearLliga);
+			this->Controls->Add(this->pnlConsultar);
+			this->Controls->Add(this->pnlMain);
+			this->Controls->Add(this->pnlRegister);
+			this->Controls->Add(this->pnlLogin);
+			this->Controls->Add(this->pnlInici);
+
+			// pnlEnregistrarEquip
+			this->pnlEnregistrarEquip = gcnew System::Windows::Forms::Panel();
+			this->lblEETitle = gcnew System::Windows::Forms::Label();
+			this->lblEENom = gcnew System::Windows::Forms::Label();
+			this->txtEENom = gcnew System::Windows::Forms::TextBox();
+			this->lblEEData = gcnew System::Windows::Forms::Label();
+			this->dtpEEData = gcnew System::Windows::Forms::DateTimePicker();
+			this->lblEEEscollirEsport = gcnew System::Windows::Forms::Label();
+			this->cmbEEEscollirEsport = gcnew System::Windows::Forms::ComboBox();
+			this->btnEEEnregistrar = gcnew System::Windows::Forms::Button();
+			this->btnEETornar = gcnew System::Windows::Forms::Button();
+
+			this->pnlEnregistrarEquip->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->pnlEnregistrarEquip->Visible = false;
+			this->pnlEnregistrarEquip->Controls->Add(this->lblEETitle);
+			this->pnlEnregistrarEquip->Controls->Add(this->lblEENom);
+			this->pnlEnregistrarEquip->Controls->Add(this->txtEENom);
+			this->pnlEnregistrarEquip->Controls->Add(this->lblEEData);
+			this->pnlEnregistrarEquip->Controls->Add(this->dtpEEData);
+			this->pnlEnregistrarEquip->Controls->Add(this->lblEEEscollirEsport);
+			this->pnlEnregistrarEquip->Controls->Add(this->cmbEEEscollirEsport);
+			this->pnlEnregistrarEquip->Controls->Add(this->btnEEEnregistrar);
+			this->pnlEnregistrarEquip->Controls->Add(this->btnEETornar);
+
+			this->lblEETitle->Text = L"Enregistrar Equip";
+			this->lblEETitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
+			this->lblEETitle->AutoSize = true;
+
+			this->lblEENom->Text = L"Nom de l'Equip:";
+			this->lblEENom->Size = System::Drawing::Size(100, 20);
+
+			this->txtEENom->Size = System::Drawing::Size(150, 20);
+
+			this->lblEEData->Text = L"Data Fundació:";
+			this->lblEEData->Size = System::Drawing::Size(100, 20);
+
+			this->dtpEEData->Size = System::Drawing::Size(150, 20);
+			this->dtpEEData->Format = System::Windows::Forms::DateTimePickerFormat::Short;
+
+			this->lblEEEscollirEsport->Text = L"Esport:";
+			this->lblEEEscollirEsport->Size = System::Drawing::Size(100, 20);
+
+			this->cmbEEEscollirEsport->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Futbol", L"Basquet", L"Voley" });
+			this->cmbEEEscollirEsport->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cmbEEEscollirEsport->Size = System::Drawing::Size(150, 20);
+
+			this->btnEEEnregistrar->Text = L"Enregistrar";
+			this->btnEEEnregistrar->Size = System::Drawing::Size(100, 30);
+			this->btnEEEnregistrar->Click += gcnew System::EventHandler(this, &Form1::btnEEEnregistrar_Click);
+
+			this->btnEETornar->Text = L"Tornar";
+			this->btnEETornar->Size = System::Drawing::Size(100, 30);
+			this->btnEETornar->Click += gcnew System::EventHandler(this, &Form1::btnEETornar_Click);
+
+			this->Controls->Add(this->pnlEnregistrarEquip);
 
 
 			this->btnEnregistrarEquip = gcnew System::Windows::Forms::Button();
@@ -526,7 +590,50 @@ namespace CppCLRWinFormsProject {
 			this->btnEnregistrarEquip->Size = System::Drawing::Size(130, 40);
 			this->btnEnregistrarEquip->Visible = false;
 			this->btnEnregistrarEquip->Click += gcnew System::EventHandler(this, &Form1::btnEnregistrarEquip_Click);
-			
+			// pnlGestionarLliga
+			this->pnlGestionarLliga = gcnew System::Windows::Forms::Panel();
+			this->lblGLTitle = gcnew System::Windows::Forms::Label();
+			this->btnGLAfegirPartit = gcnew System::Windows::Forms::Button();
+			this->btnGLEditarPartit = gcnew System::Windows::Forms::Button();
+			this->btnGLMostrarEquips = gcnew System::Windows::Forms::Button();
+			this->btnGLEsborrarEquip = gcnew System::Windows::Forms::Button();
+			this->btnGLTornar = gcnew System::Windows::Forms::Button();
+			this->picLogoGL = gcnew System::Windows::Forms::PictureBox();
+
+			this->pnlGestionarLliga->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->pnlGestionarLliga->Visible = false;
+			this->pnlGestionarLliga->Controls->Add(this->lblGLTitle);
+			this->pnlGestionarLliga->Controls->Add(this->btnGLAfegirPartit);
+			this->pnlGestionarLliga->Controls->Add(this->btnGLEditarPartit);
+			this->pnlGestionarLliga->Controls->Add(this->btnGLMostrarEquips);
+			this->pnlGestionarLliga->Controls->Add(this->btnGLEsborrarEquip);
+			this->pnlGestionarLliga->Controls->Add(this->btnGLTornar);
+			this->pnlGestionarLliga->Controls->Add(this->picLogoGL);
+
+			this->lblGLTitle->Text = L"Gestionar Lliga";
+			this->lblGLTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
+			this->lblGLTitle->AutoSize = true;
+
+			this->btnGLAfegirPartit->Text = L"Afegir Partit";
+			this->btnGLAfegirPartit->Size = System::Drawing::Size(150, 40);
+
+			this->btnGLEditarPartit->Text = L"Editar Partit";
+			this->btnGLEditarPartit->Size = System::Drawing::Size(150, 40);
+
+			this->btnGLMostrarEquips->Text = L"Mostrar Equips";
+			this->btnGLMostrarEquips->Size = System::Drawing::Size(150, 40);
+
+			this->btnGLEsborrarEquip->Text = L"Esborrar Equip";
+			this->btnGLEsborrarEquip->Size = System::Drawing::Size(150, 40);
+
+			this->btnGLTornar->Text = L"Tornar";
+			this->btnGLTornar->Size = System::Drawing::Size(100, 30);
+			this->btnGLTornar->Click += gcnew System::EventHandler(this, &Form1::btnGLTornar_Click);
+
+			this->picLogoGL->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->picLogoGL->Size = System::Drawing::Size(100, 100);
+
+			this->Controls->Add(this->pnlGestionarLliga);
 			// pnlGestionarEquip
 			this->pnlGestionarEquip = gcnew System::Windows::Forms::Panel();
 			this->lblGETitle = gcnew System::Windows::Forms::Label();
