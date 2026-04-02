@@ -401,6 +401,11 @@ namespace CppCLRWinFormsProject {
 			this->btnConsultar->Location = System::Drawing::Point(440, 60);
 			this->btnConsultar->Size = System::Drawing::Size(130, 40);
 			this->btnConsultar->Click += gcnew System::EventHandler(this, &Form1::btnConsultar_Click);
+
+			this->btnUnirEquipLliga->Size = System::Drawing::Size(130, 40);
+			this->btnUnirEquipLliga->Visible = false;
+			this->btnUnirEquipLliga->Click += gcnew System::EventHandler(this, &Form1::btnUnirEquipLligaAct_Click);
+
 			this->picImatge->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->picImatge->Location = System::Drawing::Point(20, 120);
 			this->picImatge->Size = System::Drawing::Size(550, 200);
