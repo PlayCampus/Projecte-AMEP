@@ -35,6 +35,19 @@ namespace Playcampus {
             Playcampus::Dades::PassarellaEquip^ equipDB = Playcampus::Dades::PassarellaEquip::Llegeix(connectionString, idEquipRecuperat);
             if (equipDB != nullptr) {
                 equipDB->Esborra();
+
+                // Borrar l'idEquip del Capita
+                MySqlConnection^ connUpdate = gcnew MySqlConnection(connectionString);
+                try {
+                    connUpdate->Open();
+                    String^ queryUpdate = "UPDATE Capita C JOIN Usuari U ON C.identificador = U.identificador SET C.idEquip = NULL WHERE U.correu_electronic = @correu";
+                    MySqlCommand^ cmdUpdate = gcnew MySqlCommand(queryUpdate, connUpdate);
+                    cmdUpdate->Parameters->AddWithValue("@correu", correuCapita);
+                    cmdUpdate->ExecuteNonQuery();
+                }
+                finally {
+                    delete connUpdate;
+                }
             } else {
                 throw gcnew Exception("Equip no trobat a la base de dades. (" + idEquipRecuperat + ")");
             }
