@@ -18,8 +18,10 @@ namespace Playcampus {
         String^ CtrlUnirEquipLliga::ComprovarSiLligaExisteix(String^ nomLliga) {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             String^ idLliga = nullptr;
+
             try {
                 conn->Open();
+
                 String^ query = "SELECT idLliga FROM Lliga WHERE nom = @nomLliga";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@nomLliga", nomLliga);
@@ -30,16 +32,19 @@ namespace Playcampus {
                 }
             }
             finally {
-                delete conn;
+                conn->Close();
             }
+
             return idLliga;
         }
 
         bool CtrlUnirEquipLliga::ValidarContrasenyaLliga(String^ nomLliga, String^ pass) {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             bool isValid = false;
+
             try {
                 conn->Open();
+
                 String^ query = "SELECT contrasenya FROM Lliga WHERE nom = @nomLliga";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@nomLliga", nomLliga);
@@ -51,18 +56,19 @@ namespace Playcampus {
                 }
             }
             finally {
-                delete conn;
+                conn->Close();
             }
+
             return isValid;
         }
 
         String^ CtrlUnirEquipLliga::VincularEquip(String^ correuCapita, String^ nomLliga) {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             String^ missatgeExit = "";
+
             try {
                 conn->Open();
 
-                // 1. Obtenir l'idEquip associat al Capita a traves del correu
                 String^ queryCap = "SELECT C.idEquip FROM Capita C JOIN Usuari U ON C.identificador = U.identificador WHERE U.correu_electronic = @correu";
                 MySqlCommand^ cmdCap = gcnew MySqlCommand(queryCap, conn);
                 cmdCap->Parameters->AddWithValue("@correu", correuCapita);
@@ -71,15 +77,14 @@ namespace Playcampus {
                 if (idEquipObj == nullptr || idEquipObj == DBNull::Value || String::IsNullOrWhiteSpace(idEquipObj->ToString())) {
                     throw gcnew Exception("Aquest capita no te un equip actiu. Primer enregistra't un.");
                 }
+
                 String^ idEquipRecuperat = idEquipObj->ToString()->Trim();
 
-                // 2. Obtenir ID de la Lliga
                 String^ idLligaEncontrado = ComprovarSiLligaExisteix(nomLliga);
                 if (idLligaEncontrado == nullptr) {
                     throw gcnew Exception("La lliga no existeix.");
                 }
 
-                // 3. Modificar l'Equip mitjancant la seva Passarella
                 Playcampus::Dades::PassarellaEquip^ equipDB = Playcampus::Dades::PassarellaEquip::Llegeix(connectionString, idEquipRecuperat);
                 if (equipDB != nullptr) {
                     equipDB->SetIdLliga(idLligaEncontrado);
@@ -91,8 +96,9 @@ namespace Playcampus {
                 }
             }
             finally {
-                delete conn;
+                conn->Close();
             }
+
             return missatgeExit;
         }
     }
