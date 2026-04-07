@@ -1,0 +1,82 @@
+#include "pch.h"
+#include "PassarellaJornada.hxx"
+#include "ConnexioBD.hxx"
+
+using namespace System::Collections::Generic;
+using namespace Playcampus::Dades;
+using namespace System;
+using namespace System::Data;
+using namespace MySql::Data::MySqlClient;
+
+// Constructor vacío/básico
+PassarellaJornada::PassarellaJornada(String^ connStr) {
+    this->connectionString = connStr;
+}
+
+// Constructor con todos los atributos
+PassarellaJornada::PassarellaJornada(String^ connStr, String^ idJornada, String^ idTemporada, int numero, DateTime dataInici, DateTime dataFi, String^ estat) {
+    this->connectionString = connStr;
+    this->idJornada = idJornada;
+    this->idTemporada = idTemporada;
+    this->numero = numero;
+    this->dataInici = dataInici;
+    this->dataFi = dataFi;
+    this->estat = estat;
+}
+
+// Getters
+String^ PassarellaJornada::GetIdJornada() { return idJornada; }
+String^ PassarellaJornada::GetIdTemporada() { return idTemporada; }
+DateTime PassarellaJornada::GetDataInici() { return dataInici; }
+DateTime PassarellaJornada::GetDataFi() { return dataFi; }
+String^ PassarellaJornada::GetEstat() { return estat; }
+int PassarellaJornada::GetNumero() { return numero; }
+
+
+
+void PassarellaJornada::Insereix() {
+    MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+
+    try {
+        conn->Open();
+        String^ query = "INSERT INTO Jornada (idJornada, idTemporada,numero, dataInici, dataFi, estat) VALUES (@idJ, @idT,@num, @dInici, @dFi, @estat)";
+        MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+        cmd->Parameters->AddWithValue("@idJ", this->idJornada);
+        cmd->Parameters->AddWithValue("@idT", this->idTemporada);
+        cmd->Parameters->AddWithValue("@num", this->numero);
+        cmd->Parameters->AddWithValue("@dInici", this->dataInici);
+        cmd->Parameters->AddWithValue("@dFi", this->dataFi);
+        cmd->Parameters->AddWithValue("@estat", this->estat);
+
+        cmd->ExecuteNonQuery();
+    }
+    finally {
+        conn->Close();
+    }
+}
+
+List<Dictionary<String^, String^>^>^ PassarellaJornada::ObtenirDictJornadesPerTemporada(String^ idTemporada) {
+    List<Dictionary<String^, String^>^>^ jornades = gcnew List<Dictionary<String^, String^>^>();
+    MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+    try {
+        conn->Open();
+        String^ query = "SELECT idJornada, numero, dataInici, dataFi FROM Jornada WHERE idTemporada = @idTemp";
+        MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+        cmd->Parameters->AddWithValue("@idTemp", idTemporada);
+        MySqlDataReader^ reader = cmd->ExecuteReader();
+
+        while (reader->Read()) {
+            Dictionary<String^, String^>^ dict = gcnew Dictionary<String^, String^>();
+            dict["idJornada"] = reader["idJornada"]->ToString();
+            dict["numero"] = reader["numero"]->ToString();
+            dict["dataInici"] = reader["dataInici"]->ToString();
+            jornades->Add(dict);
+        }
+        reader->Close();
+    }
+    finally {
+        conn->Close();
+    }
+    return jornades;
+}
+

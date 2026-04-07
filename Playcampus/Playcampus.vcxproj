@@ -131,13 +131,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dades\PassarellaEquip.hxx" />
+    <ClInclude Include="Dades\PassarellaJornada.hxx" />
     <ClInclude Include="Dades\PassarellaLliga.hxx" />
     <ClInclude Include="Dades\PassarellaPartit.hxx" />
+    <ClInclude Include="Dades\PassarellaTemporada.hxx" />
     <ClInclude Include="Dades\UsuariTx.h" />
     <ClInclude Include="Dades\PassarellaUsuari.hxx" />
     <ClInclude Include="Dades\ConnexioBD.hxx" />
+    <ClInclude Include="Domini\CtrlCrearJornada.hxx" />
     <ClInclude Include="Domini\CtrlCrearLliga.hxx" />
     <ClInclude Include="Domini\CtrlCrearPartit.hxx" />
+    <ClInclude Include="Domini\CtrlCrearTemporada.hxx" />
     <ClInclude Include="Domini\CtrlEnregistrarEquip.hxx" />
     <ClInclude Include="Domini\CtrlIniciSessio.hxx" />
     <ClInclude Include="Domini\CtrlRegistrarUsuari.hxx" />
@@ -168,12 +172,16 @@
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="CppCLR_WinFormsProject.cpp" />
     <ClCompile Include="Dades\PassarellaEquip.cxx" />
+    <ClCompile Include="Dades\PassarellaJornada.cxx" />
     <ClCompile Include="Dades\PassarellaLliga.cxx" />
     <ClCompile Include="Dades\PassarellaPartit.cxx" />
+    <ClCompile Include="Dades\PassarellaTemporada.cxx" />
     <ClCompile Include="Dades\PassarellaUsuari.cxx" />
     <ClCompile Include="Dades\ConnexioBD.cxx" />
+    <ClCompile Include="Domini\CtrlCrearJornada.cxx" />
     <ClCompile Include="Domini\CtrlCrearLliga.cxx" />
     <ClCompile Include="Domini\CtrlCrearPartit.cxx" />
+    <ClCompile Include="Domini\CtrlCrearTemporada.cxx" />
     <ClCompile Include="Domini\CtrlEnregistrarEquip.cxx" />
     <ClCompile Include="Domini\CtrlIniciSessio.cxx" />
     <ClCompile Include="Domini\CtrlRegistrarUsuari.cxx" />

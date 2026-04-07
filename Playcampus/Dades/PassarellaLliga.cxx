@@ -114,5 +114,74 @@ namespace Playcampus {
 
             return teActiva;
         }
+
+        bool PassarellaLliga::EsAdministradorLliga(System::String^ nomLliga, System::String^ correuAdmin)
+        {
+            bool esAdmin = false;
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+
+            try {
+                conn->Open();
+
+                // Fem un JOIN amb Usuari per poder comparar el correu electrònic amb l'idAdministrador guardat a Lliga
+                String^ query = "SELECT COUNT(*) FROM Lliga L INNER JOIN Usuari U ON L.idAdministrador = U.identificador WHERE L.nom = @nom AND U.correu_electronic = @correuAdmin";
+
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@nom", nomLliga);
+                cmd->Parameters->AddWithValue("@correuAdmin", correuAdmin);
+
+                int count = Convert::ToInt32(cmd->ExecuteScalar());
+                esAdmin = (count > 0);
+            }
+            catch (Exception^ ex) {
+                throw ex;
+            }
+            finally {
+                if (conn != nullptr) {
+                    conn->Close();
+                }
+            }
+
+            return esAdmin;
+        }
+
+        String^ PassarellaLliga::ObtenirLligaActivaAdmin(String^ idAdmin) {
+            MySql::Data::MySqlClient::MySqlConnection^ conn = gcnew MySql::Data::MySqlClient::MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "SELECT idLliga FROM Lliga WHERE idAdministrador = @idAdmin AND estat = 'en_curs' LIMIT 1";
+                MySql::Data::MySqlClient::MySqlCommand^ cmd = gcnew MySql::Data::MySqlClient::MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idAdmin", idAdmin);
+
+                Object^ result = cmd->ExecuteScalar();
+                if (result != nullptr) {
+                    return result->ToString();
+                }
+                return nullptr;
+            }
+            finally {
+                conn->Close();
+            }
+        }
+
+       
+        String^ PassarellaLliga::ObtenirIdLligaPerNom(String^ nomLliga) {
+            MySql::Data::MySqlClient::MySqlConnection^ conn = gcnew MySql::Data::MySqlClient::MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "SELECT idLliga FROM Lliga WHERE nom = @nom LIMIT 1";
+                MySql::Data::MySqlClient::MySqlCommand^ cmd = gcnew MySql::Data::MySqlClient::MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@nom", nomLliga);
+
+                Object^ result = cmd->ExecuteScalar();
+                if (result != nullptr && result != DBNull::Value) {
+                    return result->ToString();
+                }
+                return nullptr;
+            }
+            finally {
+                conn->Close();
+            }
+        }
     }
 }
