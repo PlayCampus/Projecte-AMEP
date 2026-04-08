@@ -688,11 +688,7 @@ namespace CppCLRWinFormsProject {
 			this->Controls->Add(this->pnlMain);
 			this->Controls->Add(this->pnlConsultar);
 			this->Controls->Add(this->pnlCrearLliga);
-			this->Controls->Add(this->pnlConsultar);
-			this->Controls->Add(this->pnlMain);
-			this->Controls->Add(this->pnlRegister);
-			this->Controls->Add(this->pnlLogin);
-			this->Controls->Add(this->pnlInici);
+			this->Controls->Add(this->pnlGestionarLliga);
 
 			// pnlCrearPartit
 			this->pnlCrearPartit = gcnew System::Windows::Forms::Panel();
@@ -962,57 +958,6 @@ namespace CppCLRWinFormsProject {
 
 			this->Controls->Add(this->pnlEnregistrarEquip);
 
-
-			this->btnEnregistrarEquip = gcnew System::Windows::Forms::Button();
-			this->pnlMain->Controls->Add(this->btnEnregistrarEquip);
-			this->btnEnregistrarEquip->Text = L"Enregistrar Equip";
-			this->btnEnregistrarEquip->Size = System::Drawing::Size(130, 40);
-			this->btnEnregistrarEquip->Visible = false;
-			this->btnEnregistrarEquip->Click += gcnew System::EventHandler(this, &Form1::btnEnregistrarEquip_Click);
-			// pnlGestionarLliga
-			this->pnlGestionarLliga = gcnew System::Windows::Forms::Panel();
-			this->lblGLTitle = gcnew System::Windows::Forms::Label();
-			this->btnGLAfegirPartit = gcnew System::Windows::Forms::Button();
-			this->btnGLEditarPartit = gcnew System::Windows::Forms::Button();
-			this->btnGLMostrarEquips = gcnew System::Windows::Forms::Button();
-			this->btnGLEsborrarEquip = gcnew System::Windows::Forms::Button();
-			this->btnGLTornar = gcnew System::Windows::Forms::Button();
-			this->picLogoGL = gcnew System::Windows::Forms::PictureBox();
-
-			this->pnlGestionarLliga->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->pnlGestionarLliga->Visible = false;
-			this->pnlGestionarLliga->Controls->Add(this->lblGLTitle);
-			this->pnlGestionarLliga->Controls->Add(this->btnGLAfegirPartit);
-			this->pnlGestionarLliga->Controls->Add(this->btnGLEditarPartit);
-			this->pnlGestionarLliga->Controls->Add(this->btnGLMostrarEquips);
-			this->pnlGestionarLliga->Controls->Add(this->btnGLEsborrarEquip);
-			this->pnlGestionarLliga->Controls->Add(this->btnGLTornar);
-			this->pnlGestionarLliga->Controls->Add(this->picLogoGL);
-
-			this->lblGLTitle->Text = L"Gestionar Lliga";
-			this->lblGLTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
-			this->lblGLTitle->AutoSize = true;
-
-			this->btnGLAfegirPartit->Text = L"Afegir Partit";
-			this->btnGLAfegirPartit->Size = System::Drawing::Size(150, 40);
-
-			this->btnGLEditarPartit->Text = L"Editar Partit";
-			this->btnGLEditarPartit->Size = System::Drawing::Size(150, 40);
-
-			this->btnGLMostrarEquips->Text = L"Mostrar Equips";
-			this->btnGLMostrarEquips->Size = System::Drawing::Size(150, 40);
-
-			this->btnGLEsborrarEquip->Text = L"Esborrar Equip";
-			this->btnGLEsborrarEquip->Size = System::Drawing::Size(150, 40);
-
-			this->btnGLTornar->Text = L"Tornar";
-			this->btnGLTornar->Size = System::Drawing::Size(100, 30);
-			this->btnGLTornar->Click += gcnew System::EventHandler(this, &Form1::btnGLTornar_Click);
-
-			this->picLogoGL->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-			this->picLogoGL->Size = System::Drawing::Size(100, 100);
-
-			this->Controls->Add(this->pnlGestionarLliga);
 			// pnlGestionarEquip
 			this->pnlGestionarEquip = gcnew System::Windows::Forms::Panel();
 			this->lblGETitle = gcnew System::Windows::Forms::Label();
@@ -1029,7 +974,7 @@ namespace CppCLRWinFormsProject {
 			this->lblGETitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
 			this->lblGETitle->AutoSize = true;
 
-			System::Drawing::Font^ actionBtnFont = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
+			actionBtnFont = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
 
 			this->btnGEEsborrarEquip->Text = L"Esborrar equip";
 			this->btnGEEsborrarEquip->Size = System::Drawing::Size(220, 60);
