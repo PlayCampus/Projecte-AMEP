@@ -113,6 +113,18 @@
     <ClInclude Include="Domini\CtrlUnirEquipLliga.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Dades\PassarellaTemporada.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\CtrlCrearTemporada.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\CtrlCrearJornada.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dades\PassarellaJornada.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Domini\CtrlEsborrarEquip.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -194,6 +206,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Domini\CtrlUnirEquipLliga.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dades\PassarellaTemporada.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\CtrlCrearTemporada.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\CtrlCrearJornada.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dades\PassarellaJornada.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Domini\CtrlEsborrarEquip.cxx">

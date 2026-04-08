@@ -32,6 +32,10 @@ namespace Playcampus {
             void Insereix();
             bool ExisteixPerNom(String^ nomLliga);
             bool TeLligaActivaAdmin(String^ idAdmin);
+            bool EsAdministradorLliga(System::String^ nomLliga, System::String^ correuAdmin);
+
+            String^ ObtenirLligaActivaAdmin(String^ idAdmin);
+            String^ ObtenirIdLligaPerNom(String^ nomLliga);
         };
     }
 }

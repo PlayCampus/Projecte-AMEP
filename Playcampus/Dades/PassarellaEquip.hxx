@@ -2,6 +2,7 @@
 #include <string>
 
 using namespace System;
+using namespace System::Collections::Generic;
 
 namespace Playcampus {
     namespace Dades {
@@ -52,6 +53,7 @@ namespace Playcampus {
             void Modifica();
             void Esborra();
             static PassarellaEquip^ Llegeix(String^ connStr, String^ idEq);
+            List <String^>^ ObtenirNomsEquipsPerLliga(String^ idLliga);
         };
     }
 }

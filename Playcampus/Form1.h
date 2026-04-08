@@ -5,6 +5,10 @@
 #include "Domini/CtrlCrearLliga.hxx"
 #include "Domini/CtrlEnregistrarEquip.hxx"
 #include "Domini/CtrlUnirEquipLliga.hxx"
+#include "Domini/CtrlCrearPartit.hxx"
+#include "Domini/CtrlCrearTemporada.hxx"
+#include "Domini/CtrlCrearJornada.hxx"
+#include "Dades/ConnexioBD.hxx"
 #include "Domini/CtrlEsborrarEquip.hxx"
 
 namespace CppCLRWinFormsProject {
@@ -88,7 +92,6 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Button^ btnEstadistiques;
 		System::Windows::Forms::Button^ btnConsultar;
 		System::Windows::Forms::Button^ btnEnregistrarEquip;
-
 		System::Windows::Forms::Button^ btnUnirEquipLliga;
 
 
@@ -116,6 +119,36 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::ComboBox^ cmbCLEsport;
 		System::Windows::Forms::Button^ btnCLGuarda;
 		System::Windows::Forms::Button^ btnCLTornar;
+
+		System::Windows::Forms::Panel^ pnlCrearTemporada;
+		System::Windows::Forms::Label^ lblCTTitle;
+		System::Windows::Forms::Label^ lblCTNomLliga;   
+		System::Windows::Forms::TextBox^ txtCTNomLliga;
+		System::Windows::Forms::Label^ lblCTDataInici;
+		System::Windows::Forms::DateTimePicker^ dtpCTDataInici;
+		System::Windows::Forms::Label^ lblCTDataFi;
+		System::Windows::Forms::DateTimePicker^ dtpCTDataFi;
+		System::Windows::Forms::Button^ btnCTConfirmar;
+		System::Windows::Forms::Button^ btnCTCancellar;
+
+		System::Windows::Forms::Panel^ pnlCrearJornada;
+		System::Windows::Forms::Label^ lblCJTitle;
+		System::Windows::Forms::Label^ lblCJNomLliga;
+		System::Windows::Forms::TextBox^ txtCJNomLliga;
+		System::Windows::Forms::Button^ btnCJBuscarTemporades;
+		System::Windows::Forms::Label^ lblCJTemporada;
+		System::Windows::Forms::ComboBox^ cmbCJTemporada;
+		System::Windows::Forms::Label^ lblCJDataInici;
+		System::Windows::Forms::DateTimePicker^ dtpCJDataInici;
+		System::Windows::Forms::Label^ lblCJDataFi;
+		System::Windows::Forms::DateTimePicker^ dtpCJDataFi;
+		System::Windows::Forms::Label^ lblCJNumero;
+		System::Windows::Forms::TextBox^ txtCJNumero;
+		System::Windows::Forms::Button^ btnCJConfirmar;
+		System::Windows::Forms::Button^ btnCJCancellar;
+
+		System::Collections::Generic::List<String^>^ cjTemporadaIds; 
+
 
 		System::Windows::Forms::Panel^ pnlEnregistrarEquip;
 		System::Windows::Forms::Label^ lblEETitle;
@@ -152,8 +185,32 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Button^ btnGLEditarPartit;
 		System::Windows::Forms::Button^ btnGLMostrarEquips;
 		System::Windows::Forms::Button^ btnGLEsborrarEquip;
+		System::Windows::Forms::Button^ btnGLCrearJornada;
+		System::Windows::Forms::Button^ btnGLCrearTemporada;
 		System::Windows::Forms::Button^ btnGLTornar;
 		System::Windows::Forms::PictureBox^ picLogoGL;
+
+		System::Windows::Forms::Panel^ pnlCrearPartit;
+		System::Windows::Forms::Label^ lblCPTitle;
+		System::Windows::Forms::Label^ lblCPNomLliga;
+		System::Windows::Forms::TextBox^ txtCPNomLliga;
+		System::Windows::Forms::Button^ btnCPValidarLliga;
+		System::Windows::Forms::Label^ lblCPTemporada;
+		System::Windows::Forms::ComboBox^ cmbCPTemporada;
+		System::Collections::Generic::List<String^>^ cpTemporadesIds; // Para guardar la ID de la temporada
+		System::Collections::Generic::List<String^>^ cpJornadesIds;   // Para guardar la ID de la jornada
+		System::Windows::Forms::Label^ lblCPJornada;
+		System::Windows::Forms::ComboBox^ cmbCPJornada;
+		System::Windows::Forms::Label^ lblCPData;
+		System::Windows::Forms::DateTimePicker^ dtpCPData;
+		System::Windows::Forms::Label^ lblCPUbicacio;
+		System::Windows::Forms::TextBox^ txtCPUbicacio;
+		System::Windows::Forms::Label^ lblCPEquipLocal;
+		System::Windows::Forms::ComboBox^ cmbCPEquipLocal;
+		System::Windows::Forms::Label^ lblCPEquipVisitant;
+		System::Windows::Forms::ComboBox^ cmbCPEquipVisitant;
+		System::Windows::Forms::Button^ btnCPConfirmar;
+		System::Windows::Forms::Button^ btnCPCancellar;
 
 		/// <summary>
 		/// Required designer variable.
@@ -432,6 +489,10 @@ namespace CppCLRWinFormsProject {
 			this->btnCrearLligaMainMenu = gcnew System::Windows::Forms::Button();
 			this->pnlMain->Controls->Add(this->btnCrearLligaMainMenu);
 
+			
+
+			
+
 			this->btnCrearLligaMainMenu->Text = L"Crear Lliga";
 			this->btnCrearLligaMainMenu->Size = System::Drawing::Size(130, 40);
 			this->btnCrearLligaMainMenu->Visible = false;
@@ -525,12 +586,325 @@ namespace CppCLRWinFormsProject {
 			this->btnCLTornar->Size = System::Drawing::Size(100, 30);
 			this->btnCLTornar->Click += gcnew System::EventHandler(this, &Form1::btnCLTornar_Click);
 
+
+
+			this->btnEnregistrarEquip = gcnew System::Windows::Forms::Button();
+			this->pnlMain->Controls->Add(this->btnEnregistrarEquip);
+			this->btnEnregistrarEquip->Text = L"Enregistrar Equip";
+			this->btnEnregistrarEquip->Size = System::Drawing::Size(130, 40);
+			this->btnEnregistrarEquip->Visible = false;
+			this->btnEnregistrarEquip->Click += gcnew System::EventHandler(this, &Form1::btnEnregistrarEquip_Click);
+
+			this->btnUnirEquipLliga = gcnew System::Windows::Forms::Button();
+			this->pnlMain->Controls->Add(this->btnUnirEquipLliga);
+			this->btnUnirEquipLliga->Text = L"Unir equip a lliga";
+			this->btnUnirEquipLliga->Size = System::Drawing::Size(130, 40);
+			this->btnUnirEquipLliga->Visible = false;
+			this->btnUnirEquipLliga->Click += gcnew System::EventHandler(this, &Form1::btnUnirEquipLligaAct_Click);
+	
+
+			
+
+			// pnlGestionarLliga
+			this->pnlGestionarLliga = gcnew System::Windows::Forms::Panel();
+			this->lblGLTitle = gcnew System::Windows::Forms::Label();
+			this->btnGLAfegirPartit = gcnew System::Windows::Forms::Button();
+			this->btnGLEditarPartit = gcnew System::Windows::Forms::Button();
+			this->btnGLMostrarEquips = gcnew System::Windows::Forms::Button();
+			this->btnGLEsborrarEquip = gcnew System::Windows::Forms::Button();
+			this->btnGLCrearJornada = gcnew System::Windows::Forms::Button(); 
+			this->btnGLCrearTemporada = gcnew System::Windows::Forms::Button();
+			this->btnGLTornar = gcnew System::Windows::Forms::Button();
+
+			this->picLogoGL = gcnew System::Windows::Forms::PictureBox();
+			this->pnlGestionarLliga->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->pnlGestionarLliga->Visible = false;
+			this->pnlGestionarLliga->Controls->Add(this->lblGLTitle);
+			this->pnlGestionarLliga->Controls->Add(this->btnGLAfegirPartit);
+			this->pnlGestionarLliga->Controls->Add(this->btnGLEditarPartit);
+			this->pnlGestionarLliga->Controls->Add(this->btnGLMostrarEquips);
+			this->pnlGestionarLliga->Controls->Add(this->btnGLEsborrarEquip);
+			this->pnlGestionarLliga->Controls->Add(this->btnGLCrearJornada);
+			this->pnlGestionarLliga->Controls->Add(this->btnGLCrearTemporada);
+			this->pnlGestionarLliga->Controls->Add(this->btnGLTornar);
+			this->pnlGestionarLliga->Controls->Add(this->picLogoGL);
+			
+			this->picLogoGL->ImageLocation = L"imatges\\logo.png";
+			this->picLogoGL->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->picLogoGL->Size = System::Drawing::Size(150, 100);
+
+			this->lblGLTitle->Text = L"Gestionar Lliga";
+			this->lblGLTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
+			this->lblGLTitle->AutoSize = true;
+
+			System::Drawing::Font^ actionBtnFont = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
+
+			this->btnGLAfegirPartit->Text = L"Crear partit";
+			this->btnGLAfegirPartit->Size = System::Drawing::Size(220, 60);
+			this->btnGLAfegirPartit->Font = actionBtnFont;
+			this->btnGLAfegirPartit->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnGLAfegirPartit->Click += gcnew System::EventHandler(this, &Form1::btnGLAfegirPartit_Click);
+
+			this->btnGLEditarPartit->Text = L"Editar partit";
+			this->btnGLEditarPartit->Size = System::Drawing::Size(220, 60);
+			this->btnGLEditarPartit->Font = actionBtnFont;
+			this->btnGLEditarPartit->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnGLEditarPartit->Click += gcnew System::EventHandler(this, &Form1::btnGL_EnDesenvolupament_Click);
+
+			this->btnGLMostrarEquips->Text = L"Mostrar equips";
+			this->btnGLMostrarEquips->Size = System::Drawing::Size(220, 60);
+			this->btnGLMostrarEquips->Font = actionBtnFont;
+			this->btnGLMostrarEquips->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnGLMostrarEquips->Click += gcnew System::EventHandler(this, &Form1::btnGL_EnDesenvolupament_Click);
+
+			this->btnGLEsborrarEquip->Text = L"Esborrar equip";
+			this->btnGLEsborrarEquip->Size = System::Drawing::Size(220, 60);
+			this->btnGLEsborrarEquip->Font = actionBtnFont;
+			this->btnGLEsborrarEquip->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnGLEsborrarEquip->Click += gcnew System::EventHandler(this, &Form1::btnGL_EnDesenvolupament_Click);
+
+			
+			this->btnGLCrearJornada->Text = L"Crear jornada";
+			this->btnGLCrearJornada->Size = System::Drawing::Size(220, 60);
+			this->btnGLCrearJornada->Font = actionBtnFont;
+			this->btnGLCrearJornada->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnGLCrearJornada->Click += gcnew System::EventHandler(this, &Form1::btnGLCrearJornada_Click);
+			
+
+			this->btnGLCrearTemporada->Text = L"Crear temporada";
+			this->btnGLCrearTemporada->Size = System::Drawing::Size(220, 60);
+			this->btnGLCrearTemporada->Font = actionBtnFont;
+			this->btnGLCrearTemporada->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnGLCrearTemporada->Click += gcnew System::EventHandler(this, &Form1::btnGLCrearTemporada_Click);
+
+			this->btnGLTornar->Text = L"Tornar";
+			this->btnGLTornar->Size = System::Drawing::Size(100, 30);
+			this->btnGLTornar->Click += gcnew System::EventHandler(this, &Form1::btnGLTornar_Click);
+
+			// Form
+			this->Controls->Add(this->pnlInici);
+			this->Controls->Add(this->pnlLogin);
+			this->Controls->Add(this->pnlRegister);
+			this->Controls->Add(this->pnlMain);
+			this->Controls->Add(this->pnlConsultar);
 			this->Controls->Add(this->pnlCrearLliga);
 			this->Controls->Add(this->pnlConsultar);
 			this->Controls->Add(this->pnlMain);
 			this->Controls->Add(this->pnlRegister);
 			this->Controls->Add(this->pnlLogin);
 			this->Controls->Add(this->pnlInici);
+
+			// pnlCrearPartit
+			this->pnlCrearPartit = gcnew System::Windows::Forms::Panel();
+			this->pnlCrearPartit->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->pnlCrearPartit->Visible = false;
+
+			this->lblCPTitle = gcnew System::Windows::Forms::Label();
+			this->lblCPNomLliga = gcnew System::Windows::Forms::Label();
+			this->txtCPNomLliga = gcnew System::Windows::Forms::TextBox();
+			this->btnCPValidarLliga = gcnew System::Windows::Forms::Button();
+			this->lblCPTemporada = gcnew System::Windows::Forms::Label();
+			this->cmbCPTemporada = gcnew System::Windows::Forms::ComboBox();
+			this->cpTemporadesIds = gcnew System::Collections::Generic::List<String^>();
+			this->cpJornadesIds = gcnew System::Collections::Generic::List<String^>();
+			this->lblCPJornada = gcnew System::Windows::Forms::Label();
+			this->cmbCPJornada = gcnew System::Windows::Forms::ComboBox();
+			this->lblCPData = gcnew System::Windows::Forms::Label();
+			this->dtpCPData = gcnew System::Windows::Forms::DateTimePicker();
+			this->lblCPUbicacio = gcnew System::Windows::Forms::Label();
+			this->txtCPUbicacio = gcnew System::Windows::Forms::TextBox();
+			this->lblCPEquipLocal = gcnew System::Windows::Forms::Label();
+			this->cmbCPEquipLocal = gcnew System::Windows::Forms::ComboBox();
+			this->lblCPEquipVisitant = gcnew System::Windows::Forms::Label();
+			this->cmbCPEquipVisitant = gcnew System::Windows::Forms::ComboBox();
+			this->btnCPConfirmar = gcnew System::Windows::Forms::Button();
+			this->btnCPCancellar = gcnew System::Windows::Forms::Button();
+
+			// --- Añadir todos los controles al Panel ---
+			this->pnlCrearPartit->Controls->Add(this->lblCPTitle);
+			this->pnlCrearPartit->Controls->Add(this->lblCPNomLliga);     // AFEGIT
+			this->pnlCrearPartit->Controls->Add(this->txtCPNomLliga);     // AFEGIT
+			this->pnlCrearPartit->Controls->Add(this->btnCPValidarLliga); // AFEGIT
+			this->pnlCrearPartit->Controls->Add(this->lblCPTemporada);    // AFEGIT
+			this->pnlCrearPartit->Controls->Add(this->cmbCPTemporada);    // AFEGIT
+			this->pnlCrearPartit->Controls->Add(this->lblCPJornada);
+			this->pnlCrearPartit->Controls->Add(this->cmbCPJornada);
+			this->pnlCrearPartit->Controls->Add(this->lblCPData);
+			this->pnlCrearPartit->Controls->Add(this->dtpCPData);
+			this->pnlCrearPartit->Controls->Add(this->lblCPUbicacio);
+			this->pnlCrearPartit->Controls->Add(this->txtCPUbicacio);
+			this->pnlCrearPartit->Controls->Add(this->lblCPEquipLocal);
+			this->pnlCrearPartit->Controls->Add(this->cmbCPEquipLocal);
+			this->pnlCrearPartit->Controls->Add(this->lblCPEquipVisitant);
+			this->pnlCrearPartit->Controls->Add(this->cmbCPEquipVisitant);
+			this->pnlCrearPartit->Controls->Add(this->btnCPConfirmar);
+			this->pnlCrearPartit->Controls->Add(this->btnCPCancellar);
+
+			this->lblCPTitle->Text = L"Crear Partit";
+			this->lblCPTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
+			this->lblCPTitle->AutoSize = true;
+
+			// --- Propiedades NOU CAMPS Lliga i Temporada ---
+			this->lblCPNomLliga->Text = L"Nom Lliga:";
+			this->lblCPNomLliga->Size = System::Drawing::Size(100, 20);
+			this->txtCPNomLliga->Size = System::Drawing::Size(100, 20);
+
+			this->btnCPValidarLliga->Text = L"Validar Lliga";
+			this->btnCPValidarLliga->Size = System::Drawing::Size(100, 25);
+			this->btnCPValidarLliga->Click += gcnew System::EventHandler(this, &Form1::btnCPValidarLliga_Click);
+
+			this->lblCPTemporada->Text = L"Temporada:";
+			this->lblCPTemporada->Size = System::Drawing::Size(100, 20);
+			this->cmbCPTemporada->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cmbCPTemporada->Size = System::Drawing::Size(150, 20);
+			this->cmbCPTemporada->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbCPTemporada_SelectedIndexChanged);
+
+			// --- Resta de propietats originals ---
+			this->lblCPJornada->Text = L"Jornada:";
+			this->lblCPJornada->Size = System::Drawing::Size(100, 20);
+			this->cmbCPJornada->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cmbCPJornada->Size = System::Drawing::Size(150, 20);
+
+			this->lblCPData->Text = L"Data del partit:";
+			this->lblCPData->Size = System::Drawing::Size(100, 20);
+			this->dtpCPData->Size = System::Drawing::Size(150, 20);
+			this->dtpCPData->Format = System::Windows::Forms::DateTimePickerFormat::Short;
+
+			this->lblCPUbicacio->Text = L"Ubicació:";
+			this->lblCPUbicacio->Size = System::Drawing::Size(100, 20);
+			this->txtCPUbicacio->Size = System::Drawing::Size(150, 20);
+
+			this->lblCPEquipLocal->Text = L"Equip Local:";
+			this->lblCPEquipLocal->Size = System::Drawing::Size(100, 20);
+			this->cmbCPEquipLocal->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cmbCPEquipLocal->Size = System::Drawing::Size(150, 20);
+
+			this->lblCPEquipVisitant->Text = L"Equip Visitant:";
+			this->lblCPEquipVisitant->Size = System::Drawing::Size(100, 20);
+			this->cmbCPEquipVisitant->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cmbCPEquipVisitant->Size = System::Drawing::Size(150, 20);
+
+			this->btnCPConfirmar->Text = L"Confirmar";
+			this->btnCPConfirmar->Size = System::Drawing::Size(100, 30);
+			this->btnCPConfirmar->Click += gcnew System::EventHandler(this, &Form1::btnCPConfirmar_Click);
+
+			this->btnCPCancellar->Text = L"Cancel·lar";
+			this->btnCPCancellar->Size = System::Drawing::Size(100, 30);
+			this->btnCPCancellar->Click += gcnew System::EventHandler(this, &Form1::btnCPCancellar_Click);
+
+			// pnlCrearTemporada
+			this->pnlCrearTemporada = gcnew System::Windows::Forms::Panel();
+			this->lblCTTitle = gcnew System::Windows::Forms::Label();
+			this->lblCTNomLliga = gcnew System::Windows::Forms::Label();   
+			this->txtCTNomLliga = gcnew System::Windows::Forms::TextBox();
+			this->lblCTDataInici = gcnew System::Windows::Forms::Label();
+			this->dtpCTDataInici = gcnew System::Windows::Forms::DateTimePicker();
+			this->lblCTDataFi = gcnew System::Windows::Forms::Label();
+			this->dtpCTDataFi = gcnew System::Windows::Forms::DateTimePicker();
+			this->btnCTConfirmar = gcnew System::Windows::Forms::Button();
+			this->btnCTCancellar = gcnew System::Windows::Forms::Button();
+
+			this->pnlCrearTemporada->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->pnlCrearTemporada->Visible = false;
+			this->pnlCrearTemporada->Controls->Add(this->lblCTTitle);
+			this->pnlCrearTemporada->Controls->Add(this->lblCTNomLliga);
+			this->pnlCrearTemporada->Controls->Add(this->txtCTNomLliga);
+			this->pnlCrearTemporada->Controls->Add(this->lblCTDataInici);
+			this->pnlCrearTemporada->Controls->Add(this->dtpCTDataInici);
+			this->pnlCrearTemporada->Controls->Add(this->lblCTDataFi);
+			this->pnlCrearTemporada->Controls->Add(this->dtpCTDataFi);
+			this->pnlCrearTemporada->Controls->Add(this->btnCTConfirmar);
+			this->pnlCrearTemporada->Controls->Add(this->btnCTCancellar);
+
+			this->lblCTTitle->Text = L"Crear Temporada";
+			this->lblCTTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
+			this->lblCTTitle->AutoSize = true;
+
+			this->lblCTNomLliga->Text = L"Nom de la Lliga:";
+			this->lblCTNomLliga->Size = System::Drawing::Size(100, 20);
+			this->txtCTNomLliga->Size = System::Drawing::Size(150, 20);
+
+
+			this->lblCTDataInici->Text = L"Data d'Inici:";
+			this->dtpCTDataInici->Format = System::Windows::Forms::DateTimePickerFormat::Short;
+
+			this->lblCTDataFi->Text = L"Data de Fi:";
+			this->dtpCTDataFi->Format = System::Windows::Forms::DateTimePickerFormat::Short;
+
+			this->btnCTConfirmar->Text = L"Confirmar";
+			this->btnCTConfirmar->Click += gcnew System::EventHandler(this, &Form1::btnCTConfirmar_Click);
+
+			this->btnCTCancellar->Text = L"Cancel·lar";
+			this->btnCTCancellar->Click += gcnew System::EventHandler(this, &Form1::btnCTCancellar_Click);
+
+			this->Controls->Add(this->pnlCrearTemporada);
+
+			this->Controls->Add(this->pnlCrearPartit);
+
+			// pnlCrearJornada
+			this->pnlCrearJornada = gcnew System::Windows::Forms::Panel();
+			this->lblCJTitle = gcnew System::Windows::Forms::Label();
+			this->lblCJNomLliga = gcnew System::Windows::Forms::Label();
+			this->txtCJNomLliga = gcnew System::Windows::Forms::TextBox();
+			this->btnCJBuscarTemporades = gcnew System::Windows::Forms::Button();
+			this->lblCJTemporada = gcnew System::Windows::Forms::Label();
+			this->cmbCJTemporada = gcnew System::Windows::Forms::ComboBox();
+			this->lblCJDataInici = gcnew System::Windows::Forms::Label();
+			this->dtpCJDataInici = gcnew System::Windows::Forms::DateTimePicker();
+			this->lblCJDataFi = gcnew System::Windows::Forms::Label();
+			this->dtpCJDataFi = gcnew System::Windows::Forms::DateTimePicker();
+			this->btnCJConfirmar = gcnew System::Windows::Forms::Button();
+			this->btnCJCancellar = gcnew System::Windows::Forms::Button();
+			this->cjTemporadaIds = gcnew System::Collections::Generic::List<String^>();
+			this->lblCJNumero = gcnew System::Windows::Forms::Label();
+			this->txtCJNumero = gcnew System::Windows::Forms::TextBox();
+			
+
+
+			this->pnlCrearJornada->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->pnlCrearJornada->Visible = false;
+			this->pnlCrearJornada->Controls->Add(this->lblCJTitle);
+			this->pnlCrearJornada->Controls->Add(this->lblCJNomLliga);
+			this->pnlCrearJornada->Controls->Add(this->txtCJNomLliga);
+			this->pnlCrearJornada->Controls->Add(this->btnCJBuscarTemporades);
+			this->pnlCrearJornada->Controls->Add(this->lblCJTemporada);
+			this->pnlCrearJornada->Controls->Add(this->cmbCJTemporada);
+			this->pnlCrearJornada->Controls->Add(this->lblCJDataInici);
+			this->pnlCrearJornada->Controls->Add(this->dtpCJDataInici);
+			this->pnlCrearJornada->Controls->Add(this->lblCJDataFi);
+			this->pnlCrearJornada->Controls->Add(this->dtpCJDataFi);
+			this->pnlCrearJornada->Controls->Add(this->lblCJNumero);
+			this->pnlCrearJornada->Controls->Add(this->txtCJNumero);
+			this->pnlCrearJornada->Controls->Add(this->btnCJConfirmar);
+			this->pnlCrearJornada->Controls->Add(this->btnCJCancellar);
+
+			this->lblCJTitle->Text = L"Crear Jornada";
+			this->lblCJTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
+			this->lblCJTitle->AutoSize = true;
+
+			this->lblCJNomLliga->Text = L"Nom Lliga:";
+			this->btnCJBuscarTemporades->Text = L"Cercar Temporades";
+			this->btnCJBuscarTemporades->Click += gcnew System::EventHandler(this, &Form1::btnCJBuscarTemporades_Click);
+
+			this->lblCJTemporada->Text = L"Temporada:";
+			this->cmbCJTemporada->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+
+			this->lblCJNumero->Text = L"Número Jornada:";
+
+			this->lblCJDataInici->Text = L"Data d'Inici:";
+			this->dtpCJDataInici->Format = System::Windows::Forms::DateTimePickerFormat::Short;
+
+			this->lblCJDataFi->Text = L"Data de Fi:";
+			this->dtpCJDataFi->Format = System::Windows::Forms::DateTimePickerFormat::Short;
+
+			this->btnCJConfirmar->Text = L"Confirmar";
+			this->btnCJConfirmar->Click += gcnew System::EventHandler(this, &Form1::btnCJConfirmar_Click);
+
+			this->btnCJCancellar->Text = L"Cancel·lar";
+			this->btnCJCancellar->Click += gcnew System::EventHandler(this, &Form1::btnCJCancellar_Click);
+
+			// AFEGIR pnlCrearJornada AL FORMULARi
+			this->Controls->Add(this->pnlCrearJornada);
 
 			// pnlEnregistrarEquip
 			this->pnlEnregistrarEquip = gcnew System::Windows::Forms::Panel();
@@ -791,6 +1165,7 @@ namespace CppCLRWinFormsProject {
 		this->btnEstatLligues->Location = System::Drawing::Point(startBtnX + 150, 80);
 		this->btnEstadistiques->Location = System::Drawing::Point(startBtnX + 300, 80);
 		this->btnConsultar->Location = System::Drawing::Point(startBtnX + 450, 80);
+
 		this->btnCrearLligaMainMenu->Location = System::Drawing::Point(startBtnX + 600, 80);
 		this->btnEnregistrarEquip->Location = System::Drawing::Point(startBtnX - 150, 80); // Posicionament a l'esquerra
 		this->btnUnirEquipLliga->Location = System::Drawing::Point(startBtnX - 300, 80);
@@ -841,8 +1216,49 @@ namespace CppCLRWinFormsProject {
 		this->btnGLEditarPartit->Location = System::Drawing::Point(centerX + (glSpacingX / 2), glStartY);
 		this->btnGLMostrarEquips->Location = System::Drawing::Point(centerX - btnGLW - (glSpacingX / 2), glStartY + btnGLH + glSpacingY);
 		this->btnGLEsborrarEquip->Location = System::Drawing::Point(centerX + (glSpacingX / 2), glStartY + btnGLH + glSpacingY);
+		this->btnGLCrearJornada->Location = System::Drawing::Point(centerX - btnGLW - (glSpacingX / 2), glStartY + (btnGLH + glSpacingY) * 2);
+		this->btnGLCrearTemporada->Location = System::Drawing::Point(centerX + (glSpacingX / 2), glStartY + (btnGLH + glSpacingY) * 2);
 
 		this->picLogoGL->Location = System::Drawing::Point(centerX - (this->picLogoGL->Width / 2), glStartY - this->picLogoGL->Height - 40);
+
+		// --- PANEL CREAR PARTIT ---
+		this->lblCPTitle->Location = System::Drawing::Point(centerX - this->lblCPTitle->Width / 2, 10); // Más arriba
+
+		int cpStartX = centerX - 160;
+		int cpStartY = centerY - 150; // Empezamos más arriba
+
+		// 1. Liga
+		this->lblCPNomLliga->Location = System::Drawing::Point(cpStartX, cpStartY);
+		this->txtCPNomLliga->Location = System::Drawing::Point(cpStartX + 120, cpStartY);
+		// Botón de validación a un lado
+		this->btnCPValidarLliga->Location = System::Drawing::Point(cpStartX + 230, cpStartY - 3);
+
+		// 2. Temporada
+		this->lblCPTemporada->Location = System::Drawing::Point(cpStartX, cpStartY + 40);
+		this->cmbCPTemporada->Location = System::Drawing::Point(cpStartX + 120, cpStartY + 40);
+
+		// 3. Jornada
+		this->lblCPJornada->Location = System::Drawing::Point(cpStartX, cpStartY + 80);
+		this->cmbCPJornada->Location = System::Drawing::Point(cpStartX + 120, cpStartY + 80);
+
+		// 4. Data
+		this->lblCPData->Location = System::Drawing::Point(cpStartX, cpStartY + 120);
+		this->dtpCPData->Location = System::Drawing::Point(cpStartX + 120, cpStartY + 120);
+
+		// 5. Ubicació
+		this->lblCPUbicacio->Location = System::Drawing::Point(cpStartX, cpStartY + 160);
+		this->txtCPUbicacio->Location = System::Drawing::Point(cpStartX + 120, cpStartY + 160);
+
+		// 6. Equipos
+		this->lblCPEquipLocal->Location = System::Drawing::Point(cpStartX, cpStartY + 200);
+		this->cmbCPEquipLocal->Location = System::Drawing::Point(cpStartX + 120, cpStartY + 200);
+
+		this->lblCPEquipVisitant->Location = System::Drawing::Point(cpStartX, cpStartY + 240);
+		this->cmbCPEquipVisitant->Location = System::Drawing::Point(cpStartX + 120, cpStartY + 240);
+
+		// 7. Botones confirmación
+		this->btnCPConfirmar->Location = System::Drawing::Point(cpStartX + 20, cpStartY + 290);
+		this->btnCPCancellar->Location = System::Drawing::Point(cpStartX + 140, cpStartY + 290);
 
 		// --- PANEL GESTIONAR EQUIP ---
 		this->lblGETitle->Location = System::Drawing::Point(centerX - this->lblGETitle->Width / 2, 40);
@@ -878,6 +1294,64 @@ namespace CppCLRWinFormsProject {
 		this->lblUELPass->Location = System::Drawing::Point(uelStartX, uelStartY + 70);
 		this->txtUELPass->Location = System::Drawing::Point(uelStartX + 120, uelStartY + 70);
 		this->btnUELUnir->Location = System::Drawing::Point(centerX - 50, uelStartY + 120);
+
+		// --- PANEL CREAR TEMPORADA ---
+		this->lblCTTitle->Location = System::Drawing::Point(centerX - this->lblCTTitle->Width / 2, 30);
+		int ctStartY = centerY - 70; // <-- He pujat el panel 20px per fer espai (-50 a -70)
+		int ctStartX = centerX - 125;
+
+		// --- AFEGIR EL POSICIONAMENT DEL NOM LLIGA ---
+		this->lblCTNomLliga->Location = System::Drawing::Point(ctStartX, ctStartY);
+		this->txtCTNomLliga->Location = System::Drawing::Point(ctStartX + 120, ctStartY);
+
+		this->lblCTDataInici->Location = System::Drawing::Point(ctStartX, ctStartY + 40);
+		this->lblCTDataInici->Size = System::Drawing::Size(100, 20);
+		this->dtpCTDataInici->Location = System::Drawing::Point(ctStartX + 120, ctStartY + 40);
+
+		this->lblCTDataFi->Location = System::Drawing::Point(ctStartX, ctStartY + 80);
+		this->lblCTDataFi->Size = System::Drawing::Size(100, 20);
+		this->dtpCTDataFi->Location = System::Drawing::Point(ctStartX + 120, ctStartY + 80);
+
+		this->btnCTConfirmar->Location = System::Drawing::Point(ctStartX + 20, ctStartY + 140);
+		this->btnCTConfirmar->Size = System::Drawing::Size(100, 30);
+		this->btnCTCancellar->Location = System::Drawing::Point(ctStartX + 140, ctStartY + 140);
+		this->btnCTCancellar->Size = System::Drawing::Size(100, 30);
+
+		// --- PANEL CREAR JORNADA ---
+		this->lblCJTitle->Location = System::Drawing::Point(centerX - this->lblCJTitle->Width / 2, 30);
+		int cjStartY = centerY - 100;
+		int cjStartX = centerX - 150;
+
+		this->lblCJNomLliga->Location = System::Drawing::Point(cjStartX, cjStartY);
+		this->lblCJNomLliga->Size = System::Drawing::Size(100, 20);
+		this->txtCJNomLliga->Location = System::Drawing::Point(cjStartX + 120, cjStartY);
+		this->txtCJNomLliga->Size = System::Drawing::Size(150, 20);
+
+		this->btnCJBuscarTemporades->Location = System::Drawing::Point(cjStartX + 290, cjStartY);
+		this->btnCJBuscarTemporades->Size = System::Drawing::Size(130, 25);
+
+		this->lblCJTemporada->Location = System::Drawing::Point(cjStartX, cjStartY + 40);
+		this->lblCJTemporada->Size = System::Drawing::Size(100, 20);
+		this->cmbCJTemporada->Location = System::Drawing::Point(cjStartX + 120, cjStartY + 40);
+		this->cmbCJTemporada->Size = System::Drawing::Size(300, 20);
+
+		this->lblCJNumero->Location = System::Drawing::Point(cjStartX, cjStartY + 80);
+		this->lblCJNumero->Size = System::Drawing::Size(100, 20);
+		this->txtCJNumero->Location = System::Drawing::Point(cjStartX + 120, cjStartY + 80);
+
+
+		this->lblCJDataInici->Location = System::Drawing::Point(cjStartX, cjStartY + 120);
+		this->lblCJDataInici->Size = System::Drawing::Size(100, 20);
+		this->dtpCJDataInici->Location = System::Drawing::Point(cjStartX + 120, cjStartY + 120);
+
+		this->lblCJDataFi->Location = System::Drawing::Point(cjStartX, cjStartY + 160);
+		this->lblCJDataFi->Size = System::Drawing::Size(100, 20);
+		this->dtpCJDataFi->Location = System::Drawing::Point(cjStartX + 120, cjStartY + 160);
+
+		this->btnCJConfirmar->Location = System::Drawing::Point(cjStartX + 50, cjStartY + 220);
+		this->btnCJConfirmar->Size = System::Drawing::Size(100, 30);
+		this->btnCJCancellar->Location = System::Drawing::Point(cjStartX + 170, cjStartY + 220);
+		this->btnCJCancellar->Size = System::Drawing::Size(100, 30);
 	}
 
 	private: System::Void btnUnirEquipLligaAct_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1090,7 +1564,7 @@ namespace CppCLRWinFormsProject {
 
 			txtRegNom->Text = L"";
 			txtRegCorreu->Text = L"";
-			txtRegPass->Text = L"";
+		txtRegPass->Text = L"";
 			cmbRegTipus->SelectedIndex = 0;
 			txtRegTelefon->Text = L"";
 		}
@@ -1156,6 +1630,309 @@ namespace CppCLRWinFormsProject {
 		pnlGestionarLliga->Visible = false;
 		pnlMain->Visible = true;
 	}
+
+		private: System::Void btnGLCrearJornada_Click(System::Object^ sender, System::EventArgs^ e) {
+			pnlGestionarLliga->Visible = false;
+			pnlCrearJornada->Visible = true;
+
+			txtCJNomLliga->Text = L"";
+			cmbCJTemporada->Items->Clear();
+			cjTemporadaIds->Clear();
+			dtpCJDataInici->Value = DateTime::Now;
+			dtpCJDataFi->Value = DateTime::Now.AddDays(7); // Acostuma a durar 1 setmana
+		}
+
+	private: System::Void btnCJCancellar_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlCrearJornada->Visible = false;
+		pnlGestionarLliga->Visible = true;
+	}
+
+	private: System::Void btnCJBuscarTemporades_Click(System::Object^ sender, System::EventArgs^ e) {
+		String^ nomLliga = txtCJNomLliga->Text;
+		if (String::IsNullOrWhiteSpace(nomLliga)) {
+			MessageBox::Show(L"Introdueix el nom de la Lliga.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		try {
+			
+			Playcampus::Domini::CtrlCrearJornada^ ctrl = gcnew Playcampus::Domini::CtrlCrearJornada();
+
+			// Comprovar que ets l'administrador
+			bool esAdmin = ctrl->ValidarAdministradorLliga(nomLliga, currentUsuariCorreu);
+			if (!esAdmin) {
+				MessageBox::Show(L"No ets l'administrador d'aquesta lliga o la lliga no existeix.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				return;
+			}
+
+			// Obtenir temporades de la lliga
+			System::Collections::Generic::List<System::Collections::Generic::Dictionary<String^, String^>^>^ temporades = ctrl->ObtenirTemporadesLliga(nomLliga);
+
+			cmbCJTemporada->Items->Clear();
+			cjTemporadaIds->Clear();
+
+			for each(auto temp in temporades) {
+				String^ display = temp["dataInici"] + L" - " + temp["dataFi"];
+				cmbCJTemporada->Items->Add(display);
+				cjTemporadaIds->Add(temp["idTemporada"]);
+			}
+
+			if (cmbCJTemporada->Items->Count > 0) cmbCJTemporada->SelectedIndex = 0;
+			else MessageBox::Show(L"No s'han trobat temporades per a aquesta lliga.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			
+
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error al cercar temporades: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
+
+	private: System::Void btnCJConfirmar_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (cmbCJTemporada->SelectedIndex == -1) {
+			MessageBox::Show(L"Si us plau, cerca i selecciona una Temporada.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		int numJornada = 0; 
+		if (!Int32::TryParse(txtCJNumero->Text, numJornada)) {
+			MessageBox::Show(L"Introdueix un número de jornada vàlid.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		DateTime dataInici = dtpCJDataInici->Value;
+		DateTime dataFi = dtpCJDataFi->Value;
+
+		if (dataFi <= dataInici) {
+			MessageBox::Show(L"La data de fi ha de ser posterior a la data d'inici.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		try {
+			
+			Playcampus::Domini::CtrlCrearJornada^ ctrl = gcnew Playcampus::Domini::CtrlCrearJornada();
+			String^ idTemporadaSelecionada = cjTemporadaIds[cmbCJTemporada->SelectedIndex];
+			String^ estat = L"Proxim"; // Per defecte
+
+			ctrl->CrearJornada(idTemporadaSelecionada, numJornada, dataInici, dataFi, estat);
+			
+			MessageBox::Show(L"Jornada creada correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			pnlCrearJornada->Visible = false;
+			pnlGestionarLliga->Visible = true;
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error al desar la jornada: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
+
+		private: System::Void btnGLCrearTemporada_Click(System::Object^ sender, System::EventArgs^ e) {
+			pnlGestionarLliga->Visible = false;
+			pnlCrearTemporada->Visible = true;
+			txtCTNomLliga->Text = L""; // <--- AFEGIR AQUESTA LÍNIA PELS VALORS RESIDUALS
+			dtpCTDataInici->Value = DateTime::Now;
+			dtpCTDataFi->Value = DateTime::Now.AddMonths(6); // Por defecto acaba en 6 meses
+		}
+
+	private: System::Void btnCTCancellar_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlCrearTemporada->Visible = false;
+		pnlGestionarLliga->Visible = true;
+	}
+
+	private: System::Void btnCTConfirmar_Click(System::Object^ sender, System::EventArgs^ e) {
+		DateTime dataInici = dtpCTDataInici->Value;
+		DateTime dataFi = dtpCTDataFi->Value;
+		String^ nomLliga = txtCTNomLliga->Text; // <--- AFEGIR AQUESTA VARIABLE
+
+		if (String::IsNullOrWhiteSpace(nomLliga)) { // <-- EVITAR QUE EL NOMBRE ESTE EN BLANCO
+			MessageBox::Show(L"Introdueix el nom de la Lliga a la que vols unir la temporada.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		if (dataFi <= dataInici) {
+			MessageBox::Show(L"La data de fi ha de ser posterior a la data d'inici.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		try {
+			// Instanciar el controlador y llamar a la BD pasandole ahora el nombre
+			Playcampus::Domini::CtrlCrearTemporada^ ctrl = gcnew Playcampus::Domini::CtrlCrearTemporada();
+			ctrl->CrearTemporada(dataInici, dataFi, currentUsuariCorreu, nomLliga); // <--- AFEGIM EL NOU PARAMETRE
+
+			MessageBox::Show(L"Temporada creada correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			pnlCrearTemporada->Visible = false;
+			pnlGestionarLliga->Visible = true;
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error al crear la temporada: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
+
+
+		private: System::Void btnGLAfegirPartit_Click(System::Object^ sender, System::EventArgs^ e) {
+			pnlGestionarLliga->Visible = false;
+			pnlCrearPartit->Visible = true;
+
+			// Netejem tot 
+			txtCPNomLliga->Text = L"";
+			cmbCPTemporada->Items->Clear();
+			cmbCPJornada->Items->Clear();
+			cmbCPEquipLocal->Items->Clear();
+			cmbCPEquipVisitant->Items->Clear();
+			txtCPUbicacio->Text = L"";
+			dtpCPData->Value = DateTime::Now;
+
+			// Deshabilitem combos fins que es validi la lliga
+			cmbCPTemporada->Enabled = false;
+			cmbCPJornada->Enabled = false;
+			cmbCPEquipLocal->Enabled = false;
+			cmbCPEquipVisitant->Enabled = false;
+		}
+
+		
+
+	private: System::Void btnCPValidarLliga_Click(System::Object^ sender, System::EventArgs^ e) {
+		String^ nomLliga = txtCPNomLliga->Text;
+		if (String::IsNullOrWhiteSpace(nomLliga)) {
+			MessageBox::Show(L"Introdueix el nom de la Lliga a validar", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		try {
+			Playcampus::Domini::CtrlCrearPartit^ ctrl = gcnew Playcampus::Domini::CtrlCrearPartit();
+
+			// 1. Validar que la liga existe y somos dueños
+			if (!ctrl->ValidarAdministradorLliga(nomLliga, currentUsuariCorreu)) {
+				MessageBox::Show(L"No ets administrador d'aquesta lliga o no existeix.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				return;
+			}
+
+			// 2. Obtener Temporadas
+			auto temporades = ctrl->ObtenirTemporadesLliga(nomLliga);
+			cmbCPTemporada->Items->Clear();
+			cpTemporadesIds->Clear();
+
+			for each(auto temp in temporades) {
+				String^ txt = temp["dataInici"] + L" a " + temp["dataFi"];
+				cmbCPTemporada->Items->Add(txt);
+				cpTemporadesIds->Add(temp["idTemporada"]); // Guardar ID Oculto
+			}
+
+			// 3. Cargar Equipos (se hace por liga, así que los cargamos ya)
+			auto equips = ctrl->ObtenirNomsEquipsPerLliga(nomLliga);
+			cmbCPEquipLocal->Items->Clear();
+			cmbCPEquipVisitant->Items->Clear();
+
+			for each(String ^ nom in equips) {
+				cmbCPEquipLocal->Items->Add(nom);
+				cmbCPEquipVisitant->Items->Add(nom);
+			}
+
+			// Habilitar los combos porque la liga es válida
+			cmbCPTemporada->Enabled = true;
+			cmbCPEquipLocal->Enabled = true;
+			cmbCPEquipVisitant->Enabled = true;
+
+			if (cmbCPTemporada->Items->Count > 0) cmbCPTemporada->SelectedIndex = 0;
+
+			MessageBox::Show(L"Lliga carregada correctament. Selecciona temporada i equips.", L"Lliga Trobada", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error al validar la lliga: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
+
+		   // Cuando escoges una Temporada, buscar las Jornadas correspondientes
+	private: System::Void cmbCPTemporada_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (cmbCPTemporada->SelectedIndex == -1) return;
+
+		try {
+			Playcampus::Domini::CtrlCrearPartit^ ctrl = gcnew Playcampus::Domini::CtrlCrearPartit();
+			String^ idTempSeleccionada = cpTemporadesIds[cmbCPTemporada->SelectedIndex];
+
+			auto jornades = ctrl->ObtenirJornadesTemporada(idTempSeleccionada);
+
+			cmbCPJornada->Items->Clear();
+			cpJornadesIds->Clear();
+
+			for each(auto jorn in jornades) {
+				String^ text = L"Jornada " + jorn["numero"] + L" (" + jorn["dataInici"] + L")";
+				cmbCPJornada->Items->Add(text);
+				cpJornadesIds->Add(jorn["idJornada"]); // Guardar la ID
+			}
+
+			cmbCPJornada->Enabled = true;
+			if (cmbCPJornada->Items->Count > 0) cmbCPJornada->SelectedIndex = 0;
+			else MessageBox::Show(L"Aquesta temporada no té jornades.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error carregant jornades: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
+
+
+		private: System::Void btnCPCancellar_Click(System::Object^ sender, System::EventArgs^ e) {
+			pnlCrearPartit->Visible = false;
+
+			// Netegem els combos quan marxem
+			cmbCPJornada->Items->Clear();
+			cmbCPEquipLocal->Items->Clear();
+			cmbCPEquipVisitant->Items->Clear();
+			txtCPUbicacio->Text = L"";
+
+			if (btnCrearLligaMainMenu->Text == L"Gestionar Lliga") {
+				pnlGestionarLliga->Visible = true;
+			}
+			else {
+				pnlMain->Visible = true;
+			}
+		}
+
+		private: System::Void btnCPConfirmar_Click(System::Object^ sender, System::EventArgs^ e) {
+			// Validar dades
+			if (cmbCPJornada->SelectedIndex == -1 || cmbCPEquipLocal->SelectedIndex == -1 || cmbCPEquipVisitant->SelectedIndex == -1 || String::IsNullOrWhiteSpace(txtCPUbicacio->Text) || String::IsNullOrWhiteSpace(txtCPNomLliga->Text)) {
+				MessageBox::Show(L"Si us plau, valida la lliga i omple tots els camps.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+
+			String^ equipLocal = cmbCPEquipLocal->SelectedItem->ToString();
+			String^ equipVisit = cmbCPEquipVisitant->SelectedItem->ToString();
+
+			if (equipLocal == equipVisit) {
+				MessageBox::Show(L"L'equip local i visitant no poden ser el mateix.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+
+			DateTime dataPartit = dtpCPData->Value;
+			String^ ubicacioStr = txtCPUbicacio->Text;
+			String^ lligaStr = txtCPNomLliga->Text;
+
+			// Extreure el número de la jornada del text que es mostra al ComboBox (Ex: "Jornada 1 (01/01/2026)")
+			String^ textJornada = cmbCPJornada->SelectedItem->ToString();
+			int numJornada = 0;
+			try {
+				String^ parseTemp = textJornada->Substring(8); // Salta "Jornada "
+				parseTemp = parseTemp->Substring(0, parseTemp->IndexOf(" (")); // Elimina la part de la data " (01/01/2026)"
+				numJornada = Int32::Parse(parseTemp);
+			}
+			catch (Exception^) {
+				MessageBox::Show(L"No s'ha pogut determinar el número de jornada", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				return;
+			}
+
+			try {
+				Playcampus::Domini::CtrlCrearPartit^ ctrl = gcnew Playcampus::Domini::CtrlCrearPartit();
+
+				// Ara sí que passem el número de la jornada (int) en el 5è paràmetre
+				ctrl->CrearPartit(dataPartit, ubicacioStr, equipLocal, equipVisit, numJornada, currentUsuariTipus);
+
+				MessageBox::Show(L"Partit creat i desat a la base de dades correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				pnlCrearPartit->Visible = false;
+				pnlGestionarLliga->Visible = true;
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show(L"Error al desar el partit: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
+		}
 
 	private: System::Void btnGL_EnDesenvolupament_Click(System::Object^ sender, System::EventArgs^ e) {
 		MessageBox::Show(L"Funcionalitat en desenvolupament.");

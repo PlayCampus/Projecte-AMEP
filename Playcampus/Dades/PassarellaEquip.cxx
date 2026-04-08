@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "PassarellaEquip.hxx"
 
+using namespace System::Collections::Generic;
 using namespace System;
 using namespace MySql::Data::MySqlClient;
 
@@ -190,6 +191,28 @@ namespace Playcampus {
                 delete conn;
             }
             return equip;
+        }
+
+        List<String^>^ PassarellaEquip::ObtenirNomsEquipsPerLliga(String^ idLliga) {
+            List<String^>^ nomsEquips = gcnew List<String^>();
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            
+            try {
+                conn->Open();
+                String^ query = "SELECT nom FROM Equip WHERE idLliga = @idLliga";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idLliga", idLliga);
+                
+                MySqlDataReader^ reader = cmd->ExecuteReader();
+                while (reader->Read()) {
+                    nomsEquips->Add(reader->GetString("nom"));
+                }
+                reader->Close();
+            } finally {
+                conn->Close();
+            }
+            
+            return nomsEquips;
         }
 
     }
