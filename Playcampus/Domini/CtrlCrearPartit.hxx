@@ -23,6 +23,11 @@ namespace Playcampus {
             List<Dictionary<String^, String^>^>^ ObtenirTemporadesLliga(String^ nomLliga);
             List<Dictionary<String^, String^>^>^ ObtenirJornadesTemporada(String^ idTemporada);
             List<String^>^ ObtenirNomsEquipsPerLliga(String^ nomLliga);
+            String^ ObtenirNomLligaAdmin(String^ correuAdmin);
+            List<Dictionary<String^, String^>^>^ ObtenirPartitsPerLliga(String^ nomLliga, String^ correuAdmin);
+            Dictionary<String^, String^>^ ObtenirDetallPartit(String^ idPartit, String^ correuAdmin);
+            List<Dictionary<String^, String^>^>^ ObtenirJugadorsPartit(String^ idPartit, String^ correuAdmin);
+            void ActualitzarPartitIStats(String^ idPartit, String^ nouEstat, int resultatLocal, int resultatVisitant, String^ statsJson, String^ correuAdmin, Nullable<DateTime> novaDataPartit);
         };
     }
 }
