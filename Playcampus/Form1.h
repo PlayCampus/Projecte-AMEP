@@ -211,17 +211,9 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::ComboBox^ cmbCPEquipVisitant;
 		System::Windows::Forms::Button^ btnCPConfirmar;
 		System::Windows::Forms::Button^ btnCPCancellar;
-
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
 		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
 		void InitializeComponent(void)
 		{
 			this->components = gcnew System::ComponentModel::Container();
