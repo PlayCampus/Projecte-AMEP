@@ -223,6 +223,9 @@
     <ClCompile Include="Domini\CtrlEsborrarEquip.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Domini\CrearPartit.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico">

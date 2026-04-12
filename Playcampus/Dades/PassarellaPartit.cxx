@@ -81,5 +81,24 @@ namespace Playcampus {
                 }
             }
         }
+
+        // Nuevo helper: busca la jornada por número y por id de liga
+        int PassarellaPartit::buscarIdJornadaPorNumeroYLiga(int numero, int idLliga) {
+            // Ejemplo con SQLite (ajustar nombres de variables/objeto DB)
+            sqlite3_stmt* stmt = nullptr;
+            const char* sql = "SELECT id FROM Jornada WHERE numero = ? AND liga_id = ? LIMIT 1;";
+            if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+                // manejar error según políticas del proyecto
+                return -1;
+            }
+            sqlite3_bind_int(stmt, 1, numero);
+            sqlite3_bind_int(stmt, 2, idLliga);
+            int id = -1;
+            if (sqlite3_step(stmt) == SQLITE_ROW) {
+                id = sqlite3_column_int(stmt, 0);
+            }
+            sqlite3_finalize(stmt);
+            return id;
+        }
     }
 }

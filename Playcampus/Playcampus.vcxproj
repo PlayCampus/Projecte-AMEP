@@ -179,6 +179,7 @@
     <ClCompile Include="Dades\PassarellaTemporada.cxx" />
     <ClCompile Include="Dades\PassarellaUsuari.cxx" />
     <ClCompile Include="Dades\ConnexioBD.cxx" />
+    <ClCompile Include="Domini\CrearPartit.cxx" />
     <ClCompile Include="Domini\CtrlCrearJornada.cxx" />
     <ClCompile Include="Domini\CtrlCrearLliga.cxx" />
     <ClCompile Include="Domini\CtrlCrearPartit.cxx" />
