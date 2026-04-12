@@ -2180,24 +2180,19 @@ namespace CppCLRWinFormsProject {
 			String^ ubicacioStr = txtCPUbicacio->Text;
 			String^ lligaStr = txtCPNomLliga->Text;
 
-			// Extreure el número de la jornada del text que es mostra al ComboBox (Ex: "Jornada 1 (01/01/2026)")
-			String^ textJornada = cmbCPJornada->SelectedItem->ToString();
-			int numJornada = 0;
-			try {
-				String^ parseTemp = textJornada->Substring(8); // Salta "Jornada "
-				parseTemp = parseTemp->Substring(0, parseTemp->IndexOf(" (")); // Elimina la part de la data " (01/01/2026)"
-				numJornada = Int32::Parse(parseTemp);
-			}
-			catch (Exception^) {
-				MessageBox::Show(L"No s'ha pogut determinar el número de jornada", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			// Agafar la ID de la jornada que hem guardat prèviament al omplir el ComboBox
+			int indexJornada = cmbCPJornada->SelectedIndex;
+			if (indexJornada < 0 || indexJornada >= cpJornadesIds->Count) {
+				MessageBox::Show(L"No s'ha pogut determinar la jornada seleccionada", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 				return;
 			}
+			String^ idJornada = cpJornadesIds[indexJornada];
 
 			try {
 				Playcampus::Domini::CtrlCrearPartit^ ctrl = gcnew Playcampus::Domini::CtrlCrearPartit();
 
-				// Ara sí que passem el número de la jornada (int) en el 5è paràmetre
-				ctrl->CrearPartit(dataPartit, ubicacioStr, equipLocal, equipVisit, numJornada, currentUsuariTipus);
+				// Passem l'ID de la jornada (String) en el 5è paràmetre
+				ctrl->CrearPartit(dataPartit, ubicacioStr, equipLocal, equipVisit, idJornada, currentUsuariTipus);
 
 				MessageBox::Show(L"Partit creat i desat a la base de dades correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				pnlCrearPartit->Visible = false;

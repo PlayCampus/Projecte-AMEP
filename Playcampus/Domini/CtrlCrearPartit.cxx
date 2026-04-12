@@ -19,8 +19,8 @@ namespace Playcampus {
             connectionString = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
         }
 
-        void CtrlCrearPartit::CrearPartit(DateTime dataHora, String^ ubicacio, String^ nomEquipLocal, String^ nomEquipVisitant, int numeroJornada, String^ tipusUsuari) {
-            
+        void CtrlCrearPartit::CrearPartit(DateTime dataHora, String^ ubicacio, String^ nomEquipLocal, String^ nomEquipVisitant, String^ idJornada, String^ tipusUsuari) {
+
             // 1. Validar que l'usuari és Administrador
             if (String::IsNullOrEmpty(tipusUsuari) || tipusUsuari->ToLower() != "administrador") {
                 throw gcnew UnauthorizedAccessException("Només els administradors poden crear un partit.");
@@ -32,10 +32,9 @@ namespace Playcampus {
             }
 
             try {
-                // 3. Buscar els IDs d'Equip i Jornada a la BD
+                // 3. Buscar els IDs d'Equip a la BD
                 String^ idEquipLocal = ObtenirIdEquip(nomEquipLocal);
                 String^ idEquipVisitant = ObtenirIdEquip(nomEquipVisitant);
-                String^ idJornada = ObtenirIdJornada(numeroJornada);
 
                 if (String::IsNullOrEmpty(idEquipLocal)) {
                     throw gcnew Exception("L'equip local '" + nomEquipLocal + "' no existeix.");
@@ -44,7 +43,7 @@ namespace Playcampus {
                     throw gcnew Exception("L'equip visitant '" + nomEquipVisitant + "' no existeix.");
                 }
                 if (String::IsNullOrEmpty(idJornada)) {
-                    throw gcnew Exception("La jornada " + numeroJornada.ToString() + " no s'ha trobat.");
+                    throw gcnew Exception("La jornada no s'ha trobat o no és vàlida.");
                 }
 
                 // 4. Crear el partit (L'Estat inicial serà 'Pendent')
@@ -88,25 +87,6 @@ namespace Playcampus {
             return idRetorn;
         }
 
-        String^ CtrlCrearPartit::ObtenirIdJornada(int numJornada) {
-            String^ idRetorn = nullptr;
-            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
-            try {
-                conn->Open();
-                // Aquesta consulta pot variar depenent de si hi ha més temporades
-                String^ query = "SELECT idJornada FROM Jornada WHERE numero = @num LIMIT 1";
-                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                cmd->Parameters->AddWithValue("@num", numJornada);
-                Object^ result = cmd->ExecuteScalar();
-                if (result != nullptr) {
-                    idRetorn = result->ToString();
-                }
-            }
-            finally {
-                delete conn;
-            }
-            return idRetorn;
-        }
         // Validar Admin 
         bool CtrlCrearPartit::ValidarAdministradorLliga(String^ nomLliga, String^ correuAdmin) {
             Playcampus::Dades::PassarellaUsuari^ usuari = Playcampus::Dades::PassarellaUsuari::LlegeixPerCorreu(connectionString, correuAdmin);

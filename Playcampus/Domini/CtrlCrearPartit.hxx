@@ -13,11 +13,10 @@ namespace Playcampus {
             
             // Mètodes auxiliars per buscar IDs
             String^ ObtenirIdEquip(String^ nomEquip);
-            String^ ObtenirIdJornada(int numJornada);
 
         public:
             CtrlCrearPartit();
-            void CrearPartit(DateTime dataHora, String^ ubicacio, String^ nomEquipLocal, String^ nomEquipVisitant, int numeroJornada, String^ tipusUsuari);
+            void CrearPartit(DateTime dataHora, String^ ubicacio, String^ nomEquipLocal, String^ nomEquipVisitant, String^ idJornada, String^ tipusUsuari);
 
             bool ValidarAdministradorLliga(String^ nomLliga, String^ correuAdmin);
             List<Dictionary<String^, String^>^>^ ObtenirTemporadesLliga(String^ nomLliga);
