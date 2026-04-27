@@ -130,6 +130,7 @@
     <ResourceCompile Include="app.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Dades\PassarellaConvocatoria.hxx" />
     <ClInclude Include="Dades\PassarellaEquip.hxx" />
     <ClInclude Include="Dades\PassarellaJornada.hxx" />
     <ClInclude Include="Dades\PassarellaLliga.hxx" />
@@ -138,6 +139,7 @@
     <ClInclude Include="Dades\UsuariTx.h" />
     <ClInclude Include="Dades\PassarellaUsuari.hxx" />
     <ClInclude Include="Dades\ConnexioBD.hxx" />
+    <ClInclude Include="Domini\CtrlConvocatoria.hxx" />
     <ClInclude Include="Domini\CtrlCrearJornada.hxx" />
     <ClInclude Include="Domini\CtrlCrearLliga.hxx" />
     <ClInclude Include="Domini\CtrlCrearPartit.hxx" />
@@ -172,6 +174,7 @@
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="CppCLR_WinFormsProject.cpp" />
+    <ClCompile Include="Dades\PassarellaConvocatoria.cxx" />
     <ClCompile Include="Dades\PassarellaEquip.cxx" />
     <ClCompile Include="Dades\PassarellaJornada.cxx" />
     <ClCompile Include="Dades\PassarellaLliga.cxx" />
@@ -179,6 +182,7 @@
     <ClCompile Include="Dades\PassarellaTemporada.cxx" />
     <ClCompile Include="Dades\PassarellaUsuari.cxx" />
     <ClCompile Include="Dades\ConnexioBD.cxx" />
+    <ClCompile Include="Domini\CtrlConvocatoria.cxx" />
     <ClCompile Include="Domini\CtrlCrearJornada.cxx" />
     <ClCompile Include="Domini\CtrlCrearLliga.cxx" />
     <ClCompile Include="Domini\CtrlCrearPartit.cxx" />
@@ -223,6 +227,7 @@
   <ItemGroup>
     <None Include="amep06_equip.sql" />
     <None Include="configuracio.env" />
+    <None Include="schemaconvocatoria.sql" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

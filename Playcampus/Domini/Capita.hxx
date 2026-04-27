@@ -23,6 +23,8 @@ namespace Playcampus {
             void TramitarBaixaJugador(String^ idJugador);
 
             void InscriureEquipCompeticio(String^ idCompeticio);
+
+            void CrearConvocatoria(String^ idPartit, String^ connStr);
         };
     }
 }

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Capita.hxx"
+#include "CtrlConvocatoria.hxx"
 
 using namespace System;
 
@@ -33,6 +34,13 @@ namespace Playcampus {
         void Capita::InscriureEquipCompeticio(String^ idCompeticio) {
             if(validatPerAdmin) {
                 // Inscriure equip en els terminis establerts
+            }
+        }
+
+        void Capita::CrearConvocatoria(String^ idPartit, String^ connStr) {
+            if (validatPerAdmin && !String::IsNullOrEmpty(idEquip)) {
+                CtrlConvocatoria^ ctrl = gcnew CtrlConvocatoria(connStr);
+                ctrl->CrearConvocatoria(idPartit, idEquip);
             }
         }
     }

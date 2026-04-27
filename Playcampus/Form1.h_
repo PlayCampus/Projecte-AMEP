@@ -10,7 +10,6 @@
 #include "Domini/CtrlCrearJornada.hxx"
 #include "Dades/ConnexioBD.hxx"
 #include "Domini/CtrlEsborrarEquip.hxx"
-#include "Domini/CtrlConvocatoria.hxx"
 
 namespace CppCLRWinFormsProject {
 
@@ -742,17 +741,14 @@ namespace CppCLRWinFormsProject {
 			this->lblCPTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
 			this->lblCPTitle->AutoSize = true;
 
-			// --- Propietats originals ---
+			// --- Propiedades NOU CAMPS Lliga i Temporada ---
 			this->lblCPNomLliga->Text = L"Nom Lliga:";
 			this->lblCPNomLliga->Size = System::Drawing::Size(100, 20);
+			this->txtCPNomLliga->Size = System::Drawing::Size(100, 20);
 
-			this->txtCPNomLliga->Size = System::Drawing::Size(150, 20);
-
-			this->lblCLPass->Text = L"Contrasenya:";
-			this->lblCLPass->Size = System::Drawing::Size(100, 20);
-
-			this->txtCLPass->UseSystemPasswordChar = true;
-			this->txtCLPass->Size = System::Drawing::Size(150, 20);
+			this->btnCPValidarLliga->Text = L"Validar Lliga";
+			this->btnCPValidarLliga->Size = System::Drawing::Size(100, 25);
+			this->btnCPValidarLliga->Click += gcnew System::EventHandler(this, &Form1::btnCPValidarLliga_Click);
 
 			this->lblCPTemporada->Text = L"Temporada:";
 			this->lblCPTemporada->Size = System::Drawing::Size(100, 20);
@@ -760,7 +756,7 @@ namespace CppCLRWinFormsProject {
 			this->cmbCPTemporada->Size = System::Drawing::Size(150, 20);
 			this->cmbCPTemporada->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbCPTemporada_SelectedIndexChanged);
 
-			// -------------- AFEGIT EL NOU CAMP I LA VALIDACIÓ --------------
+			// --- Resta de propietats originals ---
 			this->lblCPJornada->Text = L"Jornada:";
 			this->lblCPJornada->Size = System::Drawing::Size(100, 20);
 			this->cmbCPJornada->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
@@ -981,6 +977,8 @@ namespace CppCLRWinFormsProject {
 			this->lblGETitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
 			this->lblGETitle->AutoSize = true;
 
+			System::Drawing::Font^ actionBtnFont = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
+
 			this->btnGEEsborrarEquip->Text = L"Esborrar equip";
 			this->btnGEEsborrarEquip->Size = System::Drawing::Size(220, 60);
 			this->btnGEEsborrarEquip->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
@@ -1161,66 +1159,6 @@ namespace CppCLRWinFormsProject {
 		// --- PANEL GESTIONAR LLIGA ---
 		this->lblGLTitle->Location = System::Drawing::Point(centerX - this->lblGLTitle->Width / 2, 40);
 		this->btnGLTornar->Location = System::Drawing::Point(30, 30);
-
-		int glStartY = centerY - 20;
-		int glSpacingX = 40;
-		int glSpacingY = 40;
-		int btnGLW = this->btnGLAfegirPartit->Width;
-		int btnGLH = this->btnGLAfegirPartit->Height;
-
-		this->btnGLAfegirPartit->Location = System::Drawing::Point(centerX - btnGLW - (glSpacingX / 2), glStartY);
-		this->btnGLEditarPartit->Location = System::Drawing::Point(centerX + (glSpacingX / 2), glStartY);
-		this->btnGLMostrarEquips->Location = System::Drawing::Point(centerX - btnGLW - (glSpacingX / 2), glStartY + btnGLH + glSpacingY);
-		this->btnGLEsborrarEquip->Location = System::Drawing::Point(centerX + (glSpacingX / 2), glStartY + btnGLH + glSpacingY);
-		this->btnGLCrearJornada->Location = System::Drawing::Point(centerX - btnGLW - (glSpacingX / 2), glStartY + (btnGLH + glSpacingY) * 2);
-		this->btnGLCrearTemporada->Location = System::Drawing::Point(centerX + (glSpacingX / 2), glStartY + (btnGLH + glSpacingY) * 2);
-
-		this->picLogoGL->Location = System::Drawing::Point(centerX - (this->picLogoGL->Width / 2), glStartY - this->picLogoGL->Height - 40);
-
-		// --- PANEL CREAR PARTIT ---
-		this->lblCPTitle->Location = System::Drawing::Point(centerX - this->lblCPTitle->Width / 2, 10); // Más arriba
-
-		int cpStartX = centerX - 160;
-		int cpStartY = centerY - 150; // Empezamos más arriba
-
-		// 1. Liga
-		this->lblCPNomLliga->Location = System::Drawing::Point(cpStartX, cpStartY);
-		this->txtCPNomLliga->Location = System::Drawing::Point(cpStartX + 120, cpStartY);
-		// Botón de validación a un lado
-		this->btnCPValidarLliga->Location = System::Drawing::Point(cpStartX + 230, cpStartY - 3);
-
-		// 2. Temporada
-		this->lblCPTemporada->Location = System::Drawing::Point(cpStartX, cpStartY + 40);
-		this->cmbCPTemporada->Location = System::Drawing::Point(cpStartX + 120, cpStartY + 40);
-
-		// 3. Jornada
-		this->lblCPJornada->Location = System::Drawing::Point(cpStartX, cpStartY + 80);
-		this->cmbCPJornada->Location = System::Drawing::Point(cpStartX + 120, cpStartY + 80);
-
-		// 4. Data
-		this->lblCPData->Location = System::Drawing::Point(cpStartX, cpStartY + 120);
-		this->dtpCPData->Location = System::Drawing::Point(cpStartX + 120, cpStartY + 120);
-
-		// 5. Ubicació
-		this->lblCPUbicacio->Location = System::Drawing::Point(cpStartX, cpStartY + 160);
-		this->txtCPUbicacio->Location = System::Drawing::Point(cpStartX + 120, cpStartY + 160);
-
-		// 6. Equipos
-		this->lblCPEquipLocal->Location = System::Drawing::Point(cpStartX, cpStartY + 200);
-		this->cmbCPEquipLocal->Location = System::Drawing::Point(cpStartX + 120, cpStartY + 200);
-
-		this->lblCPEquipVisitant->Location = System::Drawing::Point(cpStartX, cpStartY + 240);
-		this->cmbCPEquipVisitant->Location = System::Drawing::Point(cpStartX + 120, cpStartY + 240);
-
-		// 7. Botones confirmación
-		this->btnCPConfirmar->Location = System::Drawing::Point(cpStartX + 20, cpStartY + 290);
-		this->btnCPConfirmar->Size = System::Drawing::Size(100, 30);
-		this->btnCPCancellar->Location = System::Drawing::Point(cpStartX + 140, cpStartY + 290);
-		this->btnCPCancellar->Size = System::Drawing::Size(100, 30);
-
-		// --- PANEL GESTIONAR EQUIP ---
-		this->lblGETitle->Location = System::Drawing::Point(centerX - this->lblGETitle->Width / 2, 40);
-		this->btnGETornar->Location = System::Drawing::Point(30, 30);
 		
 		int geStartY = centerY - 20;
 		int btnGEW = this->btnGEEsborrarEquip->Width;
@@ -1322,8 +1260,8 @@ namespace CppCLRWinFormsProject {
 		pnlMain->Visible = false;
 		pnlUnirEquipLliga->Visible = true;
 		
-		txtUELNom->Text = L"";;
-		txtUELPass->Text = L"";;
+		txtUELNom->Text = L"";
+		txtUELPass->Text = L"";
 		txtUELNom->Enabled = true;
 		btnUELComprovar->Visible = true;
 		lblUELPass->Visible = false;
@@ -1395,8 +1333,8 @@ namespace CppCLRWinFormsProject {
 			lblUELPass->Visible = false;
 			txtUELPass->Visible = false;
 			btnUELUnir->Visible = false;
-			txtUELNom->Text = L"";;
-			txtUELPass->Text = L"";;
+			txtUELNom->Text = L"";
+			txtUELPass->Text = L"";
 		}
 	}
 
@@ -1521,8 +1459,11 @@ namespace CppCLRWinFormsProject {
 			pnlRegister->Visible = false;
 			pnlInici->Visible = true;
 
-			txtRegNom->Text = L"";;
-			txtRegCorreu->Text = L"";;
+			txtRegNom->Text = L"";
+			txtRegCorreu->Text = L"";
+		txtRegPass->Text = L"";
+			cmbRegTipus->SelectedIndex = 0;
+			txtRegTelefon->Text = L"";
 		}
 		catch (Exception^ ex) {
 			MessageBox::Show(L"Error al registrar: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
@@ -1591,7 +1532,7 @@ namespace CppCLRWinFormsProject {
 			pnlGestionarLliga->Visible = false;
 			pnlCrearJornada->Visible = true;
 
-			txtCJNomLliga->Text = L"";;
+			txtCJNomLliga->Text = L"";
 			cmbCJTemporada->Items->Clear();
 			cjTemporadaIds->Clear();
 			dtpCJDataInici->Value = DateTime::Now;
@@ -1685,7 +1626,7 @@ namespace CppCLRWinFormsProject {
 			pnlCrearTemporada->Visible = true;
 			txtCTNomLliga->Text = L""; // <--- AFEGIR AQUESTA LÍNIA PELS VALORS RESIDUALS
 			dtpCTDataInici->Value = DateTime::Now;
-			dtpCTDataFi->Value = DateTime::Now.AddMonths(6); // Por defecto acaba en 6 meses
+			dtpCTDataFi->Value = DateTime::Now.AddMonths(6); // Por defecto acaba en 6 mesos
 		}
 
 	private: System::Void btnCTCancellar_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1709,7 +1650,7 @@ namespace CppCLRWinFormsProject {
 		}
 
 		try {
-			// Instanciar el controlador y llamar a la BD pasandole ahora el nombre
+			// Instanciar el controlador i llamar a la BD pasandole ara el nombre
 			Playcampus::Domini::CtrlCrearTemporada^ ctrl = gcnew Playcampus::Domini::CtrlCrearTemporada();
 			ctrl->CrearTemporada(dataInici, dataFi, currentUsuariCorreu, nomLliga); // <--- AFEGIM EL NOU PARAMETRE
 
@@ -1728,16 +1669,12 @@ namespace CppCLRWinFormsProject {
 			pnlCrearPartit->Visible = true;
 
 			// Netejem tot 
-			txtCPNomLliga->Text = L"";;
+			txtCPNomLliga->Text = L"";
 			cmbCPTemporada->Items->Clear();
 			cjTemporadaIds->Clear();
 			dtpCPData->Value = DateTime::Now;
-
-			// Deshabilitem combos fins que es validi la lliga
-			cmbCPTemporada->Enabled = false;
-			cmbCPJornada->Enabled = false;
-			cmbCPEquipLocal->Enabled = false;
-			cmbCPEquipVisitant->Enabled = false;
+			cmbCPEquipLocal->SelectedIndex = -1;
+			cmbCPEquipVisitant->SelectedIndex = -1;
 		}
 
 		private: System::Void btnGLEditarPartit_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -2095,7 +2032,7 @@ namespace CppCLRWinFormsProject {
 			for each(auto temp in temporades) {
 				String^ txt = temp["dataInici"] + L" a " + temp["dataFi"];
 				cmbCPTemporada->Items->Add(txt);
-				cpTemporadesIds->Add(temp["idTemporada"]); // Guardar ID Oculto
+				cpTemporadesIds->Add(temp["idTemporada"]); // Guardar ID Ocult
 			}
 
 			// 3. Cargar Equipos (se hace por liga, así que los cargamos ya)
@@ -2159,7 +2096,7 @@ namespace CppCLRWinFormsProject {
 			cmbCPJornada->Items->Clear();
 			cmbCPEquipLocal->Items->Clear();
 			cmbCPEquipVisitant->Items->Clear();
-			txtCPUbicacio->Text = L"";;
+			txtCPUbicacio->Text = L"";
 
 			if (btnCrearLligaMainMenu->Text == L"Gestionar Lliga") {
 				pnlGestionarLliga->Visible = true;
@@ -2211,7 +2148,7 @@ namespace CppCLRWinFormsProject {
 			}
 		}
 
-	private: System::Void btnGL_EnDesenvolupament_Click(System::Object^ sender, System::EventArgs^ e) {
+		private: System::Void btnGL_EnDesenvolupament_Click(System::Object^ sender, System::EventArgs^ e) {
 		MessageBox::Show(L"Funcionalitat en desenvolupament.");
 	}
 
@@ -2264,7 +2201,7 @@ namespace CppCLRWinFormsProject {
 
 		pnlMain->Visible = false;
 		pnlEnregistrarEquip->Visible = true;
-		txtEENom->Text = L"";;
+		txtEENom->Text = L"";
 		dtpEEData->Value = DateTime::Now;
 		cmbEEEscollirEsport->SelectedIndex = -1;
 	}
@@ -2274,8 +2211,12 @@ namespace CppCLRWinFormsProject {
 		pnlMain->Visible = true;
 	}
 
+	private: System::Void btnGECrearConvocatoria_Click(System::Object^ sender, System::EventArgs^ e) {
+		MessageBox::Show(L"Funcionalitat de crear convocatria pendent d'implementar a la vista.", L"Avs", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	}
+
 	private: System::Void btnGEEsborrarEquip_Click(System::Object^ sender, System::EventArgs^ e) {
-		System::Windows::Forms::DialogResult result = MessageBox::Show(L"Estàs segur que vols esborrar l'equip?", L"Esborrar Equip", MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
+		System::Windows::Forms::DialogResult result = MessageBox::Show(L"Ests segur que vols esborrar l'equip?", L"Esborrar Equip", MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
 		if (result == System::Windows::Forms::DialogResult::Yes) {
 			try {
 				Playcampus::Domini::CtrlEsborrarEquip^ ctrlEsborrar = gcnew Playcampus::Domini::CtrlEsborrarEquip();
@@ -2288,35 +2229,6 @@ namespace CppCLRWinFormsProject {
 			} catch (Exception^ ex) {
 				MessageBox::Show(L"Error a l'esborrar l'equip: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
-		}
-	}
-
-	private: System::Void btnGECrearConvocatoria_Click(System::Object^ sender, System::EventArgs^ e) {
-		try {
-			String^ connectionString = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
-            Playcampus::Domini::CtrlConvocatoria^ ctrl = gcnew Playcampus::Domini::CtrlConvocatoria(connectionString);
-			String^ dummyPartit = "dummy_partit_id";
-			
-			String^ correu = currentUsuariCorreu;
-			MySql::Data::MySqlClient::MySqlConnection^ conn = gcnew MySql::Data::MySqlClient::MySqlConnection(connectionString);
-			String^ idEquip = nullptr;
-			conn->Open();
-			String^ queryCap = "SELECT C.idEquip FROM Capita C JOIN Usuari U ON C.identificador = U.identificador WHERE U.correu_electronic = @correu";
-			MySql::Data::MySqlClient::MySqlCommand^ cmdCap = gcnew MySql::Data::MySqlClient::MySqlCommand(queryCap, conn);
-			cmdCap->Parameters->AddWithValue("@correu", correu);
-			Object^ idEquipObj = cmdCap->ExecuteScalar();
-
-			if (idEquipObj != nullptr && idEquipObj != DBNull::Value && !String::IsNullOrWhiteSpace(idEquipObj->ToString())) {
-				idEquip = idEquipObj->ToString()->Trim();
-				ctrl->CrearConvocatoria(dummyPartit, idEquip);
-				MessageBox::Show(L"Convocatòia creada exitosament (Demo).", L"Exit", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			} else {
-				MessageBox::Show(L"Aquest capità no té un equip actiu per crear una convoatoria.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-			}
-			delete conn;
-		}
-		catch (Exception^ ex) {
-			MessageBox::Show(L"Error al crear: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
 
