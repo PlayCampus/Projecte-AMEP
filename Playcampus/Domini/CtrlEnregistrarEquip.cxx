@@ -3,6 +3,7 @@
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/PassarellaEquip.hxx"
 #include "../Dades/PassarellaUsuari.hxx"
+#include "../Dades/CercadoraUsuari.hxx"
 #include <stdexcept>
 
 using namespace System;
@@ -21,7 +22,7 @@ namespace Playcampus {
 
             String^ idCapita = nullptr;
             if (!String::IsNullOrEmpty(correuUsuari)) {
-                Playcampus::Dades::PassarellaUsuari^ capUser = Playcampus::Dades::PassarellaUsuari::LlegeixPerCorreu(connectionString, correuUsuari);
+                Playcampus::Dades::PassarellaUsuari^ capUser = (gcnew Playcampus::Dades::CercadoraUsuari(connectionString))->LlegeixPerCorreu( correuUsuari);
                 if (capUser != nullptr && capUser->GetIdentificador() != nullptr) {
                     idCapita = capUser->GetIdentificador()->Trim();
                 }

@@ -4,7 +4,9 @@
 #include "../Dades/PassarellaPartit.hxx"
 #include "../Dades/PassarellaLliga.hxx"
 #include "../Dades/PassarellaUsuari.hxx"
+#include "../Dades/CercadoraUsuari.hxx"
 #include "../Dades/PassarellaTemporada.hxx"
+#include "../Dades/CercadoraJornada.hxx"
 #include "../Dades/PassarellaJornada.hxx"
 #include "../Dades/PassarellaEquip.hxx" // Necesario para buscar los equipos
 #include <stdexcept>
@@ -89,7 +91,7 @@ namespace Playcampus {
 
         // Validar Admin 
         bool CtrlCrearPartit::ValidarAdministradorLliga(String^ nomLliga, String^ correuAdmin) {
-            Playcampus::Dades::PassarellaUsuari^ usuari = Playcampus::Dades::PassarellaUsuari::LlegeixPerCorreu(connectionString, correuAdmin);
+            Playcampus::Dades::PassarellaUsuari^ usuari = (gcnew Playcampus::Dades::CercadoraUsuari(connectionString))->LlegeixPerCorreu( correuAdmin);
             if (usuari == nullptr) return false;
 
             Playcampus::Dades::PassarellaLliga^ passLliga = gcnew Playcampus::Dades::PassarellaLliga(connectionString);
@@ -106,8 +108,8 @@ namespace Playcampus {
 
         //  Obtenir Jornades
         List<Dictionary<String^, String^>^>^ CtrlCrearPartit::ObtenirJornadesTemporada(String^ idTemporada) {
-            Playcampus::Dades::PassarellaJornada^ passJor = gcnew Playcampus::Dades::PassarellaJornada(connectionString);
-            return passJor->ObtenirDictJornadesPerTemporada(idTemporada);
+            Playcampus::Dades::CercadoraJornada^ cercJor = gcnew Playcampus::Dades::CercadoraJornada(connectionString);
+            return cercJor->ObtenirDictJornadesPerTemporada(idTemporada);
         }
 
         // Obtenir Equips de la Lliga per nom

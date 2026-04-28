@@ -7,10 +7,6 @@ using namespace MySql::Data::MySqlClient;
 
 namespace Playcampus {
     namespace Dades {
-        PassarellaPartit::PassarellaPartit(String^ connStr) {
-            connectionString = connStr;
-        }
-
         PassarellaPartit::PassarellaPartit(String^ connStr, String^ idPartit, DateTime dataHora, String^ ubicacio, String^ estat, int golsLocal, int golsVisitant, String^ idJornada, String^ idEquipLocal, String^ idEquipVisitant) {
             connectionString = connStr;
             this->idPartit = idPartit;
@@ -57,23 +53,6 @@ namespace Playcampus {
                 cmd->Parameters->AddWithValue("@idEquipVisitant", idEquipVisitant);
 
                 cmd->ExecuteNonQuery();
-            }
-            finally {
-                if (conn != nullptr) {
-                    delete conn;
-                }
-            }
-        }
-        
-        DataTable^ PassarellaPartit::ObtenirPartits() {
-            DataTable^ dt = gcnew DataTable();
-            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
-            try {
-                conn->Open();
-                String^ query = "SELECT idPartit, dataHora, ubicacio, estat, golsLocal, golsVisitant, idJornada, idEquipLocal, idEquipVisitant FROM Partit";
-                MySqlDataAdapter^ da = gcnew MySqlDataAdapter(query, conn);
-                da->Fill(dt);
-                return dt;
             }
             finally {
                 if (conn != nullptr) {

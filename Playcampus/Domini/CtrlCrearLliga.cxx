@@ -3,6 +3,8 @@
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/PassarellaLliga.hxx"
 #include "../Dades/PassarellaUsuari.hxx"
+#include "../Dades/CercadoraUsuari.hxx"
+#include "../Dades/CercadoraUsuari.hxx"
 #include <stdexcept>
 
 using namespace System;
@@ -24,7 +26,7 @@ namespace Playcampus {
 
             String^ idAdmin = nullptr;
             if (!String::IsNullOrEmpty(correuUsuari)) {
-                Playcampus::Dades::PassarellaUsuari^ adminUser = Playcampus::Dades::PassarellaUsuari::LlegeixPerCorreu(connectionString, correuUsuari);
+                Playcampus::Dades::PassarellaUsuari^ adminUser = (gcnew Playcampus::Dades::CercadoraUsuari(connectionString))->LlegeixPerCorreu(correuUsuari);
                 if (adminUser != nullptr && adminUser->GetIdentificador() != nullptr) {
                     idAdmin = adminUser->GetIdentificador()->Trim(); // Utilitzem Trim() per assegurar que no hi hagi espais en blanc que trenquin la clau
                 }
@@ -49,7 +51,7 @@ namespace Playcampus {
         bool CtrlCrearLliga::TeLligaActiva(String^ correuUsuari) {
             String^ idAdmin = nullptr;
             if (!String::IsNullOrEmpty(correuUsuari)) {
-                Playcampus::Dades::PassarellaUsuari^ adminUser = Playcampus::Dades::PassarellaUsuari::LlegeixPerCorreu(connectionString, correuUsuari);
+                Playcampus::Dades::PassarellaUsuari^ adminUser = (gcnew Playcampus::Dades::CercadoraUsuari(connectionString))->LlegeixPerCorreu(correuUsuari);
                 if (adminUser != nullptr && adminUser->GetIdentificador() != nullptr) {
                     idAdmin = adminUser->GetIdentificador()->Trim();
                 }

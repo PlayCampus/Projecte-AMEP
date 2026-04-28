@@ -19,7 +19,6 @@ namespace Playcampus {
 
         public:
             // Constructores
-            PassarellaJornada(String^ connStr);
             PassarellaJornada(String^ connStr, String^ idJornada, String^ idTemporada,int numero, DateTime dataInici, DateTime dataFi, String^ estat);
 
             // Getters
@@ -30,10 +29,9 @@ namespace Playcampus {
             String^ GetEstat();
             int GetNumero();
 
-      
+
             // Métodos de base de datos
             void Insereix();
-            List<Dictionary<String^, String^>^>^ ObtenirDictJornadesPerTemporada(String^ idTemporada);
         };
     }
 }

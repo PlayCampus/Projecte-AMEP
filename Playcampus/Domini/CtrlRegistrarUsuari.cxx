@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CtrlRegistrarUsuari.hxx"
 #include "../Dades/PassarellaUsuari.hxx"
+#include "../Dades/CercadoraUsuari.hxx"
 #include "../Dades/ConnexioBD.hxx"
 
 using namespace System;

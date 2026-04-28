@@ -2,6 +2,7 @@
 #include "CtrlCrearTemporada.hxx"
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/PassarellaUsuari.hxx"
+#include "../Dades/CercadoraUsuari.hxx"
 #include "../Dades/PassarellaLliga.hxx"
 #include "../Dades/PassarellaTemporada.hxx"
 #include <stdexcept>
@@ -20,7 +21,7 @@ namespace Playcampus {
 
             // 1. Busquem l'ID de l'administrador mitjançant el seu correu
             if (!String::IsNullOrEmpty(correuAdmin)) {
-                Playcampus::Dades::PassarellaUsuari^ adminUser = Playcampus::Dades::PassarellaUsuari::LlegeixPerCorreu(connectionString, correuAdmin);
+                Playcampus::Dades::PassarellaUsuari^ adminUser = (gcnew Playcampus::Dades::CercadoraUsuari(connectionString))->LlegeixPerCorreu( correuAdmin);
                 if (adminUser != nullptr && adminUser->GetIdentificador() != nullptr) {
                     idAdmin = adminUser->GetIdentificador()->Trim();
                 }
