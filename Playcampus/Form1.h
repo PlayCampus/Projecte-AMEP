@@ -11,6 +11,7 @@
 #include "Domini/CtrlCrearJornada.hxx"
 #include "Dades/ConnexioBD.hxx"
 #include "Domini/CtrlEsborrarEquip.hxx"
+#include "Domini/CtrlAfegirJugador.hxx"
 
 namespace CppCLRWinFormsProject {
 
@@ -165,7 +166,19 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Panel^ pnlGestionarEquip;
 		System::Windows::Forms::Label^ lblGETitle;
 		System::Windows::Forms::Button^ btnGEEsborrarEquip;
+		System::Windows::Forms::Button^ btnGEAfegirJugador;
 		System::Windows::Forms::Button^ btnGETornar;
+
+		System::Windows::Forms::Panel^ pnlAfegirJugador;
+		System::Windows::Forms::Label^ lblAJTitle;
+		System::Windows::Forms::Label^ lblAJCorreu;
+		System::Windows::Forms::TextBox^ txtAJCorreu;
+		System::Windows::Forms::Label^ lblAJDorsal;
+		System::Windows::Forms::TextBox^ txtAJDorsal;
+		System::Windows::Forms::Label^ lblAJPosicio;
+		System::Windows::Forms::TextBox^ txtAJPosicio;
+		System::Windows::Forms::Button^ btnAJConfirmar;
+		System::Windows::Forms::Button^ btnAJCancellar;
 
 		System::Windows::Forms::Panel^ pnlUnirEquipLliga;
 		System::Windows::Forms::Label^ lblUELTitle;
@@ -963,12 +976,14 @@ namespace CppCLRWinFormsProject {
 			this->pnlGestionarEquip = gcnew System::Windows::Forms::Panel();
 			this->lblGETitle = gcnew System::Windows::Forms::Label();
 			this->btnGEEsborrarEquip = gcnew System::Windows::Forms::Button();
+			this->btnGEAfegirJugador = gcnew System::Windows::Forms::Button();
 			this->btnGETornar = gcnew System::Windows::Forms::Button();
-			
+
 			this->pnlGestionarEquip->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->pnlGestionarEquip->Visible = false;
 			this->pnlGestionarEquip->Controls->Add(this->lblGETitle);
 			this->pnlGestionarEquip->Controls->Add(this->btnGEEsborrarEquip);
+			this->pnlGestionarEquip->Controls->Add(this->btnGEAfegirJugador);
 			this->pnlGestionarEquip->Controls->Add(this->btnGETornar);
 
 			this->lblGETitle->Text = L"Gestionar Equip";
@@ -983,11 +998,70 @@ namespace CppCLRWinFormsProject {
 			this->btnGEEsborrarEquip->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->btnGEEsborrarEquip->Click += gcnew System::EventHandler(this, &Form1::btnGEEsborrarEquip_Click);
 
+			this->btnGEAfegirJugador->Text = L"Afegir jugador";
+			this->btnGEAfegirJugador->Size = System::Drawing::Size(220, 60);
+			this->btnGEAfegirJugador->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
+			this->btnGEAfegirJugador->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnGEAfegirJugador->Click += gcnew System::EventHandler(this, &Form1::btnGEAfegirJugador_Click);
+
 			this->btnGETornar->Text = L"Tornar";
 			this->btnGETornar->Size = System::Drawing::Size(100, 30);
 			this->btnGETornar->Click += gcnew System::EventHandler(this, &Form1::btnGETornar_Click);
-			
+
 			this->Controls->Add(this->pnlGestionarEquip);
+
+			// pnlAfegirJugador
+			this->pnlAfegirJugador = gcnew System::Windows::Forms::Panel();
+			this->lblAJTitle = gcnew System::Windows::Forms::Label();
+			this->lblAJCorreu = gcnew System::Windows::Forms::Label();
+			this->txtAJCorreu = gcnew System::Windows::Forms::TextBox();
+			this->lblAJDorsal = gcnew System::Windows::Forms::Label();
+			this->txtAJDorsal = gcnew System::Windows::Forms::TextBox();
+			this->lblAJPosicio = gcnew System::Windows::Forms::Label();
+			this->txtAJPosicio = gcnew System::Windows::Forms::TextBox();
+			this->btnAJConfirmar = gcnew System::Windows::Forms::Button();
+			this->btnAJCancellar = gcnew System::Windows::Forms::Button();
+
+			this->pnlAfegirJugador->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->pnlAfegirJugador->Visible = false;
+			this->pnlAfegirJugador->Controls->Add(this->lblAJTitle);
+			this->pnlAfegirJugador->Controls->Add(this->lblAJCorreu);
+			this->pnlAfegirJugador->Controls->Add(this->txtAJCorreu);
+			this->pnlAfegirJugador->Controls->Add(this->lblAJDorsal);
+			this->pnlAfegirJugador->Controls->Add(this->txtAJDorsal);
+			this->pnlAfegirJugador->Controls->Add(this->lblAJPosicio);
+			this->pnlAfegirJugador->Controls->Add(this->txtAJPosicio);
+			this->pnlAfegirJugador->Controls->Add(this->btnAJConfirmar);
+			this->pnlAfegirJugador->Controls->Add(this->btnAJCancellar);
+
+			this->lblAJTitle->Text = L"Afegir Jugador";
+			this->lblAJTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
+			this->lblAJTitle->AutoSize = true;
+
+			this->lblAJCorreu->Text = L"Correu Estudiant:";
+			this->lblAJCorreu->Size = System::Drawing::Size(120, 20);
+
+			this->txtAJCorreu->Size = System::Drawing::Size(200, 20);
+
+			this->lblAJDorsal->Text = L"Dorsal:";
+			this->lblAJDorsal->Size = System::Drawing::Size(120, 20);
+
+			this->txtAJDorsal->Size = System::Drawing::Size(200, 20);
+
+			this->lblAJPosicio->Text = L"Posició (Opcional):";
+			this->lblAJPosicio->Size = System::Drawing::Size(120, 20);
+
+			this->txtAJPosicio->Size = System::Drawing::Size(200, 20);
+
+			this->btnAJConfirmar->Text = L"Confirmar";
+			this->btnAJConfirmar->Size = System::Drawing::Size(100, 30);
+			this->btnAJConfirmar->Click += gcnew System::EventHandler(this, &Form1::btnAJConfirmar_Click);
+
+			this->btnAJCancellar->Text = L"Cancel·lar";
+			this->btnAJCancellar->Size = System::Drawing::Size(100, 30);
+			this->btnAJCancellar->Click += gcnew System::EventHandler(this, &Form1::btnAJCancellar_Click);
+
+			this->Controls->Add(this->pnlAfegirJugador);
 
 			// pnlUnirEquipLliga
 			this->pnlUnirEquipLliga = gcnew System::Windows::Forms::Panel();
@@ -1209,15 +1283,31 @@ namespace CppCLRWinFormsProject {
 		// --- PANEL GESTIONAR EQUIP ---
 		this->lblGETitle->Location = System::Drawing::Point(centerX - this->lblGETitle->Width / 2, 40);
 		this->btnGETornar->Location = System::Drawing::Point(30, 30);
-		
+
 		int geStartY = centerY - 20;
 		int btnGEW = this->btnGEEsborrarEquip->Width;
 		this->btnGEEsborrarEquip->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY);
+		this->btnGEAfegirJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 70);
+
+		// --- PANEL AFEGIR JUGADOR ---
+		this->lblAJTitle->Location = System::Drawing::Point(centerX - this->lblAJTitle->Width / 2, 30);
+		this->btnAJCancellar->Location = System::Drawing::Point(30, 30);
+
+		int ajStartX = centerX - 125;
+		int ajStartY = centerY - 50;
+		this->lblAJCorreu->Location = System::Drawing::Point(ajStartX, ajStartY);
+		this->txtAJCorreu->Location = System::Drawing::Point(ajStartX + 140, ajStartY);
+		this->lblAJDorsal->Location = System::Drawing::Point(ajStartX, ajStartY + 40);
+		this->txtAJDorsal->Location = System::Drawing::Point(ajStartX + 140, ajStartY + 40);
+		this->lblAJPosicio->Location = System::Drawing::Point(ajStartX, ajStartY + 80);
+		this->txtAJPosicio->Location = System::Drawing::Point(ajStartX + 140, ajStartY + 80);
+		this->btnAJConfirmar->Location = System::Drawing::Point(ajStartX + 20, ajStartY + 130);
+		this->btnAJCancellar->Location = System::Drawing::Point(ajStartX + 150, ajStartY + 130);
 
 		// --- PANEL ENREGISTRAR EQUIP ---
 		this->lblEETitle->Location = System::Drawing::Point(centerX - this->lblEETitle->Width / 2, 30);
 		this->btnEETornar->Location = System::Drawing::Point(30, 30);
-		
+
 		int eeStartX = centerX - 125;
 		int eeStartY = centerY - 50;
 		this->lblEENom->Location = System::Drawing::Point(eeStartX, eeStartY);
@@ -1437,6 +1527,8 @@ namespace CppCLRWinFormsProject {
 				pnlGestionarLliga->Visible = false;
 				pnlEnregistrarEquip->Visible = false;
 				pnlGestionarEquip->Visible = false;
+				pnlAfegirJugador->Visible = false;
+				pnlGestionarEquip->Visible = false;
 
 				if (currentUsuariTipus->ToLower() == "administrador") {
 					btnCrearLligaMainMenu->Visible = true;
@@ -1530,6 +1622,7 @@ namespace CppCLRWinFormsProject {
 		pnlGestionarLliga->Visible = false;
 		pnlEnregistrarEquip->Visible = false;
 		pnlGestionarEquip->Visible = false;
+		pnlAfegirJugador->Visible = false;
 		pnlMain->Visible = false;
 		pnlInici->Visible = true;
 	}
@@ -2273,7 +2366,7 @@ namespace CppCLRWinFormsProject {
 			try {
 				Playcampus::Domini::CtrlEsborrarEquip^ ctrlEsborrar = gcnew Playcampus::Domini::CtrlEsborrarEquip();
 				ctrlEsborrar->EsborrarEquip(currentUsuariCorreu);
-				
+
 				MessageBox::Show(L"Equip esborrat correctament!", L"Exit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				btnEnregistrarEquip->Text = L"Enregistrar Equip";
 				pnlGestionarEquip->Visible = false;
@@ -2282,6 +2375,55 @@ namespace CppCLRWinFormsProject {
 				MessageBox::Show(L"Error a l'esborrar l'equip: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
 		}
+	}
+
+	private: System::Void btnGEAfegirJugador_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlGestionarEquip->Visible = false;
+		pnlAfegirJugador->Visible = true;
+		txtAJCorreu->Text = L"";
+		txtAJDorsal->Text = L"";
+		txtAJPosicio->Text = L"";
+	}
+
+	private: System::Void btnAJConfirmar_Click(System::Object^ sender, System::EventArgs^ e) {
+		String^ correuEstudiant = txtAJCorreu->Text;
+		String^ dorsalText = txtAJDorsal->Text;
+		String^ posicioText = txtAJPosicio->Text;
+
+		if (String::IsNullOrWhiteSpace(correuEstudiant) || String::IsNullOrWhiteSpace(dorsalText)) {
+			MessageBox::Show(L"Si us plau, omple tots els camps.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		int dorsal = 0;
+		if (!Int32::TryParse(dorsalText, dorsal) || dorsal < 0) {
+			MessageBox::Show(L"El dorsal ha de ser un número enter positiu.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		try {
+			Playcampus::Domini::CtrlAfegirJugador^ ctrlAfegir = gcnew Playcampus::Domini::CtrlAfegirJugador();
+			String^ resultat = ctrlAfegir->AfegirJugador(correuEstudiant, dorsal, posicioText, currentUsuariCorreu);
+
+			MessageBox::Show(resultat, L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+			pnlAfegirJugador->Visible = false;
+			pnlGestionarEquip->Visible = true;
+			txtAJCorreu->Text = L"";
+			txtAJDorsal->Text = L"";
+			txtAJPosicio->Text = L"";
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error al afegir jugador: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
+
+	private: System::Void btnAJCancellar_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlAfegirJugador->Visible = false;
+		pnlGestionarEquip->Visible = true;
+		txtAJCorreu->Text = L"";
+		txtAJDorsal->Text = L"";
+		txtAJPosicio->Text = L"";
 	}
 
 	private: System::Void btnEETornar_Click(System::Object^ sender, System::EventArgs^ e) {

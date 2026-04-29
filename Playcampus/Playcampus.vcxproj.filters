@@ -137,6 +137,18 @@
     <ClInclude Include="Dades\CercadoraUsuari.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Domini\CtrlEditarPartit.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dades\PassarellaJugador.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dades\CercadoraJugador.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\CtrlAfegirJugador.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CppCLR_WinFormsProject.cpp">
@@ -239,6 +251,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Dades\CercadoraUsuari.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\CtrlEditarPartit.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dades\PassarellaJugador.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dades\CercadoraJugador.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\CtrlAfegirJugador.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

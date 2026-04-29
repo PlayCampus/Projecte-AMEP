@@ -131,16 +131,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dades\CercadoraJornada.hxx" />
+    <ClInclude Include="Dades\CercadoraJugador.hxx" />
     <ClInclude Include="Dades\CercadoraPartit.hxx" />
     <ClInclude Include="Dades\CercadoraUsuari.hxx" />
     <ClInclude Include="Dades\PassarellaEquip.hxx" />
     <ClInclude Include="Dades\PassarellaJornada.hxx" />
+    <ClInclude Include="Dades\PassarellaJugador.hxx" />
     <ClInclude Include="Dades\PassarellaLliga.hxx" />
     <ClInclude Include="Dades\PassarellaPartit.hxx" />
     <ClInclude Include="Dades\PassarellaTemporada.hxx" />
     <ClInclude Include="Dades\UsuariTx.h" />
     <ClInclude Include="Dades\PassarellaUsuari.hxx" />
     <ClInclude Include="Dades\ConnexioBD.hxx" />
+    <ClInclude Include="Domini\CtrlAfegirJugador.hxx" />
     <ClInclude Include="Domini\CtrlCrearJornada.hxx" />
     <ClInclude Include="Domini\CtrlCrearLliga.hxx" />
     <ClInclude Include="Domini\CtrlCrearPartit.hxx" />
@@ -177,15 +180,18 @@
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="CppCLR_WinFormsProject.cpp" />
     <ClCompile Include="Dades\CercadoraJornada.cxx" />
+    <ClCompile Include="Dades\CercadoraJugador.cxx" />
     <ClCompile Include="Dades\CercadoraPartit.cxx" />
     <ClCompile Include="Dades\CercadoraUsuari.cxx" />
     <ClCompile Include="Dades\PassarellaEquip.cxx" />
     <ClCompile Include="Dades\PassarellaJornada.cxx" />
+    <ClCompile Include="Dades\PassarellaJugador.cxx" />
     <ClCompile Include="Dades\PassarellaLliga.cxx" />
     <ClCompile Include="Dades\PassarellaPartit.cxx" />
     <ClCompile Include="Dades\PassarellaTemporada.cxx" />
     <ClCompile Include="Dades\PassarellaUsuari.cxx" />
     <ClCompile Include="Dades\ConnexioBD.cxx" />
+    <ClCompile Include="Domini\CtrlAfegirJugador.cxx" />
     <ClCompile Include="Domini\CtrlCrearJornada.cxx" />
     <ClCompile Include="Domini\CtrlCrearLliga.cxx" />
     <ClCompile Include="Domini\CtrlCrearPartit.cxx" />

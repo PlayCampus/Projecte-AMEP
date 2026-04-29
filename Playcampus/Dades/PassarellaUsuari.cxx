@@ -86,5 +86,26 @@ namespace Playcampus {
 
         void PassarellaUsuari::Modifica() { }
         void PassarellaUsuari::Esborra() { }
+
+        void PassarellaUsuari::ActualitzaTipus(String^ nouTipus) {
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+
+                String^ query = "UPDATE Usuari SET Tipus = @tipus WHERE identificador = @id";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@tipus", nouTipus);
+                cmd->Parameters->AddWithValue("@id", identificador);
+                cmd->ExecuteNonQuery();
+
+                tipus = nouTipus;
+            }
+            catch (Exception^ ex) {
+                throw ex;
+            }
+            finally {
+                conn->Close();
+            }
+        }
     }
 }

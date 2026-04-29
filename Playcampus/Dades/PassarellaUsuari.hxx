@@ -35,6 +35,7 @@ namespace Playcampus {
             void Insereix();
             void Modifica();
             void Esborra();
+            void ActualitzaTipus(String^ nouTipus);
 
         };
     }
