@@ -140,10 +140,10 @@
     <ClInclude Include="Dades\PassarellaLliga.hxx" />
     <ClInclude Include="Dades\PassarellaPartit.hxx" />
     <ClInclude Include="Dades\PassarellaTemporada.hxx" />
-    <ClInclude Include="Dades\UsuariTx.h" />
     <ClInclude Include="Dades\PassarellaUsuari.hxx" />
     <ClInclude Include="Dades\ConnexioBD.hxx" />
     <ClInclude Include="Domini\CtrlAfegirJugador.hxx" />
+    <ClInclude Include="Domini\CtrlConsultes.hxx" />
     <ClInclude Include="Domini\CtrlCrearJornada.hxx" />
     <ClInclude Include="Domini\CtrlCrearLliga.hxx" />
     <ClInclude Include="Domini\CtrlCrearPartit.hxx" />
@@ -154,21 +154,17 @@
     <ClInclude Include="Domini\CtrlIniciSessio.hxx" />
     <ClInclude Include="Domini\CtrlRegistrarUsuari.hxx" />
     <ClInclude Include="Domini\CtrlTancarSessio.hxx" />
-    <ClInclude Include="Domini\Administrador.h" />
     <ClInclude Include="Domini\Administrador.hxx" />
-    <ClInclude Include="Domini\Capita.h" />
     <ClInclude Include="Domini\Capita.hxx" />
     <ClInclude Include="Domini\CtrlUnirEquipLliga.hxx" />
     <ClInclude Include="Domini\Disciplina.hxx" />
     <ClInclude Include="Domini\Equip.hxx" />
-    <ClInclude Include="Domini\Estudiant.h" />
     <ClInclude Include="Domini\Estudiant.hxx" />
     <ClInclude Include="Domini\Jornada.hxx" />
     <ClInclude Include="Domini\Jugador.hxx" />
     <ClInclude Include="Domini\Lliga.hxx" />
     <ClInclude Include="Domini\Partit.hxx" />
     <ClInclude Include="Domini\Temporada.hxx" />
-    <ClInclude Include="Domini\Usuari.h" />
     <ClInclude Include="Domini\Usuari.hxx" />
     <ClInclude Include="Form1.h">
       <FileType>CppForm</FileType>
@@ -192,6 +188,7 @@
     <ClCompile Include="Dades\PassarellaUsuari.cxx" />
     <ClCompile Include="Dades\ConnexioBD.cxx" />
     <ClCompile Include="Domini\CtrlAfegirJugador.cxx" />
+    <ClCompile Include="Domini\CtrlConsultes.cxx" />
     <ClCompile Include="Domini\CtrlCrearJornada.cxx" />
     <ClCompile Include="Domini\CtrlCrearLliga.cxx" />
     <ClCompile Include="Domini\CtrlCrearPartit.cxx" />
@@ -234,10 +231,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="amep06_equip.sql" />
-    <None Include="configuracio.env" />
-  </ItemGroup>
+  <ItemGroup>  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

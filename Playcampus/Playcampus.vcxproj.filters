@@ -29,21 +29,6 @@
     <ClInclude Include="Form1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Domini\Usuari.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\Administrador.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\Capita.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\Estudiant.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dades\UsuariTx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Domini\Usuari.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -147,6 +132,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Domini\CtrlAfegirJugador.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\CtrlConsultes.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -265,14 +253,14 @@
     <ClCompile Include="Domini\CtrlAfegirJugador.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Domini\CtrlConsultes.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="configuracio.env" />
-    <None Include="amep06_equip.sql" />
-  </ItemGroup>
+  <ItemGroup>  </ItemGroup>
 </Project>

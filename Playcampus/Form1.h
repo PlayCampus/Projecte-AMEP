@@ -12,6 +12,7 @@
 #include "Dades/ConnexioBD.hxx"
 #include "Domini/CtrlEsborrarEquip.hxx"
 #include "Domini/CtrlAfegirJugador.hxx"
+#include "Domini/CtrlConsultes.hxx"
 
 namespace CppCLRWinFormsProject {
 
@@ -426,8 +427,7 @@ namespace CppCLRWinFormsProject {
 			this->btnEstatLligues = gcnew System::Windows::Forms::Button();
 			this->btnEstadistiques = gcnew System::Windows::Forms::Button();
 			this->btnConsultar = gcnew System::Windows::Forms::Button();
-			this->picImatge = gcnew System::Windows::Forms::PictureBox();
-          this->btnUnirEquipLliga = gcnew System::Windows::Forms::Button();
+			this->picImatge = gcnew System::Windows::Forms::PictureBox(); 
 			this->lblNoticies = gcnew System::Windows::Forms::Label();
 			this->lstNoticies = gcnew System::Windows::Forms::ListBox();
 			this->btnLogoutMainMenu = gcnew System::Windows::Forms::Button();
@@ -437,8 +437,7 @@ namespace CppCLRWinFormsProject {
 			this->pnlMain->Controls->Add(this->btnProgPartits);
 			this->pnlMain->Controls->Add(this->btnEstatLligues);
 			this->pnlMain->Controls->Add(this->btnEstadistiques);
-			this->pnlMain->Controls->Add(this->btnConsultar);
-          this->pnlMain->Controls->Add(this->btnUnirEquipLliga);
+			this->pnlMain->Controls->Add(this->btnConsultar); 
 			this->pnlMain->Controls->Add(this->picImatge);
 			this->pnlMain->Controls->Add(this->lblNoticies);
 			this->pnlMain->Controls->Add(this->lstNoticies);
@@ -459,23 +458,22 @@ namespace CppCLRWinFormsProject {
 			this->btnProgPartits->Text = L"Programació de partits";
 			this->btnProgPartits->Location = System::Drawing::Point(20, 60);
 		 this->btnProgPartits->Size = System::Drawing::Size(130, 40);
+			this->btnProgPartits->Click += gcnew System::EventHandler(this, &Form1::btnProgPartits_Click);
 
 			this->btnEstatLligues->Text = L"Estat de les Lligues";
 			this->btnEstatLligues->Location = System::Drawing::Point(160, 60);
 			this->btnEstatLligues->Size = System::Drawing::Size(130, 40);
+			this->btnEstatLligues->Click += gcnew System::EventHandler(this, &Form1::btnEstatLligues_Click);
 
 			this->btnEstadistiques->Text = L"Estadístiques de partits";
 			this->btnEstadistiques->Location = System::Drawing::Point(300, 60);
 			this->btnEstadistiques->Size = System::Drawing::Size(130, 40);
+			this->btnEstadistiques->Click += gcnew System::EventHandler(this, &Form1::btnEstadistiques_Click);
 
 			this->btnConsultar->Text = L"Consultar";
 			this->btnConsultar->Location = System::Drawing::Point(440, 60);
 			this->btnConsultar->Size = System::Drawing::Size(130, 40);
 			this->btnConsultar->Click += gcnew System::EventHandler(this, &Form1::btnConsultar_Click);
-
-			this->btnUnirEquipLliga->Size = System::Drawing::Size(130, 40);
-			this->btnUnirEquipLliga->Visible = false;
-			this->btnUnirEquipLliga->Click += gcnew System::EventHandler(this, &Form1::btnUnirEquipLligaAct_Click);
 
 			this->picImatge->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->picImatge->Location = System::Drawing::Point(20, 120);
@@ -669,13 +667,13 @@ namespace CppCLRWinFormsProject {
 			this->btnGLMostrarEquips->Size = System::Drawing::Size(220, 60);
 			this->btnGLMostrarEquips->Font = actionBtnFont;
 			this->btnGLMostrarEquips->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->btnGLMostrarEquips->Click += gcnew System::EventHandler(this, &Form1::btnGL_EnDesenvolupament_Click);
+			this->btnGLMostrarEquips->Click += gcnew System::EventHandler(this, &Form1::btnGLMostrarEquips_Click);
 
 			this->btnGLEsborrarEquip->Text = L"Esborrar equip";
 			this->btnGLEsborrarEquip->Size = System::Drawing::Size(220, 60);
 			this->btnGLEsborrarEquip->Font = actionBtnFont;
 			this->btnGLEsborrarEquip->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->btnGLEsborrarEquip->Click += gcnew System::EventHandler(this, &Form1::btnGL_EnDesenvolupament_Click);
+			this->btnGLEsborrarEquip->Click += gcnew System::EventHandler(this, &Form1::btnGLEsborrarEquip_Click);
 
 			
 			this->btnGLCrearJornada->Text = L"Crear jornada";
@@ -2296,6 +2294,163 @@ namespace CppCLRWinFormsProject {
 				MessageBox::Show(L"Error al desar el partit: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
 		}
+
+	private: System::Void MostrarTaulaConsulta(System::String^ titol, System::Data::DataTable^ dades) {
+		Form^ finestra = gcnew Form();
+		finestra->Text = titol;
+		finestra->StartPosition = FormStartPosition::CenterParent;
+		finestra->Size = System::Drawing::Size(950, 520);
+		finestra->MinimizeBox = false;
+		finestra->MaximizeBox = true;
+
+		DataGridView^ graella = gcnew DataGridView();
+		graella->Dock = DockStyle::Fill;
+		graella->ReadOnly = true;
+		graella->AllowUserToAddRows = false;
+		graella->AllowUserToDeleteRows = false;
+		graella->SelectionMode = DataGridViewSelectionMode::FullRowSelect;
+		graella->AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode::Fill;
+		graella->DataSource = dades;
+
+		Button^ btnTancar = gcnew Button();
+		btnTancar->Text = L"Tancar";
+		btnTancar->Dock = DockStyle::Bottom;
+		btnTancar->Height = 35;
+		btnTancar->DialogResult = System::Windows::Forms::DialogResult::OK;
+
+		finestra->Controls->Add(graella);
+		finestra->Controls->Add(btnTancar);
+		finestra->AcceptButton = btnTancar;
+		finestra->ShowDialog(this);
+	}
+
+	private: System::Void MostrarConsultaGeneral(System::String^ titol, System::Data::DataTable^ dades) {
+		if (dades == nullptr || dades->Rows->Count == 0) {
+			MessageBox::Show(L"No hi ha dades per mostrar.", titol, MessageBoxButtons::OK, MessageBoxIcon::Information);
+		}
+		else {
+			MostrarTaulaConsulta(titol, dades);
+		}
+	}
+
+	private: System::Void btnProgPartits_Click(System::Object^ sender, System::EventArgs^ e) {
+		try {
+			Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
+			MostrarConsultaGeneral(L"Programacio de partits", ctrl->ObtenirProgramacioPartits());
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error carregant la programacio de partits: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
+
+	private: System::Void btnEstatLligues_Click(System::Object^ sender, System::EventArgs^ e) {
+		try {
+			Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
+			MostrarConsultaGeneral(L"Estat de les lligues", ctrl->ObtenirEstatLligues());
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error carregant l'estat de les lligues: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
+
+	private: System::Void btnEstadistiques_Click(System::Object^ sender, System::EventArgs^ e) {
+		try {
+			Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
+			MostrarConsultaGeneral(L"Estadistiques dels equips", ctrl->ObtenirEstadistiquesEquips());
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error carregant les estadistiques: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
+
+	private: System::Void btnGLMostrarEquips_Click(System::Object^ sender, System::EventArgs^ e) {
+		try {
+			Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
+			String^ nomLliga = ctrl->ObtenirNomLligaAdministrador(currentUsuariCorreu);
+			if (String::IsNullOrWhiteSpace(nomLliga)) {
+				MessageBox::Show(L"No tens cap lliga activa associada.", L"Avis", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			}
+			else {
+				MostrarConsultaGeneral(L"Equips de " + nomLliga, ctrl->ObtenirEquipsDeLaLligaAdministrador(currentUsuariCorreu));
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error carregant els equips: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
+
+	private: System::Void btnGLEsborrarEquip_Click(System::Object^ sender, System::EventArgs^ e) {
+		try {
+			Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
+			DataTable^ equips = ctrl->ObtenirEquipsDeLaLligaAdministrador(currentUsuariCorreu);
+			if (equips == nullptr || equips->Rows->Count == 0) {
+				MessageBox::Show(L"No hi ha equips dins de la teva lliga activa.", L"Avis", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			}
+			else {
+				Form^ finestra = gcnew Form();
+				finestra->Text = L"Esborrar equip de la lliga";
+				finestra->StartPosition = FormStartPosition::CenterParent;
+				finestra->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
+				finestra->ClientSize = System::Drawing::Size(430, 150);
+				finestra->MinimizeBox = false;
+				finestra->MaximizeBox = false;
+
+				Label^ lblEquip = gcnew Label();
+				lblEquip->Text = L"Selecciona l'equip:";
+				lblEquip->Location = System::Drawing::Point(20, 20);
+				lblEquip->AutoSize = true;
+
+				ComboBox^ cmbEquips = gcnew ComboBox();
+				cmbEquips->DropDownStyle = ComboBoxStyle::DropDownList;
+				cmbEquips->Location = System::Drawing::Point(20, 50);
+				cmbEquips->Size = System::Drawing::Size(390, 24);
+
+				for each (DataRow^ fila in equips->Rows) {
+					cmbEquips->Items->Add(fila[L"Equip"]->ToString() + L" (" + fila[L"IdEquip"]->ToString() + L")");
+				}
+				cmbEquips->SelectedIndex = 0;
+
+				Button^ btnConfirmar = gcnew Button();
+				btnConfirmar->Text = L"Esborrar";
+				btnConfirmar->DialogResult = System::Windows::Forms::DialogResult::OK;
+				btnConfirmar->Location = System::Drawing::Point(220, 100);
+				btnConfirmar->Size = System::Drawing::Size(90, 30);
+
+				Button^ btnCancelar = gcnew Button();
+				btnCancelar->Text = L"Cancelar";
+				btnCancelar->DialogResult = System::Windows::Forms::DialogResult::Cancel;
+				btnCancelar->Location = System::Drawing::Point(320, 100);
+				btnCancelar->Size = System::Drawing::Size(90, 30);
+
+				finestra->Controls->Add(lblEquip);
+				finestra->Controls->Add(cmbEquips);
+				finestra->Controls->Add(btnConfirmar);
+				finestra->Controls->Add(btnCancelar);
+				finestra->AcceptButton = btnConfirmar;
+				finestra->CancelButton = btnCancelar;
+
+				if (finestra->ShowDialog(this) == System::Windows::Forms::DialogResult::OK) {
+					DataRow^ filaSeleccionada = equips->Rows[cmbEquips->SelectedIndex];
+					String^ idEquip = filaSeleccionada[L"IdEquip"]->ToString();
+					String^ nomEquip = filaSeleccionada[L"Equip"]->ToString();
+
+					System::Windows::Forms::DialogResult confirmacio = MessageBox::Show(
+						L"Vols treure l'equip '" + nomEquip + L"' de la lliga?",
+						L"Confirmacio",
+						MessageBoxButtons::YesNo,
+						MessageBoxIcon::Warning);
+
+					if (confirmacio == System::Windows::Forms::DialogResult::Yes) {
+						ctrl->TreureEquipDeLaLliga(idEquip, currentUsuariCorreu);
+						MessageBox::Show(L"Equip tret de la lliga correctament.", L"Exit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					}
+				}
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error en esborrar l'equip de la lliga: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
 
 	private: System::Void btnGL_EnDesenvolupament_Click(System::Object^ sender, System::EventArgs^ e) {
 		MessageBox::Show(L"Funcionalitat en desenvolupament.");
