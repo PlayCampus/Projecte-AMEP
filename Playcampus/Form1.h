@@ -6,6 +6,7 @@
 #include "Domini/CtrlEnregistrarEquip.hxx"
 #include "Domini/CtrlUnirEquipLliga.hxx"
 #include "Domini/CtrlCrearPartit.hxx"
+#include "Domini/CtrlEditarPartit.hxx"
 #include "Domini/CtrlCrearTemporada.hxx"
 #include "Domini/CtrlCrearJornada.hxx"
 #include "Dades/ConnexioBD.hxx"
@@ -1734,7 +1735,7 @@ namespace CppCLRWinFormsProject {
 
 		private: System::Void btnGLEditarPartit_Click(System::Object^ sender, System::EventArgs^ e) {
 			try {
-				Playcampus::Domini::CtrlCrearPartit^ ctrl = gcnew Playcampus::Domini::CtrlCrearPartit();
+                Playcampus::Domini::CtrlEditarPartit^ ctrl = gcnew Playcampus::Domini::CtrlEditarPartit();
 
 				String^ nomLliga = ctrl->ObtenirNomLligaAdmin(currentUsuariCorreu);
 				if (String::IsNullOrWhiteSpace(nomLliga)) {
