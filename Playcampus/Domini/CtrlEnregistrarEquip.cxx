@@ -47,7 +47,19 @@ namespace Playcampus {
                         MySql::Data::MySqlClient::MySqlCommand^ cmd = gcnew MySql::Data::MySqlClient::MySqlCommand(queryUpdateCapita, conn);
                         cmd->Parameters->AddWithValue("@idEquip", realIdEquip);
                         cmd->Parameters->AddWithValue("@idCapita", idCapita);
-                        cmd->ExecuteNonQuery();
+                        int filesAfectades = cmd->ExecuteNonQuery();
+                        if (filesAfectades != 1) {
+                            throw gcnew Exception("No s'ha pogut actualitzar el capita amb l'equip creat.");
+                        }
+
+                        String^ queryVerificacio = "SELECT COUNT(*) FROM Capita WHERE identificador = @idCapita AND idEquip = @idEquip";
+                        MySql::Data::MySqlClient::MySqlCommand^ cmdVerificacio = gcnew MySql::Data::MySqlClient::MySqlCommand(queryVerificacio, conn);
+                        cmdVerificacio->Parameters->AddWithValue("@idCapita", idCapita);
+                        cmdVerificacio->Parameters->AddWithValue("@idEquip", realIdEquip);
+                        int filesVerificades = Convert::ToInt32(cmdVerificacio->ExecuteScalar());
+                        if (filesVerificades != 1) {
+                            throw gcnew Exception("La base de dades no ha confirmat l'assignacio de l'equip al capita.");
+                        }
                     }
                     finally {
                         delete conn;

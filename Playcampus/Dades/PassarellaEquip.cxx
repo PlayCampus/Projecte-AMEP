@@ -96,7 +96,18 @@ namespace Playcampus {
                     cmd->Parameters->AddWithValue("@idLliga", idLliga);
                 }
 
-                cmd->ExecuteNonQuery();
+                int filesAfectades = cmd->ExecuteNonQuery();
+                if (filesAfectades != 1) {
+                    throw gcnew Exception("No s'ha inserit cap equip a la base de dades.");
+                }
+
+                String^ queryVerificacio = "SELECT COUNT(*) FROM Equip WHERE idEquip = @idEquip";
+                MySqlCommand^ cmdVerificacio = gcnew MySqlCommand(queryVerificacio, conn);
+                cmdVerificacio->Parameters->AddWithValue("@idEquip", idEquip);
+                int filesVerificades = Convert::ToInt32(cmdVerificacio->ExecuteScalar());
+                if (filesVerificades != 1) {
+                    throw gcnew Exception("La base de dades no ha confirmat la insercio de l'equip.");
+                }
             }
             finally {
                 if (conn != nullptr) {
@@ -134,6 +145,25 @@ namespace Playcampus {
                 cmd->Parameters->AddWithValue("@idEquip", idEquip);
 
                 cmd->ExecuteNonQuery();
+
+                String^ queryVerificacio = "";
+                if (String::IsNullOrEmpty(idLliga)) {
+                    queryVerificacio = "SELECT COUNT(*) FROM Equip WHERE idEquip = @idEquip AND idLliga IS NULL";
+                }
+                else {
+                    queryVerificacio = "SELECT COUNT(*) FROM Equip WHERE idEquip = @idEquip AND idLliga = @idLliga";
+                }
+
+                MySqlCommand^ cmdVerificacio = gcnew MySqlCommand(queryVerificacio, conn);
+                cmdVerificacio->Parameters->AddWithValue("@idEquip", idEquip);
+                if (!String::IsNullOrEmpty(idLliga)) {
+                    cmdVerificacio->Parameters->AddWithValue("@idLliga", idLliga);
+                }
+
+                int filesVerificades = Convert::ToInt32(cmdVerificacio->ExecuteScalar());
+                if (filesVerificades != 1) {
+                    throw gcnew Exception("La base de dades no ha confirmat la modificacio de l'equip.");
+                }
             }
             finally {
                 delete conn;
@@ -147,7 +177,18 @@ namespace Playcampus {
                 String^ query = "DELETE FROM Equip WHERE idEquip=@idEquip";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idEquip", idEquip);
-                cmd->ExecuteNonQuery();
+                int filesAfectades = cmd->ExecuteNonQuery();
+                if (filesAfectades != 1) {
+                    throw gcnew Exception("No s'ha esborrat cap equip de la base de dades.");
+                }
+
+                String^ queryVerificacio = "SELECT COUNT(*) FROM Equip WHERE idEquip = @idEquip";
+                MySqlCommand^ cmdVerificacio = gcnew MySqlCommand(queryVerificacio, conn);
+                cmdVerificacio->Parameters->AddWithValue("@idEquip", idEquip);
+                int filesVerificades = Convert::ToInt32(cmdVerificacio->ExecuteScalar());
+                if (filesVerificades != 0) {
+                    throw gcnew Exception("La base de dades no ha confirmat l'esborrat de l'equip.");
+                }
             }
             finally {
                 delete conn;

@@ -84,6 +84,13 @@ namespace Playcampus {
                 if (equipDB != nullptr) {
                     equipDB->SetIdLliga(idLligaEncontrado);
                     equipDB->Modifica();
+
+                    // 4. Comprovar que la modificacio s'ha guardat realment a la BD
+                    Playcampus::Dades::PassarellaEquip^ equipComprovat = Playcampus::Dades::PassarellaEquip::Llegeix(connectionString, idEquipRecuperat);
+                    if (equipComprovat == nullptr || String::IsNullOrEmpty(equipComprovat->GetIdLliga()) || !equipComprovat->GetIdLliga()->Equals(idLligaEncontrado, StringComparison::OrdinalIgnoreCase)) {
+                        throw gcnew Exception("La base de dades no ha confirmat la vinculacio de l'equip amb la lliga.");
+                    }
+
                     missatgeExit = "L'equip " + equipDB->GetNom() + " ha sigut enregistrat amb exit a la lliga " + nomLliga + ".";
                 }
                 else {
