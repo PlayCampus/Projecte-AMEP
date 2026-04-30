@@ -12,6 +12,7 @@
 #include "Dades/ConnexioBD.hxx"
 #include "Domini/CtrlEsborrarEquip.hxx"
 #include "Domini/CtrlAfegirJugador.hxx"
+#include "Domini/CtrlAssignarJugador.hxx"
 #include "Domini/CtrlConsultes.hxx"
 
 namespace CppCLRWinFormsProject {
@@ -168,6 +169,7 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Label^ lblGETitle;
 		System::Windows::Forms::Button^ btnGEEsborrarEquip;
 		System::Windows::Forms::Button^ btnGEAfegirJugador;
+		System::Windows::Forms::Button^ btnGEAssignarJugador;
 		System::Windows::Forms::Button^ btnGETornar;
 
 		System::Windows::Forms::Panel^ pnlAfegirJugador;
@@ -975,6 +977,7 @@ namespace CppCLRWinFormsProject {
 			this->lblGETitle = gcnew System::Windows::Forms::Label();
 			this->btnGEEsborrarEquip = gcnew System::Windows::Forms::Button();
 			this->btnGEAfegirJugador = gcnew System::Windows::Forms::Button();
+			this->btnGEAssignarJugador = gcnew System::Windows::Forms::Button();
 			this->btnGETornar = gcnew System::Windows::Forms::Button();
 
 			this->pnlGestionarEquip->Dock = System::Windows::Forms::DockStyle::Fill;
@@ -982,6 +985,7 @@ namespace CppCLRWinFormsProject {
 			this->pnlGestionarEquip->Controls->Add(this->lblGETitle);
 			this->pnlGestionarEquip->Controls->Add(this->btnGEEsborrarEquip);
 			this->pnlGestionarEquip->Controls->Add(this->btnGEAfegirJugador);
+			this->pnlGestionarEquip->Controls->Add(this->btnGEAssignarJugador);
 			this->pnlGestionarEquip->Controls->Add(this->btnGETornar);
 
 			this->lblGETitle->Text = L"Gestionar Equip";
@@ -1001,6 +1005,12 @@ namespace CppCLRWinFormsProject {
 			this->btnGEAfegirJugador->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
 			this->btnGEAfegirJugador->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->btnGEAfegirJugador->Click += gcnew System::EventHandler(this, &Form1::btnGEAfegirJugador_Click);
+
+			this->btnGEAssignarJugador->Text = L"Assignar jugador a partit";
+			this->btnGEAssignarJugador->Size = System::Drawing::Size(220, 60);
+			this->btnGEAssignarJugador->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
+			this->btnGEAssignarJugador->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnGEAssignarJugador->Click += gcnew System::EventHandler(this, &Form1::btnGEAssignarJugador_Click);
 
 			this->btnGETornar->Text = L"Tornar";
 			this->btnGETornar->Size = System::Drawing::Size(100, 30);
@@ -1286,6 +1296,7 @@ namespace CppCLRWinFormsProject {
 		int btnGEW = this->btnGEEsborrarEquip->Width;
 		this->btnGEEsborrarEquip->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY);
 		this->btnGEAfegirJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 70);
+			this->btnGEAssignarJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 140);
 
 		// --- PANEL AFEGIR JUGADOR ---
 		this->lblAJTitle->Location = System::Drawing::Point(centerX - this->lblAJTitle->Width / 2, 30);
@@ -2529,6 +2540,107 @@ namespace CppCLRWinFormsProject {
 			} catch (Exception^ ex) {
 				MessageBox::Show(L"Error a l'esborrar l'equip: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
+		}
+	}
+
+	private: System::Void btnGEAssignarJugador_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (currentUsuariTipus == nullptr || currentUsuariTipus->ToLower() != L"capita") {
+			MessageBox::Show(L"Només els capitans poden accedir a aquesta funcionalitat.", L"Accés denegat", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		try {
+			Playcampus::Domini::CtrlAssignarJugador^ ctrlAssignar = gcnew Playcampus::Domini::CtrlAssignarJugador();
+			auto partits = ctrlAssignar->ObtenirPartitsDisponibles(currentUsuariCorreu);
+			if (partits->Count == 0) {
+				MessageBox::Show(L"No hi ha partits no finalitzats disponibles per al teu equip.", L"Informació", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				return;
+			}
+
+			auto jugadors = ctrlAssignar->ObtenirJugadorsEquip(currentUsuariCorreu);
+			if (jugadors->Count == 0) {
+				MessageBox::Show(L"El teu equip no té jugadors disponibles.", L"Informació", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				return;
+			}
+
+			Form^ frmAssignar = gcnew Form();
+			frmAssignar->Text = L"Assignar jugador a partit";
+			frmAssignar->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
+			frmAssignar->StartPosition = FormStartPosition::CenterParent;
+			frmAssignar->ClientSize = System::Drawing::Size(720, 220);
+			frmAssignar->MinimizeBox = false;
+			frmAssignar->MaximizeBox = false;
+
+			Label^ lblPartit = gcnew Label();
+			lblPartit->Text = L"Selecciona el partit:";
+			lblPartit->Location = System::Drawing::Point(20, 22);
+			lblPartit->AutoSize = true;
+
+			ComboBox^ cmbPartits = gcnew ComboBox();
+			cmbPartits->DropDownStyle = ComboBoxStyle::DropDownList;
+			cmbPartits->Location = System::Drawing::Point(20, 48);
+			cmbPartits->Size = System::Drawing::Size(680, 24);
+
+			for each (auto p in partits) {
+				String^ ubicacio = String::IsNullOrWhiteSpace(p["ubicacio"]) ? L"" : L" - " + p["ubicacio"];
+				String^ display = p["dataHora"] + L" - " + p["equipLocal"] + L" vs " + p["equipVisitant"] + L" [" + p["estat"] + L"]" + ubicacio;
+				cmbPartits->Items->Add(display);
+			}
+			cmbPartits->SelectedIndex = 0;
+
+			Label^ lblJugador = gcnew Label();
+			lblJugador->Text = L"Selecciona el jugador:";
+			lblJugador->Location = System::Drawing::Point(20, 92);
+			lblJugador->AutoSize = true;
+
+			ComboBox^ cmbJugadors = gcnew ComboBox();
+			cmbJugadors->DropDownStyle = ComboBoxStyle::DropDownList;
+			cmbJugadors->Location = System::Drawing::Point(20, 118);
+			cmbJugadors->Size = System::Drawing::Size(680, 24);
+
+			for each (auto j in jugadors) {
+				String^ dorsal = String::IsNullOrWhiteSpace(j["dorsal"]) ? L"S/D" : j["dorsal"];
+				String^ posicio = String::IsNullOrWhiteSpace(j["posicio"]) ? L"" : L" - " + j["posicio"];
+				String^ display = L"#" + dorsal + L" " + j["nom"] + posicio;
+				cmbJugadors->Items->Add(display);
+			}
+			cmbJugadors->SelectedIndex = 0;
+
+			Button^ btnConfirmar = gcnew Button();
+			btnConfirmar->Text = L"Assignar";
+			btnConfirmar->DialogResult = System::Windows::Forms::DialogResult::OK;
+			btnConfirmar->Location = System::Drawing::Point(520, 170);
+			btnConfirmar->Size = System::Drawing::Size(85, 30);
+
+			Button^ btnCancelar = gcnew Button();
+			btnCancelar->Text = L"Cancel·lar";
+			btnCancelar->DialogResult = System::Windows::Forms::DialogResult::Cancel;
+			btnCancelar->Location = System::Drawing::Point(615, 170);
+			btnCancelar->Size = System::Drawing::Size(85, 30);
+
+			frmAssignar->Controls->Add(lblPartit);
+			frmAssignar->Controls->Add(cmbPartits);
+			frmAssignar->Controls->Add(lblJugador);
+			frmAssignar->Controls->Add(cmbJugadors);
+			frmAssignar->Controls->Add(btnConfirmar);
+			frmAssignar->Controls->Add(btnCancelar);
+			frmAssignar->AcceptButton = btnConfirmar;
+			frmAssignar->CancelButton = btnCancelar;
+
+			if (frmAssignar->ShowDialog(this) == System::Windows::Forms::DialogResult::OK) {
+				if (cmbPartits->SelectedIndex < 0 || cmbJugadors->SelectedIndex < 0) {
+					MessageBox::Show(L"Cal seleccionar un partit i un jugador.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				}
+				else {
+					String^ idPartit = partits[cmbPartits->SelectedIndex]["idPartit"];
+					String^ idJugador = jugadors[cmbJugadors->SelectedIndex]["idJugador"];
+					String^ resultat = ctrlAssignar->AssignarJugador(currentUsuariCorreu, idPartit, idJugador);
+					MessageBox::Show(resultat, L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				}
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error en assignar jugador: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
 

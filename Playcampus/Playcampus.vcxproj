@@ -143,6 +143,7 @@
     <ClInclude Include="Dades\PassarellaUsuari.hxx" />
     <ClInclude Include="Dades\ConnexioBD.hxx" />
     <ClInclude Include="Domini\CtrlAfegirJugador.hxx" />
+    <ClInclude Include="Domini\CtrlAssignarJugador.hxx" />
     <ClInclude Include="Domini\CtrlConsultes.hxx" />
     <ClInclude Include="Domini\CtrlCrearJornada.hxx" />
     <ClInclude Include="Domini\CtrlCrearLliga.hxx" />
@@ -188,6 +189,7 @@
     <ClCompile Include="Dades\PassarellaUsuari.cxx" />
     <ClCompile Include="Dades\ConnexioBD.cxx" />
     <ClCompile Include="Domini\CtrlAfegirJugador.cxx" />
+    <ClCompile Include="Domini\CtrlAssignarJugador.cxx" />
     <ClCompile Include="Domini\CtrlConsultes.cxx" />
     <ClCompile Include="Domini\CtrlCrearJornada.cxx" />
     <ClCompile Include="Domini\CtrlCrearLliga.cxx" />
