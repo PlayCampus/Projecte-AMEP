@@ -101,6 +101,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlAfegirJugador.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\CtrlAfegirJugador.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlVeurePlantilla.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\CtrlVeurePlantilla.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlVeurePlantilla.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\CtrlVeurePlantilla.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -118,15 +126,54 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "PassarellaJugador.hxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJugador.hxx",
-              "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaJugador.hxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJugador.hxx",
-              "RelativeToolTip": "Playcampus\\Dades\\PassarellaJugador.hxx",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADUAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 26,
+              "Title": "CtrlVeurePlantilla.cxx",
+              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlVeurePlantilla.cxx",
+              "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlVeurePlantilla.cxx",
+              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlVeurePlantilla.cxx",
+              "RelativeToolTip": "Playcampus\\Domini\\CtrlVeurePlantilla.cxx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-02T16:15:29.037Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "CtrlVeurePlantilla.hxx",
+              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlVeurePlantilla.hxx",
+              "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlVeurePlantilla.hxx",
+              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlVeurePlantilla.hxx",
+              "RelativeToolTip": "Playcampus\\Domini\\CtrlVeurePlantilla.hxx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-29T10:08:33.248Z",
+              "WhenOpened": "2026-05-02T16:15:21.391Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.h",
+              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Form1.h",
+              "RelativeDocumentMoniker": "Playcampus\\Form1.h",
+              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Form1.h",
+              "RelativeToolTip": "Playcampus\\Form1.h",
+              "ViewState": "AgIAAOYJAAAAAAAAAABBwCYEAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-08T09:18:54.78Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CtrlAfegirJugador.cxx",
+              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlAfegirJugador.cxx",
+              "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlAfegirJugador.cxx",
+              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlAfegirJugador.cxx",
+              "RelativeToolTip": "Playcampus\\Domini\\CtrlAfegirJugador.cxx",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAABAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-30T08:54:17.857Z",
               "EditorCaption": ""
             },
             {
@@ -139,34 +186,23 @@
               "RelativeToolTip": "Playcampus\\Dades\\PassarellaJornada.cxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-04-29T09:16:42.726Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T16:14:40.434Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Form1.h",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Form1.h",
-              "RelativeDocumentMoniker": "Playcampus\\Form1.h",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Form1.h",
-              "RelativeToolTip": "Playcampus\\Form1.h",
-              "ViewState": "AgIAAO4DAAAAAAAAAAAiwBoEAAAAAAAAAAAAAA==",
+              "DocumentIndex": 20,
+              "Title": "PassarellaJugador.hxx",
+              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJugador.hxx",
+              "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaJugador.hxx",
+              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJugador.hxx",
+              "RelativeToolTip": "Playcampus\\Dades\\PassarellaJugador.hxx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-29T09:16:42.792Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CtrlAfegirJugador.cxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlAfegirJugador.cxx",
-              "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlAfegirJugador.cxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlAfegirJugador.cxx",
-              "RelativeToolTip": "Playcampus\\Domini\\CtrlAfegirJugador.cxx",
-              "ViewState": "AgIAAF0AAAAAAAAAAAAAABAAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-04-29T10:09:31.441Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T08:54:17.85Z"
             },
             {
               "$type": "Document",
@@ -178,8 +214,7 @@
               "RelativeToolTip": "Playcampus\\Dades\\PassarellaJugador.cxx",
               "ViewState": "AgIAAGkAAAAAAAAAAIBJwK4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-04-29T10:08:47.11Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T08:54:17.873Z"
             },
             {
               "$type": "Document",
@@ -191,8 +226,7 @@
               "RelativeToolTip": "Playcampus\\Dades\\CercadoraJugador.hxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-29T10:08:52.305Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T08:54:17.873Z"
             },
             {
               "$type": "Document",
@@ -204,8 +238,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\CtrlAfegirJugador.hxx",
               "ViewState": "AgIAAAsAAAAAAAAAAABBwA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-29T10:09:22.047Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T08:54:17.875Z"
             },
             {
               "$type": "Document",
@@ -217,8 +250,7 @@
               "RelativeToolTip": "Playcampus\\Dades\\CercadoraJugador.cxx",
               "ViewState": "AgIAAIcAAAAAAAAAAABBwJMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-04-29T10:09:03.28Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T08:54:17.875Z"
             },
             {
               "$type": "Document",
@@ -230,7 +262,8 @@
               "RelativeToolTip": "Playcampus\\schemapartit.sql",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-04-14T10:13:12.082Z"
+              "WhenOpened": "2026-04-14T10:13:12.082Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -242,7 +275,8 @@
               "RelativeToolTip": "Playcampus\\schemaequip.sql",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-04-11T15:53:48.692Z"
+              "WhenOpened": "2026-04-11T15:53:48.692Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -254,7 +288,7 @@
               "RelativeToolTip": "Playcampus\\Dades\\PassarellaJornada.hxx",
               "ViewState": "AgIAABMAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-29T09:16:42.776Z"
+              "WhenOpened": "2026-04-28T16:32:10.877Z"
             },
             {
               "$type": "Document",
@@ -266,7 +300,7 @@
               "RelativeToolTip": "Playcampus\\Dades\\CercadoraJornada.cxx",
               "ViewState": "AgIAAA0AAAAAAAAAAABBwCQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-04-29T09:16:42.776Z"
+              "WhenOpened": "2026-04-28T16:31:58.119Z"
             },
             {
               "$type": "Document",
@@ -278,7 +312,7 @@
               "RelativeToolTip": "Playcampus\\Dades\\CercadoraJornada.hxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-29T09:16:42.781Z"
+              "WhenOpened": "2026-04-28T16:31:53.211Z"
             },
             {
               "$type": "Document",
@@ -290,8 +324,7 @@
               "RelativeToolTip": "Playcampus\\Dades\\PassarellaUsuari.hxx",
               "ViewState": "AgIAACQAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-29T09:16:42.782Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T17:59:54.828Z"
             },
             {
               "$type": "Document",
@@ -303,7 +336,7 @@
               "RelativeToolTip": "Playcampus\\Dades\\CercadoraUsuari.cxx",
               "ViewState": "AgIAAAEAAAAAAAAAAABBwEgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-04-29T09:16:42.784Z"
+              "WhenOpened": "2026-04-28T17:59:26.985Z"
             },
             {
               "$type": "Document",
@@ -315,7 +348,7 @@
               "RelativeToolTip": "Playcampus\\Dades\\CercadoraUsuari.hxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-29T09:16:42.784Z"
+              "WhenOpened": "2026-04-28T17:59:21.275Z"
             },
             {
               "$type": "Document",
@@ -327,7 +360,7 @@
               "RelativeToolTip": "Playcampus\\Dades\\PassarellaPartit.cxx",
               "ViewState": "AgIAADwAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-04-29T09:16:42.786Z"
+              "WhenOpened": "2026-04-28T16:40:43.855Z"
             },
             {
               "$type": "Document",
@@ -339,7 +372,7 @@
               "RelativeToolTip": "Playcampus\\Dades\\CercadoraPartit.cxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-04-29T09:16:42.788Z"
+              "WhenOpened": "2026-04-28T16:40:22.346Z"
             },
             {
               "$type": "Document",
@@ -351,7 +384,7 @@
               "RelativeToolTip": "Playcampus\\Dades\\CercadoraPartit.hxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-29T09:16:42.788Z"
+              "WhenOpened": "2026-04-28T16:40:15.012Z"
             },
             {
               "$type": "Document",
@@ -363,7 +396,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\CtrlCrearPartit.hxx",
               "ViewState": "AgIAAAIAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-29T09:16:42.792Z"
+              "WhenOpened": "2026-04-12T20:02:12.027Z"
             },
             {
               "$type": "Document",
@@ -375,7 +408,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\CtrlCrearPartit.cxx",
               "ViewState": "AgIAAAQAAAAAAAAAAEBVwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-04-29T09:16:42.792Z"
+              "WhenOpened": "2026-04-12T20:01:58.83Z"
             },
             {
               "$type": "Document",
@@ -387,8 +420,7 @@
               "RelativeToolTip": "Playcampus\\Dades\\PassarellaUsuari.cxx",
               "ViewState": "AgIAAGsAAAAAAAAAAIBJwG0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-04-29T09:16:42.792Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-11T15:21:20.484Z"
             },
             {
               "$type": "Document",
@@ -400,7 +432,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\CtrlCrearLliga.cxx",
               "ViewState": "AgIAADEAAAAAAAAAAIBZwBoAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-04-29T09:16:42.797Z"
+              "WhenOpened": "2026-04-11T14:59:58.705Z"
             },
             {
               "$type": "Document",
@@ -412,7 +444,7 @@
               "RelativeToolTip": "Playcampus\\Dades\\PassarellaPartit.hxx",
               "ViewState": "AgIAACAAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-29T09:16:42.797Z"
+              "WhenOpened": "2026-04-08T09:18:54.808Z"
             },
             {
               "$type": "Document",
@@ -424,7 +456,7 @@
               "RelativeToolTip": "Playcampus\\Domini\\Partit.hxx",
               "ViewState": "AgIAACIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-29T09:16:42.8Z"
+              "WhenOpened": "2026-04-08T09:18:54.809Z"
             }
           ]
         }

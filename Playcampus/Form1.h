@@ -13,6 +13,7 @@
 #include "Domini/CtrlEsborrarEquip.hxx"
 #include "Domini/CtrlAfegirJugador.hxx"
 #include "Domini/CtrlAssignarJugador.hxx"
+#include "Domini/CtrlVeurePlantilla.hxx"
 #include "Domini/CtrlConsultes.hxx"
 
 namespace CppCLRWinFormsProject {
@@ -167,6 +168,7 @@ namespace CppCLRWinFormsProject {
 
 		System::Windows::Forms::Panel^ pnlGestionarEquip;
 		System::Windows::Forms::Label^ lblGETitle;
+		System::Windows::Forms::DataGridView^ dgvPlantilla;
 		System::Windows::Forms::Button^ btnGEEsborrarEquip;
 		System::Windows::Forms::Button^ btnGEAfegirJugador;
 		System::Windows::Forms::Button^ btnGEAssignarJugador;
@@ -975,6 +977,7 @@ namespace CppCLRWinFormsProject {
 			// pnlGestionarEquip
 			this->pnlGestionarEquip = gcnew System::Windows::Forms::Panel();
 			this->lblGETitle = gcnew System::Windows::Forms::Label();
+			this->dgvPlantilla = gcnew System::Windows::Forms::DataGridView();
 			this->btnGEEsborrarEquip = gcnew System::Windows::Forms::Button();
 			this->btnGEAfegirJugador = gcnew System::Windows::Forms::Button();
 			this->btnGEAssignarJugador = gcnew System::Windows::Forms::Button();
@@ -983,6 +986,7 @@ namespace CppCLRWinFormsProject {
 			this->pnlGestionarEquip->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->pnlGestionarEquip->Visible = false;
 			this->pnlGestionarEquip->Controls->Add(this->lblGETitle);
+			this->pnlGestionarEquip->Controls->Add(this->dgvPlantilla);
 			this->pnlGestionarEquip->Controls->Add(this->btnGEEsborrarEquip);
 			this->pnlGestionarEquip->Controls->Add(this->btnGEAfegirJugador);
 			this->pnlGestionarEquip->Controls->Add(this->btnGEAssignarJugador);
@@ -991,6 +995,14 @@ namespace CppCLRWinFormsProject {
 			this->lblGETitle->Text = L"Gestionar Equip";
 			this->lblGETitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
 			this->lblGETitle->AutoSize = true;
+
+			this->dgvPlantilla->AllowUserToAddRows = false;
+			this->dgvPlantilla->AllowUserToDeleteRows = false;
+			this->dgvPlantilla->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+			this->dgvPlantilla->ReadOnly = true;
+			this->dgvPlantilla->RowHeadersVisible = false;
+			this->dgvPlantilla->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
+			this->dgvPlantilla->Size = System::Drawing::Size(400, 150);
 
 			actionBtnFont = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
 
@@ -1292,7 +1304,10 @@ namespace CppCLRWinFormsProject {
 		this->lblGETitle->Location = System::Drawing::Point(centerX - this->lblGETitle->Width / 2, 40);
 		this->btnGETornar->Location = System::Drawing::Point(30, 30);
 
-		int geStartY = centerY - 20;
+		int geDgvY = 80;
+		this->dgvPlantilla->Location = System::Drawing::Point(centerX - (this->dgvPlantilla->Width / 2), geDgvY);
+
+		int geStartY = geDgvY + this->dgvPlantilla->Height + 20;
 		int btnGEW = this->btnGEEsborrarEquip->Width;
 		this->btnGEEsborrarEquip->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY);
 		this->btnGEAfegirJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 70);
@@ -2511,6 +2526,13 @@ namespace CppCLRWinFormsProject {
 		if (btnEnregistrarEquip->Text == L"Gestionar Equip") {
 			pnlMain->Visible = false;
 			pnlGestionarEquip->Visible = true;
+			try {
+				Playcampus::Domini::CtrlVeurePlantilla^ ctrlVP = gcnew Playcampus::Domini::CtrlVeurePlantilla();
+				dgvPlantilla->DataSource = ctrlVP->ObtenirPlantillaEquip(currentUsuariCorreu);
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show(L"Error al carregar la plantilla: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
 			return;
 		}
 
