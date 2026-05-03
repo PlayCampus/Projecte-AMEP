@@ -1,114 +1,126 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\",
+  "WorkspaceRootPath": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlAfegirJugador.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlAfegirJugador.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\CtrlAfegirJugador.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Form1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Form1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Form1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJornada.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJornada.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\PassarellaJornada.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearPartit.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearPartit.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\CtrlCrearPartit.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\PassarellaUsuari.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\schemaequip.sql||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\schemaequip.sql||{3B902123-F8A7-4915-9F01-361F908088D0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Playcampus\\schemaequip.sql||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearLliga.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearLliga.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\CtrlCrearLliga.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaPartit.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaPartit.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\PassarellaPartit.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\Partit.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\Partit.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\Partit.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearPartit.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearPartit.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\CtrlCrearPartit.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\schemapartit.sql||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\schemapartit.sql||{3B902123-F8A7-4915-9F01-361F908088D0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Playcampus\\schemapartit.sql||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJornada.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJornada.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\CercadoraJornada.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJornada.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJornada.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\CercadoraJornada.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJornada.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJornada.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\PassarellaJornada.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraPartit.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraPartit.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\CercadoraPartit.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraPartit.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraPartit.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\CercadoraPartit.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaPartit.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaPartit.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\PassarellaPartit.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraUsuari.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraUsuari.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\CercadoraUsuari.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraUsuari.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraUsuari.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\CercadoraUsuari.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\PassarellaUsuari.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJugador.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJugador.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\PassarellaJugador.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJugador.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJugador.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\PassarellaJugador.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJugador.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJugador.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\CercadoraJugador.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJugador.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJugador.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Dades\\CercadoraJugador.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlAfegirJugador.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlAfegirJugador.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\CtrlAfegirJugador.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlVeurePlantilla.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlVeurePlantilla.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\CtrlVeurePlantilla.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlVeurePlantilla.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlVeurePlantilla.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\CtrlVeurePlantilla.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\app.rc||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\app.rc||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlEliminarJugador.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\CtrlEliminarJugador.hxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlEliminarJugador.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E03A85B2-BFA9-4488-8C37-CD42AA3095BE}|Playcampus\\Playcampus.vcxproj|solutionrelative:Playcampus\\Domini\\CtrlEliminarJugador.cxx||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -118,21 +130,68 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 9,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "CtrlEliminarJugador.cxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlEliminarJugador.cxx",
+              "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlEliminarJugador.cxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlEliminarJugador.cxx",
+              "RelativeToolTip": "Playcampus\\Domini\\CtrlEliminarJugador.cxx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-03T10:08:59.801Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "CtrlEliminarJugador.hxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlEliminarJugador.hxx",
+              "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlEliminarJugador.hxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlEliminarJugador.hxx",
+              "RelativeToolTip": "Playcampus\\Domini\\CtrlEliminarJugador.hxx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-03T10:08:48.635Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "app.rc",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\app.rc",
+              "RelativeDocumentMoniker": "Playcampus\\app.rc",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\app.rc",
+              "RelativeToolTip": "Playcampus\\app.rc",
+              "ViewState": "AgIAABIAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
+              "WhenOpened": "2026-05-03T09:54:41.688Z",
+              "EditorCaption": ""
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 26,
               "Title": "CtrlVeurePlantilla.cxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlVeurePlantilla.cxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlVeurePlantilla.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlVeurePlantilla.cxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlVeurePlantilla.cxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlVeurePlantilla.cxx",
               "RelativeToolTip": "Playcampus\\Domini\\CtrlVeurePlantilla.cxx",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEoAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAD8AAAAAAAAAAABBwEsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-05-02T16:15:29.037Z",
               "EditorCaption": ""
@@ -141,24 +200,23 @@
               "$type": "Document",
               "DocumentIndex": 25,
               "Title": "CtrlVeurePlantilla.hxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlVeurePlantilla.hxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlVeurePlantilla.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlVeurePlantilla.hxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlVeurePlantilla.hxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlVeurePlantilla.hxx",
               "RelativeToolTip": "Playcampus\\Domini\\CtrlVeurePlantilla.hxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-05-02T16:15:21.391Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-02T16:15:21.391Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Form1.h",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Form1.h",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Form1.h",
               "RelativeDocumentMoniker": "Playcampus\\Form1.h",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Form1.h",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Form1.h",
               "RelativeToolTip": "Playcampus\\Form1.h",
-              "ViewState": "AgIAAOYJAAAAAAAAAABBwCYEAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAEKAAAAAAAAAIBJwDAEAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-04-08T09:18:54.78Z",
               "EditorCaption": ""
@@ -167,11 +225,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "CtrlAfegirJugador.cxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlAfegirJugador.cxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlAfegirJugador.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlAfegirJugador.cxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlAfegirJugador.cxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlAfegirJugador.cxx",
               "RelativeToolTip": "Playcampus\\Domini\\CtrlAfegirJugador.cxx",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAABAAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAACkAAAAAAAAAAAAAABAAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-04-30T08:54:17.857Z",
               "EditorCaption": ""
@@ -180,25 +238,21 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "PassarellaJornada.cxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJornada.cxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJornada.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaJornada.cxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJornada.cxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJornada.cxx",
               "RelativeToolTip": "Playcampus\\Dades\\PassarellaJornada.cxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-04-28T16:14:40.434Z"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
               "$type": "Document",
               "DocumentIndex": 20,
               "Title": "PassarellaJugador.hxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJugador.hxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJugador.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaJugador.hxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJugador.hxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJugador.hxx",
               "RelativeToolTip": "Playcampus\\Dades\\PassarellaJugador.hxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -208,9 +262,9 @@
               "$type": "Document",
               "DocumentIndex": 21,
               "Title": "PassarellaJugador.cxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJugador.cxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJugador.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaJugador.cxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJugador.cxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJugador.cxx",
               "RelativeToolTip": "Playcampus\\Dades\\PassarellaJugador.cxx",
               "ViewState": "AgIAAGkAAAAAAAAAAIBJwK4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -220,9 +274,9 @@
               "$type": "Document",
               "DocumentIndex": 22,
               "Title": "CercadoraJugador.hxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJugador.hxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJugador.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\CercadoraJugador.hxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJugador.hxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJugador.hxx",
               "RelativeToolTip": "Playcampus\\Dades\\CercadoraJugador.hxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -232,9 +286,9 @@
               "$type": "Document",
               "DocumentIndex": 24,
               "Title": "CtrlAfegirJugador.hxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlAfegirJugador.hxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlAfegirJugador.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlAfegirJugador.hxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlAfegirJugador.hxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlAfegirJugador.hxx",
               "RelativeToolTip": "Playcampus\\Domini\\CtrlAfegirJugador.hxx",
               "ViewState": "AgIAAAsAAAAAAAAAAABBwA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -244,9 +298,9 @@
               "$type": "Document",
               "DocumentIndex": 23,
               "Title": "CercadoraJugador.cxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJugador.cxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJugador.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\CercadoraJugador.cxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJugador.cxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJugador.cxx",
               "RelativeToolTip": "Playcampus\\Dades\\CercadoraJugador.cxx",
               "ViewState": "AgIAAIcAAAAAAAAAAABBwJMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -256,35 +310,33 @@
               "$type": "Document",
               "DocumentIndex": 10,
               "Title": "schemapartit.sql",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\schemapartit.sql",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\schemapartit.sql",
               "RelativeDocumentMoniker": "Playcampus\\schemapartit.sql",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\schemapartit.sql",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\schemapartit.sql",
               "RelativeToolTip": "Playcampus\\schemapartit.sql",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-04-14T10:13:12.082Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-14T10:13:12.082Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
               "Title": "schemaequip.sql",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\schemaequip.sql",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\schemaequip.sql",
               "RelativeDocumentMoniker": "Playcampus\\schemaequip.sql",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\schemaequip.sql",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\schemaequip.sql",
               "RelativeToolTip": "Playcampus\\schemaequip.sql",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-04-11T15:53:48.692Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-11T15:53:48.692Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 13,
               "Title": "PassarellaJornada.hxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJornada.hxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJornada.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaJornada.hxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJornada.hxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaJornada.hxx",
               "RelativeToolTip": "Playcampus\\Dades\\PassarellaJornada.hxx",
               "ViewState": "AgIAABMAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -294,9 +346,9 @@
               "$type": "Document",
               "DocumentIndex": 12,
               "Title": "CercadoraJornada.cxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJornada.cxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJornada.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\CercadoraJornada.cxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJornada.cxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJornada.cxx",
               "RelativeToolTip": "Playcampus\\Dades\\CercadoraJornada.cxx",
               "ViewState": "AgIAAA0AAAAAAAAAAABBwCQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -306,9 +358,9 @@
               "$type": "Document",
               "DocumentIndex": 11,
               "Title": "CercadoraJornada.hxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJornada.hxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJornada.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\CercadoraJornada.hxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJornada.hxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraJornada.hxx",
               "RelativeToolTip": "Playcampus\\Dades\\CercadoraJornada.hxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -318,9 +370,9 @@
               "$type": "Document",
               "DocumentIndex": 19,
               "Title": "PassarellaUsuari.hxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.hxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaUsuari.hxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.hxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.hxx",
               "RelativeToolTip": "Playcampus\\Dades\\PassarellaUsuari.hxx",
               "ViewState": "AgIAACQAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -330,9 +382,9 @@
               "$type": "Document",
               "DocumentIndex": 18,
               "Title": "CercadoraUsuari.cxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraUsuari.cxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraUsuari.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\CercadoraUsuari.cxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraUsuari.cxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraUsuari.cxx",
               "RelativeToolTip": "Playcampus\\Dades\\CercadoraUsuari.cxx",
               "ViewState": "AgIAAAEAAAAAAAAAAABBwEgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -342,9 +394,9 @@
               "$type": "Document",
               "DocumentIndex": 17,
               "Title": "CercadoraUsuari.hxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraUsuari.hxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraUsuari.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\CercadoraUsuari.hxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraUsuari.hxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraUsuari.hxx",
               "RelativeToolTip": "Playcampus\\Dades\\CercadoraUsuari.hxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -354,9 +406,9 @@
               "$type": "Document",
               "DocumentIndex": 16,
               "Title": "PassarellaPartit.cxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaPartit.cxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaPartit.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaPartit.cxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaPartit.cxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaPartit.cxx",
               "RelativeToolTip": "Playcampus\\Dades\\PassarellaPartit.cxx",
               "ViewState": "AgIAADwAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -366,9 +418,9 @@
               "$type": "Document",
               "DocumentIndex": 15,
               "Title": "CercadoraPartit.cxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraPartit.cxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraPartit.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\CercadoraPartit.cxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraPartit.cxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraPartit.cxx",
               "RelativeToolTip": "Playcampus\\Dades\\CercadoraPartit.cxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -378,9 +430,9 @@
               "$type": "Document",
               "DocumentIndex": 14,
               "Title": "CercadoraPartit.hxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraPartit.hxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraPartit.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\CercadoraPartit.hxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraPartit.hxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\CercadoraPartit.hxx",
               "RelativeToolTip": "Playcampus\\Dades\\CercadoraPartit.hxx",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -390,9 +442,9 @@
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "CtrlCrearPartit.hxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearPartit.hxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearPartit.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlCrearPartit.hxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearPartit.hxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearPartit.hxx",
               "RelativeToolTip": "Playcampus\\Domini\\CtrlCrearPartit.hxx",
               "ViewState": "AgIAAAIAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -402,9 +454,9 @@
               "$type": "Document",
               "DocumentIndex": 9,
               "Title": "CtrlCrearPartit.cxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearPartit.cxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearPartit.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlCrearPartit.cxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearPartit.cxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearPartit.cxx",
               "RelativeToolTip": "Playcampus\\Domini\\CtrlCrearPartit.cxx",
               "ViewState": "AgIAAAQAAAAAAAAAAEBVwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -414,9 +466,9 @@
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "PassarellaUsuari.cxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.cxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaUsuari.cxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.cxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaUsuari.cxx",
               "RelativeToolTip": "Playcampus\\Dades\\PassarellaUsuari.cxx",
               "ViewState": "AgIAAGsAAAAAAAAAAIBJwG0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -426,9 +478,9 @@
               "$type": "Document",
               "DocumentIndex": 6,
               "Title": "CtrlCrearLliga.cxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearLliga.cxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearLliga.cxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\CtrlCrearLliga.cxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearLliga.cxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\CtrlCrearLliga.cxx",
               "RelativeToolTip": "Playcampus\\Domini\\CtrlCrearLliga.cxx",
               "ViewState": "AgIAADEAAAAAAAAAAIBZwBoAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -438,9 +490,9 @@
               "$type": "Document",
               "DocumentIndex": 7,
               "Title": "PassarellaPartit.hxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaPartit.hxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaPartit.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Dades\\PassarellaPartit.hxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaPartit.hxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Dades\\PassarellaPartit.hxx",
               "RelativeToolTip": "Playcampus\\Dades\\PassarellaPartit.hxx",
               "ViewState": "AgIAACAAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -450,9 +502,9 @@
               "$type": "Document",
               "DocumentIndex": 8,
               "Title": "Partit.hxx",
-              "DocumentMoniker": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\Partit.hxx",
+              "DocumentMoniker": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\Partit.hxx",
               "RelativeDocumentMoniker": "Playcampus\\Domini\\Partit.hxx",
-              "ToolTip": "C:\\Users\\M1502\\source\\repos\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\Partit.hxx",
+              "ToolTip": "E:\\UNIVERSIDAD UPC\\QUATRI 4\\AMEP\\Iteracio2\\PlayCampus\\Projecte-AMEP\\Playcampus\\Domini\\Partit.hxx",
               "RelativeToolTip": "Playcampus\\Domini\\Partit.hxx",
               "ViewState": "AgIAACIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",

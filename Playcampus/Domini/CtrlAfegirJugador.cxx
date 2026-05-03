@@ -28,8 +28,10 @@ namespace Playcampus {
                 throw gcnew Exception("L'usuari estudiant no existeix.");
             }
 
-            if (usuariEstudiant->GetTipus() != "Estudiant") {
-                throw gcnew Exception("L'usuari no és de tipus Estudiant.");
+            // Permetem tornar a inscriure un usuari que ja és de tipus Jugador però no està vinculat a cap equip
+            // (p.ex. després d'haver estat expulsat). En aquest cas, es crearà un nou registre a la taula Jugador.
+            if (usuariEstudiant->GetTipus() != "Estudiant" && usuariEstudiant->GetTipus() != "Jugador") {
+                throw gcnew Exception("L'usuari no és de tipus Estudiant ni Jugador.");
             }
 
             // Cercar el capta per obtenir l'idEquip
@@ -56,7 +58,7 @@ namespace Playcampus {
                 MySqlDataReader^ reader = cmd->ExecuteReader();
                 if (reader->Read()) {
                     if (!reader->IsDBNull(0)) {
-                        idEquip = reader->GetString(0);
+                        idEquip = reader->GetString(0)->Trim();
                     }
                 }
                 reader->Close();
@@ -70,6 +72,24 @@ namespace Playcampus {
 
             if (String::IsNullOrWhiteSpace(idEquip)) {
                 throw gcnew Exception("El capta no té equip assignat.");
+            }
+
+            // Verificar que l'equip existeix (evitar errors de clau forana)
+            {
+                MySqlConnection^ connEquip = gcnew MySqlConnection(connStr);
+                try {
+                    connEquip->Open();
+                    String^ queryEquip = "SELECT COUNT(*) FROM Equip WHERE idEquip = @idEquip";
+                    MySqlCommand^ cmdEquip = gcnew MySqlCommand(queryEquip, connEquip);
+                    cmdEquip->Parameters->AddWithValue("@idEquip", idEquip);
+                    int existeix = Convert::ToInt32(cmdEquip->ExecuteScalar());
+                    if (existeix <= 0) {
+                        throw gcnew Exception("L'equip associat al capità no existeix o no és vàlid.");
+                    }
+                }
+                finally {
+                    connEquip->Close();
+                }
             }
 
             // Verificar que el dorsal no existeix en l'equip
@@ -86,8 +106,10 @@ namespace Playcampus {
             // Inserir jugador
             jugador->Insereix();
 
-            // Actualitzar tipus d'usuari de Estudiant a Jugador
-            usuariEstudiant->ActualitzaTipus("Jugador");
+            // Actualitzar tipus d'usuari de Estudiant a Jugador (si ja era Jugador, no cal)
+            if (usuariEstudiant->GetTipus() != "Jugador") {
+                usuariEstudiant->ActualitzaTipus("Jugador");
+            }
 
             return "Jugador afegit correctament!";
         }

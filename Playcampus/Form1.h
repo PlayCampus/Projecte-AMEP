@@ -14,6 +14,7 @@
 #include "Domini/CtrlAfegirJugador.hxx"
 #include "Domini/CtrlAssignarJugador.hxx"
 #include "Domini/CtrlVeurePlantilla.hxx"
+#include "Domini/CtrlEliminarJugador.hxx"
 #include "Domini/CtrlConsultes.hxx"
 
 namespace CppCLRWinFormsProject {
@@ -171,6 +172,7 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::DataGridView^ dgvPlantilla;
 		System::Windows::Forms::Button^ btnGEEsborrarEquip;
 		System::Windows::Forms::Button^ btnGEAfegirJugador;
+       System::Windows::Forms::Button^ btnGEEliminarJugador;
 		System::Windows::Forms::Button^ btnGEAssignarJugador;
 		System::Windows::Forms::Button^ btnGETornar;
 
@@ -980,6 +982,7 @@ namespace CppCLRWinFormsProject {
 			this->dgvPlantilla = gcnew System::Windows::Forms::DataGridView();
 			this->btnGEEsborrarEquip = gcnew System::Windows::Forms::Button();
 			this->btnGEAfegirJugador = gcnew System::Windows::Forms::Button();
+            this->btnGEEliminarJugador = gcnew System::Windows::Forms::Button();
 			this->btnGEAssignarJugador = gcnew System::Windows::Forms::Button();
 			this->btnGETornar = gcnew System::Windows::Forms::Button();
 
@@ -989,6 +992,7 @@ namespace CppCLRWinFormsProject {
 			this->pnlGestionarEquip->Controls->Add(this->dgvPlantilla);
 			this->pnlGestionarEquip->Controls->Add(this->btnGEEsborrarEquip);
 			this->pnlGestionarEquip->Controls->Add(this->btnGEAfegirJugador);
+         this->pnlGestionarEquip->Controls->Add(this->btnGEEliminarJugador);
 			this->pnlGestionarEquip->Controls->Add(this->btnGEAssignarJugador);
 			this->pnlGestionarEquip->Controls->Add(this->btnGETornar);
 
@@ -1017,6 +1021,12 @@ namespace CppCLRWinFormsProject {
 			this->btnGEAfegirJugador->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
 			this->btnGEAfegirJugador->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->btnGEAfegirJugador->Click += gcnew System::EventHandler(this, &Form1::btnGEAfegirJugador_Click);
+
+			this->btnGEEliminarJugador->Text = L"Eliminar jugador";
+			this->btnGEEliminarJugador->Size = System::Drawing::Size(220, 60);
+			this->btnGEEliminarJugador->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
+			this->btnGEEliminarJugador->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnGEEliminarJugador->Click += gcnew System::EventHandler(this, &Form1::btnGEEliminarJugador_Click);
 
 			this->btnGEAssignarJugador->Text = L"Assignar jugador a partit";
 			this->btnGEAssignarJugador->Size = System::Drawing::Size(220, 60);
@@ -1311,7 +1321,8 @@ namespace CppCLRWinFormsProject {
 		int btnGEW = this->btnGEEsborrarEquip->Width;
 		this->btnGEEsborrarEquip->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY);
 		this->btnGEAfegirJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 70);
-			this->btnGEAssignarJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 140);
+      this->btnGEEliminarJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 140);
+			this->btnGEAssignarJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 210);
 
 		// --- PANEL AFEGIR JUGADOR ---
 		this->lblAJTitle->Location = System::Drawing::Point(centerX - this->lblAJTitle->Width / 2, 30);
@@ -2529,6 +2540,9 @@ namespace CppCLRWinFormsProject {
 			try {
 				Playcampus::Domini::CtrlVeurePlantilla^ ctrlVP = gcnew Playcampus::Domini::CtrlVeurePlantilla();
 				dgvPlantilla->DataSource = ctrlVP->ObtenirPlantillaEquip(currentUsuariCorreu);
+               if (dgvPlantilla->Columns->Contains("IdJugador")) {
+					dgvPlantilla->Columns["IdJugador"]->Visible = false;
+				}
 			}
 			catch (Exception^ ex) {
 				MessageBox::Show(L"Error al carregar la plantilla: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
@@ -2674,6 +2688,59 @@ namespace CppCLRWinFormsProject {
 		txtAJPosicio->Text = L"";
 	}
 
+	private: System::Void btnGEEliminarJugador_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (currentUsuariTipus == nullptr || currentUsuariTipus->ToLower() != L"capita") {
+			MessageBox::Show(L"Només els capitans poden accedir a aquesta funcionalitat.", L"Accés denegat", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		if (dgvPlantilla->SelectedRows == nullptr || dgvPlantilla->SelectedRows->Count == 0) {
+			MessageBox::Show(L"Selecciona un jugador de la plantilla.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		DataGridViewRow^ row = dgvPlantilla->SelectedRows[0];
+		String^ idJugador = nullptr;
+		if (dgvPlantilla->Columns->Contains("IdJugador") && row->Cells["IdJugador"]->Value != nullptr) {
+			idJugador = row->Cells["IdJugador"]->Value->ToString();
+		}
+
+		if (String::IsNullOrWhiteSpace(idJugador)) {
+			MessageBox::Show(L"No s'ha pogut obtenir l'IdJugador de la fila seleccionada.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
+		}
+
+		String^ nomJugador = L"";
+		if (dgvPlantilla->Columns->Contains("Nom") && row->Cells["Nom"]->Value != nullptr) {
+			nomJugador = row->Cells["Nom"]->Value->ToString();
+		}
+
+		System::Windows::Forms::DialogResult confirmacio = MessageBox::Show(
+			L"Vols eliminar/expulsar el jugador '" + nomJugador + L"' de l'equip?",
+			L"Confirmació",
+			MessageBoxButtons::YesNo,
+			MessageBoxIcon::Warning);
+
+		if (confirmacio != System::Windows::Forms::DialogResult::Yes) {
+			return;
+		}
+
+		try {
+			Playcampus::Domini::CtrlEliminarJugador^ ctrlEliminar = gcnew Playcampus::Domini::CtrlEliminarJugador();
+			String^ resultat = ctrlEliminar->EliminarJugador(currentUsuariCorreu, idJugador);
+			MessageBox::Show(resultat, L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+			Playcampus::Domini::CtrlVeurePlantilla^ ctrlVP = gcnew Playcampus::Domini::CtrlVeurePlantilla();
+			dgvPlantilla->DataSource = ctrlVP->ObtenirPlantillaEquip(currentUsuariCorreu);
+           if (dgvPlantilla->Columns->Contains("IdJugador")) {
+				dgvPlantilla->Columns["IdJugador"]->Visible = false;
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error en expulsar el jugador: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
+
 	private: System::Void btnAJConfirmar_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ correuEstudiant = txtAJCorreu->Text;
 		String^ dorsalText = txtAJDorsal->Text;
@@ -2695,6 +2762,12 @@ namespace CppCLRWinFormsProject {
 			String^ resultat = ctrlAfegir->AfegirJugador(correuEstudiant, dorsal, posicioText, currentUsuariCorreu);
 
 			MessageBox::Show(resultat, L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+          Playcampus::Domini::CtrlVeurePlantilla^ ctrlVP = gcnew Playcampus::Domini::CtrlVeurePlantilla();
+			dgvPlantilla->DataSource = ctrlVP->ObtenirPlantillaEquip(currentUsuariCorreu);
+			if (dgvPlantilla->Columns->Contains("IdJugador")) {
+				dgvPlantilla->Columns["IdJugador"]->Visible = false;
+			}
 
 			pnlAfegirJugador->Visible = false;
 			pnlGestionarEquip->Visible = true;

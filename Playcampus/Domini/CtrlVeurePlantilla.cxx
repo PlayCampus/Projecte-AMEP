@@ -58,6 +58,7 @@ namespace Playcampus {
 
             // Get team players
             DataTable^ dt = gcnew DataTable();
+            dt->Columns->Add("IdJugador", String::typeid);
             dt->Columns->Add("Nom", String::typeid);
             dt->Columns->Add("Dorsal", int::typeid);
             dt->Columns->Add("Posició", String::typeid);
@@ -66,7 +67,7 @@ namespace Playcampus {
             List<PassarellaJugador^>^ jugadors = cercadoraJugador->LlegeixTsPerEquip(idEquip);
 
             for each(PassarellaJugador^ p in jugadors) {
-                dt->Rows->Add(p->GetNom(), p->GetDorsal(), p->GetPosicio());
+                dt->Rows->Add(p->GetIdJugador(), p->GetNom(), p->GetDorsal(), p->GetPosicio());
             }
 
             return dt;
