@@ -281,5 +281,6 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
+    <None Include="schemajugador.sql" />
   </ItemGroup>
 </Project>

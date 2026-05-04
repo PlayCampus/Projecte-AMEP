@@ -92,7 +92,8 @@ namespace Playcampus {
 
                 MySqlDataReader^ reader = cmd->ExecuteReader();
                 while (reader->Read()) {
-                    String^ idJugador = reader["idJugador"]->ToString();
+                    int idJugadorInt = reader->GetInt32("idJugador");
+                    String^ idJugador = idJugadorInt.ToString();
                     int dorsal = reader->GetInt32("dorsal");
                     String^ posicio = reader->IsDBNull(reader->GetOrdinal("posicio")) ? "" : reader->GetString("posicio");
                     DateTime data = reader->GetDateTime("data_naixement");

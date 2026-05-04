@@ -37,7 +37,7 @@ namespace Playcampus {
                     "FROM Lliga l "
                     "INNER JOIN Usuari u ON l.idAdministrador = u.identificador "
                     "WHERE u.correu_electronic = @correuAdmin "
-                    "ORDER BY CASE WHEN l.estat = 'en_curs' THEN 0 ELSE 1 END, l.nom "
+                    "ORDER BY l.nom "
                     "LIMIT 1";
 
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);

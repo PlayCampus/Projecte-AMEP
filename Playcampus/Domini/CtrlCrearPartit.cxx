@@ -118,7 +118,7 @@ namespace Playcampus {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
-                String^ query = "SELECT e.nom FROM Equip e INNER JOIN Lliga l ON e.idLliga = l.idLliga WHERE l.nom = @nomLliga";
+                String^ query = "SELECT e.nom FROM Equip e INNER JOIN Temporada t ON e.idTemporada = t.idTemporada INNER JOIN Lliga l ON t.idLliga = l.idLliga WHERE l.nom = @nomLliga";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@nomLliga", nomLliga);
                 MySqlDataReader^ reader = cmd->ExecuteReader();

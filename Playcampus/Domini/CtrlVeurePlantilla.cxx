@@ -79,11 +79,12 @@ namespace Playcampus {
                 
                 MySqlDataReader^ readerJugadors = cmdJugadors->ExecuteReader();
                 while (readerJugadors->Read()) {
-                    String^ idJugador = readerJugadors->GetString(0);
+                    int idJugadorInt = readerJugadors->GetInt32(0);
+                    String^ idJugador = idJugadorInt.ToString();
                     String^ nom = readerJugadors->GetString(1);
                     int dorsal = readerJugadors->GetInt32(2);
                     String^ posicio = readerJugadors->IsDBNull(3) ? "" : readerJugadors->GetString(3);
-                    
+
                     dt->Rows->Add(idJugador, nom, dorsal, posicio);
                 }
                 readerJugadors->Close();

@@ -1,7 +1,7 @@
 USE amep06;
 
 CREATE TABLE IF NOT EXISTS Jugador (
-    idJugador VARCHAR(36) PRIMARY KEY,
+    idJugador INT PRIMARY KEY,
     dorsal INT,
     posicio VARCHAR(50),
     data_naixement DATE,

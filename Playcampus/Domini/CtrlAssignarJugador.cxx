@@ -101,7 +101,8 @@ namespace Playcampus {
             String^ query = "SELECT COUNT(*) FROM Jugador WHERE idJugador = @idJugador AND idEquip = @idEquip";
 
             MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-            cmd->Parameters->AddWithValue("@idJugador", idJugador);
+            int idJugadorInt = Convert::ToInt32(idJugador);
+            cmd->Parameters->AddWithValue("@idJugador", idJugadorInt);
             cmd->Parameters->AddWithValue("@idEquip", idEquip);
 
             Object^ resultat = cmd->ExecuteScalar();
@@ -119,7 +120,8 @@ namespace Playcampus {
 
             MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
             cmd->Parameters->AddWithValue("@idPartit", idPartit);
-            cmd->Parameters->AddWithValue("@idJugador", idJugador);
+            int idJugadorInt = Convert::ToInt32(idJugador);
+            cmd->Parameters->AddWithValue("@idJugador", idJugadorInt);
 
             Object^ resultat = cmd->ExecuteScalar();
             int total = Convert::ToInt32(resultat);
@@ -190,11 +192,12 @@ namespace Playcampus {
 
                 while (reader->Read()) {
                     Dictionary<String^, String^>^ jugador = gcnew Dictionary<String^, String^>();
-                    String^ idJugador = reader["idJugador"]->ToString();
+                    int idJugadorInt = reader->GetInt32("idJugador");
+                    String^ idJugador = idJugadorInt.ToString();
                     jugador["idJugador"] = idJugador;
                     jugador["dorsal"] = reader->IsDBNull(reader->GetOrdinal("dorsal")) ? "" : reader["dorsal"]->ToString();
                     jugador["posicio"] = reader->IsDBNull(reader->GetOrdinal("posicio")) ? "" : reader["posicio"]->ToString();
-                    
+
                     // Obtenir el nom de l'Usuari mittançant CercadoraUsuari
                     // Creem una query directa per a l'usuari
                     MySqlConnection^ connU = gcnew MySqlConnection(connectionString);
@@ -202,14 +205,14 @@ namespace Playcampus {
                         connU->Open();
                         String^ queryU = "SELECT nom FROM Usuari WHERE identificador = @id";
                         MySqlCommand^ cmdU = gcnew MySqlCommand(queryU, connU);
-                        cmdU->Parameters->AddWithValue("@id", idJugador);
+                        cmdU->Parameters->AddWithValue("@id", idJugadorInt);
                         Object^ nomResult = cmdU->ExecuteScalar();
                         jugador["nom"] = (nomResult != nullptr) ? nomResult->ToString() : "";
                     }
                     finally {
                         connU->Close();
                     }
-                    
+
                     jugadors->Add(jugador);
                 }
                 reader->Close();
@@ -252,7 +255,8 @@ namespace Playcampus {
                 String^ query = "INSERT INTO AssignacioJugadorPartit (idPartit, idJugador, dataAssignacio) VALUES (@idPartit, @idJugador, NOW())";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idPartit", idPartit);
-                cmd->Parameters->AddWithValue("@idJugador", idJugador);
+                int idJugadorInt = Convert::ToInt32(idJugador);
+                cmd->Parameters->AddWithValue("@idJugador", idJugadorInt);
                 cmd->ExecuteNonQuery();
             }
             finally {

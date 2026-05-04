@@ -59,7 +59,8 @@ namespace Playcampus {
 
                 String^ query = "INSERT INTO Jugador (idJugador, dorsal, posicio, data_naixement, partitsJugats, anotacions, assistencies, faltesLleus, faltesGreus, minutsJugats, idEquip) VALUES (@id, @dorsal, @posicio, @data, @pj, @a, @as, @fl, @fg, @mj, @ie)";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                cmd->Parameters->AddWithValue("@id", idJugador);
+                int idJugadorInt = Convert::ToInt32(idJugador);
+                cmd->Parameters->AddWithValue("@id", idJugadorInt);
                 cmd->Parameters->AddWithValue("@dorsal", dorsal);
                 cmd->Parameters->AddWithValue("@posicio", (posicio != nullptr) ? posicio : "");
                 cmd->Parameters->AddWithValue("@data", dataNaixement);
@@ -97,7 +98,8 @@ namespace Playcampus {
                 cmd->Parameters->AddWithValue("@fg", faltesGreus);
                 cmd->Parameters->AddWithValue("@mj", minutsJugats);
                 cmd->Parameters->AddWithValue("@ie", (idEquip != nullptr) ? (Object^)idEquip : (Object^)DBNull::Value);
-                cmd->Parameters->AddWithValue("@id", idJugador);
+                int idJugadorInt = Convert::ToInt32(idJugador);
+                cmd->Parameters->AddWithValue("@id", idJugadorInt);
                 cmd->ExecuteNonQuery();
             }
             catch (Exception^ ex) {
@@ -115,7 +117,8 @@ namespace Playcampus {
 
                 String^ query = "DELETE FROM Jugador WHERE idJugador = @id";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                cmd->Parameters->AddWithValue("@id", idJugador);
+                int idJugadorInt = Convert::ToInt32(idJugador);
+                cmd->Parameters->AddWithValue("@id", idJugadorInt);
                 cmd->ExecuteNonQuery();
             }
             catch (Exception^ ex) {
@@ -133,7 +136,8 @@ namespace Playcampus {
                 conn->Open();
                 String^ query = "SELECT dorsal, posicio, data_naixement, partitsJugats, anotacions, assistencies, faltesLleus, faltesGreus, minutsJugats, idEquip FROM Jugador WHERE idJugador = @id";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                cmd->Parameters->AddWithValue("@id", idJ);
+                int idJInt = Convert::ToInt32(idJ);
+                cmd->Parameters->AddWithValue("@id", idJInt);
 
                 MySqlDataReader^ reader = cmd->ExecuteReader();
                 if (reader->Read()) {

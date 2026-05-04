@@ -55,11 +55,10 @@ namespace Playcampus {
             int GetPartitsJugats();
             void SetPartitsJugats(int partitsJugats);
 
-            // Validacions
-            bool ValidarDorsal();
-            bool ValidarEdat();
-            bool ValidarAntiguitat();
-            bool ValidarNom();
-        };
-    }
-}
+                        // Validacions
+                        bool ValidarDorsal();
+                        bool ValidarEdat();
+                        bool ValidarAntiguitat();
+                    };
+                }
+            }
