@@ -55,12 +55,13 @@ namespace Playcampus {
 
         DataTable^ CtrlConsultes::ObtenirEstatLligues() {
             String^ consulta =
-                "SELECT L.nom AS Lliga, L.disciplina AS Esport, L.estat AS Estat, "
-                "IFNULL(U.nom, '') AS Administrador, COUNT(E.idEquip) AS NumEquips "
+                "SELECT L.nom AS Lliga, L.disciplina AS Esport, "
+                "IFNULL(U.nom, '') AS Administrador, COUNT(DISTINCT E.idEquip) AS NumEquips "
                 "FROM Lliga L "
-                "LEFT JOIN Equip E ON E.idLliga = L.idLliga "
+                "LEFT JOIN Temporada T ON T.idLliga = L.idLliga "
+                "LEFT JOIN Equip E ON E.idTemporada = T.idTemporada "
                 "LEFT JOIN Usuari U ON L.idAdministrador = U.identificador "
-                "GROUP BY L.idLliga, L.nom, L.disciplina, L.estat, U.nom "
+                "GROUP BY L.idLliga, L.nom, L.disciplina, U.nom "
                 "ORDER BY L.nom ASC";
 
             return ExecutaConsulta(connectionString, consulta, nullptr);
@@ -74,7 +75,8 @@ namespace Playcampus {
                 "E.golsEnContra AS GolsEnContra, E.diferenciaGols AS DiferenciaGols, "
                 "E.posicioClassificacio AS PosicioClassificacio "
                 "FROM Equip E "
-                "LEFT JOIN Lliga L ON E.idLliga = L.idLliga "
+                "LEFT JOIN Temporada T ON E.idTemporada = T.idTemporada "
+                "LEFT JOIN Lliga L ON T.idLliga = L.idLliga "
                 "ORDER BY IFNULL(L.nom, ''), E.posicioClassificacio ASC, E.punts DESC, E.nom ASC";
 
             return ExecutaConsulta(connectionString, consulta, nullptr);
@@ -87,8 +89,9 @@ namespace Playcampus {
                 "E.derrotes AS Derrotes, E.punts AS Punts "
                 "FROM Lliga L "
                 "INNER JOIN Usuari U ON L.idAdministrador = U.identificador "
-                "INNER JOIN Equip E ON E.idLliga = L.idLliga "
-                "WHERE U.correu_electronic = @correuAdmin AND L.estat = 'en_curs' "
+                "INNER JOIN Temporada T ON T.idLliga = L.idLliga "
+                "INNER JOIN Equip E ON E.idTemporada = T.idTemporada "
+                "WHERE U.correu_electronic = @correuAdmin "
                 "ORDER BY E.nom ASC";
 
             cli::array<MySqlParameter^>^ parametres = gcnew cli::array<MySqlParameter^>(1);
@@ -104,7 +107,7 @@ namespace Playcampus {
                 String^ consulta =
                     "SELECT L.nom FROM Lliga L "
                     "INNER JOIN Usuari U ON L.idAdministrador = U.identificador "
-                    "WHERE U.correu_electronic = @correuAdmin AND L.estat = 'en_curs' "
+                    "WHERE U.correu_electronic = @correuAdmin "
                     "ORDER BY L.nom ASC LIMIT 1";
                 MySqlCommand^ cmd = gcnew MySqlCommand(consulta, conn);
                 cmd->Parameters->AddWithValue("@correuAdmin", correuAdmin);
@@ -128,9 +131,10 @@ namespace Playcampus {
                 conn->Open();
                 String^ consulta =
                     "UPDATE Equip E "
-                    "INNER JOIN Lliga L ON E.idLliga = L.idLliga "
+                    "INNER JOIN Temporada T ON E.idTemporada = T.idTemporada "
+                    "INNER JOIN Lliga L ON T.idLliga = L.idLliga "
                     "INNER JOIN Usuari U ON L.idAdministrador = U.identificador "
-                    "SET E.idLliga = NULL "
+                    "SET E.idTemporada = NULL "
                     "WHERE E.idEquip = @idEquip AND U.correu_electronic = @correuAdmin";
                 MySqlCommand^ cmd = gcnew MySqlCommand(consulta, conn);
                 cmd->Parameters->AddWithValue("@idEquip", idEquip);

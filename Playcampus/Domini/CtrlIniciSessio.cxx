@@ -53,11 +53,11 @@ namespace Playcampus {
             MySql::Data::MySqlClient::MySqlConnection^ conn = gcnew MySql::Data::MySqlClient::MySqlConnection(connectionString);
             try {
                 conn->Open();
-                String^ query = "SELECT E.idLliga FROM Equip E JOIN Capita C ON E.idEquip = C.idEquip JOIN Usuari U ON C.identificador = U.identificador WHERE U.correu_electronic = @correu";
+                String^ query = "SELECT E.idTemporada FROM Equip E JOIN Capita C ON E.idEquip = C.idEquip JOIN Usuari U ON C.identificador = U.identificador WHERE U.correu_electronic = @correu";
                 MySql::Data::MySqlClient::MySqlCommand^ cmd = gcnew MySql::Data::MySqlClient::MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@correu", correu);
                 Object^ result = cmd->ExecuteScalar();
-                
+
                 if (result != nullptr && result != DBNull::Value && !String::IsNullOrWhiteSpace(result->ToString())) {
                     return true;
                 }

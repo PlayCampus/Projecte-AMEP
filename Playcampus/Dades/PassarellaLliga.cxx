@@ -10,13 +10,12 @@ namespace Playcampus {
             connectionString = connStr;
         }
 
-        PassarellaLliga::PassarellaLliga(String^ connStr, String^ idLliga, String^ nom, Playcampus::Domini::Disciplina disciplina, String^ descripcio, String^ estat, String^ contrasenya, String^ idAdministrador) {
+        PassarellaLliga::PassarellaLliga(String^ connStr, String^ idLliga, String^ nom, Playcampus::Domini::Disciplina disciplina, String^ descripcio, String^ contrasenya, String^ idAdministrador) {
             connectionString = connStr;
             this->idLliga = idLliga;
             this->nom = nom;
             this->disciplina = disciplina;
             this->descripcio = descripcio;
-            this->estat = estat;
             this->contrasenya = contrasenya;
             this->idAdministrador = idAdministrador;
         }
@@ -25,7 +24,6 @@ namespace Playcampus {
         String^ PassarellaLliga::GetNom() { return nom; }
         Playcampus::Domini::Disciplina PassarellaLliga::GetDisciplina() { return disciplina; }
         String^ PassarellaLliga::GetDescripcio() { return descripcio; }
-        String^ PassarellaLliga::GetEstat() { return estat; }
         String^ PassarellaLliga::GetContrasenya() { return contrasenya; }
         String^ PassarellaLliga::GetIdAdministrador() { return idAdministrador; }
 
@@ -38,14 +36,13 @@ namespace Playcampus {
                     idLliga = Guid::NewGuid().ToString();
                 }
 
-                String^ query = "INSERT INTO Lliga (idLliga, nom, disciplina, descripcio, estat, contrasenya, idAdministrador) VALUES (@idLliga, @nom, @disciplina, @descripcio, @estat, @contrasenya, @idAdministrador)";
+                String^ query = "INSERT INTO Lliga (idLliga, nom, disciplina, descripcio, contrasenya, idAdministrador) VALUES (@idLliga, @nom, @disciplina, @descripcio, @contrasenya, @idAdministrador)";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                
+
                 cmd->Parameters->AddWithValue("@idLliga", idLliga);
                 cmd->Parameters->AddWithValue("@nom", nom);
                 cmd->Parameters->AddWithValue("@disciplina", disciplina.ToString());
                 cmd->Parameters->AddWithValue("@descripcio", descripcio);
-                cmd->Parameters->AddWithValue("@estat", estat);
 
                 if (String::IsNullOrEmpty(contrasenya)) {
                     cmd->Parameters->AddWithValue("@contrasenya", DBNull::Value);
@@ -98,7 +95,7 @@ namespace Playcampus {
             try {
                 conn->Open();
 
-                String^ query = "SELECT COUNT(*) FROM Lliga WHERE idAdministrador = @idAdmin AND estat = 'en_curs'";
+                String^ query = "SELECT COUNT(*) FROM Lliga WHERE idAdministrador = @idAdmin";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idAdmin", idAdmin);
 
@@ -149,7 +146,7 @@ namespace Playcampus {
             MySql::Data::MySqlClient::MySqlConnection^ conn = gcnew MySql::Data::MySqlClient::MySqlConnection(connectionString);
             try {
                 conn->Open();
-                String^ query = "SELECT idLliga FROM Lliga WHERE idAdministrador = @idAdmin AND estat = 'en_curs' LIMIT 1";
+                String^ query = "SELECT idLliga FROM Lliga WHERE idAdministrador = @idAdmin LIMIT 1";
                 MySql::Data::MySqlClient::MySqlCommand^ cmd = gcnew MySql::Data::MySqlClient::MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idAdmin", idAdmin);
 

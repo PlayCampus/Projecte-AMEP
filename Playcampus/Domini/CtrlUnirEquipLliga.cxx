@@ -2,6 +2,7 @@
 #include "CtrlUnirEquipLliga.hxx"
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/PassarellaLliga.hxx"
+#include "../Dades/PassarellaTemporada.hxx"
 #include "../Dades/PassarellaEquip.hxx"
 #include <stdexcept>
 
@@ -79,16 +80,24 @@ namespace Playcampus {
                     throw gcnew Exception("La lliga no existeix.");
                 }
 
-                // 3. Modificar l'Equip mitjancant la seva Passarella
+                // 3. Obtenir l'ID de la Temporada més recent de la Lliga
+                Playcampus::Dades::PassarellaTemporada^ passTemporada = gcnew Playcampus::Dades::PassarellaTemporada(connectionString);
+                String^ idTemporadaMesRecent = passTemporada->ObtenirIdTemporadaMesRecent(idLligaEncontrado);
+
+                if (idTemporadaMesRecent == nullptr || String::IsNullOrWhiteSpace(idTemporadaMesRecent)) {
+                    throw gcnew Exception("La lliga no te cap temporada associada. Primer cal crear una temporada.");
+                }
+
+                // 4. Modificar l'Equip mitjancant la seva Passarella
                 Playcampus::Dades::PassarellaEquip^ equipDB = Playcampus::Dades::PassarellaEquip::Llegeix(connectionString, idEquipRecuperat);
                 if (equipDB != nullptr) {
-                    equipDB->SetIdLliga(idLligaEncontrado);
+                    equipDB->SetIdTemporada(idTemporadaMesRecent);
                     equipDB->Modifica();
 
-                    // 4. Comprovar que la modificacio s'ha guardat realment a la BD
+                    // 5. Comprovar que la modificacio s'ha guardat realment a la BD
                     Playcampus::Dades::PassarellaEquip^ equipComprovat = Playcampus::Dades::PassarellaEquip::Llegeix(connectionString, idEquipRecuperat);
-                    if (equipComprovat == nullptr || String::IsNullOrEmpty(equipComprovat->GetIdLliga()) || !equipComprovat->GetIdLliga()->Equals(idLligaEncontrado, StringComparison::OrdinalIgnoreCase)) {
-                        throw gcnew Exception("La base de dades no ha confirmat la vinculacio de l'equip amb la lliga.");
+                    if (equipComprovat == nullptr || String::IsNullOrEmpty(equipComprovat->GetIdTemporada()) || !equipComprovat->GetIdTemporada()->Equals(idTemporadaMesRecent, StringComparison::OrdinalIgnoreCase)) {
+                        throw gcnew Exception("La base de dades no ha confirmat la vinculacio de l'equip amb la temporada.");
                     }
 
                     missatgeExit = "L'equip " + equipDB->GetNom() + " ha sigut enregistrat amb exit a la lliga " + nomLliga + ".";

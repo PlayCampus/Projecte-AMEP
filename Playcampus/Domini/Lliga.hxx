@@ -12,11 +12,10 @@ namespace Playcampus {
             String^ nom;
             Disciplina disciplina;
             String^ descripcio;
-            String^ estat;
             String^ contrasenya; // Afegit com a requisit
 
         public:
-            Lliga(String^ idLliga, String^ nom, Disciplina disciplina, String^ descripcio, String^ estat, String^ contrasenya);
+            Lliga(String^ idLliga, String^ nom, Disciplina disciplina, String^ descripcio, String^ contrasenya);
 
             String^ GetIdLliga();
             void SetIdLliga(String^ idLliga);
@@ -29,9 +28,6 @@ namespace Playcampus {
 
             String^ GetDescripcio();
             void SetDescripcio(String^ descripcio);
-
-            String^ GetEstat();
-            void SetEstat(String^ estat);
 
             String^ GetContrasenya();
             void SetContrasenya(String^ contrasenya);

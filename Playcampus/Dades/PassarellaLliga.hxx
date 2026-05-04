@@ -13,19 +13,17 @@ namespace Playcampus {
             String^ nom;
             Playcampus::Domini::Disciplina disciplina;
             String^ descripcio;
-            String^ estat;
             String^ contrasenya;
             String^ idAdministrador;
 
         public:
             PassarellaLliga(String^ connStr);
-            PassarellaLliga(String^ connStr, String^ idLliga, String^ nom, Playcampus::Domini::Disciplina disciplina, String^ descripcio, String^ estat, String^ contrasenya, String^ idAdministrador);
+            PassarellaLliga(String^ connStr, String^ idLliga, String^ nom, Playcampus::Domini::Disciplina disciplina, String^ descripcio, String^ contrasenya, String^ idAdministrador);
 
             String^ GetIdLliga();
             String^ GetNom();
             Playcampus::Domini::Disciplina GetDisciplina();
             String^ GetDescripcio();
-            String^ GetEstat();
             String^ GetContrasenya();
             String^ GetIdAdministrador();
 

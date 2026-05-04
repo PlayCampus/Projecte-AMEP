@@ -29,6 +29,8 @@ namespace Playcampus {
             System::Collections::Generic::List<
                 System::Collections::Generic::Dictionary<System::String^, System::String^>^>^
                 ObtenirDictTemporadesPerLliga(System::String^ nomLliga);
+
+            System::String^ ObtenirIdTemporadaMesRecent(System::String^ idLliga);
         };
     }
 }

@@ -3,12 +3,11 @@
 
 namespace Playcampus {
     namespace Domini {
-        Lliga::Lliga(String^ idLliga, String^ nom, Playcampus::Domini::Disciplina disciplina, String^ descripcio, String^ estat, String^ contrasenya) {
+        Lliga::Lliga(String^ idLliga, String^ nom, Playcampus::Domini::Disciplina disciplina, String^ descripcio, String^ contrasenya) {
             this->idLliga = idLliga;
             this->nom = nom;
             this->disciplina = disciplina;
             this->descripcio = descripcio;
-            this->estat = estat;
             this->contrasenya = contrasenya;
         }
 
@@ -42,14 +41,6 @@ namespace Playcampus {
 
         void Lliga::SetDescripcio(String^ descripcio) {
             this->descripcio = descripcio;
-        }
-
-        String^ Lliga::GetEstat() {
-            return estat;
-        }
-
-        void Lliga::SetEstat(String^ estat) {
-            this->estat = estat;
         }
 
         String^ Lliga::GetContrasenya() {

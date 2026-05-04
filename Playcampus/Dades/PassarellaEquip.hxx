@@ -10,7 +10,7 @@ namespace Playcampus {
         private:
             String^ connectionString;
             String^ idEquip;
-            String^ idLliga;
+            String^ idTemporada;
             String^ nom;
             DateTime dataFundacio;
             String^ esport;
@@ -29,7 +29,7 @@ namespace Playcampus {
             PassarellaEquip(String^ connStr);
             PassarellaEquip(String^ connStr, String^ idEquip, String^ nom, DateTime dataFundacio, String^ esport);
 
-            PassarellaEquip(String^ connStr, String^ idEquip, String^ nom, DateTime dataFundacio, String^ esport, unsigned int partitsJugats, unsigned int victories, unsigned int derrotes, unsigned int empats, unsigned int punts, unsigned int golsAFavor, unsigned int golsEnContra, int diferenciaGols, int posicioClassificacio, String^ idLliga);
+            PassarellaEquip(String^ connStr, String^ idEquip, String^ nom, DateTime dataFundacio, String^ esport, unsigned int partitsJugats, unsigned int victories, unsigned int derrotes, unsigned int empats, unsigned int punts, unsigned int golsAFavor, unsigned int golsEnContra, int diferenciaGols, int posicioClassificacio, String^ idTemporada);
 
             String^ GetIdEquip();
             String^ GetNom();
@@ -45,15 +45,15 @@ namespace Playcampus {
             unsigned int GetGolsEnContra();
             int GetDiferenciaGols();
             int GetPosicioClassificacio();
-            String^ GetIdLliga();
-            
-            void SetIdLliga(String^ nouIdLliga);
+            String^ GetIdTemporada();
+
+            void SetIdTemporada(String^ nouIdTemporada);
 
             void Insereix();
             void Modifica();
             void Esborra();
             static PassarellaEquip^ Llegeix(String^ connStr, String^ idEq);
-            List <String^>^ ObtenirNomsEquipsPerLliga(String^ idLliga);
+            List <String^>^ ObtenirNomsEquipsPerTemporada(String^ idTemporada);
         };
     }
 }

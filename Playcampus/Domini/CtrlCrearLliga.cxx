@@ -15,14 +15,14 @@ namespace Playcampus {
             connectionString = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
         }
 
-        void CtrlCrearLliga::CrearLliga(String^ idLliga, String^ nom, Disciplina disciplina, String^ descripcio, String^ estat, String^ contrasenya, String^ tipusUsuari, String^ correuUsuari) {
+        void CtrlCrearLliga::CrearLliga(String^ idLliga, String^ nom, Disciplina disciplina, String^ descripcio, String^ contrasenya, String^ tipusUsuari, String^ correuUsuari) {
             // Verificar que l'usuari és un administrador
             if (tipusUsuari->ToLower() != "administrador") {
                 throw gcnew UnauthorizedAccessException("Només els administradors poden crear una lliga.");
             }
 
             // Aquí es crearia la Lliga. Actualment es crea l'objecte de domini.
-            Lliga^ novaLliga = gcnew Lliga(idLliga, nom, disciplina, descripcio, estat, contrasenya);
+            Lliga^ novaLliga = gcnew Lliga(idLliga, nom, disciplina, descripcio, contrasenya);
 
             String^ idAdmin = nullptr;
             if (!String::IsNullOrEmpty(correuUsuari)) {
@@ -34,7 +34,7 @@ namespace Playcampus {
 
             // Guardar a la base de dades utilitzant la passarella
             try {
-                Playcampus::Dades::PassarellaLliga^ pl = gcnew Playcampus::Dades::PassarellaLliga(connectionString, idLliga, nom, disciplina, descripcio, estat, contrasenya, idAdmin);
+                Playcampus::Dades::PassarellaLliga^ pl = gcnew Playcampus::Dades::PassarellaLliga(connectionString, idLliga, nom, disciplina, descripcio, contrasenya, idAdmin);
                 pl->Insereix();
             }
             catch (Exception^ ex) {

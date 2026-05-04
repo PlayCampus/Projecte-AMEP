@@ -26,10 +26,10 @@ namespace Playcampus {
             this->golsEnContra = 0;
             this->diferenciaGols = 0;
             this->posicioClassificacio = 0;
-            this->idLliga = nullptr;
+            this->idTemporada = nullptr;
         }
 
-        PassarellaEquip::PassarellaEquip(String^ connStr, String^ idEquip, String^ nom, DateTime dataFundacio, String^ esport, unsigned int partitsJugats, unsigned int victories, unsigned int derrotes, unsigned int empats, unsigned int punts, unsigned int golsAFavor, unsigned int golsEnContra, int diferenciaGols, int posicioClassificacio, String^ idLliga) {
+        PassarellaEquip::PassarellaEquip(String^ connStr, String^ idEquip, String^ nom, DateTime dataFundacio, String^ esport, unsigned int partitsJugats, unsigned int victories, unsigned int derrotes, unsigned int empats, unsigned int punts, unsigned int golsAFavor, unsigned int golsEnContra, int diferenciaGols, int posicioClassificacio, String^ idTemporada) {
             connectionString = connStr;
             this->idEquip = idEquip;
             this->nom = nom;
@@ -44,7 +44,7 @@ namespace Playcampus {
             this->golsEnContra = golsEnContra;
             this->diferenciaGols = diferenciaGols;
             this->posicioClassificacio = posicioClassificacio;
-            this->idLliga = idLliga;
+            this->idTemporada = idTemporada;
         }
 
         String^ PassarellaEquip::GetIdEquip() { return idEquip; }
@@ -61,9 +61,9 @@ namespace Playcampus {
         unsigned int PassarellaEquip::GetGolsEnContra() { return golsEnContra; }
         int PassarellaEquip::GetDiferenciaGols() { return diferenciaGols; }
         int PassarellaEquip::GetPosicioClassificacio() { return posicioClassificacio; }
-        String^ PassarellaEquip::GetIdLliga() { return idLliga; }
+        String^ PassarellaEquip::GetIdTemporada() { return idTemporada; }
 
-        void PassarellaEquip::SetIdLliga(String^ nouIdLliga) { idLliga = nouIdLliga; }
+        void PassarellaEquip::SetIdTemporada(String^ nouIdTemporada) { idTemporada = nouIdTemporada; }
 
         void PassarellaEquip::Insereix() {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
@@ -74,9 +74,9 @@ namespace Playcampus {
                     idEquip = Guid::NewGuid().ToString();
                 }
 
-                String^ query = "INSERT INTO Equip (idEquip, nom, dataFundacio, esport, partitsJugats, victories, derrotes, empats, punts, golsAFavor, golsEnContra, diferenciaGols, posicioClassificacio, idLliga) VALUES (@idEquip, @nom, @dataFundacio, @esport, @partitsJugats, @victories, @derrotes, @empats, @punts, @golsAFavor, @golsEnContra, @diferenciaGols, @posicioClassificacio, @idLliga)";
+                String^ query = "INSERT INTO Equip (idEquip, nom, dataFundacio, esport, partitsJugats, victories, derrotes, empats, punts, golsAFavor, golsEnContra, diferenciaGols, posicioClassificacio, idTemporada) VALUES (@idEquip, @nom, @dataFundacio, @esport, @partitsJugats, @victories, @derrotes, @empats, @punts, @golsAFavor, @golsEnContra, @diferenciaGols, @posicioClassificacio, @idTemporada)";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                
+
                 cmd->Parameters->AddWithValue("@idEquip", idEquip);
                 cmd->Parameters->AddWithValue("@nom", nom);
                 cmd->Parameters->AddWithValue("@dataFundacio", dataFundacio);
@@ -90,10 +90,10 @@ namespace Playcampus {
                 cmd->Parameters->AddWithValue("@golsEnContra", golsEnContra);
                 cmd->Parameters->AddWithValue("@diferenciaGols", diferenciaGols);
                 cmd->Parameters->AddWithValue("@posicioClassificacio", posicioClassificacio);
-                if (String::IsNullOrEmpty(idLliga)) {
-                    cmd->Parameters->AddWithValue("@idLliga", DBNull::Value);
+                if (String::IsNullOrEmpty(idTemporada)) {
+                    cmd->Parameters->AddWithValue("@idTemporada", DBNull::Value);
                 } else {
-                    cmd->Parameters->AddWithValue("@idLliga", idLliga);
+                    cmd->Parameters->AddWithValue("@idTemporada", idTemporada);
                 }
 
                 int filesAfectades = cmd->ExecuteNonQuery();
@@ -120,9 +120,9 @@ namespace Playcampus {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
-                String^ query = "UPDATE Equip SET nom=@nom, dataFundacio=@dataFundacio, esport=@esport, partitsJugats=@partitsJugats, victories=@victories, derrotes=@derrotes, empats=@empats, punts=@punts, golsAFavor=@golsAFavor, golsEnContra=@golsEnContra, diferenciaGols=@diferenciaGols, posicioClassificacio=@posicioClassificacio, idLliga=@idLliga WHERE idEquip=@idEquip";
+                String^ query = "UPDATE Equip SET nom=@nom, dataFundacio=@dataFundacio, esport=@esport, partitsJugats=@partitsJugats, victories=@victories, derrotes=@derrotes, empats=@empats, punts=@punts, golsAFavor=@golsAFavor, golsEnContra=@golsEnContra, diferenciaGols=@diferenciaGols, posicioClassificacio=@posicioClassificacio, idTemporada=@idTemporada WHERE idEquip=@idEquip";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                
+
                 cmd->Parameters->AddWithValue("@nom", nom);
                 cmd->Parameters->AddWithValue("@dataFundacio", dataFundacio);
                 cmd->Parameters->AddWithValue("@esport", esport);
@@ -135,11 +135,11 @@ namespace Playcampus {
                 cmd->Parameters->AddWithValue("@golsEnContra", golsEnContra);
                 cmd->Parameters->AddWithValue("@diferenciaGols", diferenciaGols);
                 cmd->Parameters->AddWithValue("@posicioClassificacio", posicioClassificacio);
-                
-                if (String::IsNullOrEmpty(idLliga)) {
-                    cmd->Parameters->AddWithValue("@idLliga", DBNull::Value);
+
+                if (String::IsNullOrEmpty(idTemporada)) {
+                    cmd->Parameters->AddWithValue("@idTemporada", DBNull::Value);
                 } else {
-                    cmd->Parameters->AddWithValue("@idLliga", idLliga);
+                    cmd->Parameters->AddWithValue("@idTemporada", idTemporada);
                 }
                 
                 cmd->Parameters->AddWithValue("@idEquip", idEquip);
@@ -147,17 +147,17 @@ namespace Playcampus {
                 cmd->ExecuteNonQuery();
 
                 String^ queryVerificacio = "";
-                if (String::IsNullOrEmpty(idLliga)) {
-                    queryVerificacio = "SELECT COUNT(*) FROM Equip WHERE idEquip = @idEquip AND idLliga IS NULL";
+                if (String::IsNullOrEmpty(idTemporada)) {
+                    queryVerificacio = "SELECT COUNT(*) FROM Equip WHERE idEquip = @idEquip AND idTemporada IS NULL";
                 }
                 else {
-                    queryVerificacio = "SELECT COUNT(*) FROM Equip WHERE idEquip = @idEquip AND idLliga = @idLliga";
+                    queryVerificacio = "SELECT COUNT(*) FROM Equip WHERE idEquip = @idEquip AND idTemporada = @idTemporada";
                 }
 
                 MySqlCommand^ cmdVerificacio = gcnew MySqlCommand(queryVerificacio, conn);
                 cmdVerificacio->Parameters->AddWithValue("@idEquip", idEquip);
-                if (!String::IsNullOrEmpty(idLliga)) {
-                    cmdVerificacio->Parameters->AddWithValue("@idLliga", idLliga);
+                if (!String::IsNullOrEmpty(idTemporada)) {
+                    cmdVerificacio->Parameters->AddWithValue("@idTemporada", idTemporada);
                 }
 
                 int filesVerificades = Convert::ToInt32(cmdVerificacio->ExecuteScalar());
@@ -200,13 +200,13 @@ namespace Playcampus {
             MySqlConnection^ conn = gcnew MySqlConnection(connStr);
             try {
                 conn->Open();
-                String^ query = "SELECT idEquip, nom, dataFundacio, esport, partitsJugats, victories, derrotes, empats, punts, golsAFavor, golsEnContra, diferenciaGols, posicioClassificacio, idLliga FROM Equip WHERE idEquip = @idEquip";
+                String^ query = "SELECT idEquip, nom, dataFundacio, esport, partitsJugats, victories, derrotes, empats, punts, golsAFavor, golsEnContra, diferenciaGols, posicioClassificacio, idTemporada FROM Equip WHERE idEquip = @idEquip";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idEquip", idEq);
-                
+
                 MySqlDataReader^ reader = cmd->ExecuteReader();
                 if (reader->Read()) {
-                    String^ idLligaVal = reader->IsDBNull(reader->GetOrdinal("idLliga")) ? nullptr : reader->GetString("idLliga");
+                    String^ idTemporadaVal = reader->IsDBNull(reader->GetOrdinal("idTemporada")) ? nullptr : reader->GetString("idTemporada");
                     
                     equip = gcnew PassarellaEquip(
                         connStr,
@@ -223,7 +223,7 @@ namespace Playcampus {
                         reader->GetUInt32("golsEnContra"),
                         reader->GetInt32("diferenciaGols"),
                         reader->GetInt32("posicioClassificacio"),
-                        idLligaVal
+                        idTemporadaVal
                     );
                 }
                 reader->Close();
@@ -234,15 +234,15 @@ namespace Playcampus {
             return equip;
         }
 
-        List<String^>^ PassarellaEquip::ObtenirNomsEquipsPerLliga(String^ idLliga) {
+        List<String^>^ PassarellaEquip::ObtenirNomsEquipsPerTemporada(String^ idTemporada) {
             List<String^>^ nomsEquips = gcnew List<String^>();
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
-            
+
             try {
                 conn->Open();
-                String^ query = "SELECT nom FROM Equip WHERE idLliga = @idLliga";
+                String^ query = "SELECT nom FROM Equip WHERE idTemporada = @idTemporada";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                cmd->Parameters->AddWithValue("@idLliga", idLliga);
+                cmd->Parameters->AddWithValue("@idTemporada", idTemporada);
                 
                 MySqlDataReader^ reader = cmd->ExecuteReader();
                 while (reader->Read()) {
