@@ -93,18 +93,17 @@ namespace Playcampus {
             }
 
             // Verificar que el dorsal no existeix en l'equip
-            CercadoraJugador^ cercadoraJugador = gcnew CercadoraJugador(connStr);
-            if (cercadoraJugador->ExisteixDorsalEnEquip(dorsal, idEquip)) {
+            CercadoraJugador^ cerJugador = gcnew CercadoraJugador(connStr);
+            if (cerJugador->ExisteixDorsalEnEquip(dorsal, idEquip)) {
                 throw gcnew Exception("El dorsal " + dorsal.ToString() + " ja existeix en aquest equip.");
             }
 
             // Crear el jugador nou
-            String^ idJugador = "J-" + Guid::NewGuid().ToString()->Substring(0, 8);
-            PassarellaJugador^ jugador = gcnew PassarellaJugador(connStr, idJugador, usuariEstudiant->GetNom(), dorsal, posicio, DateTime::Now);
+            PassarellaJugador^ jugador = gcnew PassarellaJugador(connStr, dorsal, posicio, DateTime::Now);
             jugador->SetIdEquip(idEquip);
 
-            // Inserir jugador
-            jugador->Insereix();
+            // Inserir jugador (passant idJugador que és el identificador de l'Usuari)
+            jugador->Insereix(usuariEstudiant->GetIdentificador());
 
             // Actualitzar tipus d'usuari de Estudiant a Jugador (si ja era Jugador, no cal)
             if (usuariEstudiant->GetTipus() != "Jugador") {

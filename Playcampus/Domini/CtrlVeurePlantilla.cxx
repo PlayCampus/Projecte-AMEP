@@ -63,11 +63,33 @@ namespace Playcampus {
             dt->Columns->Add("Dorsal", int::typeid);
             dt->Columns->Add("Posició", String::typeid);
 
-            CercadoraJugador^ cercadoraJugador = gcnew CercadoraJugador(connStr);
-            List<PassarellaJugador^>^ jugadors = cercadoraJugador->LlegeixTsPerEquip(idEquip);
-
-            for each(PassarellaJugador^ p in jugadors) {
-                dt->Rows->Add(p->GetIdJugador(), p->GetNom(), p->GetDorsal(), p->GetPosicio());
+            // Usem query directa per obtenir idJugador i les dades
+            MySqlConnection^ connJugadors = gcnew MySqlConnection(connStr);
+            try {
+                connJugadors->Open();
+                String^ queryJugadors = 
+                    "SELECT j.idJugador, u.nom, j.dorsal, j.posicio "
+                    "FROM Jugador j "
+                    "INNER JOIN Usuari u ON j.idJugador = u.identificador "
+                    "WHERE j.idEquip = @idEquip "
+                    "ORDER BY j.dorsal ASC";
+                
+                MySqlCommand^ cmdJugadors = gcnew MySqlCommand(queryJugadors, connJugadors);
+                cmdJugadors->Parameters->AddWithValue("@idEquip", idEquip);
+                
+                MySqlDataReader^ readerJugadors = cmdJugadors->ExecuteReader();
+                while (readerJugadors->Read()) {
+                    String^ idJugador = readerJugadors->GetString(0);
+                    String^ nom = readerJugadors->GetString(1);
+                    int dorsal = readerJugadors->GetInt32(2);
+                    String^ posicio = readerJugadors->IsDBNull(3) ? "" : readerJugadors->GetString(3);
+                    
+                    dt->Rows->Add(idJugador, nom, dorsal, posicio);
+                }
+                readerJugadors->Close();
+            }
+            finally {
+                connJugadors->Close();
             }
 
             return dt;

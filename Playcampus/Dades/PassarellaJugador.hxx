@@ -10,8 +10,6 @@ namespace Playcampus {
         public ref class PassarellaJugador {
         private:
             String^ connectionString;
-            String^ idJugador;
-            String^ nom;
             int dorsal;
             String^ posicio;
             DateTime dataNaixement;
@@ -25,11 +23,9 @@ namespace Playcampus {
 
         public:
             PassarellaJugador(String^ connStr);
-            PassarellaJugador(String^ connStr, String^ id, String^ n, int d, String^ p, DateTime dn);
-            PassarellaJugador(String^ connStr, String^ id, String^ n, int d, String^ p, DateTime dn, int pj, int a, int as, int fl, int fg, int mj, String^ ie);
+            PassarellaJugador(String^ connStr, int d, String^ p, DateTime dn);
+            PassarellaJugador(String^ connStr, int d, String^ p, DateTime dn, int pj, int a, int as, int fl, int fg, int mj, String^ ie);
 
-            String^ GetIdJugador();
-            String^ GetNom();
             int GetDorsal();
             String^ GetPosicio();
             DateTime GetDataNaixement();
@@ -44,9 +40,9 @@ namespace Playcampus {
             void SetIdEquip(String^ ie);
             void SetDorsal(int d);
 
-            void Insereix();
-            void Modifica();
-            void Esborra();
+            void Insereix(String^ idJugador);
+            void Modifica(String^ idJugador);
+            void Esborra(String^ idJugador);
             static PassarellaJugador^ Llegeix(String^ connStr, String^ idJ);
         };
     }

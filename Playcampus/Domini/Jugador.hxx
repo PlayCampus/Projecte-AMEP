@@ -1,13 +1,13 @@
 #pragma once
 #include <string>
+#include "Usuari.hxx"
 
 using namespace System;
 
 namespace Playcampus {
     namespace Domini {
-        public ref class Jugador {
+        public ref class Jugador : public Usuari {
         private:
-            String^ nom; 
             int dorsal;
             int edat;
             DateTime antiguitat;
@@ -22,10 +22,7 @@ namespace Playcampus {
             String^ posicio;
 
         public:
-            Jugador(String^ nom, String^ posicio, int dorsal, int edat, DateTime antiguitat);
-
-            String^ GetNom();
-            void SetNom(String^ nom);
+            Jugador(String^ identificador, String^ nom, String^ contrasenya, DateTime data_registre, String^ correu_electronic, String^ posicio, int dorsal, int edat, DateTime antiguitat);
 
             String^ GetPosicio();
             void SetPosicio(String^ posicio);

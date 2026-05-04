@@ -178,10 +178,11 @@ namespace Playcampus {
             try {
                 conn->Open();
                 String^ query =
-                    "SELECT idJugador, nom, dorsal, posicio "
-                    "FROM Jugador "
-                    "WHERE idEquip = @idEquip "
-                    "ORDER BY dorsal ASC, nom ASC";
+                    "SELECT J.idJugador, U.nom, J.dorsal, J.posicio "
+                    "FROM Jugador J "
+                    "INNER JOIN Usuari U ON J.idJugador = U.identificador "
+                    "WHERE J.idEquip = @idEquip "
+                    "ORDER BY J.dorsal ASC, U.nom ASC";
 
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idEquip", idEquip);
@@ -189,10 +190,26 @@ namespace Playcampus {
 
                 while (reader->Read()) {
                     Dictionary<String^, String^>^ jugador = gcnew Dictionary<String^, String^>();
-                    jugador["idJugador"] = reader["idJugador"]->ToString();
-                    jugador["nom"] = reader["nom"]->ToString();
+                    String^ idJugador = reader["idJugador"]->ToString();
+                    jugador["idJugador"] = idJugador;
                     jugador["dorsal"] = reader->IsDBNull(reader->GetOrdinal("dorsal")) ? "" : reader["dorsal"]->ToString();
                     jugador["posicio"] = reader->IsDBNull(reader->GetOrdinal("posicio")) ? "" : reader["posicio"]->ToString();
+                    
+                    // Obtenir el nom de l'Usuari mittançant CercadoraUsuari
+                    // Creem una query directa per a l'usuari
+                    MySqlConnection^ connU = gcnew MySqlConnection(connectionString);
+                    try {
+                        connU->Open();
+                        String^ queryU = "SELECT nom FROM Usuari WHERE identificador = @id";
+                        MySqlCommand^ cmdU = gcnew MySqlCommand(queryU, connU);
+                        cmdU->Parameters->AddWithValue("@id", idJugador);
+                        Object^ nomResult = cmdU->ExecuteScalar();
+                        jugador["nom"] = (nomResult != nullptr) ? nomResult->ToString() : "";
+                    }
+                    finally {
+                        connU->Close();
+                    }
+                    
                     jugadors->Add(jugador);
                 }
                 reader->Close();

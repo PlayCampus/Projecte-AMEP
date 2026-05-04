@@ -15,14 +15,12 @@ namespace Playcampus {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
-                String^ query = "SELECT idJugador, nom, dorsal, posicio, data_naixement, partitsJugats, anotacions, assistencies, faltesLleus, faltesGreus, minutsJugats, idEquip FROM Jugador WHERE idEquip = @ie LIMIT 1";
+                String^ query = "SELECT dorsal, posicio, data_naixement, partitsJugats, anotacions, assistencies, faltesLleus, faltesGreus, minutsJugats, idEquip FROM Jugador WHERE idEquip = @ie LIMIT 1";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@ie", idEquip);
 
                 MySqlDataReader^ reader = cmd->ExecuteReader();
                 if (reader->Read()) {
-                    String^ id = reader["idJugador"]->ToString();
-                    String^ nom = reader->GetString("nom");
                     int dorsal = reader->GetInt32("dorsal");
                     String^ posicio = reader->IsDBNull(reader->GetOrdinal("posicio")) ? "" : reader->GetString("posicio");
                     DateTime data = reader->GetDateTime("data_naixement");
@@ -34,7 +32,7 @@ namespace Playcampus {
                     int mj = reader->GetInt32("minutsJugats");
                     String^ ie = reader->IsDBNull(reader->GetOrdinal("idEquip")) ? nullptr : reader->GetString("idEquip");
 
-                    resultat = gcnew PassarellaJugador(connectionString, id, nom, dorsal, posicio, data, pj, a, as, fl, fg, mj, ie);
+                    resultat = gcnew PassarellaJugador(connectionString, dorsal, posicio, data, pj, a, as, fl, fg, mj, ie);
                 }
                 reader->Close();
             }
@@ -52,15 +50,13 @@ namespace Playcampus {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
-                String^ query = "SELECT idJugador, nom, dorsal, posicio, data_naixement, partitsJugats, anotacions, assistencies, faltesLleus, faltesGreus, minutsJugats, idEquip FROM Jugador WHERE dorsal = @dorsal AND idEquip = @ie";
+                String^ query = "SELECT dorsal, posicio, data_naixement, partitsJugats, anotacions, assistencies, faltesLleus, faltesGreus, minutsJugats, idEquip FROM Jugador WHERE dorsal = @dorsal AND idEquip = @ie";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@dorsal", dorsal);
                 cmd->Parameters->AddWithValue("@ie", idEquip);
 
                 MySqlDataReader^ reader = cmd->ExecuteReader();
                 if (reader->Read()) {
-                    String^ id = reader["idJugador"]->ToString();
-                    String^ nom = reader->GetString("nom");
                     int d = reader->GetInt32("dorsal");
                     String^ posicio = reader->IsDBNull(reader->GetOrdinal("posicio")) ? "" : reader->GetString("posicio");
                     DateTime data = reader->GetDateTime("data_naixement");
@@ -72,7 +68,7 @@ namespace Playcampus {
                     int mj = reader->GetInt32("minutsJugats");
                     String^ ie = reader->IsDBNull(reader->GetOrdinal("idEquip")) ? nullptr : reader->GetString("idEquip");
 
-                    resultat = gcnew PassarellaJugador(connectionString, id, nom, d, posicio, data, pj, a, as, fl, fg, mj, ie);
+                    resultat = gcnew PassarellaJugador(connectionString, d, posicio, data, pj, a, as, fl, fg, mj, ie);
                 }
                 reader->Close();
             }
@@ -90,14 +86,13 @@ namespace Playcampus {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
-                String^ query = "SELECT idJugador, nom, dorsal, posicio, data_naixement, partitsJugats, anotacions, assistencies, faltesLleus, faltesGreus, minutsJugats, idEquip FROM Jugador WHERE idEquip = @ie";
+                String^ query = "SELECT idJugador, dorsal, posicio, data_naixement, partitsJugats, anotacions, assistencies, faltesLleus, faltesGreus, minutsJugats, idEquip FROM Jugador WHERE idEquip = @ie";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@ie", idEquip);
 
                 MySqlDataReader^ reader = cmd->ExecuteReader();
                 while (reader->Read()) {
-                    String^ id = reader["idJugador"]->ToString();
-                    String^ nom = reader->GetString("nom");
+                    String^ idJugador = reader["idJugador"]->ToString();
                     int dorsal = reader->GetInt32("dorsal");
                     String^ posicio = reader->IsDBNull(reader->GetOrdinal("posicio")) ? "" : reader->GetString("posicio");
                     DateTime data = reader->GetDateTime("data_naixement");
@@ -109,7 +104,7 @@ namespace Playcampus {
                     int mj = reader->GetInt32("minutsJugats");
                     String^ ie = reader->IsDBNull(reader->GetOrdinal("idEquip")) ? nullptr : reader->GetString("idEquip");
 
-                    PassarellaJugador^ jugador = gcnew PassarellaJugador(connectionString, id, nom, dorsal, posicio, data, pj, a, as, fl, fg, mj, ie);
+                    PassarellaJugador^ jugador = gcnew PassarellaJugador(connectionString, dorsal, posicio, data, pj, a, as, fl, fg, mj, ie);
                     resultats->Add(jugador);
                 }
                 reader->Close();
