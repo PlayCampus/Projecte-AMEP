@@ -130,10 +130,10 @@
     <ResourceCompile Include="app.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CercadoraTemporada.hxx" />
     <ClInclude Include="Dades\CercadoraJornada.hxx" />
     <ClInclude Include="Dades\CercadoraJugador.hxx" />
     <ClInclude Include="Dades\CercadoraPartit.hxx" />
+    <ClInclude Include="Dades\CercadoraTemporada.hxx" />
     <ClInclude Include="Dades\CercadoraUsuari.hxx" />
     <ClInclude Include="Dades\PassarellaEquip.hxx" />
     <ClInclude Include="Dades\PassarellaJornada.hxx" />
@@ -154,6 +154,7 @@
     <ClInclude Include="Domini\CtrlEliminarJugador.hxx" />
     <ClInclude Include="Domini\CtrlEnregistrarEquip.hxx" />
     <ClInclude Include="Domini\CtrlEsborrarEquip.hxx" />
+    <ClInclude Include="Domini\CtrlEsborrarPartit.hxx" />
     <ClInclude Include="Domini\CtrlIniciSessio.hxx" />
     <ClInclude Include="Domini\CtrlRegistrarUsuari.hxx" />
     <ClInclude Include="Domini\CtrlTancarSessio.hxx" />
@@ -178,11 +179,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="CercadoraTemporada.cxx" />
     <ClCompile Include="CppCLR_WinFormsProject.cpp" />
     <ClCompile Include="Dades\CercadoraJornada.cxx" />
     <ClCompile Include="Dades\CercadoraJugador.cxx" />
     <ClCompile Include="Dades\CercadoraPartit.cxx" />
+    <ClCompile Include="Dades\CercadoraTemporada.cxx" />
     <ClCompile Include="Dades\CercadoraUsuari.cxx" />
     <ClCompile Include="Dades\PassarellaEquip.cxx" />
     <ClCompile Include="Dades\PassarellaJornada.cxx" />
@@ -203,6 +204,7 @@
     <ClCompile Include="Domini\CtrlEliminarJugador.cxx" />
     <ClCompile Include="Domini\CtrlEnregistrarEquip.cxx" />
     <ClCompile Include="Domini\CtrlEsborrarEquip.cxx" />
+    <ClCompile Include="Domini\CtrlEsborrarPartit.cxx" />
     <ClCompile Include="Domini\CtrlIniciSessio.cxx" />
     <ClCompile Include="Domini\CtrlRegistrarUsuari.cxx" />
     <ClCompile Include="Domini\CtrlTancarSessio.cxx" />

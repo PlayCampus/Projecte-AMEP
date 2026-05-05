@@ -7,6 +7,11 @@ using namespace MySql::Data::MySqlClient;
 
 namespace Playcampus {
     namespace Dades {
+
+        PassarellaPartit::PassarellaPartit(String^ connStr) {
+            connectionString = connStr;
+        }
+
         PassarellaPartit::PassarellaPartit(String^ connStr, String^ idPartit, DateTime dataHora, String^ ubicacio, String^ estat, int golsLocal, int golsVisitant, String^ idJornada, String^ idEquipLocal, String^ idEquipVisitant) {
             connectionString = connStr;
             this->idPartit = idPartit;
@@ -58,6 +63,19 @@ namespace Playcampus {
                 if (conn != nullptr) {
                     delete conn;
                 }
+            }
+        }
+        void PassarellaPartit::EsborrarPartit(String^ idPartit) {
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "DELETE FROM Partit WHERE idPartit = @idPartit";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idPartit", idPartit);
+                cmd->ExecuteNonQuery();
+            }
+            finally {
+                conn->Close();
             }
         }
     }
