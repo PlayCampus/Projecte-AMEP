@@ -27,5 +27,35 @@ namespace Playcampus {
                 }
             }
         }
+        List<Dictionary<String^, String^>^>^ CercadoraPartit::ObtenirPartitsPerJornada(String^ idJornada) {
+            List<Dictionary<String^, String^>^>^ llista = gcnew List<Dictionary<String^, String^>^>();
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+
+            try {
+                conn->Open();
+                String^ query = "SELECT idPartit, dataHora, ubicacio, estat "
+                    "FROM Partit WHERE idJornada = @idJornada "
+                    "ORDER BY dataHora ASC";
+
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idJornada", idJornada);
+
+                MySqlDataReader^ reader = cmd->ExecuteReader();
+                while (reader->Read()) {
+                    Dictionary<String^, String^>^ partit = gcnew Dictionary<String^, String^>();
+                    partit["idPartit"] = reader["idPartit"]->ToString();
+                    partit["dataHora"] = Convert::ToDateTime(reader["dataHora"]).ToString("dd/MM/yyyy HH:mm");
+                    partit["ubicacio"] = reader["ubicacio"]->ToString();
+                    partit["estat"] = reader["estat"]->ToString();
+                    llista->Add(partit);
+                }
+            }
+            finally {
+                conn->Close();
+            }
+
+            return llista;
+        }
+
     }
 }

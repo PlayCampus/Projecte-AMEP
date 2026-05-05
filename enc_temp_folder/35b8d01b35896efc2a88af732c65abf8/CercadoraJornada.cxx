@@ -12,10 +12,6 @@ CercadoraJornada::CercadoraJornada(String^ connStr) {
 }
 
 List<Dictionary<String^, String^>^>^ CercadoraJornada::ObtenirDictJornadesPerTemporada(String^ idTemporada) {
-
-    //ACTUALITZEM ESTATS ABANS DE CONSULTAR
-    PassarellaJornada::ActualitzarEstats(connectionString);
-
     List<Dictionary<String^, String^>^>^ jornades = gcnew List<Dictionary<String^, String^>^>();
     MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
     try {

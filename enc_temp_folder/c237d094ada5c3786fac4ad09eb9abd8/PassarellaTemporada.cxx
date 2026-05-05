@@ -101,34 +101,32 @@ namespace Playcampus {
                 conn->Close();
             }
 
-            return temporades;
-        }
+                                    return temporades;
+                                }
 
-        String^ PassarellaTemporada::ObtenirIdTemporadaMesRecent(String^ idLliga)
-        {
-            String^ idTemporadaMesRecent = nullptr;
-            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+                                String^ PassarellaTemporada::ObtenirIdTemporadaMesRecent(String^ idLliga)
+                                {
+                                    String^ idTemporadaMesRecent = nullptr;
+                                    MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
 
-            try
-            {
-                conn->Open();
-                String^ query = "SELECT idTemporada FROM Temporada WHERE idLliga = @idLliga ORDER BY dataInici DESC LIMIT 1";
-                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                cmd->Parameters->AddWithValue("@idLliga", idLliga);
+                                    try
+                                    {
+                                        conn->Open();
+                                        String^ query = "SELECT idTemporada FROM Temporada WHERE idLliga = @idLliga ORDER BY dataInici DESC LIMIT 1";
+                                        MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                                        cmd->Parameters->AddWithValue("@idLliga", idLliga);
 
-                Object^ result = cmd->ExecuteScalar();
-                if (result != nullptr && result != DBNull::Value) {
-                    idTemporadaMesRecent = result->ToString();
-                }
-            }
-            finally
-            {
-                conn->Close();
-            }
+                                        Object^ result = cmd->ExecuteScalar();
+                                        if (result != nullptr && result != DBNull::Value) {
+                                            idTemporadaMesRecent = result->ToString();
+                                        }
+                                    }
+                                    finally
+                                    {
+                                        conn->Close();
+                                    }
 
-            return idTemporadaMesRecent;
-        }
-
-        
-    }
-}
+                                    return idTemporadaMesRecent;
+                                }
+                            }
+                        }

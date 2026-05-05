@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include "PassarellaJornada.hxx"
 
 using namespace System;
 using namespace System::Collections::Generic;

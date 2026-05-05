@@ -2,8 +2,6 @@
 #include <string>
 
 using namespace System;
-using namespace System::Collections::Generic;
-
 
 
 namespace Playcampus {
@@ -36,7 +34,6 @@ namespace Playcampus {
 
             System::String^ ObtenirIdTemporadaMesRecent(System::String^ idLliga);
 
-            
 
         };
     }

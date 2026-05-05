@@ -130,6 +130,7 @@
     <ResourceCompile Include="app.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CercadoraTemporada.hxx" />
     <ClInclude Include="Dades\CercadoraJornada.hxx" />
     <ClInclude Include="Dades\CercadoraJugador.hxx" />
     <ClInclude Include="Dades\CercadoraPartit.hxx" />
@@ -177,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="CercadoraTemporada.cxx" />
     <ClCompile Include="CppCLR_WinFormsProject.cpp" />
     <ClCompile Include="Dades\CercadoraJornada.cxx" />
     <ClCompile Include="Dades\CercadoraJugador.cxx" />
