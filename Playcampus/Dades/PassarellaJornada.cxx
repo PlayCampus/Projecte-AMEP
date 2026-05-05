@@ -50,3 +50,22 @@ void PassarellaJornada::Insereix() {
     }
 }
 
+void PassarellaJornada::ActualitzarEstats(String^ connStr) {
+    MySqlConnection^ conn = gcnew MySqlConnection(connStr);
+    try {
+        conn->Open();
+        String^ queryJ = "UPDATE jornada SET estat = CASE "
+            "WHEN NOW() >= dataInici AND NOW() <= dataFi THEN 'EnCurs' "
+            "WHEN NOW() > dataFi THEN 'Finalitzat' "
+            "ELSE estat END "
+            "WHERE (NOW() >= dataInici AND NOW() <= dataFi AND estat != 'EnCurs') "
+            "OR (NOW() > dataFi AND estat != 'Finalitzat')";
+
+        MySqlCommand^ cmd = gcnew MySqlCommand(queryJ, conn);
+        cmd->ExecuteNonQuery();
+    }
+    finally {
+        conn->Close();
+    }
+}
+

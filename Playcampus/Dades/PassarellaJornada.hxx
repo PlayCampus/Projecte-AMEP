@@ -32,6 +32,8 @@ namespace Playcampus {
 
             // Métodos de base de datos
             void Insereix();
+
+            static void ActualitzarEstats(String^ connString);
         };
     }
 }

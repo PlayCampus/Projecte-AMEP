@@ -46,6 +46,26 @@ namespace Playcampus {
             }
         }
 
+        void PassarellaTemporada::ActualitzarEstats(String^ connStr) {
+            MySqlConnection^ conn = gcnew MySqlConnection(connStr);
+            try {
+                conn->Open();
+                String^ queryT = "UPDATE temporada SET estat = CASE "
+                    "WHEN NOW() >= dataInici AND NOW() <= dataFi THEN 'EnCurs' "
+                    "WHEN NOW() > dataFi THEN 'Finalitzat' "
+                    "ELSE estat END "
+                    "WHERE (NOW() >= dataInici AND NOW() <= dataFi AND estat != 'EnCurs') "
+                    "OR (NOW() > dataFi AND estat != 'Finalitzat')";
+
+                MySqlCommand^ cmd = gcnew MySqlCommand(queryT, conn);
+                cmd->ExecuteNonQuery();
+            }
+            finally {
+                conn->Close();
+            }
+        }
+
+
         List<Dictionary<String^, String^>^>^ PassarellaTemporada::ObtenirDictTemporadesPerLliga(String^ nomLliga)
         {
             List<Dictionary<String^, String^>^>^ temporades = gcnew List<Dictionary<String^, String^>^>();

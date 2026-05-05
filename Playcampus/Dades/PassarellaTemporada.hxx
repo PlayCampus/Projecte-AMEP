@@ -26,11 +26,15 @@ namespace Playcampus {
             // Mètode per guardar a la BD
             void Insereix();
 
+            static void ActualitzarEstats(String^ connString);
+
             System::Collections::Generic::List<
                 System::Collections::Generic::Dictionary<System::String^, System::String^>^>^
                 ObtenirDictTemporadesPerLliga(System::String^ nomLliga);
 
             System::String^ ObtenirIdTemporadaMesRecent(System::String^ idLliga);
+
+
         };
     }
 }
