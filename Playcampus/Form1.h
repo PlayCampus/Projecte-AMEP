@@ -241,9 +241,19 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Panel^ pnlEsborrarPartit;
 		System::Windows::Forms::Label^ lblEPTitle;
 		System::Windows::Forms::Button^ btnEPTornar;
-		System::Windows::Forms::DataGridView^ dgvEPTemporades;
-		System::Windows::Forms::DataGridView^ dgvEPJornades;
-		System::Windows::Forms::DataGridView^ dgvEPPartits;
+
+		System::Windows::Forms::Label^ lblEPTemporada;
+		System::Windows::Forms::ComboBox^ cmbEPTemporades;
+		System::Collections::Generic::List<String^>^ epTemporadaIds;
+
+		System::Windows::Forms::Label^ lblEPJornada;
+		System::Windows::Forms::ComboBox^ cmbEPJornades;
+		System::Collections::Generic::List<String^>^ epJornadaIds;
+
+		System::Windows::Forms::Label^ lblEPPartit;
+		System::Windows::Forms::ComboBox^ cmbEPPartits;
+		System::Collections::Generic::List<String^>^ epPartitIds;
+		
 		System::Windows::Forms::Button^ btnEPEsborrarFinal;
 
 		/// <summary>
@@ -1170,21 +1180,30 @@ namespace CppCLRWinFormsProject {
 
 			this->Controls->Add(this->pnlUnirEquipLliga);
 
-			// [MÁS ARRIBA ESTÁ EL CÓDIGO EXISTENTE DE INICIALIZACIÓN...]
-
 			this->btnGLEsborrarPartit->Text = L"Esborrar partit";
 			this->btnGLEsborrarPartit->Size = System::Drawing::Size(220, 60);
 			this->btnGLEsborrarPartit->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
 			this->btnGLEsborrarPartit->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->btnGLEsborrarPartit->Click += gcnew System::EventHandler(this, &Form1::btnGLEsborrarPartit_Click);
 
-			// --- AÑADE ESTO AQUÍ: INICIALIZACIÓN DEL PANEL ESBORRAR PARTIT ---
+			// pnlEsborrarParti
+
 			this->pnlEsborrarPartit = gcnew System::Windows::Forms::Panel();
 			this->lblEPTitle = gcnew System::Windows::Forms::Label();
 			this->btnEPTornar = gcnew System::Windows::Forms::Button();
-			this->dgvEPTemporades = gcnew System::Windows::Forms::DataGridView();
-			this->dgvEPJornades = gcnew System::Windows::Forms::DataGridView();
-			this->dgvEPPartits = gcnew System::Windows::Forms::DataGridView();
+
+			this->lblEPTemporada = gcnew System::Windows::Forms::Label();
+			this->cmbEPTemporades = gcnew System::Windows::Forms::ComboBox();
+			this->epTemporadaIds = gcnew System::Collections::Generic::List<String^>();
+
+			this->lblEPJornada = gcnew System::Windows::Forms::Label();
+			this->cmbEPJornades = gcnew System::Windows::Forms::ComboBox();
+			this->epJornadaIds = gcnew System::Collections::Generic::List<String^>();
+
+			this->lblEPPartit = gcnew System::Windows::Forms::Label();
+			this->cmbEPPartits = gcnew System::Windows::Forms::ComboBox();
+			this->epPartitIds = gcnew System::Collections::Generic::List<String^>();
+
 			this->btnEPEsborrarFinal = gcnew System::Windows::Forms::Button();
 
 			this->pnlEsborrarPartit->Dock = System::Windows::Forms::DockStyle::Fill;
@@ -1192,9 +1211,12 @@ namespace CppCLRWinFormsProject {
 
 			this->pnlEsborrarPartit->Controls->Add(this->lblEPTitle);
 			this->pnlEsborrarPartit->Controls->Add(this->btnEPTornar);
-			this->pnlEsborrarPartit->Controls->Add(this->dgvEPTemporades);
-			this->pnlEsborrarPartit->Controls->Add(this->dgvEPJornades);
-			this->pnlEsborrarPartit->Controls->Add(this->dgvEPPartits);
+			this->pnlEsborrarPartit->Controls->Add(this->lblEPTemporada);
+			this->pnlEsborrarPartit->Controls->Add(this->cmbEPTemporades);
+			this->pnlEsborrarPartit->Controls->Add(this->lblEPJornada);
+			this->pnlEsborrarPartit->Controls->Add(this->cmbEPJornades);
+			this->pnlEsborrarPartit->Controls->Add(this->lblEPPartit);
+			this->pnlEsborrarPartit->Controls->Add(this->cmbEPPartits);
 			this->pnlEsborrarPartit->Controls->Add(this->btnEPEsborrarFinal);
 
 			this->lblEPTitle->Text = L"Esborrar Partit - Selecció";
@@ -1204,47 +1226,25 @@ namespace CppCLRWinFormsProject {
 			this->btnEPTornar->Text = L"Tornar";
 			this->btnEPTornar->Click += gcnew System::EventHandler(this, &Form1::btnEPTornar_Click);
 
-			// Config dgvEPTemporades
-			this->dgvEPTemporades->AllowUserToAddRows = false;
-			this->dgvEPTemporades->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
-			this->dgvEPTemporades->MultiSelect = false;
-			this->dgvEPTemporades->ReadOnly = true;
-			this->dgvEPTemporades->ColumnCount = 4;
-			this->dgvEPTemporades->RowHeadersVisible = false;
-			this->dgvEPTemporades->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
-			this->dgvEPTemporades->Columns[0]->Name = "ID"; this->dgvEPTemporades->Columns[0]->Visible = false;
-			this->dgvEPTemporades->Columns[1]->Name = "Data Inici";
-			this->dgvEPTemporades->Columns[2]->Name = "Data Fi";
-			this->dgvEPTemporades->Columns[3]->Name = "Estat";
-			this->dgvEPTemporades->SelectionChanged += gcnew System::EventHandler(this, &Form1::dgvEPTemporades_SelectionChanged);
+			// Config Temporades
+			this->lblEPTemporada->Text = L"Tria una Temporada:";
+			this->lblEPTemporada->AutoSize = true;
+			this->cmbEPTemporades->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cmbEPTemporades->Size = System::Drawing::Size(450, 24);
+			this->cmbEPTemporades->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbEPTemporades_SelectedIndexChanged);
 
-			// Config dgvEPJornades
-			this->dgvEPJornades->AllowUserToAddRows = false;
-			this->dgvEPJornades->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
-			this->dgvEPJornades->MultiSelect = false;
-			this->dgvEPJornades->ReadOnly = true;
-			this->dgvEPJornades->ColumnCount = 5;
-			this->dgvEPJornades->RowHeadersVisible = false;
-			this->dgvEPJornades->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
-			this->dgvEPJornades->Columns[0]->Name = "ID"; this->dgvEPJornades->Columns[0]->Visible = false;
-			this->dgvEPJornades->Columns[1]->Name = "Número";
-			this->dgvEPJornades->Columns[2]->Name = "Data Inici";
-			this->dgvEPJornades->Columns[3]->Name = "Data Fi";
-			this->dgvEPJornades->Columns[4]->Name = "Estat";
-			this->dgvEPJornades->SelectionChanged += gcnew System::EventHandler(this, &Form1::dgvEPJornades_SelectionChanged);
+			// Config Jornades
+			this->lblEPJornada->Text = L"Tria una Jornada:";
+			this->lblEPJornada->AutoSize = true;
+			this->cmbEPJornades->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cmbEPJornades->Size = System::Drawing::Size(450, 24);
+			this->cmbEPJornades->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbEPJornades_SelectedIndexChanged);
 
-			// Config dgvEPPartits
-			this->dgvEPPartits->AllowUserToAddRows = false;
-			this->dgvEPPartits->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
-			this->dgvEPPartits->MultiSelect = false;
-			this->dgvEPPartits->ReadOnly = true;
-			this->dgvEPPartits->ColumnCount = 4;
-			this->dgvEPPartits->RowHeadersVisible = false;
-			this->dgvEPPartits->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
-			this->dgvEPPartits->Columns[0]->Name = "ID"; this->dgvEPPartits->Columns[0]->Visible = false;
-			this->dgvEPPartits->Columns[1]->Name = "Data i Hora";
-			this->dgvEPPartits->Columns[2]->Name = "Ubicació";
-			this->dgvEPPartits->Columns[3]->Name = "Estat";
+			// Config Partits
+			this->lblEPPartit->Text = L"Tria el Partit a esborrar:";
+			this->lblEPPartit->AutoSize = true; 
+			this->cmbEPPartits->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cmbEPPartits->Size = System::Drawing::Size(550, 24);
 
 			this->btnEPEsborrarFinal->Text = L"Esborrar Partit Seleccionat";
 			this->btnEPEsborrarFinal->BackColor = System::Drawing::Color::Red;
@@ -1427,41 +1427,24 @@ namespace CppCLRWinFormsProject {
 		this->btnCPConfirmar->Location = System::Drawing::Point(cpStartX + 20, cpStartY + 290);
 		this->btnCPCancellar->Location = System::Drawing::Point(cpStartX + 140, cpStartY + 290);
 
-		// --- PANEL ESBORRAR PARTIT (DGV Positions) ---
+		// --- PANEL ESBORRAR PARTIT 
 		this->lblEPTitle->Location = System::Drawing::Point(centerX - this->lblEPTitle->Width / 2, 30);
 		this->btnEPTornar->Location = System::Drawing::Point(30, 30);
 
-		int dgvWidth = (cw - 120) / 3;
-		int dgvHeight = ch - 250;
-		int dgvY = 100;
+		int epStartX = centerX - 250;
+		int epStartY = centerY - 100;
 
-		this->dgvEPTemporades->Location = System::Drawing::Point(30, dgvY);
-		this->dgvEPTemporades->Size = System::Drawing::Size(dgvWidth, dgvHeight);
+		this->lblEPTemporada->Location = System::Drawing::Point(epStartX, epStartY);
+		this->cmbEPTemporades->Location = System::Drawing::Point(epStartX + 150, epStartY - 3);
 
-		this->dgvEPJornades->Location = System::Drawing::Point(30 + dgvWidth + 30, dgvY);
-		this->dgvEPJornades->Size = System::Drawing::Size(dgvWidth, dgvHeight);
+		this->lblEPJornada->Location = System::Drawing::Point(epStartX, epStartY + 50);
+		this->cmbEPJornades->Location = System::Drawing::Point(epStartX + 150, epStartY + 47);
 
-		this->dgvEPPartits->Location = System::Drawing::Point(30 + (dgvWidth + 30) * 2, dgvY);
-		this->dgvEPPartits->Size = System::Drawing::Size(dgvWidth, dgvHeight);
+		this->lblEPPartit->Location = System::Drawing::Point(epStartX, epStartY + 100);
+		this->cmbEPPartits->Location = System::Drawing::Point(epStartX + 150, epStartY + 97);
 
-		this->btnEPEsborrarFinal->Location = System::Drawing::Point(cw - this->btnEPEsborrarFinal->Width - 30, dgvY + dgvHeight + 20);
+		this->btnEPEsborrarFinal->Location = System::Drawing::Point(centerX - 100, epStartY + 180);
 		this->btnEPEsborrarFinal->Size = System::Drawing::Size(200, 40);
-
-		
-
-		// --- PANEL GESTIONAR EQUIP ---
-		this->lblGETitle->Location = System::Drawing::Point(centerX - this->lblGETitle->Width / 2, 40);
-		this->btnGETornar->Location = System::Drawing::Point(30, 30);
-
-		int geDgvY = 80;
-		this->dgvPlantilla->Location = System::Drawing::Point(centerX - (this->dgvPlantilla->Width / 2), geDgvY);
-
-		int geStartY = geDgvY + this->dgvPlantilla->Height + 20;
-		int btnGEW = this->btnGEEsborrarEquip->Width;
-		this->btnGEEsborrarEquip->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY);
-		this->btnGEAfegirJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 70);
-      this->btnGEEliminarJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 140);
-			this->btnGEAssignarJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 210);
 
 		// --- PANEL AFEGIR JUGADOR ---
 		this->lblAJTitle->Location = System::Drawing::Point(centerX - this->lblAJTitle->Width / 2, 30);
@@ -2966,6 +2949,7 @@ namespace CppCLRWinFormsProject {
 	   //  ESBORRAR PARTIT 
 	   // ==============================================================
 
+
 	private: System::Void btnGLEsborrarPartit_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlGestionarLliga->Visible = false;
 		pnlEsborrarPartit->Visible = true;
@@ -2977,50 +2961,53 @@ namespace CppCLRWinFormsProject {
 		pnlGestionarLliga->Visible = true;
 	}
 
-  // 1. CARREGAR TEMPORADES USANT EL CONTROLADOR DOMINI
+		   // 1. CARREGAR TEMPORADES USANT EL CONTROLADOR DOMINI
 	private: void CarregarTemporadesEsborrar() {
-		dgvEPTemporades->Rows->Clear();
-		dgvEPJornades->Rows->Clear();
-		dgvEPPartits->Rows->Clear();
+		cmbEPTemporades->Items->Clear();
+		epTemporadaIds->Clear();
+		cmbEPJornades->Items->Clear();
+		epJornadaIds->Clear();
+		cmbEPPartits->Items->Clear();
+		epPartitIds->Clear();
 
 		try {
 			Playcampus::Domini::CtrlEsborrarPartit^ ctrl = gcnew Playcampus::Domini::CtrlEsborrarPartit();
 			auto temporades = ctrl->ObtenirTemporadesAdmin(currentUsuariCorreu);
 
-			for each (auto dict in temporades) {
-				dgvEPTemporades->Rows->Add(
-					dict["idTemporada"],
-					dict["dataInici"],
-					dict["dataFi"],
-					dict["estat"]);
+			for each(auto dict in temporades) {
+				String^ display = dict["dataInici"] + L" a " + dict["dataFi"] + L" [" + dict["estat"] + L"]";
+				cmbEPTemporades->Items->Add(display);
+				epTemporadaIds->Add(dict["idTemporada"]);
 			}
+
+			if (cmbEPTemporades->Items->Count > 0) cmbEPTemporades->SelectedIndex = 0;
 		}
 		catch (Exception^ ex) {
 			MessageBox::Show(L"Error al carregar temporades: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
+		   // 2. SELECCIONAR TEMPORADA -> JORNADES 
+	private: System::Void cmbEPTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		cmbEPJornades->Items->Clear();
+		epJornadaIds->Clear();
+		cmbEPPartits->Items->Clear();
+		epPartitIds->Clear();
 
-		   // 2. SELECCIONAR TEMPORADA -> JORNADES (USANT EL CONTROLADOR)
-	private: System::Void dgvEPTemporades_SelectionChanged(System::Object^ sender, System::EventArgs^ e) {
-		dgvEPJornades->Rows->Clear();
-		dgvEPPartits->Rows->Clear();
-
-		if (dgvEPTemporades->SelectedRows->Count > 0) {
-			String^ idTemporadaStr = dgvEPTemporades->SelectedRows[0]->Cells[0]->Value->ToString();
+		if (cmbEPTemporades->SelectedIndex >= 0) {
+			String^ idTemporadaStr = epTemporadaIds[cmbEPTemporades->SelectedIndex];
 
 			try {
 				Playcampus::Domini::CtrlEsborrarPartit^ ctrl = gcnew Playcampus::Domini::CtrlEsborrarPartit();
-				// Aneu en compte el nom; segons el teu Cercadora, potser es diu "ObtenirDictJornadesPerTemporada"
 				auto jornades = ctrl->ObtenirJornadesPerTemporada(idTemporadaStr);
 
-				for each (auto dict in jornades) {
-					dgvEPJornades->Rows->Add(
-						dict["idJornada"],
-						dict["numero"],
-						dict["dataInici"],
-						dict["dataFi"],
-						dict["estat"]);
+				for each(auto dict in jornades) {
+					// AFEGIM dataFi i estat per Jornada
+					String^ display = L"Jornada " + dict["numero"] + L" | " + dict["dataInici"] + L" a " + dict["dataFi"] + L" [" + dict["estat"] + L"]";
+					cmbEPJornades->Items->Add(display);
+					epJornadaIds->Add(dict["idJornada"]);
 				}
+
+				if (cmbEPJornades->Items->Count > 0) cmbEPJornades->SelectedIndex = 0;
 			}
 			catch (Exception^ ex) {
 				MessageBox::Show(L"Error al carregar jornades: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
@@ -3028,24 +3015,27 @@ namespace CppCLRWinFormsProject {
 		}
 	}
 
-		   // 3. SELECCIONAR JORNADA -> PARTITS (USANT EL CONTROLADOR)
-	private: System::Void dgvEPJornades_SelectionChanged(System::Object^ sender, System::EventArgs^ e) {
-		dgvEPPartits->Rows->Clear();
+		   // 3. SELECCIONAR JORNADA -> PARTITS 
+	private: System::Void cmbEPJornades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		cmbEPPartits->Items->Clear();
+		epPartitIds->Clear();
 
-		if (dgvEPJornades->SelectedRows->Count > 0) {
-			String^ idJornadaStr = dgvEPJornades->SelectedRows[0]->Cells[0]->Value->ToString();
+		if (cmbEPJornades->SelectedIndex >= 0) {
+			String^ idJornadaStr = epJornadaIds[cmbEPJornades->SelectedIndex];
 
 			try {
 				Playcampus::Domini::CtrlEsborrarPartit^ ctrl = gcnew Playcampus::Domini::CtrlEsborrarPartit();
 				auto partits = ctrl->ObtenirPartitsPerJornada(idJornadaStr);
 
-				for each (auto dict in partits) {
-					dgvEPPartits->Rows->Add(
-						dict["idPartit"],
-						dict["dataHora"],
-						dict["ubicacio"],
-						dict["estat"]);
+				for each(auto dict in partits) {
+					String^ ubicacio = String::IsNullOrWhiteSpace(dict["ubicacio"]) ? L"Sense ubi" : dict["ubicacio"];
+					// AFEGIM Els noms dels equips: local vs visitant
+					String^ display = dict["dataHora"] + L" | " + dict["equipLocal"] + L" vs " + dict["equipVisitant"] + L" (Ubi: " + ubicacio + L") [" + dict["estat"] + L"]";
+					cmbEPPartits->Items->Add(display);
+					epPartitIds->Add(dict["idPartit"]);
 				}
+
+				if (cmbEPPartits->Items->Count > 0) cmbEPPartits->SelectedIndex = 0;
 			}
 			catch (Exception^ ex) {
 				MessageBox::Show(L"Error al carregar partits: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
@@ -3055,16 +3045,16 @@ namespace CppCLRWinFormsProject {
 
 		   // 4. ELIMINAR EL PARTIT A TRAVES DEL CONTROLADOR
 	private: System::Void btnEPEsborrarFinal_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (dgvEPPartits->SelectedRows->Count == 0) {
-			MessageBox::Show(L"Selecciona un partit de la llista per esborrar-lo.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		if (cmbEPPartits->SelectedIndex < 0) {
+			MessageBox::Show(L"Si us plau, selecciona una temporada, una jornada i finalment un partit per a esborrar.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
-		String^ idPartit = dgvEPPartits->SelectedRows[0]->Cells[0]->Value->ToString();
-		String^ dataHrPartit = dgvEPPartits->SelectedRows[0]->Cells[1]->Value->ToString();
+		String^ idPartit = epPartitIds[cmbEPPartits->SelectedIndex];
+		String^ displayPartit = cmbEPPartits->SelectedItem->ToString();
 
 		System::Windows::Forms::DialogResult confirm = MessageBox::Show(
-			L"Estàs segur d'eliminar definitivament el partit de les " + dataHrPartit + L"?",
+			L"Estàs segur d'eliminar definitivament el partit: \n\n" + displayPartit + L"?",
 			L"Confirmació de Borrat",
 			MessageBoxButtons::YesNo,
 			MessageBoxIcon::Exclamation);
@@ -3072,17 +3062,18 @@ namespace CppCLRWinFormsProject {
 		if (confirm == System::Windows::Forms::DialogResult::Yes) {
 			try {
 				Playcampus::Domini::CtrlEsborrarPartit^ ctrl = gcnew Playcampus::Domini::CtrlEsborrarPartit();
-				ctrl->EsborrarPartit(idPartit); // Només crida a la capa de de domini!
+				ctrl->EsborrarPartit(idPartit);
 
 				MessageBox::Show(L"Partit eliminat de la Base de Dades correctament.", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
-				// Refresquem el DataGridView recarregant només els partits de la jornada actual
-				dgvEPJornades_SelectionChanged(nullptr, nullptr);
+				// Refresquem el desplegable recarregant la jornada seleccionada en comptes de tancar 
+				cmbEPJornades_SelectedIndexChanged(nullptr, nullptr);
 			}
 			catch (Exception^ ex) {
-				MessageBox::Show(L"Hi ha hagut un comportament inesperat o fallada: " + ex->Message, L"Error Crític", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				MessageBox::Show(L"Hi ha hagut una fallada: " + ex->Message, L"Error Crític", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
 		}
 	}
 };
 }
+

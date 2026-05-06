@@ -33,9 +33,14 @@ namespace Playcampus {
 
             try {
                 conn->Open();
-                String^ query = "SELECT idPartit, dataHora, ubicacio, estat "
-                    "FROM Partit WHERE idJornada = @idJornada "
-                    "ORDER BY dataHora ASC";
+                String^ query = "SELECT p.idPartit, p.dataHora, p.ubicacio, p.estat, "
+                    "el.Nom AS equipLocal, ev.Nom AS equipVisitant "
+                    "FROM Partit p "
+                    "INNER JOIN Equip el ON p.idEquipLocal = el.idEquip "
+                    "INNER JOIN Equip ev ON p.idEquipVisitant = ev.idEquip "
+                    "WHERE p.idJornada = @idJornada "
+                    "ORDER BY p.dataHora ASC";
+
 
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idJornada", idJornada);
@@ -47,6 +52,8 @@ namespace Playcampus {
                     partit["dataHora"] = Convert::ToDateTime(reader["dataHora"]).ToString("dd/MM/yyyy HH:mm");
                     partit["ubicacio"] = reader["ubicacio"]->ToString();
                     partit["estat"] = reader["estat"]->ToString();
+                    partit["equipLocal"] = reader["equipLocal"]->ToString();
+                    partit["equipVisitant"] = reader["equipVisitant"]->ToString();
                     llista->Add(partit);
                 }
             }
