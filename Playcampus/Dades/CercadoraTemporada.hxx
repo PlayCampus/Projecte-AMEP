@@ -1,20 +1,20 @@
 #pragma once
 #include <string>
-#include "PassarellaJornada.hxx"
+#include "PassarellaTemporada.hxx"
 
 using namespace System;
 using namespace System::Collections::Generic;
 
 namespace Playcampus {
     namespace Dades {
-        public ref class CercadoraJornada {
+        public ref class CercadoraTemporada {
         private:
             String^ connectionString;
 
         public:
-            CercadoraJornada(String^ connStr);
+            CercadoraTemporada(String^ connStr);
 
-            List<Dictionary<String^, String^>^>^ ObtenirDictJornadesPerTemporada(String^ idTemporada);
+            List<Dictionary<String^, String^>^>^ ObtenirTemporadesAdmin(String^ correuAdmin);
         };
     }
 }

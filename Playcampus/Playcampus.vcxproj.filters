@@ -146,6 +146,12 @@
     <ClInclude Include="Domini\CtrlEliminarJugador.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Dades\CercadoraTemporada.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\CtrlEsborrarPartit.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CppCLR_WinFormsProject.cpp">
@@ -272,6 +278,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Domini\CtrlEliminarJugador.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dades\CercadoraTemporada.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\CtrlEsborrarPartit.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

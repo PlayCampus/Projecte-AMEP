@@ -12,11 +12,15 @@ CercadoraJornada::CercadoraJornada(String^ connStr) {
 }
 
 List<Dictionary<String^, String^>^>^ CercadoraJornada::ObtenirDictJornadesPerTemporada(String^ idTemporada) {
+
+    //ACTUALITZEM ESTATS ABANS DE CONSULTAR
+    PassarellaJornada::ActualitzarEstats(connectionString);
+
     List<Dictionary<String^, String^>^>^ jornades = gcnew List<Dictionary<String^, String^>^>();
     MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
     try {
         conn->Open();
-        String^ query = "SELECT idJornada, numero, dataInici, dataFi FROM Jornada WHERE idTemporada = @idTemp";
+        String^ query = "SELECT idJornada, numero, dataInici, dataFi, estat FROM Jornada WHERE idTemporada = @idTemp";
         MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
         cmd->Parameters->AddWithValue("@idTemp", idTemporada);
         MySqlDataReader^ reader = cmd->ExecuteReader();
@@ -26,6 +30,9 @@ List<Dictionary<String^, String^>^>^ CercadoraJornada::ObtenirDictJornadesPerTem
             dict["idJornada"] = reader["idJornada"]->ToString();
             dict["numero"] = reader["numero"]->ToString();
             dict["dataInici"] = reader["dataInici"]->ToString();
+            dict["dataFi"] = Convert::ToDateTime(reader["dataFi"]).ToString("dd/MM/yyyy HH:mm");
+            dict["estat"] = reader["estat"]->ToString();
+
             jornades->Add(dict);
         }
         reader->Close();

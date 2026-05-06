@@ -46,6 +46,26 @@ namespace Playcampus {
             }
         }
 
+        void PassarellaTemporada::ActualitzarEstats(String^ connStr) {
+            MySqlConnection^ conn = gcnew MySqlConnection(connStr);
+            try {
+                conn->Open();
+                String^ queryT = "UPDATE Temporada SET estat = CASE "
+                    "WHEN NOW() >= dataInici AND NOW() <= dataFi THEN 'EnCurs' "
+                    "WHEN NOW() > dataFi THEN 'Finalitzat' "
+                    "ELSE estat END "
+                    "WHERE (NOW() >= dataInici AND NOW() <= dataFi AND estat != 'EnCurs') "
+                    "OR (NOW() > dataFi AND estat != 'Finalitzat')";
+
+                MySqlCommand^ cmd = gcnew MySqlCommand(queryT, conn);
+                cmd->ExecuteNonQuery();
+            }
+            finally {
+                conn->Close();
+            }
+        }
+
+
         List<Dictionary<String^, String^>^>^ PassarellaTemporada::ObtenirDictTemporadesPerLliga(String^ nomLliga)
         {
             List<Dictionary<String^, String^>^>^ temporades = gcnew List<Dictionary<String^, String^>^>();
@@ -81,32 +101,34 @@ namespace Playcampus {
                 conn->Close();
             }
 
-                                    return temporades;
-                                }
+            return temporades;
+        }
 
-                                String^ PassarellaTemporada::ObtenirIdTemporadaMesRecent(String^ idLliga)
-                                {
-                                    String^ idTemporadaMesRecent = nullptr;
-                                    MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+        String^ PassarellaTemporada::ObtenirIdTemporadaMesRecent(String^ idLliga)
+        {
+            String^ idTemporadaMesRecent = nullptr;
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
 
-                                    try
-                                    {
-                                        conn->Open();
-                                        String^ query = "SELECT idTemporada FROM Temporada WHERE idLliga = @idLliga ORDER BY dataInici DESC LIMIT 1";
-                                        MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                                        cmd->Parameters->AddWithValue("@idLliga", idLliga);
+            try
+            {
+                conn->Open();
+                String^ query = "SELECT idTemporada FROM Temporada WHERE idLliga = @idLliga ORDER BY dataInici DESC LIMIT 1";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idLliga", idLliga);
 
-                                        Object^ result = cmd->ExecuteScalar();
-                                        if (result != nullptr && result != DBNull::Value) {
-                                            idTemporadaMesRecent = result->ToString();
-                                        }
-                                    }
-                                    finally
-                                    {
-                                        conn->Close();
-                                    }
+                Object^ result = cmd->ExecuteScalar();
+                if (result != nullptr && result != DBNull::Value) {
+                    idTemporadaMesRecent = result->ToString();
+                }
+            }
+            finally
+            {
+                conn->Close();
+            }
 
-                                    return idTemporadaMesRecent;
-                                }
-                            }
-                        }
+            return idTemporadaMesRecent;
+        }
+
+        
+    }
+}

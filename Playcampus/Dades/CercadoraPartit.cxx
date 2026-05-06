@@ -27,5 +27,42 @@ namespace Playcampus {
                 }
             }
         }
+        List<Dictionary<String^, String^>^>^ CercadoraPartit::ObtenirPartitsPerJornada(String^ idJornada) {
+            List<Dictionary<String^, String^>^>^ llista = gcnew List<Dictionary<String^, String^>^>();
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+
+            try {
+                conn->Open();
+                String^ query = "SELECT p.idPartit, p.dataHora, p.ubicacio, p.estat, "
+                    "el.Nom AS equipLocal, ev.Nom AS equipVisitant "
+                    "FROM Partit p "
+                    "INNER JOIN Equip el ON p.idEquipLocal = el.idEquip "
+                    "INNER JOIN Equip ev ON p.idEquipVisitant = ev.idEquip "
+                    "WHERE p.idJornada = @idJornada "
+                    "ORDER BY p.dataHora ASC";
+
+
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idJornada", idJornada);
+
+                MySqlDataReader^ reader = cmd->ExecuteReader();
+                while (reader->Read()) {
+                    Dictionary<String^, String^>^ partit = gcnew Dictionary<String^, String^>();
+                    partit["idPartit"] = reader["idPartit"]->ToString();
+                    partit["dataHora"] = Convert::ToDateTime(reader["dataHora"]).ToString("dd/MM/yyyy HH:mm");
+                    partit["ubicacio"] = reader["ubicacio"]->ToString();
+                    partit["estat"] = reader["estat"]->ToString();
+                    partit["equipLocal"] = reader["equipLocal"]->ToString();
+                    partit["equipVisitant"] = reader["equipVisitant"]->ToString();
+                    llista->Add(partit);
+                }
+            }
+            finally {
+                conn->Close();
+            }
+
+            return llista;
+        }
+
     }
 }

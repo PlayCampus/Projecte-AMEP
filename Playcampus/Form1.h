@@ -16,6 +16,8 @@
 #include "Domini/CtrlVeurePlantilla.hxx"
 #include "Domini/CtrlEliminarJugador.hxx"
 #include "Domini/CtrlConsultes.hxx"
+#include "Domini/CtrlEsborrarPartit.hxx"
+
 
 namespace CppCLRWinFormsProject {
 
@@ -232,6 +234,27 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::ComboBox^ cmbCPEquipVisitant;
 		System::Windows::Forms::Button^ btnCPConfirmar;
 		System::Windows::Forms::Button^ btnCPCancellar;
+
+			
+		System::Windows::Forms::Button^ btnGLEsborrarPartit;
+
+		System::Windows::Forms::Panel^ pnlEsborrarPartit;
+		System::Windows::Forms::Label^ lblEPTitle;
+		System::Windows::Forms::Button^ btnEPTornar;
+
+		System::Windows::Forms::Label^ lblEPTemporada;
+		System::Windows::Forms::ComboBox^ cmbEPTemporades;
+		System::Collections::Generic::List<String^>^ epTemporadaIds;
+
+		System::Windows::Forms::Label^ lblEPJornada;
+		System::Windows::Forms::ComboBox^ cmbEPJornades;
+		System::Collections::Generic::List<String^>^ epJornadaIds;
+
+		System::Windows::Forms::Label^ lblEPPartit;
+		System::Windows::Forms::ComboBox^ cmbEPPartits;
+		System::Collections::Generic::List<String^>^ epPartitIds;
+		
+		System::Windows::Forms::Button^ btnEPEsborrarFinal;
 
 		/// <summary>
 		/// Required designer variable.
@@ -734,6 +757,16 @@ namespace CppCLRWinFormsProject {
 			this->btnCPConfirmar = gcnew System::Windows::Forms::Button();
 			this->btnCPCancellar = gcnew System::Windows::Forms::Button();
 
+			//pnl Esborrar Partir 
+
+			this->btnGLEsborrarPartit = gcnew System::Windows::Forms::Button();
+			this->pnlGestionarLliga->Controls->Add(this->btnGLEsborrarPartit);
+			this->btnGLEsborrarPartit->Text = L"Esborrar partit";
+			this->btnGLEsborrarPartit->Size = System::Drawing::Size(220, 60);
+			this->btnGLEsborrarPartit->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
+			this->btnGLEsborrarPartit->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnGLEsborrarPartit->Click += gcnew System::EventHandler(this, &Form1::btnGLEsborrarPartit_Click);
+
 			// --- Añadir todos los controles al Panel ---
 			this->pnlCrearPartit->Controls->Add(this->lblCPTitle);
 			this->pnlCrearPartit->Controls->Add(this->lblCPNomLliga);     // AFEGIT
@@ -1147,6 +1180,81 @@ namespace CppCLRWinFormsProject {
 
 			this->Controls->Add(this->pnlUnirEquipLliga);
 
+			this->btnGLEsborrarPartit->Text = L"Esborrar partit";
+			this->btnGLEsborrarPartit->Size = System::Drawing::Size(220, 60);
+			this->btnGLEsborrarPartit->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
+			this->btnGLEsborrarPartit->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnGLEsborrarPartit->Click += gcnew System::EventHandler(this, &Form1::btnGLEsborrarPartit_Click);
+
+			// pnlEsborrarParti
+
+			this->pnlEsborrarPartit = gcnew System::Windows::Forms::Panel();
+			this->lblEPTitle = gcnew System::Windows::Forms::Label();
+			this->btnEPTornar = gcnew System::Windows::Forms::Button();
+
+			this->lblEPTemporada = gcnew System::Windows::Forms::Label();
+			this->cmbEPTemporades = gcnew System::Windows::Forms::ComboBox();
+			this->epTemporadaIds = gcnew System::Collections::Generic::List<String^>();
+
+			this->lblEPJornada = gcnew System::Windows::Forms::Label();
+			this->cmbEPJornades = gcnew System::Windows::Forms::ComboBox();
+			this->epJornadaIds = gcnew System::Collections::Generic::List<String^>();
+
+			this->lblEPPartit = gcnew System::Windows::Forms::Label();
+			this->cmbEPPartits = gcnew System::Windows::Forms::ComboBox();
+			this->epPartitIds = gcnew System::Collections::Generic::List<String^>();
+
+			this->btnEPEsborrarFinal = gcnew System::Windows::Forms::Button();
+
+			this->pnlEsborrarPartit->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->pnlEsborrarPartit->Visible = false;
+
+			this->pnlEsborrarPartit->Controls->Add(this->lblEPTitle);
+			this->pnlEsborrarPartit->Controls->Add(this->btnEPTornar);
+			this->pnlEsborrarPartit->Controls->Add(this->lblEPTemporada);
+			this->pnlEsborrarPartit->Controls->Add(this->cmbEPTemporades);
+			this->pnlEsborrarPartit->Controls->Add(this->lblEPJornada);
+			this->pnlEsborrarPartit->Controls->Add(this->cmbEPJornades);
+			this->pnlEsborrarPartit->Controls->Add(this->lblEPPartit);
+			this->pnlEsborrarPartit->Controls->Add(this->cmbEPPartits);
+			this->pnlEsborrarPartit->Controls->Add(this->btnEPEsborrarFinal);
+
+			this->lblEPTitle->Text = L"Esborrar Partit - Selecció";
+			this->lblEPTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
+			this->lblEPTitle->AutoSize = true;
+
+			this->btnEPTornar->Text = L"Tornar";
+			this->btnEPTornar->Click += gcnew System::EventHandler(this, &Form1::btnEPTornar_Click);
+
+			// Config Temporades
+			this->lblEPTemporada->Text = L"Tria una Temporada:";
+			this->lblEPTemporada->AutoSize = true;
+			this->cmbEPTemporades->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cmbEPTemporades->Size = System::Drawing::Size(450, 24);
+			this->cmbEPTemporades->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbEPTemporades_SelectedIndexChanged);
+
+			// Config Jornades
+			this->lblEPJornada->Text = L"Tria una Jornada:";
+			this->lblEPJornada->AutoSize = true;
+			this->cmbEPJornades->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cmbEPJornades->Size = System::Drawing::Size(450, 24);
+			this->cmbEPJornades->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbEPJornades_SelectedIndexChanged);
+
+			// Config Partits
+			this->lblEPPartit->Text = L"Tria el Partit a esborrar:";
+			this->lblEPPartit->AutoSize = true; 
+			this->cmbEPPartits->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cmbEPPartits->Size = System::Drawing::Size(550, 24);
+
+			this->btnEPEsborrarFinal->Text = L"Esborrar Partit Seleccionat";
+			this->btnEPEsborrarFinal->BackColor = System::Drawing::Color::Red;
+			this->btnEPEsborrarFinal->ForeColor = System::Drawing::Color::White;
+			this->btnEPEsborrarFinal->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.0F, System::Drawing::FontStyle::Bold);
+			this->btnEPEsborrarFinal->Click += gcnew System::EventHandler(this, &Form1::btnEPEsborrarFinal_Click);
+
+			this->Controls->Add(this->pnlEsborrarPartit);
+
+			
 			String^ logoPath = L"imatges\\logo.png";
 			if (!System::IO::File::Exists(logoPath)) {
 				logoPath = L"..\\..\\imatges\\logo.png";
@@ -1158,16 +1266,23 @@ namespace CppCLRWinFormsProject {
 				this->picLogoMain->ImageLocation = logoPath;
 				this->picLogoGL->ImageLocation = logoPath;
 			}
+
 		}
 #pragma endregion
 
 	private: System::Void Form1_Resize(System::Object^ sender, System::EventArgs^ e) {
-		if (this->ClientSize.Width == 0 || this->ClientSize.Height == 0) return;
+		// Comprobar que no estamos procesando el resize demasiado pronto u ocultos
+			if (this->ClientSize.Width == 0 || this->ClientSize.Height == 0) return;
+
+		// Prevenir problemas si el Resize se dispara antes de terminar InitializeComponent
+		if (this->lblEPTitle == nullptr || this->btnEPEsborrarFinal == nullptr) return;
 
 		int cw = this->ClientSize.Width;
 		int ch = this->ClientSize.Height;
 		int centerX = cw / 2;
 		int centerY = ch / 2;
+
+		
 
 		// --- PANELS DE LOGIN/REGISTRE ---
 		this->picLogoInici->Location = System::Drawing::Point(centerX - this->picLogoInici->Width / 2, centerY - 250);
@@ -1268,6 +1383,8 @@ namespace CppCLRWinFormsProject {
 		this->btnGLEsborrarEquip->Location = System::Drawing::Point(centerX + (glSpacingX / 2), glStartY + btnGLH + glSpacingY);
 		this->btnGLCrearJornada->Location = System::Drawing::Point(centerX - btnGLW - (glSpacingX / 2), glStartY + (btnGLH + glSpacingY) * 2);
 		this->btnGLCrearTemporada->Location = System::Drawing::Point(centerX + (glSpacingX / 2), glStartY + (btnGLH + glSpacingY) * 2);
+		this->btnGLEsborrarPartit->Location = System::Drawing::Point(centerX - btnGLW - (glSpacingX / 2), glStartY + (btnGLH + glSpacingY) * 3);
+
 
 		this->picLogoGL->Location = System::Drawing::Point(centerX - (this->picLogoGL->Width / 2), glStartY - this->picLogoGL->Height - 40);
 
@@ -1321,8 +1438,27 @@ namespace CppCLRWinFormsProject {
 		int btnGEW = this->btnGEEsborrarEquip->Width;
 		this->btnGEEsborrarEquip->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY);
 		this->btnGEAfegirJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 70);
-      this->btnGEEliminarJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 140);
-			this->btnGEAssignarJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 210);
+		this->btnGEEliminarJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 140);
+		this->btnGEAssignarJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 210);
+
+		// --- PANEL ESBORRAR PARTIT 
+		this->lblEPTitle->Location = System::Drawing::Point(centerX - this->lblEPTitle->Width / 2, 30);
+		this->btnEPTornar->Location = System::Drawing::Point(30, 30);
+
+		int epStartX = centerX - 250;
+		int epStartY = centerY - 100;
+
+		this->lblEPTemporada->Location = System::Drawing::Point(epStartX, epStartY);
+		this->cmbEPTemporades->Location = System::Drawing::Point(epStartX + 150, epStartY - 3);
+
+		this->lblEPJornada->Location = System::Drawing::Point(epStartX, epStartY + 50);
+		this->cmbEPJornades->Location = System::Drawing::Point(epStartX + 150, epStartY + 47);
+
+		this->lblEPPartit->Location = System::Drawing::Point(epStartX, epStartY + 100);
+		this->cmbEPPartits->Location = System::Drawing::Point(epStartX + 150, epStartY + 97);
+
+		this->btnEPEsborrarFinal->Location = System::Drawing::Point(centerX - 100, epStartY + 180);
+		this->btnEPEsborrarFinal->Size = System::Drawing::Size(200, 40);
 
 		// --- PANEL AFEGIR JUGADOR ---
 		this->lblAJTitle->Location = System::Drawing::Point(centerX - this->lblAJTitle->Width / 2, 30);
@@ -1423,6 +1559,9 @@ namespace CppCLRWinFormsProject {
 		this->btnCJConfirmar->Size = System::Drawing::Size(100, 30);
 		this->btnCJCancellar->Location = System::Drawing::Point(cjStartX + 170, cjStartY + 220);
 		this->btnCJCancellar->Size = System::Drawing::Size(100, 30);
+
+		
+		
 	}
 
 	private: System::Void btnUnirEquipLligaAct_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1932,7 +2071,9 @@ namespace CppCLRWinFormsProject {
 					return;
 				}
 
-				String^ idPartit = partits[cmbPartits->SelectedIndex]["idPartit"];
+		
+				String^ idPartit = partits[cmbPartits->SelectedIndex]->default["idPartit"];
+
 				auto detall = ctrl->ObtenirDetallPartit(idPartit, currentUsuariCorreu);
 
 				String^ disciplina = detall["disciplina"];
@@ -2668,8 +2809,8 @@ namespace CppCLRWinFormsProject {
 					MessageBox::Show(L"Cal seleccionar un partit i un jugador.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				}
 				else {
-					String^ idPartit = partits[cmbPartits->SelectedIndex]["idPartit"];
-					String^ idJugador = jugadors[cmbJugadors->SelectedIndex]["idJugador"];
+					String^ idPartit = partits[cmbPartits->SelectedIndex]->default["idPartit"];
+					String^ idJugador = jugadors[cmbJugadors->SelectedIndex]->default["idJugador"];
 					String^ resultat = ctrlAssignar->AssignarJugador(currentUsuariCorreu, idPartit, idJugador);
 					MessageBox::Show(resultat, L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				}
@@ -2818,5 +2959,135 @@ namespace CppCLRWinFormsProject {
 			MessageBox::Show(L"Error al enregistrar equip: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
+		   // ==============================================================
+	   //  ESBORRAR PARTIT 
+	   // ==============================================================
+
+
+	private: System::Void btnGLEsborrarPartit_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlGestionarLliga->Visible = false;
+		pnlEsborrarPartit->Visible = true;
+		CarregarTemporadesEsborrar();
+	}
+
+	private: System::Void btnEPTornar_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlEsborrarPartit->Visible = false;
+		pnlGestionarLliga->Visible = true;
+	}
+
+		   // 1. CARREGAR TEMPORADES USANT EL CONTROLADOR DOMINI
+	private: void CarregarTemporadesEsborrar() {
+		cmbEPTemporades->Items->Clear();
+		epTemporadaIds->Clear();
+		cmbEPJornades->Items->Clear();
+		epJornadaIds->Clear();
+		cmbEPPartits->Items->Clear();
+		epPartitIds->Clear();
+
+		try {
+			Playcampus::Domini::CtrlEsborrarPartit^ ctrl = gcnew Playcampus::Domini::CtrlEsborrarPartit();
+			auto temporades = ctrl->ObtenirTemporadesAdmin(currentUsuariCorreu);
+
+			for each(auto dict in temporades) {
+				String^ display = dict["dataInici"] + L" a " + dict["dataFi"] + L" [" + dict["estat"] + L"]";
+				cmbEPTemporades->Items->Add(display);
+				epTemporadaIds->Add(dict["idTemporada"]);
+			}
+
+			if (cmbEPTemporades->Items->Count > 0) cmbEPTemporades->SelectedIndex = 0;
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error al carregar temporades: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
+		   // 2. SELECCIONAR TEMPORADA -> JORNADES 
+	private: System::Void cmbEPTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		cmbEPJornades->Items->Clear();
+		epJornadaIds->Clear();
+		cmbEPPartits->Items->Clear();
+		epPartitIds->Clear();
+
+		if (cmbEPTemporades->SelectedIndex >= 0) {
+			String^ idTemporadaStr = epTemporadaIds[cmbEPTemporades->SelectedIndex];
+
+			try {
+				Playcampus::Domini::CtrlEsborrarPartit^ ctrl = gcnew Playcampus::Domini::CtrlEsborrarPartit();
+				auto jornades = ctrl->ObtenirJornadesPerTemporada(idTemporadaStr);
+
+				for each(auto dict in jornades) {
+					// AFEGIM dataFi i estat per Jornada
+					String^ display = L"Jornada " + dict["numero"] + L" | " + dict["dataInici"] + L" a " + dict["dataFi"] + L" [" + dict["estat"] + L"]";
+					cmbEPJornades->Items->Add(display);
+					epJornadaIds->Add(dict["idJornada"]);
+				}
+
+				if (cmbEPJornades->Items->Count > 0) cmbEPJornades->SelectedIndex = 0;
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show(L"Error al carregar jornades: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
+		}
+	}
+
+		   // 3. SELECCIONAR JORNADA -> PARTITS 
+	private: System::Void cmbEPJornades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		cmbEPPartits->Items->Clear();
+		epPartitIds->Clear();
+
+		if (cmbEPJornades->SelectedIndex >= 0) {
+			String^ idJornadaStr = epJornadaIds[cmbEPJornades->SelectedIndex];
+
+			try {
+				Playcampus::Domini::CtrlEsborrarPartit^ ctrl = gcnew Playcampus::Domini::CtrlEsborrarPartit();
+				auto partits = ctrl->ObtenirPartitsPerJornada(idJornadaStr);
+
+				for each(auto dict in partits) {
+					String^ ubicacio = String::IsNullOrWhiteSpace(dict["ubicacio"]) ? L"Sense ubi" : dict["ubicacio"];
+					// AFEGIM Els noms dels equips: local vs visitant
+					String^ display = dict["dataHora"] + L" | " + dict["equipLocal"] + L" vs " + dict["equipVisitant"] + L" (Ubi: " + ubicacio + L") [" + dict["estat"] + L"]";
+					cmbEPPartits->Items->Add(display);
+					epPartitIds->Add(dict["idPartit"]);
+				}
+
+				if (cmbEPPartits->Items->Count > 0) cmbEPPartits->SelectedIndex = 0;
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show(L"Error al carregar partits: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
+		}
+	}
+
+		   // 4. ELIMINAR EL PARTIT A TRAVES DEL CONTROLADOR
+	private: System::Void btnEPEsborrarFinal_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (cmbEPPartits->SelectedIndex < 0) {
+			MessageBox::Show(L"Si us plau, selecciona una temporada, una jornada i finalment un partit per a esborrar.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		String^ idPartit = epPartitIds[cmbEPPartits->SelectedIndex];
+		String^ displayPartit = cmbEPPartits->SelectedItem->ToString();
+
+		System::Windows::Forms::DialogResult confirm = MessageBox::Show(
+			L"Estàs segur d'eliminar definitivament el partit: \n\n" + displayPartit + L"?",
+			L"Confirmació de Borrat",
+			MessageBoxButtons::YesNo,
+			MessageBoxIcon::Exclamation);
+
+		if (confirm == System::Windows::Forms::DialogResult::Yes) {
+			try {
+				Playcampus::Domini::CtrlEsborrarPartit^ ctrl = gcnew Playcampus::Domini::CtrlEsborrarPartit();
+				ctrl->EsborrarPartit(idPartit);
+
+				MessageBox::Show(L"Partit eliminat de la Base de Dades correctament.", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+				// Refresquem el desplegable recarregant la jornada seleccionada en comptes de tancar 
+				cmbEPJornades_SelectedIndexChanged(nullptr, nullptr);
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show(L"Hi ha hagut una fallada: " + ex->Message, L"Error Crític", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
+		}
+	}
 };
 }
+
