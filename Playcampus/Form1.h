@@ -41,6 +41,7 @@ namespace CppCLRWinFormsProject {
 			pnlRegister->Visible = false;
 			pnlMain->Visible = false;
 			pnlConsultar->Visible = false;
+			pnlEstadistiques->Visible = false;
 
 			Form1_Resize(nullptr, nullptr);
 		}
@@ -100,6 +101,11 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Button^ btnEnregistrarEquip;
 		System::Windows::Forms::Button^ btnUnirEquipLliga;
 
+		System::Windows::Forms::Panel^ pnlEstadistiques;
+		System::Windows::Forms::Label^ lblEstTitle;
+		System::Windows::Forms::Button^ btnEstEquips;
+		System::Windows::Forms::Button^ btnEstTornar;
+		System::Windows::Forms::PictureBox^ picLogoEst;
 
 		System::Windows::Forms::Button^ btnLogoutMainMenu;
 		System::Windows::Forms::PictureBox^ picImatge;
@@ -471,10 +477,10 @@ namespace CppCLRWinFormsProject {
 			this->btnEstatLligues->Size = System::Drawing::Size(130, 40);
 			this->btnEstatLligues->Click += gcnew System::EventHandler(this, &Form1::btnEstatLligues_Click);
 
-			this->btnEstadistiques->Text = L"Estadístiques equips";
+			this->btnEstadistiques->Text = L"Estadístiques";
 			this->btnEstadistiques->Location = System::Drawing::Point(300, 60);
 			this->btnEstadistiques->Size = System::Drawing::Size(130, 40);
-			this->btnEstadistiques->Click += gcnew System::EventHandler(this, &Form1::btnEstadistiques_Click);
+			this->btnEstadistiques->Click += gcnew System::EventHandler(this, &Form1::btnEstadistiquesMenu_Click);
 
 			this->btnConsultar->Text = L"Consultar";
 			this->btnConsultar->Location = System::Drawing::Point(440, 60);
@@ -699,6 +705,38 @@ namespace CppCLRWinFormsProject {
 			this->btnGLTornar->Size = System::Drawing::Size(100, 30);
 			this->btnGLTornar->Click += gcnew System::EventHandler(this, &Form1::btnGLTornar_Click);
 
+			// pnlEstadistiques
+			this->pnlEstadistiques = gcnew System::Windows::Forms::Panel();
+			this->lblEstTitle = gcnew System::Windows::Forms::Label();
+			this->btnEstEquips = gcnew System::Windows::Forms::Button();
+			this->btnEstTornar = gcnew System::Windows::Forms::Button();
+			this->picLogoEst = gcnew System::Windows::Forms::PictureBox();
+
+			this->pnlEstadistiques->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->pnlEstadistiques->Visible = false;
+			this->pnlEstadistiques->Controls->Add(this->lblEstTitle);
+			this->pnlEstadistiques->Controls->Add(this->btnEstEquips);
+			this->pnlEstadistiques->Controls->Add(this->btnEstTornar);
+			this->pnlEstadistiques->Controls->Add(this->picLogoEst);
+
+			this->picLogoEst->ImageLocation = L"imatges\\logo.png";
+			this->picLogoEst->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->picLogoEst->Size = System::Drawing::Size(150, 100);
+
+			this->lblEstTitle->Text = L"Estadístiques";
+			this->lblEstTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
+			this->lblEstTitle->AutoSize = true;
+
+			this->btnEstEquips->Text = L"Estadístiques equips";
+			this->btnEstEquips->Size = System::Drawing::Size(220, 60);
+			this->btnEstEquips->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
+			this->btnEstEquips->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnEstEquips->Click += gcnew System::EventHandler(this, &Form1::btnEstadistiques_Click);
+
+			this->btnEstTornar->Text = L"Tornar";
+			this->btnEstTornar->Size = System::Drawing::Size(100, 30);
+			this->btnEstTornar->Click += gcnew System::EventHandler(this, &Form1::btnEstTornar_Click);
+
 			// Form
 			this->Controls->Add(this->pnlInici);
 			this->Controls->Add(this->pnlLogin);
@@ -707,6 +745,7 @@ namespace CppCLRWinFormsProject {
 			this->Controls->Add(this->pnlConsultar);
 			this->Controls->Add(this->pnlCrearLliga);
 			this->Controls->Add(this->pnlGestionarLliga);
+			this->Controls->Add(this->pnlEstadistiques);
 
 			// pnlCrearPartit
 			this->pnlCrearPartit = gcnew System::Windows::Forms::Panel();
@@ -1157,6 +1196,7 @@ namespace CppCLRWinFormsProject {
 				this->picLogoRegister->ImageLocation = logoPath;
 				this->picLogoMain->ImageLocation = logoPath;
 				this->picLogoGL->ImageLocation = logoPath;
+				this->picLogoEst->ImageLocation = logoPath;
 			}
 		}
 #pragma endregion
@@ -1251,6 +1291,14 @@ namespace CppCLRWinFormsProject {
 		this->lblCLEsport->Location = System::Drawing::Point(clStartX, clStartY + 80);
 		this->cmbCLEsport->Location = System::Drawing::Point(clStartX + 120, clStartY + 80);
 		this->btnCLGuarda->Location = System::Drawing::Point(centerX - 50, clStartY + 130);
+
+		// --- PANEL ESTADISTIQUES ---
+		this->lblEstTitle->Location = System::Drawing::Point(centerX - this->lblEstTitle->Width / 2, 40);
+		this->btnEstTornar->Location = System::Drawing::Point(30, 30);
+
+		int estStartY = centerY - 20;
+		this->btnEstEquips->Location = System::Drawing::Point(centerX - (this->btnEstEquips->Width / 2), estStartY);
+		this->picLogoEst->Location = System::Drawing::Point(centerX - (this->picLogoEst->Width / 2), estStartY - this->picLogoEst->Height - 40);
 
 		// --- PANEL GESTIONAR LLIGA ---
 		this->lblGLTitle->Location = System::Drawing::Point(centerX - this->lblGLTitle->Width / 2, 40);
@@ -1658,6 +1706,7 @@ namespace CppCLRWinFormsProject {
 		pnlEnregistrarEquip->Visible = false;
 		pnlGestionarEquip->Visible = false;
 		pnlAfegirJugador->Visible = false;
+		pnlEstadistiques->Visible = false;
 		pnlMain->Visible = false;
 		pnlInici->Visible = true;
 	}
@@ -2388,6 +2437,16 @@ namespace CppCLRWinFormsProject {
 		catch (Exception^ ex) {
 			MessageBox::Show(L"Error carregant l'estat de les lligues: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
+	}
+
+	private: System::Void btnEstadistiquesMenu_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlMain->Visible = false;
+		pnlEstadistiques->Visible = true;
+	}
+
+	private: System::Void btnEstTornar_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlEstadistiques->Visible = false;
+		pnlMain->Visible = true;
 	}
 
 	private: System::Void btnEstadistiques_Click(System::Object^ sender, System::EventArgs^ e) {
