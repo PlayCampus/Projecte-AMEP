@@ -1427,6 +1427,20 @@ namespace CppCLRWinFormsProject {
 		this->btnCPConfirmar->Location = System::Drawing::Point(cpStartX + 20, cpStartY + 290);
 		this->btnCPCancellar->Location = System::Drawing::Point(cpStartX + 140, cpStartY + 290);
 
+		// --- PANEL GESTIONAR EQUIP ---
+		this->lblGETitle->Location = System::Drawing::Point(centerX - this->lblGETitle->Width / 2, 40);
+		this->btnGETornar->Location = System::Drawing::Point(30, 30);
+
+		int geDgvY = 80;
+		this->dgvPlantilla->Location = System::Drawing::Point(centerX - (this->dgvPlantilla->Width / 2), geDgvY);
+
+		int geStartY = geDgvY + this->dgvPlantilla->Height + 20;
+		int btnGEW = this->btnGEEsborrarEquip->Width;
+		this->btnGEEsborrarEquip->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY);
+		this->btnGEAfegirJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 70);
+		this->btnGEEliminarJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 140);
+		this->btnGEAssignarJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 210);
+
 		// --- PANEL ESBORRAR PARTIT 
 		this->lblEPTitle->Location = System::Drawing::Point(centerX - this->lblEPTitle->Width / 2, 30);
 		this->btnEPTornar->Location = System::Drawing::Point(30, 30);
