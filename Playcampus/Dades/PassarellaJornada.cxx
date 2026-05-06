@@ -54,7 +54,7 @@ void PassarellaJornada::ActualitzarEstats(String^ connStr) {
     MySqlConnection^ conn = gcnew MySqlConnection(connStr);
     try {
         conn->Open();
-        String^ queryJ = "UPDATE jornada SET estat = CASE "
+        String^ queryJ = "UPDATE Jornada SET estat = CASE "
             "WHEN NOW() >= dataInici AND NOW() <= dataFi THEN 'EnCurs' "
             "WHEN NOW() > dataFi THEN 'Finalitzat' "
             "ELSE estat END "

@@ -50,7 +50,7 @@ namespace Playcampus {
             MySqlConnection^ conn = gcnew MySqlConnection(connStr);
             try {
                 conn->Open();
-                String^ queryT = "UPDATE temporada SET estat = CASE "
+                String^ queryT = "UPDATE Temporada SET estat = CASE "
                     "WHEN NOW() >= dataInici AND NOW() <= dataFi THEN 'EnCurs' "
                     "WHEN NOW() > dataFi THEN 'Finalitzat' "
                     "ELSE estat END "
