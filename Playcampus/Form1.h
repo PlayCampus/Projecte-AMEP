@@ -471,7 +471,7 @@ namespace CppCLRWinFormsProject {
 			this->btnEstatLligues->Size = System::Drawing::Size(130, 40);
 			this->btnEstatLligues->Click += gcnew System::EventHandler(this, &Form1::btnEstatLligues_Click);
 
-			this->btnEstadistiques->Text = L"Estadístiques de partits";
+			this->btnEstadistiques->Text = L"Estadístiques equips";
 			this->btnEstadistiques->Location = System::Drawing::Point(300, 60);
 			this->btnEstadistiques->Size = System::Drawing::Size(130, 40);
 			this->btnEstadistiques->Click += gcnew System::EventHandler(this, &Form1::btnEstadistiques_Click);
@@ -2393,7 +2393,7 @@ namespace CppCLRWinFormsProject {
 	private: System::Void btnEstadistiques_Click(System::Object^ sender, System::EventArgs^ e) {
 		try {
 			Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
-			MostrarConsultaGeneral(L"Estadistiques dels equips", ctrl->ObtenirEstadistiquesEquips());
+			MostrarConsultaGeneral(L"Estadístiques equips", ctrl->ObtenirEstadistiquesEquips());
 		}
 		catch (Exception^ ex) {
 			MessageBox::Show(L"Error carregant les estadistiques: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
