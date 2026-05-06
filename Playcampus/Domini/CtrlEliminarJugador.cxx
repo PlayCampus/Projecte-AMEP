@@ -75,12 +75,24 @@ namespace Playcampus {
                 if (files != 1) {
                     throw gcnew Exception("No s'ha pogut expulsar el jugador de l'equip.");
                 }
+
+                // També li canviem el tipus a 'Estudiant' eliminant de Jugador o modificant l'usuari
+                String^ queryUsuari = "UPDATE Usuari SET Tipus = 'Estudiant' WHERE identificador = @idJugador";
+                MySqlCommand^ cmdUsuari = gcnew MySqlCommand(queryUsuari, conn);
+                cmdUsuari->Parameters->AddWithValue("@idJugador", idJugador);
+                cmdUsuari->ExecuteNonQuery();
+
+                // Opcional: Eliminar la relació amb Jugador (delete a taula Jugador) si el joc ho requereix, sinó es deixa.
+                String^ queryBorrarJugador = "DELETE FROM Jugador WHERE idJugador = @idJugador AND idEquip IS NULL";
+                MySqlCommand^ cmdBorrarJugador = gcnew MySqlCommand(queryBorrarJugador, conn);
+                cmdBorrarJugador->Parameters->AddWithValue("@idJugador", idJugador);
+                cmdBorrarJugador->ExecuteNonQuery();
             }
             finally {
                 conn->Close();
             }
 
-            return "Jugador expulsat correctament de l'equip.";
+            return "Jugador expulsat correctament de l'equip i ha passat a ser Estudiant.";
         }
     }
 }
