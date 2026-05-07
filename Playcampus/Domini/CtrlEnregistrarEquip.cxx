@@ -1,4 +1,4 @@
-#include "pch.h"
+Ôªø#include "pch.h"
 #include "CtrlEnregistrarEquip.hxx"
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/PassarellaEquip.hxx"
@@ -15,9 +15,9 @@ namespace Playcampus {
         }
 
         void CtrlEnregistrarEquip::EnregistrarEquip(String^ idEquip, String^ nom, DateTime dataFundacio, String^ esport, String^ tipusUsuari, String^ correuUsuari) {
-            // Verificar que l'usuari Ès un capit‡
-            if (tipusUsuari->ToLower() != "capita" && tipusUsuari->ToLower() != "capit‡") {
-                throw gcnew UnauthorizedAccessException("NomÈs els capitans poden enregistrar un equip.");
+            // Verificar que l'usuari √©s un capit√†
+            if (tipusUsuari->ToLower() != "capita" && tipusUsuari->ToLower() != "capit√†") {
+                throw gcnew UnauthorizedAccessException("Nom√©s els capitans poden enregistrar un equip.");
             }
 
             String^ idCapita = nullptr;

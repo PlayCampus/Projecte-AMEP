@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CtrlRegistrarUsuari.hxx"
 #include "../Dades/PassarellaUsuari.hxx"
 #include "../Dades/CercadoraUsuari.hxx"

@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CtrlCrearLliga.hxx"
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/PassarellaLliga.hxx"
@@ -16,12 +16,12 @@ namespace Playcampus {
         }
 
         void CtrlCrearLliga::CrearLliga(String^ idLliga, String^ nom, Disciplina disciplina, String^ descripcio, String^ contrasenya, String^ tipusUsuari, String^ correuUsuari) {
-            // Verificar que l'usuari és un administrador
+            // Verificar que l'usuari Ã©s un administrador
             if (tipusUsuari->ToLower() != "administrador") {
-                throw gcnew UnauthorizedAccessException("Només els administradors poden crear una lliga.");
+                throw gcnew UnauthorizedAccessException("NomÃ©s els administradors poden crear una lliga.");
             }
 
-            // Aquí es crearia la Lliga. Actualment es crea l'objecte de domini.
+            // AquÃ­ es crearia la Lliga. Actualment es crea l'objecte de domini.
             Lliga^ novaLliga = gcnew Lliga(idLliga, nom, disciplina, descripcio, contrasenya);
 
             String^ idAdmin = nullptr;
@@ -38,8 +38,8 @@ namespace Playcampus {
                 pl->Insereix();
             }
             catch (Exception^ ex) {
-                // Afegim l'idAdmin a l'excepció per veure exactament quin s'està enviant a MySql 
-                String^ errorPrefix = "L'ID de l'admin enviat és: '" + (idAdmin == nullptr ? "NULL" : idAdmin) + "'. ";
+                // Afegim l'idAdmin a l'excepciÃ³ per veure exactament quin s'estÃ  enviant a MySql 
+                String^ errorPrefix = "L'ID de l'admin enviat Ã©s: '" + (idAdmin == nullptr ? "NULL" : idAdmin) + "'. ";
                 throw gcnew Exception(errorPrefix + ex->Message);
             }
         }

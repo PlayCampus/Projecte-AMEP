@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "PassarellaEquip.hxx"
 
 using namespace System::Collections::Generic;

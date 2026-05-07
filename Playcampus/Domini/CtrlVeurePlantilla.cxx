@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CtrlVeurePlantilla.hxx"
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/CercadoraUsuari.hxx"
@@ -25,7 +25,7 @@ namespace Playcampus {
             PassarellaUsuari^ usuariCapita = cercadoraUser->LlegeixPerCorreu(correuCapita);
 
             if (usuariCapita == nullptr || usuariCapita->GetTipus() != "Capita") {
-                throw gcnew Exception("L'usuari no és completament vàlid per consultar l'equip.");
+                throw gcnew Exception("L'usuari no Ã©s completament vÃ lid per consultar l'equip.");
             }
 
             // Get team using id
@@ -53,7 +53,7 @@ namespace Playcampus {
             }
 
             if (String::IsNullOrWhiteSpace(idEquip)) {
-                throw gcnew Exception("El capità no té equip assignat.");
+                throw gcnew Exception("El capitÃ  no tÃ© equip assignat.");
             }
 
             // Get team players
@@ -61,7 +61,7 @@ namespace Playcampus {
             dt->Columns->Add("IdJugador", String::typeid);
             dt->Columns->Add("Nom", String::typeid);
             dt->Columns->Add("Dorsal", int::typeid);
-            dt->Columns->Add("Posició", String::typeid);
+            dt->Columns->Add("PosiciÃ³", String::typeid);
 
             // Usem query directa per obtenir idJugador i les dades
             MySqlConnection^ connJugadors = gcnew MySqlConnection(connStr);

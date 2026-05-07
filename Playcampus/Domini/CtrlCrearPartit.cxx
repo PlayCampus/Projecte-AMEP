@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "CtrlCrearPartit.hxx"
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/PassarellaPartit.hxx"
@@ -17,15 +17,15 @@ using namespace MySql::Data::MySqlClient;
 namespace Playcampus {
     namespace Domini {
         CtrlCrearPartit::CtrlCrearPartit() {
-            // Seguint la mateixa convenció que CtrlEnregistrarEquip
+            // Seguint la mateixa convenciÃ³ que CtrlEnregistrarEquip
             connectionString = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
         }
 
         void CtrlCrearPartit::CrearPartit(DateTime dataHora, String^ ubicacio, String^ nomEquipLocal, String^ nomEquipVisitant, String^ idJornada, String^ tipusUsuari) {
 
-            // 1. Validar que l'usuari és Administrador
+            // 1. Validar que l'usuari Ã©s Administrador
             if (String::IsNullOrEmpty(tipusUsuari) || tipusUsuari->ToLower() != "administrador") {
-                throw gcnew UnauthorizedAccessException("Només els administradors poden crear un partit.");
+                throw gcnew UnauthorizedAccessException("NomÃ©s els administradors poden crear un partit.");
             }
 
             // 2. No es poden enfrontar el mateix equip
@@ -45,15 +45,15 @@ namespace Playcampus {
                     throw gcnew Exception("L'equip visitant '" + nomEquipVisitant + "' no existeix.");
                 }
                 if (String::IsNullOrEmpty(idJornada)) {
-                    throw gcnew Exception("La jornada no s'ha trobat o no és vàlida.");
+                    throw gcnew Exception("La jornada no s'ha trobat o no Ã©s vÃ lida.");
                 }
 
-                // 4. Crear el partit (L'Estat inicial serà 'Pendent')
+                // 4. Crear el partit (L'Estat inicial serÃ  'Pendent')
                 String^ estat = "Pendent";
                 
                 Playcampus::Dades::PassarellaPartit^ partit = gcnew Playcampus::Dades::PassarellaPartit(
                     connectionString, 
-                    nullptr, // ID es genera a dins si és null
+                    nullptr, // ID es genera a dins si Ã©s null
                     dataHora, 
                     ubicacio, 
                     estat, 
@@ -96,7 +96,7 @@ namespace Playcampus {
 
             Playcampus::Dades::PassarellaLliga^ passLliga = gcnew Playcampus::Dades::PassarellaLliga(connectionString);
 
-            // CORRECCIÓN: Pasar el 'correuAdmin' en vez del identificador
+            // CORRECCIÃ“N: Pasar el 'correuAdmin' en vez del identificador
             return passLliga->EsAdministradorLliga(nomLliga, correuAdmin);
         }
 

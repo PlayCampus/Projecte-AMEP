@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CercadoraTemporada.hxx"
 
 using namespace MySql::Data::MySqlClient;

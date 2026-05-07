@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "PassarellaLliga.hxx"
 
 using namespace System;
@@ -120,7 +120,7 @@ namespace Playcampus {
             try {
                 conn->Open();
 
-                // Fem un JOIN amb Usuari per poder comparar el correu electr�nic amb l'idAdministrador guardat a Lliga
+                // Fem un JOIN amb Usuari per poder comparar el correu electrònic amb l'idAdministrador guardat a Lliga
                 String^ query = "SELECT COUNT(*) FROM Lliga L INNER JOIN Usuari U ON L.idAdministrador = U.identificador WHERE L.nom = @nom AND U.correu_electronic = @correuAdmin";
 
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);

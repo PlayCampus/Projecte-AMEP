@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CtrlAfegirJugador.hxx"
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/CercadoraUsuari.hxx"
@@ -17,7 +17,7 @@ namespace Playcampus {
         }
 
         String^ CtrlAfegirJugador::AfegirJugador(String^ correuEstudiant, int dorsal, String^ posicio, String^ correuCapita) {
-            // Obtenir connexió a la BD
+            // Obtenir connexiÃ³ a la BD
             String^ connStr = ConnexioBD::ObtenirConnectionString();
 
             // Cercar l'usuari estudiant
@@ -28,10 +28,10 @@ namespace Playcampus {
                 throw gcnew Exception("L'usuari estudiant no existeix.");
             }
 
-            // Permetem tornar a inscriure un usuari que ja és de tipus Jugador però no està vinculat a cap equip
-            // (p.ex. després d'haver estat expulsat). En aquest cas, es crearà un nou registre a la taula Jugador.
+            // Permetem tornar a inscriure un usuari que ja Ã©s de tipus Jugador perÃ² no estÃ  vinculat a cap equip
+            // (p.ex. desprÃ©s d'haver estat expulsat). En aquest cas, es crearÃ  un nou registre a la taula Jugador.
             if (usuariEstudiant->GetTipus() != "Estudiant" && usuariEstudiant->GetTipus() != "Jugador") {
-                throw gcnew Exception("L'usuari no és de tipus Estudiant ni Jugador.");
+                throw gcnew Exception("L'usuari no Ã©s de tipus Estudiant ni Jugador.");
             }
 
             // Cercar el capta per obtenir l'idEquip
@@ -42,7 +42,7 @@ namespace Playcampus {
             }
 
             if (usuariCapita->GetTipus() != "Capita") {
-                throw gcnew Exception("L'usuari no és de tipus Capita.");
+                throw gcnew Exception("L'usuari no Ã©s de tipus Capita.");
             }
 
             // Obtenir l'idEquip del capta (necesita consulta a BD)
@@ -71,7 +71,7 @@ namespace Playcampus {
             }
 
             if (String::IsNullOrWhiteSpace(idEquip)) {
-                throw gcnew Exception("El capta no té equip assignat.");
+                throw gcnew Exception("El capta no tÃ© equip assignat.");
             }
 
             // Verificar que l'equip existeix (evitar errors de clau forana)
@@ -84,7 +84,7 @@ namespace Playcampus {
                     cmdEquip->Parameters->AddWithValue("@idEquip", idEquip);
                     int existeix = Convert::ToInt32(cmdEquip->ExecuteScalar());
                     if (existeix <= 0) {
-                        throw gcnew Exception("L'equip associat al capità no existeix o no és vàlid.");
+                        throw gcnew Exception("L'equip associat al capitÃ  no existeix o no Ã©s vÃ lid.");
                     }
                 }
                 finally {
@@ -102,7 +102,7 @@ namespace Playcampus {
             PassarellaJugador^ jugador = gcnew PassarellaJugador(connStr, dorsal, posicio, DateTime::Now);
             jugador->SetIdEquip(idEquip);
 
-            // Inserir jugador (passant idJugador que és el identificador de l'Usuari)
+            // Inserir jugador (passant idJugador que Ã©s el identificador de l'Usuari)
             jugador->Insereix(usuariEstudiant->GetIdentificador());
 
             // Actualitzar tipus d'usuari de Estudiant a Jugador (si ja era Jugador, no cal)

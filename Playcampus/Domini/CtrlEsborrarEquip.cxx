@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include <msclr\marshal_cppstd.h>
 #include "CtrlEsborrarEquip.hxx"
 #include "../Dades/ConnexioBD.hxx"

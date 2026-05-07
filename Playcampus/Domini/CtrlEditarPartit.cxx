@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "CtrlEditarPartit.hxx"
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/PassarellaLliga.hxx"
@@ -262,7 +262,7 @@ namespace Playcampus {
                 conn->Open();
 
                 String^ queryUpdatePartit;
-                if (nouEstat == "Aplaçat" && novaDataPartit.HasValue) {
+                if (nouEstat == "AplaÃ§at" && novaDataPartit.HasValue) {
                     queryUpdatePartit = "UPDATE Partit SET estat = @estat, golsLocal = @golsLocal, golsVisitant = @golsVisitant, dataHora = @dataHora WHERE idPartit = @idPartit";
                 }
                 else {
@@ -274,7 +274,7 @@ namespace Playcampus {
                 cmdPartit->Parameters->AddWithValue("@golsLocal", resultatLocal);
                 cmdPartit->Parameters->AddWithValue("@golsVisitant", resultatVisitant);
                 cmdPartit->Parameters->AddWithValue("@idPartit", idPartit);
-                if (nouEstat == "Aplaçat" && novaDataPartit.HasValue) {
+                if (nouEstat == "AplaÃ§at" && novaDataPartit.HasValue) {
                     cmdPartit->Parameters->AddWithValue("@dataHora", novaDataPartit.Value);
                 }
                 cmdPartit->ExecuteNonQuery();

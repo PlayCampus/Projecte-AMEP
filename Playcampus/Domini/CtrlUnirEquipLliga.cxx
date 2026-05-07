@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CtrlUnirEquipLliga.hxx"
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/PassarellaLliga.hxx"
@@ -80,7 +80,7 @@ namespace Playcampus {
                     throw gcnew Exception("La lliga no existeix.");
                 }
 
-                // 3. Obtenir l'ID de la Temporada més recent de la Lliga
+                // 3. Obtenir l'ID de la Temporada mÃ©s recent de la Lliga
                 Playcampus::Dades::PassarellaTemporada^ passTemporada = gcnew Playcampus::Dades::PassarellaTemporada(connectionString);
                 String^ idTemporadaMesRecent = passTemporada->ObtenirIdTemporadaMesRecent(idLligaEncontrado);
 

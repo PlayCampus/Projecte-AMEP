@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CtrlEliminarJugador.hxx"
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/CercadoraUsuari.hxx"
@@ -32,7 +32,7 @@ namespace Playcampus {
             }
 
             if (String::IsNullOrWhiteSpace(usuariCapita->GetTipus()) || usuariCapita->GetTipus()->ToLower() != "capita") {
-                throw gcnew UnauthorizedAccessException("Només els capitans poden eliminar jugadors.");
+                throw gcnew UnauthorizedAccessException("NomÃ©s els capitans poden eliminar jugadors.");
             }
 
             // Obtenir idEquip del capita
@@ -51,10 +51,10 @@ namespace Playcampus {
                 }
 
                 if (String::IsNullOrWhiteSpace(idEquip)) {
-                    throw gcnew Exception("El capità no té cap equip registrat.");
+                    throw gcnew Exception("El capitÃ  no tÃ© cap equip registrat.");
                 }
 
-                // Comprovar que el jugador pertany a l'equip del capità
+                // Comprovar que el jugador pertany a l'equip del capitÃ 
                 String^ queryPertany = "SELECT COUNT(*) FROM Jugador WHERE idJugador = @idJugador AND idEquip = @idEquip";
                 MySqlCommand^ cmdPertany = gcnew MySqlCommand(queryPertany, conn);
                 cmdPertany->Parameters->AddWithValue("@idJugador", idJugador);
@@ -65,7 +65,7 @@ namespace Playcampus {
                     throw gcnew Exception("El jugador seleccionat no pertany al teu equip.");
                 }
 
-                // Eliminar associació: set idEquip = NULL
+                // Eliminar associaciÃ³: set idEquip = NULL
                 String^ queryUpdate = "UPDATE Jugador SET idEquip = NULL WHERE idJugador = @idJugador AND idEquip = @idEquip";
                 MySqlCommand^ cmdUpdate = gcnew MySqlCommand(queryUpdate, conn);
                 cmdUpdate->Parameters->AddWithValue("@idJugador", idJugador);
@@ -75,12 +75,23 @@ namespace Playcampus {
                 if (files != 1) {
                     throw gcnew Exception("No s'ha pogut expulsar el jugador de l'equip.");
                 }
+                // TambÃ© li canviem el tipus a 'Estudiant' eliminant de Jugador o modificant l'usuari
+                String^ queryUsuari = "UPDATE Usuari SET Tipus = 'Estudiant' WHERE identificador = @idJugador";
+                MySqlCommand^ cmdUsuari = gcnew MySqlCommand(queryUsuari, conn);
+                cmdUsuari->Parameters->AddWithValue("@idJugador", idJugador);
+                cmdUsuari->ExecuteNonQuery();
+
+                // Opcional: Eliminar la relaciÃ³ amb Jugador (delete a taula Jugador) si el joc ho requereix, sinÃ³ es deixa.
+                String^ queryBorrarJugador = "DELETE FROM Jugador WHERE idJugador = @idJugador AND idEquip IS NULL";
+                MySqlCommand^ cmdBorrarJugador = gcnew MySqlCommand(queryBorrarJugador, conn);
+                cmdBorrarJugador->Parameters->AddWithValue("@idJugador", idJugador);
+                cmdBorrarJugador->ExecuteNonQuery();
             }
             finally {
                 conn->Close();
             }
 
-            return "Jugador expulsat correctament de l'equip.";
+            return "Jugador expulsat correctament de l'equip i ha passat a ser Estudiant.";
         }
     }
 }

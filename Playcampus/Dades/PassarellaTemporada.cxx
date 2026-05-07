@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "PassarellaTemporada.hxx"
 #include <stdexcept>
 #using <System.Data.dll>
@@ -10,7 +10,7 @@ using namespace MySql::Data::MySqlClient;
 namespace Playcampus {
     namespace Dades {
 
-        // NUEVA IMPLEMENTACI�N del constructor
+        // NUEVA IMPLEMENTACIÓN del constructor
         PassarellaTemporada::PassarellaTemporada(String^ connString) {
             connectionString = connString;
         }

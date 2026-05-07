@@ -1,7 +1,7 @@
-#include "pch.h"
+Ôªø#include "pch.h"
 #include "CtrlEsborrarPartit.hxx"
 
-// Incloem les dependËncies de la capa de Dades nomÈs aquÌ
+// Incloem les depend√®ncies de la capa de Dades nom√©s aqu√≠
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/PassarellaPartit.hxx"
 #include "../Dades/CercadoraTemporada.hxx"
@@ -18,25 +18,25 @@ namespace Playcampus {
             connectionString = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
         }
 
-        // DelegaciÛ a CercadoraTemporada
+        // Delegaci√≥ a CercadoraTemporada
         List<Dictionary<String^, String^>^>^ CtrlEsborrarPartit::ObtenirTemporadesAdmin(String^ correuAdmin) {
             Playcampus::Dades::CercadoraTemporada^ cercaT = gcnew Playcampus::Dades::CercadoraTemporada(connectionString);
             return cercaT->ObtenirTemporadesAdmin(correuAdmin);
         }
 
-        // DelegaciÛ a CercadoraJornada
+        // Delegaci√≥ a CercadoraJornada
         List<Dictionary<String^, String^>^>^ CtrlEsborrarPartit::ObtenirJornadesPerTemporada(String^ idTemporada) {
             Playcampus::Dades::CercadoraJornada^ cercaJ = gcnew Playcampus::Dades::CercadoraJornada(connectionString);
-            return cercaJ->ObtenirDictJornadesPerTemporada(idTemporada); // O "ObtenirDictJornadesPerTemporada" depenent de com ho tens a la capÁelera
+            return cercaJ->ObtenirDictJornadesPerTemporada(idTemporada); // O "ObtenirDictJornadesPerTemporada" depenent de com ho tens a la cap√ßelera
         }
 
-        // DelegaciÛ a CercadoraPartit
+        // Delegaci√≥ a CercadoraPartit
         List<Dictionary<String^, String^>^>^ CtrlEsborrarPartit::ObtenirPartitsPerJornada(String^ idJornada) {
             Playcampus::Dades::CercadoraPartit^ cercaP = gcnew Playcampus::Dades::CercadoraPartit(connectionString);
             return cercaP->ObtenirPartitsPerJornada(idJornada);
         }
 
-        // InteracciÛ amb PassarellaPartit
+        // Interacci√≥ amb PassarellaPartit
         void CtrlEsborrarPartit::EsborrarPartit(String^ idPartit) {
             Playcampus::Dades::PassarellaPartit^ passPartit = gcnew Playcampus::Dades::PassarellaPartit(connectionString);
             passPartit->EsborrarPartit(idPartit);

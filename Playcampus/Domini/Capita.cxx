@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Capita.hxx"
 
 using namespace System;
@@ -9,7 +9,7 @@ namespace Playcampus {
             : Usuari(identificador, nom, contrasenya, data_registre, correu_electronic) {
             this->telefonContacte = telefonContacte;
             this->idEquip = idEquip;
-            this->validatPerAdmin = false; // Requereix validació prèvia
+            this->validatPerAdmin = false; // Requereix validaciÃ³ prÃ¨via
         }
 
         String^ Capita::GetTelefonContacte() { return telefonContacte; }

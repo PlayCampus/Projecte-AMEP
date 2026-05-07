@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "PassarellaJornada.hxx"
 #include "ConnexioBD.hxx"
 

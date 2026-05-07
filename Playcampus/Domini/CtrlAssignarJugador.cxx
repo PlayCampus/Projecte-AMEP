@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CtrlAssignarJugador.hxx"
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/CercadoraUsuari.hxx"
@@ -28,7 +28,7 @@ namespace Playcampus {
             }
 
             if (String::IsNullOrWhiteSpace(usuari->GetTipus()) || usuari->GetTipus()->ToLower() != "capita") {
-                throw gcnew UnauthorizedAccessException("Només els capitans poden assignar jugadors a partits.");
+                throw gcnew UnauthorizedAccessException("NomÃ©s els capitans poden assignar jugadors a partits.");
             }
         }
 
@@ -56,7 +56,7 @@ namespace Playcampus {
             }
 
             if (String::IsNullOrWhiteSpace(idEquip)) {
-                throw gcnew Exception("El capità no té cap equip registrat.");
+                throw gcnew Exception("El capitÃ  no tÃ© cap equip registrat.");
             }
 
             return idEquip;
@@ -198,7 +198,7 @@ namespace Playcampus {
                     jugador["dorsal"] = reader->IsDBNull(reader->GetOrdinal("dorsal")) ? "" : reader["dorsal"]->ToString();
                     jugador["posicio"] = reader->IsDBNull(reader->GetOrdinal("posicio")) ? "" : reader["posicio"]->ToString();
 
-                    // Obtenir el nom de l'Usuari mittançant CercadoraUsuari
+                    // Obtenir el nom de l'Usuari mittanÃ§ant CercadoraUsuari
                     // Creem una query directa per a l'usuari
                     MySqlConnection^ connU = gcnew MySqlConnection(connectionString);
                     try {
@@ -241,15 +241,15 @@ namespace Playcampus {
                 AssegurarTaulaConvocatoria(conn);
 
                 if (!PartitDisponiblePerEquip(idPartit, idEquip, conn)) {
-                    throw gcnew Exception("El partit seleccionat no està disponible per a l'equip del capità o ja està finalitzat.");
+                    throw gcnew Exception("El partit seleccionat no estÃ  disponible per a l'equip del capitÃ  o ja estÃ  finalitzat.");
                 }
 
                 if (!JugadorPertanyAEquip(idJugador, idEquip, conn)) {
-                    throw gcnew Exception("El jugador seleccionat no pertany a l'equip del capità.");
+                    throw gcnew Exception("El jugador seleccionat no pertany a l'equip del capitÃ .");
                 }
 
                 if (AssignacioJaExisteix(idPartit, idJugador, conn)) {
-                    throw gcnew Exception("Aquest jugador ja està assignat a aquest partit.");
+                    throw gcnew Exception("Aquest jugador ja estÃ  assignat a aquest partit.");
                 }
 
                 String^ query = "INSERT INTO AssignacioJugadorPartit (idPartit, idJugador, dataAssignacio) VALUES (@idPartit, @idJugador, NOW())";

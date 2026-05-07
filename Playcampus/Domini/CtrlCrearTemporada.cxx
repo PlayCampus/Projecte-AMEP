@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "CtrlCrearTemporada.hxx"
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/PassarellaUsuari.hxx"
@@ -19,7 +19,7 @@ namespace Playcampus {
         void CtrlCrearTemporada::CrearTemporada(DateTime dataInici, DateTime dataFi, String^ correuAdmin, String^ nomLliga) {
             String^ idAdmin = nullptr;
 
-            // 1. Busquem l'ID de l'administrador mitjançant el seu correu
+            // 1. Busquem l'ID de l'administrador mitjanÃ§ant el seu correu
             if (!String::IsNullOrEmpty(correuAdmin)) {
                 Playcampus::Dades::PassarellaUsuari^ adminUser = (gcnew Playcampus::Dades::CercadoraUsuari(connectionString))->LlegeixPerCorreu( correuAdmin);
                 if (adminUser != nullptr && adminUser->GetIdentificador() != nullptr) {
@@ -31,7 +31,7 @@ namespace Playcampus {
                 throw gcnew Exception("No s'ha pogut trobar l'administrador.");
             }
 
-            // 2. Busquem la Lliga mitjançant el seu nom proporcionat per l'usuari
+            // 2. Busquem la Lliga mitjanÃ§ant el seu nom proporcionat per l'usuari
             Playcampus::Dades::PassarellaLliga^ pLliga = gcnew Playcampus::Dades::PassarellaLliga(connectionString);
             String^ idLliga = pLliga->ObtenirIdLligaPerNom(nomLliga);
 
@@ -39,7 +39,7 @@ namespace Playcampus {
                 throw gcnew Exception("No s'ha trobat cap lliga amb aquest nom.");
             }
 
-            //  validar aquí si aquesta lliga pertany al administrador si ho desitges
+            //  validar aquÃ­ si aquesta lliga pertany al administrador si ho desitges
             if (pLliga->ObtenirLligaActivaAdmin(idAdmin) != idLliga) { throw gcnew Exception("Aquesta Lliga pertany a un altre Administrador"); }
 
             // 3. Creem un identificador per la nova temporada

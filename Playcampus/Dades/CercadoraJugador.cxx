@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CercadoraJugador.hxx"
 
 using namespace System;

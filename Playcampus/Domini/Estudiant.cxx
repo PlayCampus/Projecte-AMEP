@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Estudiant.hxx"
 
 using namespace System;
@@ -13,19 +13,19 @@ namespace Playcampus {
         String^ Estudiant::GetCarrera() { return carrera; }
 
         void Estudiant::ConsultarHistorialPersonal() {
-            // Lògica per revisar el seu historial de participació
+            // LÃ²gica per revisar el seu historial de participaciÃ³
         }
 
         void Estudiant::VisualitzarCalendariGeneral(String^ idLliga) {
-            // Consultar partits previstos de la competició
+            // Consultar partits previstos de la competiciÃ³
         }
 
         void Estudiant::SeguirResultatsTempsReal() {
-            // Obté els resultats actualitzats en viu dels partits
+            // ObtÃ© els resultats actualitzats en viu dels partits
         }
 
         void Estudiant::ConsultarClassificacioLliga(String^ idLliga) {
-            // Veure la taula classificatòria de la lliga
+            // Veure la taula classificatÃ²ria de la lliga
         }
     }
 }
