@@ -31,7 +31,10 @@ namespace Playcampus {
                 }
             }
             finally {
-                delete conn;
+                if (conn != nullptr) {
+                    conn->Close();
+                    delete conn;
+                }
             }
             return idLliga;
         }
@@ -52,7 +55,10 @@ namespace Playcampus {
                 }
             }
             finally {
-                delete conn;
+                if (conn != nullptr) {
+                    conn->Close();
+                    delete conn;
+                }
             }
             return isValid;
         }
@@ -107,7 +113,10 @@ namespace Playcampus {
                 }
             }
             finally {
-                delete conn;
+                if (conn != nullptr) {
+                    conn->Close();
+                    delete conn;
+                }
             }
             return missatgeExit;
         }

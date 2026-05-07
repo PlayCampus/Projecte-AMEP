@@ -46,7 +46,10 @@ void PassarellaJornada::Insereix() {
         cmd->ExecuteNonQuery();
     }
     finally {
-        conn->Close();
+        if(conn != nullptr) {
+            conn->Close();
+            delete conn;
+        }
     }
 }
 
@@ -65,7 +68,10 @@ void PassarellaJornada::ActualitzarEstats(String^ connStr) {
         cmd->ExecuteNonQuery();
     }
     finally {
-        conn->Close();
+        if(conn != nullptr) {
+            conn->Close();
+            delete conn;
+        }
     }
 }
 

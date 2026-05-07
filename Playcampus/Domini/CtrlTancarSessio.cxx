@@ -9,8 +9,7 @@ namespace Playcampus {
         }
 
         void CtrlTancarSessio::TancarSessio() {
-            // Actualment no requereix fer res a nivell de dades per tancar sessiÃ³.
-            // Si hi haguÃ©s una sessiÃ³ global manejada per domini, s'esborraria aquÃ­.
+            MySql::Data::MySqlClient::MySqlConnection::ClearAllPools();
         }
     }
 }

@@ -229,7 +229,10 @@ namespace Playcampus {
                 reader->Close();
             }
             finally {
-                delete conn;
+                if(conn != nullptr) {
+                    conn->Close();
+                    delete conn;
+                }
             }
             return equip;
         }
@@ -250,7 +253,10 @@ namespace Playcampus {
                 }
                 reader->Close();
             } finally {
-                conn->Close();
+                if(conn != nullptr) {
+                    conn->Close();
+                    delete conn;
+                }
             }
             
             return nomsEquips;

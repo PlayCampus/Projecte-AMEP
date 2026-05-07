@@ -106,7 +106,10 @@ namespace Playcampus {
                 throw ex;
             }
             finally {
-                conn->Close();
+                if(conn != nullptr) {
+                    conn->Close();
+                    delete conn;
+                }
             }
         }
 
@@ -125,7 +128,10 @@ namespace Playcampus {
                 throw ex;
             }
             finally {
-                conn->Close();
+                if(conn != nullptr) {
+                    conn->Close();
+                    delete conn;
+                }
             }
         }
 
@@ -160,7 +166,10 @@ namespace Playcampus {
                 throw ex;
             }
             finally {
-                conn->Close();
+                if(conn != nullptr) {
+                    conn->Close();
+                    delete conn;
+                }
             }
             return resultat;
         }

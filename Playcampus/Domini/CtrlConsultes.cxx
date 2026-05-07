@@ -25,6 +25,7 @@ namespace Playcampus {
             }
             finally {
                 if (conn != nullptr) {
+                    conn->Close();
                     delete conn;
                 }
             }
@@ -118,6 +119,7 @@ namespace Playcampus {
             }
             finally {
                 if (conn != nullptr) {
+                    conn->Close();
                     delete conn;
                 }
             }
@@ -146,6 +148,7 @@ namespace Playcampus {
             }
             finally {
                 if (conn != nullptr) {
+                    conn->Close();
                     delete conn;
                 }
             }

@@ -44,7 +44,10 @@ namespace Playcampus {
                 }
             }
             finally {
-                delete conn;
+                if(conn != nullptr) {
+                    conn->Close();
+                    delete conn;
+                }
             }
             return false;
         }
@@ -63,7 +66,10 @@ namespace Playcampus {
                 }
             }
             finally {
-                delete conn;
+                if (conn != nullptr) {
+                    conn->Close();
+                    delete conn;
+                }
             }
             return false;
         }
