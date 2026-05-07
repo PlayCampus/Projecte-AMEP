@@ -1160,6 +1160,7 @@ namespace CppCLRWinFormsProject {
 			this->btnVeureEstadistiquesLliga->Text = L"Veure estadístiques lliga";
 			this->btnVeureEstadistiquesLliga->Location = System::Drawing::Point(950, 80); 
 			this->btnVeureEstadistiquesLliga->Size = System::Drawing::Size(160, 40);
+			this->btnVeureEstadistiquesLliga->Visible = false; 
 			this->btnVeureEstadistiquesLliga->Click += gcnew System::EventHandler(this, &Form1::btnVeureEstadistiquesLliga_Click);
 
 			this->pnlMain->Controls->Add(this->btnVeureEstadistiquesLliga);
@@ -1175,22 +1176,46 @@ namespace CppCLRWinFormsProject {
 			this->pnlEstadistiquesGlobals->Controls->Add(this->lblTitolEstadistiques);
 			this->Controls->Add(this->pnlEstadistiquesGlobals); 
 
-			// Títol
-			this->lblTitolEstadistiques->Text = L"Estadístiques de la Lliga";
-			this->lblTitolEstadistiques->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.0F, System::Drawing::FontStyle::Bold);
-			this->lblTitolEstadistiques->Location = System::Drawing::Point(50, 20);
+			// --- Fondo y Título ---
+			this->pnlEstadistiquesGlobals->BackColor = System::Drawing::Color::FromArgb(240, 242, 245);
+			this->lblTitolEstadistiques->Text = L"Classificació i Estadístiques de la Lliga";
+			this->lblTitolEstadistiques->Location = System::Drawing::Point(50, 25);
+			this->lblTitolEstadistiques->Font = gcnew System::Drawing::Font(L"Segoe UI", 22.0F, System::Drawing::FontStyle::Bold);
+			this->lblTitolEstadistiques->ForeColor = System::Drawing::Color::FromArgb(44, 62, 80);
 			this->lblTitolEstadistiques->AutoSize = true;
 
 			// DataGridView
-			this->dgvEstadistiquesGlobals->Location = System::Drawing::Point(50, 70);
-			this->dgvEstadistiquesGlobals->Size = System::Drawing::Size(800, 400);
+			this->dgvEstadistiquesGlobals->Location = System::Drawing::Point(50, 80);
+			this->dgvEstadistiquesGlobals->Size = System::Drawing::Size(1000, 500); 
+			this->dgvEstadistiquesGlobals->BackgroundColor = System::Drawing::Color::White;
+			this->dgvEstadistiquesGlobals->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->dgvEstadistiquesGlobals->EnableHeadersVisualStyles = false;
+			this->dgvEstadistiquesGlobals->AllowUserToAddRows = false; 
 			this->dgvEstadistiquesGlobals->ReadOnly = true;
 			this->dgvEstadistiquesGlobals->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+			this->dgvEstadistiquesGlobals->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
 
+			// Colores y Fuentes
+			this->dgvEstadistiquesGlobals->DefaultCellStyle->Font = gcnew System::Drawing::Font(L"Segoe UI", 10.0F);
+			this->dgvEstadistiquesGlobals->AlternatingRowsDefaultCellStyle->BackColor = System::Drawing::Color::FromArgb(245, 245, 245);
+			this->dgvEstadistiquesGlobals->ColumnHeadersDefaultCellStyle->BackColor = System::Drawing::Color::FromArgb(45, 45, 48);
+			this->dgvEstadistiquesGlobals->ColumnHeadersDefaultCellStyle->ForeColor = System::Drawing::Color::White;
+			this->dgvEstadistiquesGlobals->ColumnHeadersDefaultCellStyle->Font = gcnew System::Drawing::Font(L"Segoe UI", 11.0F, System::Drawing::FontStyle::Bold);
+			this->dgvEstadistiquesGlobals->ColumnHeadersHeight = 40;
+			this->dgvEstadistiquesGlobals->RowHeadersVisible = false;
 			// Botó Tornar
-			this->btnTornarEstadistiques->Text = L"Tornar";
-			this->btnTornarEstadistiques->Location = System::Drawing::Point(50, 480);
-			this->btnTornarEstadistiques->Click += gcnew System::EventHandler(this, &Form1::btnTornarEstadistiques_Click);
+			// --- Botó Tornar Estilizado ---
+			this->btnTornarEstadistiques->Text = L"Tornar al Menú";
+			this->btnTornarEstadistiques->Location = System::Drawing::Point(50, 600); 
+			this->btnTornarEstadistiques->Size = System::Drawing::Size(180, 45);
+			this->btnTornarEstadistiques->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnTornarEstadistiques->FlatAppearance->BorderSize = 0;
+			this->btnTornarEstadistiques->BackColor = System::Drawing::Color::FromArgb(231, 76, 60); 
+			this->btnTornarEstadistiques->ForeColor = System::Drawing::Color::White;
+			this->btnTornarEstadistiques->Font = gcnew System::Drawing::Font(L"Segoe UI", 10.0F, System::Drawing::FontStyle::Bold);
+			this->btnTornarEstadistiques->Cursor = System::Windows::Forms::Cursors::Hand;
+
+
 
 			String^ logoPath = L"imatges\\logo.png";
 			if (!System::IO::File::Exists(logoPath)) {
@@ -1604,16 +1629,12 @@ private: System::Void btnLoginAct_Click(System::Object^ sender, System::EventArg
 			// --- GESTIÓN DE PANELES ---
 			pnlLogin->Visible = false;
 			pnlMain->Visible = true;
-			pnlConsultar->Visible = false;
-			pnlCrearLliga->Visible = false;
-			pnlGestionarLliga->Visible = false;
-			pnlEnregistrarEquip->Visible = false;
-			pnlGestionarEquip->Visible = false;
+			// ... (tus otros paneles en false) ...
 			pnlAfegirJugador->Visible = false;
-			pnlGestionarEquip->Visible = false;
 
-			// --- BOTONES COMUNES PARA TODOS LOS USUARIOS ---
-			btnVeureEstadistiquesLliga->Visible = true; 
+			// --- BOTONES COMUNES ---
+			// Eliminamos btnVeureEstadistiquesLliga->Visible de aquí arriba 
+			// y lo ponemos dentro de los IF para controlar su posición.
 			btnProgPartits->Visible = true;
 			btnEstatLligues->Visible = true;
 			btnEstadistiques->Visible = true;
@@ -1621,6 +1642,10 @@ private: System::Void btnLoginAct_Click(System::Object^ sender, System::EventArg
 
 			// --- BOTONES ESPECÍFICOS SEGÚN EL ROL ---
 			if (currentUsuariTipus->ToLower() == "administrador") {
+				// POSICIÓN PARA ADMIN (Más a la derecha)
+				this->btnVeureEstadistiquesLliga->Location = System::Drawing::Point(1100, 80);
+				this->btnVeureEstadistiquesLliga->Visible = true;
+
 				btnCrearLligaMainMenu->Visible = true;
 				Playcampus::Domini::CtrlCrearLliga^ ctrlCrear = gcnew Playcampus::Domini::CtrlCrearLliga();
 				if (ctrlCrear->TeLligaActiva(currentUsuariCorreu)) {
@@ -1631,27 +1656,17 @@ private: System::Void btnLoginAct_Click(System::Object^ sender, System::EventArg
 				}
 			}
 			else {
+				// POSICIÓN PARA EL RESTO (Posición normal)
+				this->btnVeureEstadistiquesLliga->Location = System::Drawing::Point(950, 80);
+				this->btnVeureEstadistiquesLliga->Visible = true;
+
 				btnCrearLligaMainMenu->Visible = false;
 			}
 
 			if (currentUsuariTipus->ToLower() == "capita") {
 				btnEnregistrarEquip->Visible = true;
 				btnUnirEquipLliga->Visible = true;
-
-				if (ctrlInici->CapitaTeEquip(currentUsuariCorreu)) {
-					btnEnregistrarEquip->Text = L"Gestionar Equip";
-				}
-				else {
-					btnEnregistrarEquip->Text = L"Enregistrar Equip";
-				}
-
-				if (ctrlInici->EquipEstaEnLliga(currentUsuariCorreu)) {
-					btnUnirEquipLliga->Text = L"Abandonar Lliga";
-				}
-				else {
-					btnUnirEquipLliga->Text = L"Unir equip a lliga";
-				}
-
+				// ... resto de tu lógica de capitán ...
 			}
 			else {
 				btnEnregistrarEquip->Visible = false;
@@ -1669,7 +1684,6 @@ private: System::Void btnLoginAct_Click(System::Object^ sender, System::EventArg
 		MessageBox::Show(L"Error en iniciar sessió: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
 	}
 }
-
 	private: System::Void btnRegAct_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ nom = txtRegNom->Text;
 		String^ correu = txtRegCorreu->Text;
