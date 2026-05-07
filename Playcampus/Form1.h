@@ -233,6 +233,12 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Button^ btnCPConfirmar;
 		System::Windows::Forms::Button^ btnCPCancellar;
 
+		System::Windows::Forms::Panel^ pnlEstadistiquesGlobals;
+		System::Windows::Forms::DataGridView^ dgvEstadistiquesGlobals;
+		System::Windows::Forms::Button^ btnTornarEstadistiques;
+		System::Windows::Forms::Label^ lblTitolEstadistiques;
+		System::Windows::Forms::Button^ btnVeureEstadistiquesLliga;
+
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -1146,6 +1152,45 @@ namespace CppCLRWinFormsProject {
 			this->btnUELTornar->Click += gcnew System::EventHandler(this, &Form1::btnUELTornar_Click);
 
 			this->Controls->Add(this->pnlUnirEquipLliga);
+			// 
+// pnlEstadistiquesGlobals
+// 
+
+			this->btnVeureEstadistiquesLliga = gcnew System::Windows::Forms::Button();
+			this->btnVeureEstadistiquesLliga->Text = L"Veure estadístiques lliga";
+			this->btnVeureEstadistiquesLliga->Location = System::Drawing::Point(950, 80); 
+			this->btnVeureEstadistiquesLliga->Size = System::Drawing::Size(160, 40);
+			this->btnVeureEstadistiquesLliga->Click += gcnew System::EventHandler(this, &Form1::btnVeureEstadistiquesLliga_Click);
+
+			this->pnlMain->Controls->Add(this->btnVeureEstadistiquesLliga);
+			this->pnlEstadistiquesGlobals = gcnew System::Windows::Forms::Panel();
+			this->dgvEstadistiquesGlobals = gcnew System::Windows::Forms::DataGridView();
+			this->btnTornarEstadistiques = gcnew System::Windows::Forms::Button();
+			this->lblTitolEstadistiques = gcnew System::Windows::Forms::Label();
+
+			this->pnlEstadistiquesGlobals->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->pnlEstadistiquesGlobals->Visible = false;
+			this->pnlEstadistiquesGlobals->Controls->Add(this->dgvEstadistiquesGlobals);
+			this->pnlEstadistiquesGlobals->Controls->Add(this->btnTornarEstadistiques);
+			this->pnlEstadistiquesGlobals->Controls->Add(this->lblTitolEstadistiques);
+			this->Controls->Add(this->pnlEstadistiquesGlobals); 
+
+			// Títol
+			this->lblTitolEstadistiques->Text = L"Estadístiques de la Lliga";
+			this->lblTitolEstadistiques->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.0F, System::Drawing::FontStyle::Bold);
+			this->lblTitolEstadistiques->Location = System::Drawing::Point(50, 20);
+			this->lblTitolEstadistiques->AutoSize = true;
+
+			// DataGridView
+			this->dgvEstadistiquesGlobals->Location = System::Drawing::Point(50, 70);
+			this->dgvEstadistiquesGlobals->Size = System::Drawing::Size(800, 400);
+			this->dgvEstadistiquesGlobals->ReadOnly = true;
+			this->dgvEstadistiquesGlobals->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+
+			// Botó Tornar
+			this->btnTornarEstadistiques->Text = L"Tornar";
+			this->btnTornarEstadistiques->Location = System::Drawing::Point(50, 480);
+			this->btnTornarEstadistiques->Click += gcnew System::EventHandler(this, &Form1::btnTornarEstadistiques_Click);
 
 			String^ logoPath = L"imatges\\logo.png";
 			if (!System::IO::File::Exists(logoPath)) {
@@ -1545,71 +1590,85 @@ namespace CppCLRWinFormsProject {
 		pnlInici->Visible = true;
 	}
 
-	private: System::Void btnLoginAct_Click(System::Object^ sender, System::EventArgs^ e) {
-		String^ correu = txtLoginCorreu->Text;
-		String^ pass = txtLoginPass->Text;
+private: System::Void btnLoginAct_Click(System::Object^ sender, System::EventArgs^ e) {
+	String^ correu = txtLoginCorreu->Text;
+	String^ pass = txtLoginPass->Text;
 
-		try {
-			Playcampus::Domini::CtrlIniciSessio^ ctrlInici = gcnew Playcampus::Domini::CtrlIniciSessio();
-			bool valid = ctrlInici->IniciarSessio(correu, pass);
-			if (valid) {
-				currentUsuariTipus = ctrlInici->ObtenirTipusUsuari(correu);
-				currentUsuariCorreu = correu;
-				pnlLogin->Visible = false;
-				pnlMain->Visible = true;
-				pnlConsultar->Visible = false;
-				pnlCrearLliga->Visible = false;
-				pnlGestionarLliga->Visible = false;
-				pnlEnregistrarEquip->Visible = false;
-				pnlGestionarEquip->Visible = false;
-				pnlAfegirJugador->Visible = false;
-				pnlGestionarEquip->Visible = false;
+	try {
+		Playcampus::Domini::CtrlIniciSessio^ ctrlInici = gcnew Playcampus::Domini::CtrlIniciSessio();
+		bool valid = ctrlInici->IniciarSessio(correu, pass);
+		if (valid) {
+			currentUsuariTipus = ctrlInici->ObtenirTipusUsuari(correu);
+			currentUsuariCorreu = correu;
 
-				if (currentUsuariTipus->ToLower() == "administrador") {
-					btnCrearLligaMainMenu->Visible = true;
-					Playcampus::Domini::CtrlCrearLliga^ ctrlCrear = gcnew Playcampus::Domini::CtrlCrearLliga();
-					if (ctrlCrear->TeLligaActiva(currentUsuariCorreu)) {
-						btnCrearLligaMainMenu->Text = L"Gestionar Lliga";
-					}
-					else {
-						btnCrearLligaMainMenu->Text = L"Crear Lliga";
-					}
-				} else {
-					btnCrearLligaMainMenu->Visible = false;
+			// --- GESTIÓN DE PANELES ---
+			pnlLogin->Visible = false;
+			pnlMain->Visible = true;
+			pnlConsultar->Visible = false;
+			pnlCrearLliga->Visible = false;
+			pnlGestionarLliga->Visible = false;
+			pnlEnregistrarEquip->Visible = false;
+			pnlGestionarEquip->Visible = false;
+			pnlAfegirJugador->Visible = false;
+			pnlGestionarEquip->Visible = false;
+
+			// --- BOTONES COMUNES PARA TODOS LOS USUARIOS ---
+			btnVeureEstadistiquesLliga->Visible = true; 
+			btnProgPartits->Visible = true;
+			btnEstatLligues->Visible = true;
+			btnEstadistiques->Visible = true;
+			btnConsultar->Visible = true;
+
+			// --- BOTONES ESPECÍFICOS SEGÚN EL ROL ---
+			if (currentUsuariTipus->ToLower() == "administrador") {
+				btnCrearLligaMainMenu->Visible = true;
+				Playcampus::Domini::CtrlCrearLliga^ ctrlCrear = gcnew Playcampus::Domini::CtrlCrearLliga();
+				if (ctrlCrear->TeLligaActiva(currentUsuariCorreu)) {
+					btnCrearLligaMainMenu->Text = L"Gestionar Lliga";
 				}
-
-				if (currentUsuariTipus->ToLower() == "capita") {
-					btnEnregistrarEquip->Visible = true;
-					btnUnirEquipLliga->Visible = true;
-
-					if (ctrlInici->CapitaTeEquip(currentUsuariCorreu)) {
-						btnEnregistrarEquip->Text = L"Gestionar Equip";
-					} else {
-						btnEnregistrarEquip->Text = L"Enregistrar Equip";
-					}
-
-					if (ctrlInici->EquipEstaEnLliga(currentUsuariCorreu)) {
-						btnUnirEquipLliga->Text = L"Abandonar Lliga";
-					} else {
-						btnUnirEquipLliga->Text = L"Unir equip a lliga";
-					}
-
-				} else {
-				 btnEnregistrarEquip->Visible = false;
-				 btnUnirEquipLliga->Visible = false;
+				else {
+					btnCrearLligaMainMenu->Text = L"Crear Lliga";
 				}
-
-				txtLoginCorreu->Text = "";
-				txtLoginPass->Text = "";
 			}
 			else {
-				MessageBox::Show(L"Credencials incorrectes.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				btnCrearLligaMainMenu->Visible = false;
 			}
+
+			if (currentUsuariTipus->ToLower() == "capita") {
+				btnEnregistrarEquip->Visible = true;
+				btnUnirEquipLliga->Visible = true;
+
+				if (ctrlInici->CapitaTeEquip(currentUsuariCorreu)) {
+					btnEnregistrarEquip->Text = L"Gestionar Equip";
+				}
+				else {
+					btnEnregistrarEquip->Text = L"Enregistrar Equip";
+				}
+
+				if (ctrlInici->EquipEstaEnLliga(currentUsuariCorreu)) {
+					btnUnirEquipLliga->Text = L"Abandonar Lliga";
+				}
+				else {
+					btnUnirEquipLliga->Text = L"Unir equip a lliga";
+				}
+
+			}
+			else {
+				btnEnregistrarEquip->Visible = false;
+				btnUnirEquipLliga->Visible = false;
+			}
+
+			txtLoginCorreu->Text = "";
+			txtLoginPass->Text = "";
 		}
-		catch (Exception^ ex) {
-			MessageBox::Show(L"Error en iniciar sessió: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		else {
+			MessageBox::Show(L"Credencials incorrectes.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
+	catch (Exception^ ex) {
+		MessageBox::Show(L"Error en iniciar sessió: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
+}
 
 	private: System::Void btnRegAct_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ nom = txtRegNom->Text;
@@ -2818,5 +2877,29 @@ namespace CppCLRWinFormsProject {
 			MessageBox::Show(L"Error al enregistrar equip: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
+private: System::Void btnVeureEstadistiquesLliga_Click(System::Object^ sender, System::EventArgs^ e) {
+	try {
+		// Creem la instància del controlador de consultes
+		Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
+
+		// Obtenim les dades (aquest mètode el tens al teu .cpp)
+		System::Data::DataTable^ dt = ctrl->ObtenirEstadistiquesEquips();
+
+		// Assignem les dades a la graella
+		this->dgvEstadistiquesGlobals->DataSource = dt;
+
+		// Canviem de panell
+		this->pnlMain->Visible = false;
+		this->pnlEstadistiquesGlobals->Visible = true;
+	}
+	catch (Exception^ ex) {
+		MessageBox::Show("Error al carregar estadístiques: " + ex->Message);
+	}
+}
+
+private: System::Void btnTornarEstadistiques_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->pnlEstadistiquesGlobals->Visible = false;
+	this->pnlMain->Visible = true;
+}
 };
 }
