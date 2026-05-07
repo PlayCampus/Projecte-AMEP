@@ -152,6 +152,9 @@
     <ClInclude Include="Domini\CtrlEsborrarPartit.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Domini\EditarJugador.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CppCLR_WinFormsProject.cpp">
@@ -284,6 +287,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Domini\CtrlEsborrarPartit.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\EditarJugador.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
