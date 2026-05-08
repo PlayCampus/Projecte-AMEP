@@ -75,7 +75,7 @@ namespace Playcampus {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
-                String^ query = "SELECT idEquip FROM Equip WHERE nom = @nom LIMIT 1";
+                String^ query = "SELECT idEquip FROM Equip WHERE nom COLLATE utf8mb4_bin = @nom LIMIT 1";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@nom", nomEquip);
                 Object^ result = cmd->ExecuteScalar();
@@ -84,7 +84,10 @@ namespace Playcampus {
                 }
             }
             finally {
-                delete conn;
+                if (conn != nullptr) {
+                    conn->Close();
+                    delete conn;
+                }
             }
             return idRetorn;
         }
