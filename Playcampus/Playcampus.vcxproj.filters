@@ -155,6 +155,12 @@
     <ClInclude Include="Domini\CtrlVeureEstadistiquesLliga.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Domini\CtrlRetirarTemporada.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dades\CercadoraLliga.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CppCLR_WinFormsProject.cpp">
@@ -289,7 +295,13 @@
     <ClCompile Include="Domini\CtrlEsborrarPartit.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CtrlVeureEstadistiquesLliga.cxx">
+    <ClCompile Include="Domini\CtrlVeureEstadistiquesLliga.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\CtrlRetirarTemporada.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dades\CercadoraLliga.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

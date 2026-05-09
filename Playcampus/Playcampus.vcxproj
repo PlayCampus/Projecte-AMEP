@@ -132,6 +132,7 @@
   <ItemGroup>
     <ClInclude Include="Dades\CercadoraJornada.hxx" />
     <ClInclude Include="Dades\CercadoraJugador.hxx" />
+    <ClInclude Include="Dades\CercadoraLliga.hxx" />
     <ClInclude Include="Dades\CercadoraPartit.hxx" />
     <ClInclude Include="Dades\CercadoraTemporada.hxx" />
     <ClInclude Include="Dades\CercadoraUsuari.hxx" />
@@ -157,6 +158,7 @@
     <ClInclude Include="Domini\CtrlEsborrarPartit.hxx" />
     <ClInclude Include="Domini\CtrlIniciSessio.hxx" />
     <ClInclude Include="Domini\CtrlRegistrarUsuari.hxx" />
+    <ClInclude Include="Domini\CtrlRetirarTemporada.hxx" />
     <ClInclude Include="Domini\CtrlTancarSessio.hxx" />
     <ClInclude Include="Domini\Administrador.hxx" />
     <ClInclude Include="Domini\Capita.hxx" />
@@ -183,6 +185,7 @@
     <ClCompile Include="CppCLR_WinFormsProject.cpp" />
     <ClCompile Include="Dades\CercadoraJornada.cxx" />
     <ClCompile Include="Dades\CercadoraJugador.cxx" />
+    <ClCompile Include="Dades\CercadoraLliga.cxx" />
     <ClCompile Include="Dades\CercadoraPartit.cxx" />
     <ClCompile Include="Dades\CercadoraTemporada.cxx" />
     <ClCompile Include="Dades\CercadoraUsuari.cxx" />
@@ -208,6 +211,7 @@
     <ClCompile Include="Domini\CtrlEsborrarPartit.cxx" />
     <ClCompile Include="Domini\CtrlIniciSessio.cxx" />
     <ClCompile Include="Domini\CtrlRegistrarUsuari.cxx" />
+    <ClCompile Include="Domini\CtrlRetirarTemporada.cxx" />
     <ClCompile Include="Domini\CtrlTancarSessio.cxx" />
     <ClCompile Include="Domini\Administrador.cxx" />
     <ClCompile Include="Domini\Capita.cxx" />

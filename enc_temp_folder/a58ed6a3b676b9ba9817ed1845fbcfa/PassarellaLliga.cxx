@@ -142,5 +142,43 @@ namespace Playcampus {
             return esAdmin;
         }
 
+        String^ PassarellaLliga::ObtenirLligaActivaAdmin(String^ idAdmin) {
+            MySql::Data::MySqlClient::MySqlConnection^ conn = gcnew MySql::Data::MySqlClient::MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "SELECT idLliga FROM Lliga WHERE idAdministrador = @idAdmin LIMIT 1";
+                MySql::Data::MySqlClient::MySqlCommand^ cmd = gcnew MySql::Data::MySqlClient::MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idAdmin", idAdmin);
+
+                Object^ result = cmd->ExecuteScalar();
+                if (result != nullptr) {
+                    return result->ToString();
+                }
+                return nullptr;
+            }
+            finally {
+                conn->Close();
+            }
+        }
+
+       
+        String^ PassarellaLliga::ObtenirIdLligaPerNom(String^ nomLliga) {
+            MySql::Data::MySqlClient::MySqlConnection^ conn = gcnew MySql::Data::MySqlClient::MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "SELECT idLliga FROM Lliga WHERE nom = @nom LIMIT 1";
+                MySql::Data::MySqlClient::MySqlCommand^ cmd = gcnew MySql::Data::MySqlClient::MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@nom", nomLliga);
+
+                Object^ result = cmd->ExecuteScalar();
+                if (result != nullptr && result != DBNull::Value) {
+                    return result->ToString();
+                }
+                return nullptr;
+            }
+            finally {
+                conn->Close();
+            }
+        }
     }
 }

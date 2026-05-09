@@ -36,7 +36,6 @@ namespace Playcampus {
 
             System::String^ ObtenirIdTemporadaMesRecent(System::String^ idLliga);
 
-            void RetirarTemporada(System::String^ idLliga);
             
 
         };
