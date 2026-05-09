@@ -181,7 +181,6 @@
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="CppCLR_WinFormsProject.cpp" />
-    <ClCompile Include="CtrlVeureEstadistiquesLliga.cxx" />
     <ClCompile Include="Dades\CercadoraJornada.cxx" />
     <ClCompile Include="Dades\CercadoraJugador.cxx" />
     <ClCompile Include="Dades\CercadoraPartit.cxx" />
@@ -213,6 +212,7 @@
     <ClCompile Include="Domini\Administrador.cxx" />
     <ClCompile Include="Domini\Capita.cxx" />
     <ClCompile Include="Domini\CtrlUnirEquipLliga.cxx" />
+    <ClCompile Include="Domini\CtrlVeureEstadistiquesLliga.cxx" />
     <ClCompile Include="Domini\CtrlVeurePlantilla.cxx" />
     <ClCompile Include="Domini\Equip.cxx" />
     <ClCompile Include="Domini\Estudiant.cxx" />
