@@ -17,7 +17,8 @@
 #include "Domini/CtrlEliminarJugador.hxx"
 #include "Domini/CtrlConsultes.hxx"
 #include "Domini/CtrlEsborrarPartit.hxx"
-
+#include "Domini/CtrlVeureEstadistiquesLliga.hxx"
+#include "Domini/Administrador.hxx"
 
 namespace CppCLRWinFormsProject {
 
@@ -261,6 +262,19 @@ namespace CppCLRWinFormsProject {
 		System::Collections::Generic::List<String^>^ epPartitIds;
 		
 		System::Windows::Forms::Button^ btnEPEsborrarFinal;
+
+		// Nou panell per la cerca i la taula
+		System::Windows::Forms::Button^ btnEstLliga;
+		System::Windows::Forms::Panel^ pnlEstadistiquesLligaDetail;
+		System::Windows::Forms::Label^ lblEstLligaBuscar;
+		System::Windows::Forms::TextBox^ txtEstLligaBuscar;
+		System::Windows::Forms::Button^ btnEstLligaExecutarCerca;
+		System::Windows::Forms::Label^ lblEstLligaTemporada;
+		System::Windows::Forms::ComboBox^ cmbEstLligaTemporades;
+		System::Windows::Forms::DataGridView^ dgvEstLligaClassificacio;
+		System::Windows::Forms::Button^ btnEstLligaTornar;
+
+		String^ currentIdLligaEstadistiques; // Per guardar la ID de la lliga cercada
 
 		/// <summary>
 		/// Required designer variable.
@@ -1293,7 +1307,76 @@ namespace CppCLRWinFormsProject {
 
 			this->Controls->Add(this->pnlEsborrarPartit);
 
-			
+			this->btnEstLliga = gcnew System::Windows::Forms::Button();
+			this->btnEstLliga->Text = L"Estadístiques Lliga";
+			this->btnEstLliga->Size = System::Drawing::Size(220, 60);
+			this->btnEstLliga->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
+			this->btnEstLliga->Cursor = System::Windows::Forms::Cursors::Hand;
+
+			// Posición inicial fija
+			this->btnEstLliga->Location = System::Drawing::Point(190, 230);
+
+			this->btnEstLliga->Click += gcnew System::EventHandler(this, &Form1::btnEstLliga_Click);
+			this->pnlEstadistiques->Controls->Add(this->btnEstLliga);
+
+			// 2. Panel de Detalle (el que se abre al pulsar el botón)
+			this->pnlEstadistiquesLligaDetail = gcnew System::Windows::Forms::Panel();
+			this->pnlEstadistiquesLligaDetail->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->pnlEstadistiquesLligaDetail->Visible = false;
+			this->pnlEstadistiquesLligaDetail->BackColor = System::Drawing::Color::White;
+
+			// 3. Elementos de Búsqueda (Estudiante)
+			this->lblEstLligaBuscar = gcnew System::Windows::Forms::Label();
+			this->lblEstLligaBuscar->Text = L"Escriu el nom de la Lliga:";
+			this->lblEstLligaBuscar->Location = System::Drawing::Point(50, 40);
+			this->lblEstLligaBuscar->AutoSize = true;
+
+			this->txtEstLligaBuscar = gcnew System::Windows::Forms::TextBox();
+			this->txtEstLligaBuscar->Location = System::Drawing::Point(200, 38);
+			this->txtEstLligaBuscar->Size = System::Drawing::Size(200, 20);
+
+			this->btnEstLligaExecutarCerca = gcnew System::Windows::Forms::Button();
+			this->btnEstLligaExecutarCerca->Text = L"Cercar";
+			this->btnEstLligaExecutarCerca->Location = System::Drawing::Point(410, 36);
+			this->btnEstLligaExecutarCerca->Click += gcnew System::EventHandler(this, &Form1::btnEstLligaExecutarCerca_Click);
+
+			// 4. Temporada y Tabla
+			this->lblEstLligaTemporada = gcnew System::Windows::Forms::Label();
+			this->lblEstLligaTemporada->Text = L"Temporada:";
+			this->lblEstLligaTemporada->Location = System::Drawing::Point(50, 80);
+			this->lblEstLligaTemporada->Visible = false;
+
+			this->cmbEstLligaTemporades = gcnew System::Windows::Forms::ComboBox();
+			this->cmbEstLligaTemporades->Location = System::Drawing::Point(150, 78);
+			this->cmbEstLligaTemporades->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cmbEstLligaTemporades->Visible = false;
+
+			this->dgvEstLligaClassificacio = gcnew System::Windows::Forms::DataGridView();
+			this->dgvEstLligaClassificacio->Location = System::Drawing::Point(50, 120);
+			this->dgvEstLligaClassificacio->Size = System::Drawing::Size(700, 350);
+			this->dgvEstLligaClassificacio->Visible = false;
+			this->dgvEstLligaClassificacio->AllowUserToAddRows = false;
+			this->dgvEstLligaClassificacio->ReadOnly = true;
+			this->dgvEstLligaClassificacio->AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode::Fill;
+
+			// 5. Botón Volver
+			this->btnEstLligaTornar = gcnew System::Windows::Forms::Button();
+			this->btnEstLligaTornar->Text = L"<- Tornar";
+			this->btnEstLligaTornar->Location = System::Drawing::Point(50, 490);
+			this->btnEstLligaTornar->Click += gcnew System::EventHandler(this, &Form1::btnEstLligaTornar_Click);
+
+			// Agregar todo al panel de detalle
+			this->pnlEstadistiquesLligaDetail->Controls->Add(this->lblEstLligaBuscar);
+			this->pnlEstadistiquesLligaDetail->Controls->Add(this->txtEstLligaBuscar);
+			this->pnlEstadistiquesLligaDetail->Controls->Add(this->btnEstLligaExecutarCerca);
+			this->pnlEstadistiquesLligaDetail->Controls->Add(this->lblEstLligaTemporada);
+			this->pnlEstadistiquesLligaDetail->Controls->Add(this->cmbEstLligaTemporades);
+			this->pnlEstadistiquesLligaDetail->Controls->Add(this->dgvEstLligaClassificacio);
+			this->pnlEstadistiquesLligaDetail->Controls->Add(this->btnEstLligaTornar);
+
+			// Agregar el panel de detalle al formulario principal
+			this->Controls->Add(this->pnlEstadistiquesLligaDetail);
+			this->pnlEstadistiquesLligaDetail->BringToFront();
 			String^ logoPath = L"imatges\\logo.png";
 			if (!System::IO::File::Exists(logoPath)) {
 				logoPath = L"..\\..\\imatges\\logo.png";
@@ -1608,6 +1691,15 @@ namespace CppCLRWinFormsProject {
 		this->btnCJCancellar->Location = System::Drawing::Point(cjStartX + 170, cjStartY + 220);
 		this->btnCJCancellar->Size = System::Drawing::Size(100, 30);
 
+		if (this->btnEstEquips != nullptr) {
+			// Centramos el botón de Equipos (un poco más arriba del centro de la pantalla)
+			this->btnEstEquips->Location = System::Drawing::Point(centerX - (this->btnEstEquips->Width / 2), centerY - 60);
+		}
+
+		if (this->btnEstLliga != nullptr && this->btnEstEquips != nullptr) {
+			// Ponemos el botón de la Liga exactamente debajo del de Equipos
+			this->btnEstLliga->Location = System::Drawing::Point(this->btnEstEquips->Location.X, this->btnEstEquips->Location.Y + this->btnEstEquips->Height + 20);
+		}
 		
 		
 	}
@@ -3059,6 +3151,88 @@ namespace CppCLRWinFormsProject {
 			MessageBox::Show(L"Error al carregar temporades: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
+	private: System::Void btnEstLliga_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlEstadistiques->Visible = false;
+		pnlEstadistiquesLligaDetail->Visible = true;
+		pnlEstadistiquesLligaDetail->BringToFront();
+
+		Playcampus::Domini::CtrlVeureEstadistiquesLliga^ ctrl = gcnew Playcampus::Domini::CtrlVeureEstadistiquesLliga();
+		String^ idLligaFound = nullptr;
+
+		// 1. Comprovem si és un Administrador fent servir la teva variable de sessió
+		if (currentUsuariTipus != nullptr && currentUsuariTipus == "Administrador") {
+			lblEstLligaBuscar->Visible = false;
+			txtEstLligaBuscar->Visible = false;
+			btnEstLligaExecutarCerca->Visible = false;
+
+			// Passem el correu (o el que tinguis guardat) per buscar la seva lliga
+			idLligaFound = ctrl->ObtenirIdLligaAdmin(currentUsuariCorreu);
+		}
+		// 2. Comprovem si és un Capità
+		else if (currentUsuariTipus != nullptr && currentUsuariTipus == "Capita") {
+			lblEstLligaBuscar->Visible = false;
+			txtEstLligaBuscar->Visible = false;
+			btnEstLligaExecutarCerca->Visible = false;
+
+			// Passem el correu per buscar la lliga del seu equip
+			idLligaFound = ctrl->ObtenirIdLligaCapita(currentUsuariCorreu);
+		}
+		// 3. Si és Estudiant (o no hi ha sessió)
+		else {
+			lblEstLligaBuscar->Visible = true;
+			txtEstLligaBuscar->Visible = true;
+			btnEstLligaExecutarCerca->Visible = true;
+
+			lblEstLligaTemporada->Visible = false;
+			cmbEstLligaTemporades->Visible = false;
+			dgvEstLligaClassificacio->Visible = false;
+
+			return; // Parem aquí perquè l'estudiant ha de teclejar i buscar manualment
+		}
+
+		// Si hem arribat aquí (sent Admin o Capità), carreguem la taula automàticament
+		if (idLligaFound != nullptr) {
+			currentIdLligaEstadistiques = idLligaFound;
+			CarregarDadesLligaDirecte(ctrl, idLligaFound);
+		}
+		else {
+			MessageBox::Show(L"No s'ha trobat cap lliga vinculada al teu compte.", L"Info", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		}
+	}
+
+	private: void CarregarDadesLligaDirecte(Playcampus::Domini::CtrlVeureEstadistiquesLliga^ ctrl, String^ idLliga) {
+		DataTable^ dtTemp = ctrl->ObtenirTemporadesLliga(idLliga);
+		cmbEstLligaTemporades->Items->Clear();
+		for (int i = 0; i < dtTemp->Rows->Count; i++)
+			cmbEstLligaTemporades->Items->Add(dtTemp->Rows[i]["NomTemporada"]->ToString());
+
+		if (cmbEstLligaTemporades->Items->Count > 0) {
+			cmbEstLligaTemporades->SelectedIndex = 0;
+			cmbEstLligaTemporades->Visible = true;
+			lblEstLligaTemporada->Visible = true;
+		}
+
+		dgvEstLligaClassificacio->DataSource = ctrl->ObtenirClassificacioLliga(idLliga);
+		dgvEstLligaClassificacio->Visible = true;
+	}
+
+
+
+private: System::Void btnEstLligaExecutarCerca_Click(System::Object^ sender, System::EventArgs^ e) {
+	String^ nom = txtEstLligaBuscar->Text->Trim();
+	if (nom == "") return;
+
+	Playcampus::Domini::CtrlVeureEstadistiquesLliga^ ctrl = gcnew Playcampus::Domini::CtrlVeureEstadistiquesLliga();
+	String^ id = ctrl->ObtenirIdLligaPerNom(nom);
+
+	if (id != nullptr) {
+		currentIdLligaEstadistiques = id;
+		CarregarDadesLligaDirecte(ctrl, id);
+	}
+	else {
+		MessageBox::Show(L"Lliga no trobada.");
+	}
+}
 		   // 2. SELECCIONAR TEMPORADA -> JORNADES 
 	private: System::Void cmbEPTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 		cmbEPJornades->Items->Clear();
@@ -3086,6 +3260,10 @@ namespace CppCLRWinFormsProject {
 				MessageBox::Show(L"Error al carregar jornades: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
 		}
+	}
+	private: System::Void btnEstLligaTornar_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlEstadistiquesLligaDetail->Visible = false;
+		pnlEstadistiques->Visible = true;
 	}
 
 		   // 3. SELECCIONAR JORNADA -> PARTITS 
