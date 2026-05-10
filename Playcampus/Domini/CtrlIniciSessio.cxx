@@ -73,5 +73,47 @@ namespace Playcampus {
             }
             return false;
         }
+        String^ CtrlIniciSessio::ObtenirIdEquipDeCapita(String^ correu) {
+            String^ idEquip = "";
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+
+                // Buscamos el idEquip directamente en el perfil del usuario/capitán
+                String ^ query = "SELECT c.idEquip "
+                    "FROM Capita c "
+                    "JOIN Usuari u ON c.identificador = u.identificador "
+                    "WHERE u.correu_electronic = @correu "
+                    "LIMIT 1";
+
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@correu", correu);
+
+                Object^ result = cmd->ExecuteScalar();
+                if (result != nullptr && result != DBNull::Value) {
+                    idEquip = result->ToString();
+                }
+            }
+            finally { conn->Close(); }
+            return idEquip;
+        }
+        String^ CtrlIniciSessio::ObtenirIdUsuari(String^ correu) {
+            String^ idUsuari = "";
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                // CAMBIO AQUÍ: correu_electronic en lugar de correu
+                String^ query = "SELECT identificador FROM Usuari WHERE correu_electronic = @correu LIMIT 1";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@correu", correu);
+
+                Object^ result = cmd->ExecuteScalar();
+                if (result != nullptr) {
+                    idUsuari = result->ToString();
+                }
+            }
+            finally { conn->Close(); }
+            return idUsuari;
+        }
     }
 }

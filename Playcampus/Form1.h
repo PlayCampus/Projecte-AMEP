@@ -18,7 +18,9 @@
 #include "Domini/CtrlConsultes.hxx"
 #include "Domini/CtrlEsborrarPartit.hxx"
 #include "Domini/CtrlVeureEstadistiquesLliga.hxx"
+#include "Domini/CtlrConvocarJugadors.hxx"
 #include "Domini/Administrador.hxx"
+
 
 namespace CppCLRWinFormsProject {
 
@@ -37,14 +39,41 @@ namespace CppCLRWinFormsProject {
 	public:
 		Form1(void)
 		{
-			InitializeComponent();
+			InitializeComponent(); // IMPORTANT: NO ESBORRAR
 
-			pnlInici->Visible = true;
-			pnlLogin->Visible = false;
-			pnlRegister->Visible = false;
-			pnlMain->Visible = false;
-			pnlConsultar->Visible = false;
-			pnlEstadistiques->Visible = false;
+			// 1. Creació d'objectes
+			this->pnlConvocatoria = gcnew System::Windows::Forms::Panel();
+			this->btnGestionarConvocatoria = gcnew System::Windows::Forms::Button();
+			this->btnTornarConvocatoria = gcnew System::Windows::Forms::Button();
+			this->cbPartitsConvocatoria = gcnew System::Windows::Forms::ComboBox();
+			this->dgvConvocatoria = gcnew System::Windows::Forms::DataGridView();
+			this->convocatoriaPartitIds = gcnew System::Collections::Generic::List<System::String^>();
+
+			// 2. Propietats i Events
+			this->btnGestionarConvocatoria->Text = L"Gestionar Convocatòries";
+			this->btnGestionarConvocatoria->Click += gcnew System::EventHandler(this, &Form1::btnGestionarConvocatoria_Click);
+
+			this->btnTornarConvocatoria->Text = L"Tornar al Menú";
+			this->btnTornarConvocatoria->Click += gcnew System::EventHandler(this, &Form1::btnTornarConvocatoria_Click);
+
+			this->cbPartitsConvocatoria->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cbPartitsConvocatoria->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cbPartitsConvocatoria_SelectedIndexChanged);
+
+			this->dgvConvocatoria->AllowUserToAddRows = false;
+			this->dgvConvocatoria->ReadOnly = true;
+			this->dgvConvocatoria->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
+			this->dgvConvocatoria->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &Form1::dgvConvocatoria_CellClick);
+
+			// 3. Jerarquia (Afegir-los a la pantalla)
+			this->pnlMain->Controls->Add(this->btnGestionarConvocatoria);
+			this->Controls->Add(this->pnlConvocatoria);
+			this->pnlConvocatoria->Controls->Add(this->btnTornarConvocatoria);
+			this->pnlConvocatoria->Controls->Add(this->cbPartitsConvocatoria);
+			this->pnlConvocatoria->Controls->Add(this->dgvConvocatoria);
+
+			// 4. Estat Inicial
+			this->pnlConvocatoria->Visible = false;
+			this->btnGestionarConvocatoria->Visible = false;
 
 			Form1_Resize(nullptr, nullptr);
 		}
@@ -273,6 +302,17 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::ComboBox^ cmbEstLligaTemporades;
 		System::Windows::Forms::DataGridView^ dgvEstLligaClassificacio;
 		System::Windows::Forms::Button^ btnEstLligaTornar;
+
+	private: System::Windows::Forms::Panel^ pnlConvocatoria;
+	private: System::Windows::Forms::Button^ btnGestionarConvocatoria;
+	private: System::Windows::Forms::Button^ btnTornarConvocatoria;
+	private: System::Windows::Forms::ComboBox^ cbPartitsConvocatoria;
+	private: System::Windows::Forms::DataGridView^ dgvConvocatoria;
+	private: System::Collections::Generic::List<System::String^>^ convocatoriaPartitIds;
+
+		   // Variables pel cartell del jugador
+	private: System::Windows::Forms::Panel^ pnlAvisJugador;
+	private: System::String^ idPartitPendentConfirmar;
 
 		String^ currentIdLligaEstadistiques; // Per guardar la ID de la lliga cercada
 
@@ -1405,7 +1445,50 @@ namespace CppCLRWinFormsProject {
 		int centerX = cw / 2;
 		int centerY = ch / 2;
 
-		
+		// 1. DISSENY DEL MENÚ PRINCIPAL (Botó del Capità)
+		int startBtnX = (this->ClientSize.Width - 800) / 2; // Punt de partida centrat
+
+		if (this->btnGestionarConvocatoria != nullptr && pnlMain->Visible) {
+			// El posem al costat dels altres botons del capità. Ajusta el '600' i '80' si se superposen.
+			this->btnGestionarConvocatoria->Location = System::Drawing::Point(startBtnX + 600, 80);
+			this->btnGestionarConvocatoria->Size = System::Drawing::Size(180, 40);
+		}
+
+		// 2. DISSENY DEL PANELL DE CONVOCATÒRIES
+		if (this->pnlConvocatoria != nullptr && this->pnlConvocatoria->Visible) {
+			// Ocupa gairebé tota la pantalla
+			this->pnlConvocatoria->Location = System::Drawing::Point(0, 140);
+			this->pnlConvocatoria->Size = System::Drawing::Size(this->ClientSize.Width, this->ClientSize.Height - 140);
+			this->pnlConvocatoria->BackColor = System::Drawing::Color::WhiteSmoke;
+
+			// Botó Tornar
+			if (this->btnTornarConvocatoria != nullptr) {
+				this->btnTornarConvocatoria->Location = System::Drawing::Point(20, 10);
+				this->btnTornarConvocatoria->Size = System::Drawing::Size(120, 30);
+			}
+
+			// Desplegable de partits
+			if (this->cbPartitsConvocatoria != nullptr) {
+				this->cbPartitsConvocatoria->Location = System::Drawing::Point(20, 50);
+				this->cbPartitsConvocatoria->Size = System::Drawing::Size(400, 30);
+			}
+
+			// Taula de jugadors
+			if (this->dgvConvocatoria != nullptr) {
+				this->dgvConvocatoria->Location = System::Drawing::Point(20, 90);
+				this->dgvConvocatoria->Size = System::Drawing::Size(this->pnlConvocatoria->Width - 40, this->pnlConvocatoria->Height - 120);
+				this->dgvConvocatoria->BackgroundColor = System::Drawing::Color::White;
+			}
+		}
+
+		// 3. DISSENY DEL CARTELL DEL JUGADOR (Si està actiu)
+		if (this->pnlAvisJugador != nullptr && pnlMain->Controls->Contains(pnlAvisJugador)) {
+			// El centrem just al mig del panell principal
+			this->pnlAvisJugador->Location = System::Drawing::Point(
+				(pnlMain->Width - pnlAvisJugador->Width) / 2,
+				(pnlMain->Height - pnlAvisJugador->Height) / 2
+			);
+		}
 
 		// --- PANELS DE LOGIN/REGISTRE ---
 		this->picLogoInici->Location = System::Drawing::Point(centerX - this->picLogoInici->Width / 2, centerY - 250);
@@ -1448,7 +1531,6 @@ namespace CppCLRWinFormsProject {
 		this->btnLogoutMainMenu->BringToFront();
 
 		int totalBtnWidth = 130 * 5 + 20 * 4;
-		int startBtnX = centerX - totalBtnWidth / 2;
 		this->btnProgPartits->Location = System::Drawing::Point(startBtnX, 80);
 		this->btnEstatLligues->Location = System::Drawing::Point(startBtnX + 150, 80);
 		this->btnEstadistiques->Location = System::Drawing::Point(startBtnX + 300, 80);
@@ -1836,14 +1918,16 @@ namespace CppCLRWinFormsProject {
 				currentUsuariCorreu = correu;
 				pnlLogin->Visible = false;
 				pnlMain->Visible = true;
+				pnlMain->BringToFront();
+				pnlRegister->Visible = false;
 				pnlConsultar->Visible = false;
 				pnlCrearLliga->Visible = false;
 				pnlGestionarLliga->Visible = false;
 				pnlEnregistrarEquip->Visible = false;
 				pnlGestionarEquip->Visible = false;
 				pnlAfegirJugador->Visible = false;
-				pnlGestionarEquip->Visible = false;
 
+				// --- LÒGICA ADMINISTRADOR ---
 				if (currentUsuariTipus->ToLower() == "administrador") {
 					btnCrearLligaMainMenu->Visible = true;
 					Playcampus::Domini::CtrlCrearLliga^ ctrlCrear = gcnew Playcampus::Domini::CtrlCrearLliga();
@@ -1853,33 +1937,59 @@ namespace CppCLRWinFormsProject {
 					else {
 						btnCrearLligaMainMenu->Text = L"Crear Lliga";
 					}
-				} else {
+				}
+				else {
 					btnCrearLligaMainMenu->Visible = false;
 				}
 
+				// --- LÒGICA CAPITÀ ---
 				if (currentUsuariTipus->ToLower() == "capita") {
 					btnEnregistrarEquip->Visible = true;
 					btnUnirEquipLliga->Visible = true;
 
+					// NOU: Mostrem el botó de gestionar convocatòries
+					if (btnGestionarConvocatoria != nullptr) {
+						btnGestionarConvocatoria->Visible = true;
+						btnGestionarConvocatoria->BringToFront();
+					}
+
 					if (ctrlInici->CapitaTeEquip(currentUsuariCorreu)) {
 						btnEnregistrarEquip->Text = L"Gestionar Equip";
-					} else {
+					}
+					else {
 						btnEnregistrarEquip->Text = L"Enregistrar Equip";
 					}
 
 					if (ctrlInici->EquipEstaEnLliga(currentUsuariCorreu)) {
 						btnUnirEquipLliga->Text = L"Abandonar Lliga";
-					} else {
+					}
+					else {
 						btnUnirEquipLliga->Text = L"Unir equip a lliga";
 					}
 
-				} else {
-				 btnEnregistrarEquip->Visible = false;
-				 btnUnirEquipLliga->Visible = false;
+				}
+				else {
+					btnEnregistrarEquip->Visible = false;
+					btnUnirEquipLliga->Visible = false;
+					if (btnGestionarConvocatoria != nullptr) btnGestionarConvocatoria->Visible = false;
+				}
+
+				// --- LÒGICA JUGADOR (NOU CARTELL) ---
+				if (currentUsuariTipus->ToLower() == "jugador") {
+					Playcampus::Domini::CtlrConvocarJugadors^ ctrlConv = gcnew Playcampus::Domini::CtlrConvocarJugadors();
+					auto avis = ctrlConv->ObtenirAvisPendent(currentUsuariCorreu);
+
+					if (avis != nullptr) {
+						idPartitPendentConfirmar = avis["idPartit"];
+						MostrarAvisJugador(avis["missatge"] + L"\n\nPots assistir-hi?");
+					}
 				}
 
 				txtLoginCorreu->Text = "";
 				txtLoginPass->Text = "";
+
+				// Forcem a redibuixar la pantalla amb els nous botons
+				Form1_Resize(nullptr, nullptr);
 			}
 			else {
 				MessageBox::Show(L"Credencials incorrectes.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
@@ -3321,6 +3431,163 @@ private: System::Void btnEstLligaExecutarCerca_Click(System::Object^ sender, Sys
 			catch (Exception^ ex) {
 				MessageBox::Show(L"Hi ha hagut una fallada: " + ex->Message, L"Error Crític", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
+		}
+	}
+		   // --- GESTIÓ DEL CAPITÀ ---
+	private: System::Void btnGestionarConvocatoria_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlMain->Visible = false;
+		pnlConvocatoria->Visible = true;
+		pnlConvocatoria->BringToFront();
+		CarregarPartitsConvocatoria();
+		Form1_Resize(nullptr, nullptr);
+	}
+
+	private: System::Void btnTornarConvocatoria_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlConvocatoria->Visible = false;
+		pnlMain->Visible = true;
+	}
+
+	private: System::Void CarregarPartitsConvocatoria() {
+		try {
+			cbPartitsConvocatoria->Items->Clear();
+			convocatoriaPartitIds->Clear();
+
+			Playcampus::Domini::CtlrConvocarJugadors^ ctrl = gcnew Playcampus::Domini::CtlrConvocarJugadors();
+			auto partits = ctrl->ObtenirPartitsCapita(currentUsuariCorreu);
+
+			if (partits != nullptr && partits->Count > 0) {
+				for each (auto p in partits) {
+					cbPartitsConvocatoria->Items->Add(p["nomMostrar"]);
+					convocatoriaPartitIds->Add(p["id_partit"]);
+				}
+				cbPartitsConvocatoria->SelectedIndex = 0;
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error: " + ex->Message);
+		}
+	}
+
+	private: System::Void cbPartitsConvocatoria_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (cbPartitsConvocatoria->SelectedIndex < 0) return;
+
+		try {
+			String^ idPartit = convocatoriaPartitIds[cbPartitsConvocatoria->SelectedIndex];
+
+			// Necessitem l'equip del capità
+			Playcampus::Domini::CtrlIniciSessio^ ctrlInici = gcnew Playcampus::Domini::CtrlIniciSessio();
+			String^ idEquip = ctrlInici->ObtenirIdEquipDeCapita(currentUsuariCorreu);
+
+			Playcampus::Domini::CtlrConvocarJugadors^ ctrl = gcnew Playcampus::Domini::CtlrConvocarJugadors();
+			auto jugadors = ctrl->ObtenirEstatConvocatoria(idPartit, idEquip);
+
+			dgvConvocatoria->Columns->Clear();
+			dgvConvocatoria->Columns->Add("ID", "ID Jugador");
+			dgvConvocatoria->Columns->Add("Nom", "Nom");
+			dgvConvocatoria->Columns->Add("Pos", "Posició");
+			dgvConvocatoria->Columns->Add("Estat", "Estat Convocatòria");
+			dgvConvocatoria->Columns->Add("Conf", "Confirmació");
+
+			dgvConvocatoria->Columns["ID"]->Visible = false; // Ocultem l'ID
+
+			if (jugadors != nullptr) {
+				for each (auto j in jugadors) {
+					dgvConvocatoria->Rows->Add(j["id_jugador"], j["nom"], j["posicio"], j["estat_convocatoria"], j["confirmacio"]);
+				}
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error taula: " + ex->Message);
+		}
+	}
+
+		   // Permet al capità fer clic a un jugador per convocar/desconvocar
+	private: System::Void dgvConvocatoria_CellClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+		if (e->RowIndex < 0) return;
+
+		try {
+			String^ idJugador = dgvConvocatoria->Rows[e->RowIndex]->Cells["ID"]->Value->ToString();
+			String^ estatActual = dgvConvocatoria->Rows[e->RowIndex]->Cells["Estat"]->Value->ToString();
+			String^ idPartit = convocatoriaPartitIds[cbPartitsConvocatoria->SelectedIndex];
+
+			bool nouEstat = (estatActual == "No Convocat"); // Invertim l'estat
+
+			Playcampus::Domini::CtlrConvocarJugadors^ ctrl = gcnew Playcampus::Domini::CtlrConvocarJugadors();
+			ctrl->ActualitzarConvocatoria(idPartit, idJugador, nouEstat);
+
+			// Recarreguem la taula
+			cbPartitsConvocatoria_SelectedIndexChanged(nullptr, nullptr);
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error al canviar estat: " + ex->Message);
+		}
+	}
+		   // --- GESTIÓ DEL JUGADOR (CARTELL) ---
+	private: System::Void MostrarAvisJugador(String^ missatge) {
+		if (pnlAvisJugador != nullptr) pnlMain->Controls->Remove(pnlAvisJugador);
+
+		pnlAvisJugador = gcnew System::Windows::Forms::Panel();
+		// 1. FEM EL PANELL MÉS ALT (Abans era 150, ara 220)
+		pnlAvisJugador->Size = System::Drawing::Size(500, 220);
+		pnlAvisJugador->BackColor = System::Drawing::Color::LightYellow;
+		pnlAvisJugador->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+
+		// 2. EL POSEM A DALT A L'ESQUERRA (Marge de 20 píxels perquè no toqui la vora)
+		pnlAvisJugador->Location = System::Drawing::Point(20, 20);
+
+		System::Windows::Forms::Label^ lblMissatge = gcnew System::Windows::Forms::Label();
+		lblMissatge->Text = missatge;
+		// 3. FEM L'ESPAI DEL TEXT MÉS GRAN (Abans era 80, ara 140)
+		lblMissatge->Size = System::Drawing::Size(480, 140);
+		lblMissatge->Location = System::Drawing::Point(10, 10); // Una mica més amunt
+		lblMissatge->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+		lblMissatge->Font = gcnew System::Drawing::Font("Arial", 11, System::Drawing::FontStyle::Bold);
+
+		System::Windows::Forms::Button^ btnSi = gcnew System::Windows::Forms::Button();
+		btnSi->Text = L"Sí, hi aniré";
+		btnSi->Size = System::Drawing::Size(100, 35);
+		// 4. BAIXEM ELS BOTONS PERQUÈ NO TREPITGIN EL TEXT (Abans Y era 100, ara 160)
+		btnSi->Location = System::Drawing::Point(140, 160);
+		btnSi->BackColor = System::Drawing::Color::LightGreen;
+		btnSi->Click += gcnew System::EventHandler(this, &Form1::btnConfirmarSi_Click);
+
+		System::Windows::Forms::Button^ btnNo = gcnew System::Windows::Forms::Button();
+		btnNo->Text = L"No puc";
+		btnNo->Size = System::Drawing::Size(100, 35);
+		// BAIXEM TAMBÉ AQUEST BOTÓ (Y = 160)
+		btnNo->Location = System::Drawing::Point(260, 160);
+		btnNo->BackColor = System::Drawing::Color::Salmon;
+		btnNo->Click += gcnew System::EventHandler(this, &Form1::btnConfirmarNo_Click);
+
+		pnlAvisJugador->Controls->Add(lblMissatge);
+		pnlAvisJugador->Controls->Add(btnSi);
+		pnlAvisJugador->Controls->Add(btnNo);
+
+		pnlMain->Controls->Add(pnlAvisJugador);
+		pnlAvisJugador->BringToFront();
+	}
+
+	private: System::Void btnConfirmarSi_Click(System::Object^ sender, System::EventArgs^ e) {
+		ProcessarConfirmacio(true);
+	}
+
+	private: System::Void btnConfirmarNo_Click(System::Object^ sender, System::EventArgs^ e) {
+		ProcessarConfirmacio(false);
+	}
+
+	private: System::Void ProcessarConfirmacio(bool assisteix) {
+		try {
+			Playcampus::Domini::CtrlIniciSessio^ ctrlInici = gcnew Playcampus::Domini::CtrlIniciSessio();
+			String^ idJugador = ctrlInici->ObtenirIdUsuari(currentUsuariCorreu); // Necessites aquest mètode
+
+			Playcampus::Domini::CtlrConvocarJugadors^ ctrl = gcnew Playcampus::Domini::CtlrConvocarJugadors();
+			ctrl->ConfirmarAssistencia(idPartitPendentConfirmar, idJugador, assisteix);
+
+			MessageBox::Show(L"S'ha guardat la teva resposta correctament.");
+			pnlMain->Controls->Remove(pnlAvisJugador); // Amaguem el cartell
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error al confirmar: " + ex->Message);
 		}
 	}
 };
