@@ -44,7 +44,7 @@ namespace Playcampus {
 
             // 3. Creem un identificador per la nova temporada
             String^ idTemporada = "T-" + Guid::NewGuid().ToString()->Substring(0, 8);
-            String^ estat = "Proxim"; // Estat per defecte
+            String^ estat = "Pròxim"; // Estat per defecte
 
             // 4. Utilitzem la PassarellaTemporada per insertar el registre a la base de dades
             Playcampus::Dades::PassarellaTemporada^ pTemporada = gcnew Playcampus::Dades::PassarellaTemporada(

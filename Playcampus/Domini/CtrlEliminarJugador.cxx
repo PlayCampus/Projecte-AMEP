@@ -51,7 +51,7 @@ namespace Playcampus {
                 }
 
                 if (String::IsNullOrWhiteSpace(idEquip)) {
-                    throw gcnew Exception("El capitÃ  no tÃ© cap equip registrat.");
+                    throw gcnew Exception("El capità  no té cap equip registrat.");
                 }
 
                 // Comprovar que el jugador pertany a l'equip del capitÃ 

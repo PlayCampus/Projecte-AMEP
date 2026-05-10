@@ -528,7 +528,7 @@ namespace CppCLRWinFormsProject {
 			this->picImatge->Location = System::Drawing::Point(20, 120);
 			this->picImatge->Size = System::Drawing::Size(550, 200);
 
-			this->lblNoticies->Text = L"Noticies Generals";
+			this->lblNoticies->Text = L"Notícies Generals";
 			this->lblNoticies->Location = System::Drawing::Point(20, 330);
 			this->lblNoticies->AutoSize = true;
 
@@ -1808,7 +1808,7 @@ namespace CppCLRWinFormsProject {
 
 	private: System::Void cmbRegTipus_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 		String^ tipus = cmbRegTipus->Text;
-		if (tipus == L"Capita" || tipus == L"Administrador") {
+		if (tipus == L"Capità" || tipus == L"Administrador") {
 			lblRegTelefon->Visible = true;
 			txtRegTelefon->Visible = true;
 		}
@@ -2655,7 +2655,7 @@ namespace CppCLRWinFormsProject {
 	private: System::Void btnProgPartits_Click(System::Object^ sender, System::EventArgs^ e) {
 		try {
 			Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
-			MostrarConsultaGeneral(L"Programacio de partits", ctrl->ObtenirProgramacioPartits());
+			MostrarConsultaGeneral(L"Programació de partits", ctrl->ObtenirProgramacioPartits());
 		}
 		catch (Exception^ ex) {
 			MessageBox::Show(L"Error carregant la programacio de partits: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
@@ -2765,7 +2765,7 @@ namespace CppCLRWinFormsProject {
 
 					System::Windows::Forms::DialogResult confirmacio = MessageBox::Show(
 						L"Vols treure l'equip '" + nomEquip + L"' de la lliga?",
-						L"Confirmacio",
+						L"Confirmació",
 						MessageBoxButtons::YesNo,
 						MessageBoxIcon::Warning);
 
@@ -3110,9 +3110,7 @@ namespace CppCLRWinFormsProject {
 			MessageBox::Show(L"Error al enregistrar equip: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
-		   // ==============================================================
-	   //  ESBORRAR PARTIT 
-	   // ==============================================================
+	
 
 
 	private: System::Void btnGLEsborrarPartit_Click(System::Object^ sender, System::EventArgs^ e) {

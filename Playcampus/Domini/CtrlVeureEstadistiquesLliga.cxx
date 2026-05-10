@@ -8,16 +8,10 @@ using namespace MySql::Data::MySqlClient;
 namespace Playcampus {
     namespace Domini {
 
-        // ==========================================================
-        // CONSTRUCTOR
-        // ==========================================================
         CtrlVeureEstadistiquesLliga::CtrlVeureEstadistiquesLliga() {
             connectionString = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
         }
 
-        // ==========================================================
-        // 1. OBTENIR ID LLIGA PER NOM (Para el buscador de Estudiantes)
-        // ==========================================================
         String^ CtrlVeureEstadistiquesLliga::ObtenirIdLligaPerNom(String^ nomLliga) {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             String^ idLliga = nullptr;
@@ -41,9 +35,6 @@ namespace Playcampus {
             return idLliga;
         }
 
-        // ==========================================================
-        // 2. OBTENIR ID LLIGA ADMIN (Lliga -> Administrador -> Usuari)
-        // ==========================================================
         String^ CtrlVeureEstadistiquesLliga::ObtenirIdLligaAdmin(String^ correu) {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             String^ idLliga = nullptr;
@@ -71,15 +62,11 @@ namespace Playcampus {
             return idLliga;
         }
 
-        // ==========================================================
-        // 3. OBTENIR ID LLIGA CAPITÀ (Lliga <- Temporada <- Equip <- Capitán)
-        // ==========================================================
         String^ CtrlVeureEstadistiquesLliga::ObtenirIdLligaCapita(String^ correu) {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             String^ idLliga = nullptr;
             try {
                 conn->Open();
-                // Usamos Temporada como puente para llegar a la Liga desde el Equip
                 String^ query = "SELECT T.idLliga FROM Temporada T "
                     "INNER JOIN Equip E ON T.idTemporada = E.idTemporada "
                     "INNER JOIN Capita C ON E.idEquip = C.idEquip "
@@ -103,9 +90,6 @@ namespace Playcampus {
             return idLliga;
         }
 
-        // ==========================================================
-        // 4. OBTENIR TEMPORADES DE LA LLIGA
-        // ==========================================================
         DataTable^ CtrlVeureEstadistiquesLliga::ObtenirTemporadesLliga(String^ idLliga) {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             DataTable^ dt = gcnew DataTable();
@@ -128,9 +112,6 @@ namespace Playcampus {
             return dt;
         }
 
-        // ==========================================================
-        // 5. OBTENIR CLASSIFICACIÓ (Filtrando por la Temporada de la Liga)
-        // ==========================================================
         DataTable^ CtrlVeureEstadistiquesLliga::ObtenirClassificacioLliga(String^ idLliga) {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             DataTable^ dt = gcnew DataTable();

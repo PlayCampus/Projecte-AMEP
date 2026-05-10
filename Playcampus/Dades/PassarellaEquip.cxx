@@ -106,7 +106,7 @@ namespace Playcampus {
                 cmdVerificacio->Parameters->AddWithValue("@idEquip", idEquip);
                 int filesVerificades = Convert::ToInt32(cmdVerificacio->ExecuteScalar());
                 if (filesVerificades != 1) {
-                    throw gcnew Exception("La base de dades no ha confirmat la insercio de l'equip.");
+                    throw gcnew Exception("La base de dades no ha confirmat la inserció de l'equip.");
                 }
             }
             finally {
@@ -162,7 +162,7 @@ namespace Playcampus {
 
                 int filesVerificades = Convert::ToInt32(cmdVerificacio->ExecuteScalar());
                 if (filesVerificades != 1) {
-                    throw gcnew Exception("La base de dades no ha confirmat la modificacio de l'equip.");
+                    throw gcnew Exception("La base de dades no ha confirmat la modificació de l'equip.");
                 }
             }
             finally {

@@ -28,7 +28,7 @@ namespace Playcampus {
             }
 
             if (String::IsNullOrWhiteSpace(usuari->GetTipus()) || usuari->GetTipus()->ToLower() != "capita") {
-                throw gcnew UnauthorizedAccessException("NomÃ©s els capitans poden assignar jugadors a partits.");
+                throw gcnew UnauthorizedAccessException("Només els capitans poden assignar jugadors a partits.");
             }
         }
 
@@ -56,7 +56,7 @@ namespace Playcampus {
             }
 
             if (String::IsNullOrWhiteSpace(idEquip)) {
-                throw gcnew Exception("El capitÃ  no tÃ© cap equip registrat.");
+                throw gcnew Exception("El capità  no té cap equip registrat.");
             }
 
             return idEquip;
@@ -241,15 +241,15 @@ namespace Playcampus {
                 AssegurarTaulaConvocatoria(conn);
 
                 if (!PartitDisponiblePerEquip(idPartit, idEquip, conn)) {
-                    throw gcnew Exception("El partit seleccionat no estÃ  disponible per a l'equip del capitÃ  o ja estÃ  finalitzat.");
+                    throw gcnew Exception("El partit seleccionat no està  disponible per a l'equip del capità  o ja està  finalitzat.");
                 }
 
                 if (!JugadorPertanyAEquip(idJugador, idEquip, conn)) {
-                    throw gcnew Exception("El jugador seleccionat no pertany a l'equip del capitÃ .");
+                    throw gcnew Exception("El jugador seleccionat no pertany a l'equip del capità .");
                 }
 
                 if (AssignacioJaExisteix(idPartit, idJugador, conn)) {
-                    throw gcnew Exception("Aquest jugador ja estÃ  assignat a aquest partit.");
+                    throw gcnew Exception("Aquest jugador ja està  assignat a aquest partit.");
                 }
 
                 String^ query = "INSERT INTO AssignacioJugadorPartit (idPartit, idJugador, dataAssignacio) VALUES (@idPartit, @idJugador, NOW())";
