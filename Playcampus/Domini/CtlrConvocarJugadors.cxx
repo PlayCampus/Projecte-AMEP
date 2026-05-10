@@ -93,9 +93,9 @@ namespace Playcampus {
 
             try {
                 conn->Open();
-                // LEFT JOIN para ver a todos los jugadores aunque no estén en la tabla de convocatorias aún
+                // Fíjate que aquí hemos quitado el IFNULL de cp.confirmat para que nos devuelva el NULL real si existe
                 String^ query = "SELECT j.idJugador, u.nom, j.posicio, "
-                    "IFNULL(cp.convocat, 0) AS convocat, IFNULL(cp.confirmat, 0) AS confirmat "
+                    "IFNULL(cp.convocat, 0) AS convocat, cp.confirmat AS confirmat "
                     "FROM Jugador j "
                     "JOIN Usuari u ON j.idJugador = u.identificador "
                     "LEFT JOIN ConvocatoriaPartit cp ON j.idJugador = cp.idJugador AND cp.idPartit = @idPartit "
@@ -111,9 +111,21 @@ namespace Playcampus {
                     d["id_jugador"] = reader["idJugador"]->ToString();
                     d["nom"] = reader["nom"]->ToString();
                     d["posicio"] = reader["posicio"]->ToString();
-                    // Convertimos el 1/0 de la BD a texto para la tabla
-                    d["estat_convocatoria"] = (reader["convocat"]->ToString() == "1") ? "Convocat" : "No Convocat";
-                    d["confirmacio"] = (reader["confirmat"]->ToString() == "1") ? "Confirmat" : "Pendent";
+
+                    // Estado de si está convocado o no
+                    d["estat_convocatoria"] = (reader["convocat"]->ToString() == "1" || reader["convocat"]->ToString() == "True") ? "Convocat" : "No Convocat";
+
+                    // LÓGICA DE CONFIRMACIÓN DE ASISTENCIA
+                    if (reader["confirmat"] == DBNull::Value) {
+                        d["confirmacio"] = "Pendent"; // Si en la BD es NULL
+                    }
+                    else if (reader["confirmat"]->ToString() == "1" || reader["confirmat"]->ToString() == "True") {
+                        d["confirmacio"] = "Confirmat"; // Si en la BD es 1
+                    }
+                    else {
+                        d["confirmacio"] = "No pot anar"; // Si en la BD es 0
+                    }
+
                     jugadors->Add(d);
                 }
                 reader->Close();
@@ -128,7 +140,7 @@ namespace Playcampus {
             try {
                 conn->Open();
                 String^ query = "INSERT INTO ConvocatoriaPartit (idPartit, idJugador, convocat, confirmat) "
-                    "VALUES (@idP, @idJ, @conv, 0) "
+                    "VALUES (@idP, @idJ, @conv, NULL) "
                     "ON DUPLICATE KEY UPDATE convocat = @conv";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idP", idPartit);
@@ -167,7 +179,7 @@ namespace Playcampus {
                     "JOIN Equip ev ON p.idEquipVisitant = ev.idEquip "
                     "JOIN Jugador j ON cp.idJugador = j.idJugador "
                     "JOIN Usuari u ON j.idJugador = u.identificador "
-                    "WHERE u.correu_electronic = @correu AND cp.convocat = 1 AND cp.confirmat = 0 LIMIT 1";
+                    "WHERE u.correu_electronic = @correu AND cp.convocat = 1 AND cp.confirmat IS NULL LIMIT 1";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@correu", correuJugador);
                 MySqlDataReader^ reader = cmd->ExecuteReader();
