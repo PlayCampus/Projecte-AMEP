@@ -5,6 +5,7 @@
 #include "../Dades/CercadoraUsuari.hxx"
 #include "../Dades/PassarellaLliga.hxx"
 #include "../Dades/PassarellaTemporada.hxx"
+#include "../Dades/CercadoraLliga.hxx"
 #include <stdexcept>
 
 using namespace System;
@@ -32,15 +33,16 @@ namespace Playcampus {
             }
 
             // 2. Busquem la Lliga mitjançant el seu nom proporcionat per l'usuari
-            Playcampus::Dades::PassarellaLliga^ pLliga = gcnew Playcampus::Dades::PassarellaLliga(connectionString);
-            String^ idLliga = pLliga->ObtenirIdLligaPerNom(nomLliga);
+            Playcampus::Dades::CercadoraLliga^ cercadoraLliga = gcnew Playcampus::Dades::CercadoraLliga(connectionString);
+            String^ idLliga = cercadoraLliga->ObtenirIdLligaPerNom(nomLliga);
+
 
             if (idLliga == nullptr) {
                 throw gcnew Exception("No s'ha trobat cap lliga amb aquest nom.");
             }
 
             //  validar aquí si aquesta lliga pertany al administrador si ho desitges
-            if (pLliga->ObtenirLligaActivaAdmin(idAdmin) != idLliga) { throw gcnew Exception("Aquesta Lliga pertany a un altre Administrador"); }
+            if (cercadoraLliga->ObtenirLligaActivaAdmin(idAdmin) != idLliga) { throw gcnew Exception("Aquesta Lliga pertany a un altre Administrador"); }
 
             // 3. Creem un identificador per la nova temporada
             String^ idTemporada = "T-" + Guid::NewGuid().ToString()->Substring(0, 8);
