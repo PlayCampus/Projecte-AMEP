@@ -62,19 +62,6 @@ namespace Playcampus {
             return idEquip;
         }
 
-        void CtrlAssignarJugador::AssegurarTaulaConvocatoria(MySqlConnection^ conn) {
-            String^ query =
-                "CREATE TABLE IF NOT EXISTS AssignacioJugadorPartit ("
-                "idPartit VARCHAR(100) NOT NULL, "
-                "idJugador VARCHAR(100) NOT NULL, "
-                "dataAssignacio DATETIME NOT NULL, "
-                "PRIMARY KEY (idPartit, idJugador)"
-                ")";
-
-            MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-            cmd->ExecuteNonQuery();
-        }
-
         bool CtrlAssignarJugador::PartitDisponiblePerEquip(String^ idPartit, String^ idEquip, MySqlConnection^ conn) {
             bool disponible = false;
             String^ query =
@@ -238,7 +225,6 @@ namespace Playcampus {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
-                AssegurarTaulaConvocatoria(conn);
 
                 if (!PartitDisponiblePerEquip(idPartit, idEquip, conn)) {
                     throw gcnew Exception("El partit seleccionat no està  disponible per a l'equip del capità  o ja està  finalitzat.");

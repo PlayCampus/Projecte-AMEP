@@ -139,9 +139,18 @@ namespace Playcampus {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
-                String^ query = "INSERT INTO ConvocatoriaPartit (idPartit, idJugador, convocat, confirmat) "
-                    "VALUES (@idP, @idJ, @conv, NULL) "
-                    "ON DUPLICATE KEY UPDATE convocat = @conv";
+                String^ query;
+                if (convocat) {
+                    // Si convoca, mantén el confirmat actual (solo actualiza convocat)
+                    query = "INSERT INTO ConvocatoriaPartit (idPartit, idJugador, convocat, confirmat) "
+                        "VALUES (@idP, @idJ, @conv, NULL) "
+                        "ON DUPLICATE KEY UPDATE convocat = @conv";
+                } else {
+                    // Si desconvoca, resetea convocat a 0 y confirmat a NULL (pasa a Pendent)
+                    query = "INSERT INTO ConvocatoriaPartit (idPartit, idJugador, convocat, confirmat) "
+                        "VALUES (@idP, @idJ, @conv, NULL) "
+                        "ON DUPLICATE KEY UPDATE convocat = @conv, confirmat = NULL";
+                }
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idP", idPartit);
                 cmd->Parameters->AddWithValue("@idJ", idJugador);
