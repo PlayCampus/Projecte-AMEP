@@ -13,7 +13,6 @@ namespace Playcampus {
 
             String^ ObtenirIdEquipCapita(String^ correuCapita);
             void ValidarUsuariCapita(String^ correuCapita);
-            void AssegurarTaulaConvocatoria(MySqlConnection^ conn);
             bool PartitDisponiblePerEquip(String^ idPartit, String^ idEquip, MySqlConnection^ conn);
             bool JugadorPertanyAEquip(String^ idJugador, String^ idEquip, MySqlConnection^ conn);
             bool AssignacioJaExisteix(String^ idPartit, String^ idJugador, MySqlConnection^ conn);
