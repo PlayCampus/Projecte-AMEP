@@ -138,33 +138,6 @@ namespace Playcampus {
                 reader->Close();
 
                 detall["stats"] = "";
-                    "dataActualitzacio DATETIME NOT NULL)";
-                MySqlCommand^ cmdCreate = gcnew MySqlCommand(queryStatsTable, conn);
-                cmdCreate->ExecuteNonQuery();
-
-                String^ queryStats = "SELECT estadistiques FROM PartitEstadisticaIndividual WHERE idPartit = @idPartit LIMIT 1";
-                MySqlCommand^ cmdStats = gcnew MySqlCommand(queryStats, conn);
-                cmdStats->Parameters->AddWithValue("@idPartit", idPartit);
-                Object^ stats = cmdStats->ExecuteScalar();
-                detall["stats"] = (stats == nullptr || stats == DBNull::Value) ? "" : stats->ToString();
-                    "dataActualitzacio DATETIME NOT NULL)";
-                MySqlCommand^ cmdCreate = gcnew MySqlCommand(queryStatsTable, conn);
-                cmdCreate->ExecuteNonQuery();
-
-                String^ queryStats = "SELECT estadistiques FROM PartitEstadisticaIndividual WHERE idPartit = @idPartit LIMIT 1";
-                MySqlCommand^ cmdStats = gcnew MySqlCommand(queryStats, conn);
-                cmdStats->Parameters->AddWithValue("@idPartit", idPartit);
-                Object^ stats = cmdStats->ExecuteScalar();
-                detall["stats"] = (stats == nullptr || stats == DBNull::Value) ? "" : stats->ToString();
-                    "dataActualitzacio DATETIME NOT NULL)";
-                MySqlCommand^ cmdCreate = gcnew MySqlCommand(queryStatsTable, conn);
-                cmdCreate->ExecuteNonQuery();
-
-                String^ queryStats = "SELECT estadistiques FROM PartitEstadisticaIndividual WHERE idPartit = @idPartit LIMIT 1";
-                MySqlCommand^ cmdStats = gcnew MySqlCommand(queryStats, conn);
-                cmdStats->Parameters->AddWithValue("@idPartit", idPartit);
-                Object^ stats = cmdStats->ExecuteScalar();
-                detall["stats"] = (stats == nullptr || stats == DBNull::Value) ? "" : stats->ToString();
             }
             finally {
                 conn->Close();
@@ -267,14 +240,12 @@ namespace Playcampus {
                 String^ queryEquips = "SELECT idEquipLocal, idEquipVisitant FROM Partit WHERE idPartit = @idPartit LIMIT 1";
                 MySqlCommand^ cmdEquips = gcnew MySqlCommand(queryEquips, conn);
                 cmdEquips->Parameters->AddWithValue("@idPartit", idPartit);
-                // estadístiques individuals es guarden per jugador en format normalitzat
-                MySqlCommand^ cmdCreate = gcnew MySqlCommand(queryStatsTable, conn);
-                cmdCreate->ExecuteNonQuery();
-
-                String^ queryUpsertStats =
-                    "INSERT INTO PartitEstadisticaIndividual (idPartit, disciplina, estadistiques, dataActualitzacio) "
-                    "VALUES (@idPartit, @disciplina, @estadistiques, NOW()) "
-                    "ON DUPLICATE KEY UPDATE disciplina = VALUES(disciplina), estadistiques = VALUES(estadistiques), dataActualitzacio = NOW()";
+                String^ idEquipLocal = nullptr;
+                String^ idEquipVisitant = nullptr;
+                MySqlDataReader^ readerEquips = cmdEquips->ExecuteReader();
+                if (readerEquips->Read()) {
+                    idEquipLocal = readerEquips["idEquipLocal"]->ToString();
+                    idEquipVisitant = readerEquips["idEquipVisitant"]->ToString();
                 }
                 readerEquips->Close();
 
@@ -296,19 +267,7 @@ namespace Playcampus {
                 }
                 cmdPartit->ExecuteNonQuery();
 
-                String^ queryStatsTable =
-                    "CREATE TABLE IF NOT EXISTS PartitEstadisticaIndividual ("
-                    "idPartit VARCHAR(64) NOT NULL PRIMARY KEY, "
-                    "disciplina VARCHAR(30) NOT NULL, "
-                    "estadistiques LONGTEXT NULL, "
-                    "dataActualitzacio DATETIME NOT NULL)";
-                MySqlCommand^ cmdCreate = gcnew MySqlCommand(queryStatsTable, conn);
-                cmdCreate->ExecuteNonQuery();
-
-                String^ queryUpsertStats =
-                    "INSERT INTO PartitEstadisticaIndividual (idPartit, disciplina, estadistiques, dataActualitzacio) "
-                    "VALUES (@idPartit, @disciplina, @estadistiques, NOW()) "
-                    "ON DUPLICATE KEY UPDATE disciplina = VALUES(disciplina), estadistiques = VALUES(estadistiques), dataActualitzacio = NOW()";
+                // estadístiques individuals es guarden per jugador en format normalitzat
 
                 // Actualitzar Estadístiques Equip (només si l'estat és Finalitzat)
                 if (nouEstat == "Finalitzat" && estatAnterior != "Finalitzat" && idEquipLocal != nullptr && idEquipVisitant != nullptr) {

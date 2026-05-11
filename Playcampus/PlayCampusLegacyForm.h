@@ -3581,8 +3581,10 @@ namespace CppCLRWinFormsProject {
 	private: void CarregarDadesLligaDirecte(Playcampus::Domini::CtrlVeureEstadistiquesLliga^ ctrl, String^ idLliga) {
 		DataTable^ dtTemp = ctrl->ObtenirTemporadesLliga(idLliga);
 		cmbEstLligaTemporades->Items->Clear();
-		for (int i = 0; i < dtTemp->Rows->Count; i++)
-			cmbEstLligaTemporades->Items->Add(dtTemp->Rows[i]["NomTemporada"]->ToString());
+       for (int i = 0; i < dtTemp->Rows->Count; i++) {
+			DataRow^ row = dtTemp->Rows[i];
+			cmbEstLligaTemporades->Items->Add(row["NomTemporada"]->ToString());
+		}
 
 		if (cmbEstLligaTemporades->Items->Count > 0) {
 			cmbEstLligaTemporades->SelectedIndex = 0;
