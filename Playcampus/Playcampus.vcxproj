@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<?xml version='1.0' encoding='utf-8'?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -176,6 +176,66 @@
     <ClInclude Include="Form1.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="PlayCampusLegacyForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="LoginForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="RegistreUsuariForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="MenuPrincipalForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="ConsultarForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="CrearLligaForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="GestionarLligaForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="CrearPartitForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="EditarPartitForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="CrearTemporadaForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="CrearJornadaForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="EsborrarPartitForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="EnregistrarEquipForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="GestionarEquipForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="AfegirJugadorForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="AssignarJugadorPartitForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="UnirEquipLligaForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="EstadistiquesForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="EstadistiquesLligaForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="ConvocatoriaForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
   </ItemGroup>
@@ -225,6 +285,25 @@
     <ClCompile Include="Domini\Temporada.cxx" />
     <ClCompile Include="Domini\Usuari.cxx" />
     <ClCompile Include="Form1.cpp" />
+    <ClCompile Include="ConvocatoriaForm.cpp" />
+    <ClCompile Include="EstadistiquesLligaForm.cpp" />
+    <ClCompile Include="EstadistiquesForm.cpp" />
+    <ClCompile Include="UnirEquipLligaForm.cpp" />
+    <ClCompile Include="AssignarJugadorPartitForm.cpp" />
+    <ClCompile Include="AfegirJugadorForm.cpp" />
+    <ClCompile Include="GestionarEquipForm.cpp" />
+    <ClCompile Include="EnregistrarEquipForm.cpp" />
+    <ClCompile Include="EsborrarPartitForm.cpp" />
+    <ClCompile Include="CrearJornadaForm.cpp" />
+    <ClCompile Include="CrearTemporadaForm.cpp" />
+    <ClCompile Include="EditarPartitForm.cpp" />
+    <ClCompile Include="CrearPartitForm.cpp" />
+    <ClCompile Include="GestionarLligaForm.cpp" />
+    <ClCompile Include="CrearLligaForm.cpp" />
+    <ClCompile Include="ConsultarForm.cpp" />
+    <ClCompile Include="MenuPrincipalForm.cpp" />
+    <ClCompile Include="RegistreUsuariForm.cpp" />
+    <ClCompile Include="LoginForm.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
