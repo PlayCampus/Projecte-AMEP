@@ -1890,7 +1890,7 @@ namespace CppCLRWinFormsProject {
 
 	private: System::Void cmbRegTipus_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 		String^ tipus = cmbRegTipus->Text;
-		if (tipus == L"Capità" || tipus == L"Administrador") {
+		if (tipus == L"Capita" || tipus == L"Capità" || tipus == L"Administrador") {
 			lblRegTelefon->Visible = true;
 			txtRegTelefon->Visible = true;
 		}
