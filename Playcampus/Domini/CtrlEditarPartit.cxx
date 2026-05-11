@@ -137,20 +137,7 @@ namespace Playcampus {
                 detall["disciplina"] = reader["disciplina"]->ToString();
                 reader->Close();
 
-                String^ queryStatsTable =
-                    "CREATE TABLE IF NOT EXISTS PartitEstadisticaIndividual ("
-                    "idPartit VARCHAR(64) NOT NULL PRIMARY KEY, "
-                    "disciplina VARCHAR(30) NOT NULL, "
-                    "estadistiques LONGTEXT NULL, "
-                    "dataActualitzacio DATETIME NOT NULL)";
-                MySqlCommand^ cmdCreate = gcnew MySqlCommand(queryStatsTable, conn);
-                cmdCreate->ExecuteNonQuery();
-
-                String^ queryStats = "SELECT estadistiques FROM PartitEstadisticaIndividual WHERE idPartit = @idPartit LIMIT 1";
-                MySqlCommand^ cmdStats = gcnew MySqlCommand(queryStats, conn);
-                cmdStats->Parameters->AddWithValue("@idPartit", idPartit);
-                Object^ stats = cmdStats->ExecuteScalar();
-                detall["stats"] = (stats == nullptr || stats == DBNull::Value) ? "" : stats->ToString();
+                detall["stats"] = "";
             }
             finally {
                 conn->Close();
@@ -199,46 +186,24 @@ namespace Playcampus {
                 String^ nomEquipVisitant = readerPartit["nomEquipVisitant"]->ToString();
                 readerPartit->Close();
 
-                String^ queryCols =
-                    "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS "
-                    "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'Jugador'";
-                MySqlCommand^ cmdCols = gcnew MySqlCommand(queryCols, conn);
-                MySqlDataReader^ readerCols = cmdCols->ExecuteReader();
-
-                String^ colNom = nullptr;
-                String^ colEquip = nullptr;
-                while (readerCols->Read()) {
-                    String^ col = readerCols["COLUMN_NAME"]->ToString();
-                    String^ colLower = col->ToLowerInvariant();
-
-                    if (colNom == nullptr && (colLower == "nom" || colLower == "nomjugador" || colLower == "nom_jugador")) {
-                        colNom = col;
-                    }
-                    if (colEquip == nullptr && (colLower == "idequip" || colLower == "id_equip")) {
-                        colEquip = col;
-                    }
-                }
-                readerCols->Close();
-
-                if (String::IsNullOrEmpty(colNom) || String::IsNullOrEmpty(colEquip)) {
-                    return jugadors;
-                }
-
                 String^ queryJugadors =
-                    "SELECT " + colNom + " AS nomJugador, " + colEquip + " AS idEquip "
-                    "FROM Jugador "
-                    "WHERE " + colEquip + " IN (@idLocal, @idVisit) "
-                    "ORDER BY CASE WHEN " + colEquip + " = @idLocal THEN 0 ELSE 1 END, " + colNom;
+                    "SELECT u.nom AS nomJugador, j.idEquip, j.idJugador "
+                    "FROM Jugador j "
+                    "INNER JOIN Usuari u ON j.idJugador = u.identificador "
+                    "INNER JOIN ConvocatoriaPartit cp ON j.idJugador = cp.idJugador "
+                    "WHERE cp.idPartit = @idPartit AND cp.convocat = 1 "
+                    "ORDER BY CASE WHEN j.idEquip = @idLocal THEN 0 ELSE 1 END, u.nom";
 
                 MySqlCommand^ cmdJugadors = gcnew MySqlCommand(queryJugadors, conn);
+                cmdJugadors->Parameters->AddWithValue("@idPartit", idPartit);
                 cmdJugadors->Parameters->AddWithValue("@idLocal", idEquipLocal);
-                cmdJugadors->Parameters->AddWithValue("@idVisit", idEquipVisitant);
                 MySqlDataReader^ readerJugadors = cmdJugadors->ExecuteReader();
 
                 while (readerJugadors->Read()) {
                     String^ idEquip = readerJugadors["idEquip"]->ToString();
 
                     Dictionary<String^, String^>^ j = gcnew Dictionary<String^, String^>();
+                    j["idJugador"] = readerJugadors["idJugador"]->ToString();
                     j["nomJugador"] = readerJugadors["nomJugador"]->ToString();
                     j["equip"] = idEquip->Equals(idEquipLocal, StringComparison::OrdinalIgnoreCase) ? "Local" : "Visitant";
                     j["nomEquip"] = idEquip->Equals(idEquipLocal, StringComparison::OrdinalIgnoreCase) ? nomEquipLocal : nomEquipVisitant;
@@ -302,25 +267,7 @@ namespace Playcampus {
                 }
                 cmdPartit->ExecuteNonQuery();
 
-                String^ queryStatsTable =
-                    "CREATE TABLE IF NOT EXISTS PartitEstadisticaIndividual ("
-                    "idPartit VARCHAR(64) NOT NULL PRIMARY KEY, "
-                    "disciplina VARCHAR(30) NOT NULL, "
-                    "estadistiques LONGTEXT NULL, "
-                    "dataActualitzacio DATETIME NOT NULL)";
-                MySqlCommand^ cmdCreate = gcnew MySqlCommand(queryStatsTable, conn);
-                cmdCreate->ExecuteNonQuery();
-
-                String^ queryUpsertStats =
-                    "INSERT INTO PartitEstadisticaIndividual (idPartit, disciplina, estadistiques, dataActualitzacio) "
-                    "VALUES (@idPartit, @disciplina, @estadistiques, NOW()) "
-                    "ON DUPLICATE KEY UPDATE disciplina = VALUES(disciplina), estadistiques = VALUES(estadistiques), dataActualitzacio = NOW()";
-
-                MySqlCommand^ cmdStats = gcnew MySqlCommand(queryUpsertStats, conn);
-                cmdStats->Parameters->AddWithValue("@idPartit", idPartit);
-                cmdStats->Parameters->AddWithValue("@disciplina", disciplina);
-                cmdStats->Parameters->AddWithValue("@estadistiques", String::IsNullOrWhiteSpace(statsJson) ? "" : statsJson);
-                cmdStats->ExecuteNonQuery();
+                // estadístiques individuals es guarden per jugador en format normalitzat
 
                 // Actualitzar Estadístiques Equip (només si l'estat és Finalitzat)
                 if (nouEstat == "Finalitzat" && estatAnterior != "Finalitzat" && idEquipLocal != nullptr && idEquipVisitant != nullptr) {
@@ -385,6 +332,72 @@ namespace Playcampus {
                     cmdUpdateVisitant->Parameters->AddWithValue("@punts", puntsV);
 
                     cmdUpdateVisitant->ExecuteNonQuery();
+
+                    // Actualitzar estadístiques individuals dels jugadors segons el nou esquema
+                    if (!String::IsNullOrWhiteSpace(statsJson)) {
+                        cli::array<String^>^ lines = statsJson->Split(gcnew cli::array<wchar_t>{'\n'}, StringSplitOptions::RemoveEmptyEntries);
+                        if (lines->Length > 1) { // Header + data
+                            for (int i = 1; i < lines->Length; ++i) {
+                                cli::array<String^>^ fields = lines[i]->Trim()->Split(';');
+                                if (fields->Length >= 7) { // idJugador;NomJugador;equip;gols;assistencies;targetesGrogues;targetesVermelles
+                                    int idJugador = Int32::Parse(fields[0]);
+                                    String^ nomJugador = fields[1];
+                                    int gols = Int32::Parse(fields[3]);
+                                    int assistencies = Int32::Parse(fields[4]);
+                                    int targetesGrogues = Int32::Parse(fields[5]);
+                                    int targetesVermelles = Int32::Parse(fields[6]);
+
+                                    String^ queryPosicio = "SELECT posicio FROM Jugador WHERE idJugador = @idJugador LIMIT 1";
+                                    MySqlCommand^ cmdPosicio = gcnew MySqlCommand(queryPosicio, conn);
+                                    cmdPosicio->Parameters->AddWithValue("@idJugador", idJugador);
+                                    Object^ posicioObj = cmdPosicio->ExecuteScalar();
+                                    String^ posicio = (posicioObj == nullptr || posicioObj == DBNull::Value) ? "" : posicioObj->ToString();
+
+                                    String^ queryUpsertStats =
+                                        "INSERT INTO PartitEstadisticaIndividual (idPartit, disciplina, idJugador, nomJugador, posicio, "
+                                        "targetesgrogues, targetesvermelles, golsmarcat, asistencies, "
+                                        "targetesgroguesobtenides, targetesvermelllesobtenides, dataActualitzacio) "
+                                        "VALUES (@idPartit, @disciplina, @idJugador, @nomJugador, @posicio, "
+                                        "@targetesGrogues, @targetesVermelles, @gols, @assistencies, "
+                                        "@targetesGrogues, @targetesVermelles, NOW()) "
+                                        "ON DUPLICATE KEY UPDATE disciplina = VALUES(disciplina), nomJugador = VALUES(nomJugador), posicio = VALUES(posicio), "
+                                        "targetesgrogues = VALUES(targetesgrogues), targetesvermelles = VALUES(targetesvermelles), "
+                                        "golsmarcat = VALUES(golsmarcat), asistencies = VALUES(asistencies), "
+                                        "targetesgroguesobtenides = VALUES(targetesgroguesobtenides), targetesvermelllesobtenides = VALUES(targetesvermelllesobtenides), "
+                                        "dataActualitzacio = NOW()";
+
+                                    MySqlCommand^ cmdStats = gcnew MySqlCommand(queryUpsertStats, conn);
+                                    cmdStats->Parameters->AddWithValue("@idPartit", idPartit);
+                                    cmdStats->Parameters->AddWithValue("@disciplina", disciplina);
+                                    cmdStats->Parameters->AddWithValue("@idJugador", idJugador);
+                                    cmdStats->Parameters->AddWithValue("@nomJugador", nomJugador);
+                                    cmdStats->Parameters->AddWithValue("@posicio", posicio);
+                                    cmdStats->Parameters->AddWithValue("@targetesGrogues", targetesGrogues);
+                                    cmdStats->Parameters->AddWithValue("@targetesVermelles", targetesVermelles);
+                                    cmdStats->Parameters->AddWithValue("@gols", gols);
+                                    cmdStats->Parameters->AddWithValue("@assistencies", assistencies);
+                                    cmdStats->ExecuteNonQuery();
+
+                                    String^ queryUpdateJugador =
+                                        "UPDATE Jugador SET "
+                                        "partitsJugats = partitsJugats + 1, "
+                                        "anotacions = anotacions + @gols, "
+                                        "assistencies = assistencies + @assistencies, "
+                                        "faltesLleus = faltesLleus + @targetesGrogues, "
+                                        "faltesGreus = faltesGreus + @targetesVermelles "
+                                        "WHERE idJugador = @idJugador";
+
+                                    MySqlCommand^ cmdUpdateJugador = gcnew MySqlCommand(queryUpdateJugador, conn);
+                                    cmdUpdateJugador->Parameters->AddWithValue("@idJugador", idJugador);
+                                    cmdUpdateJugador->Parameters->AddWithValue("@gols", gols);
+                                    cmdUpdateJugador->Parameters->AddWithValue("@assistencies", assistencies);
+                                    cmdUpdateJugador->Parameters->AddWithValue("@targetesGrogues", targetesGrogues);
+                                    cmdUpdateJugador->Parameters->AddWithValue("@targetesVermelles", targetesVermelles);
+                                    cmdUpdateJugador->ExecuteNonQuery();
+                                }
+                            }
+                        }
+                    }
                 } else if (nouEstat == "Pendent" || nouEstat == "En curs" || nouEstat == "En joc") {
                     // Update per canvis de gols mentres el partit encara NO s'ha finalitzat i s'afegeixen gols
                     int addGolsLocal = resultatLocal - golsLocalAnterior;

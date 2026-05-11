@@ -31,7 +31,7 @@ namespace Playcampus {
             // Permetem tornar a inscriure un usuari que ja Ã©s de tipus Jugador perÃ² no estÃ  vinculat a cap equip
             // (p.ex. desprÃ©s d'haver estat expulsat). En aquest cas, es crearÃ  un nou registre a la taula Jugador.
             if (usuariEstudiant->GetTipus() != "Estudiant" && usuariEstudiant->GetTipus() != "Jugador") {
-                throw gcnew Exception("L'usuari no Ã©s de tipus Estudiant ni Jugador.");
+                throw gcnew Exception("L'usuari no és de tipus Estudiant ni Jugador.");
             }
 
             // Cercar el capta per obtenir l'idEquip
@@ -42,7 +42,7 @@ namespace Playcampus {
             }
 
             if (usuariCapita->GetTipus() != "Capita") {
-                throw gcnew Exception("L'usuari no Ã©s de tipus Capita.");
+                throw gcnew Exception("L'usuari no és de tipus Capita.");
             }
 
             // Obtenir l'idEquip del capta (necesita consulta a BD)
@@ -71,7 +71,7 @@ namespace Playcampus {
             }
 
             if (String::IsNullOrWhiteSpace(idEquip)) {
-                throw gcnew Exception("El capta no tÃ© equip assignat.");
+                throw gcnew Exception("El capta no té equip assignat.");
             }
 
             // Verificar que l'equip existeix (evitar errors de clau forana)
@@ -84,7 +84,7 @@ namespace Playcampus {
                     cmdEquip->Parameters->AddWithValue("@idEquip", idEquip);
                     int existeix = Convert::ToInt32(cmdEquip->ExecuteScalar());
                     if (existeix <= 0) {
-                        throw gcnew Exception("L'equip associat al capitÃ  no existeix o no Ã©s vÃ lid.");
+                        throw gcnew Exception("L'equip associat al capità  no existeix o no és vàlid.");
                     }
                 }
                 finally {

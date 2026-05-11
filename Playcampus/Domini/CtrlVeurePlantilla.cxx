@@ -25,7 +25,7 @@ namespace Playcampus {
             PassarellaUsuari^ usuariCapita = cercadoraUser->LlegeixPerCorreu(correuCapita);
 
             if (usuariCapita == nullptr || usuariCapita->GetTipus() != "Capita") {
-                throw gcnew Exception("L'usuari no Ã©s completament vÃ lid per consultar l'equip.");
+                throw gcnew Exception("L'usuari no és completament vàlid per consultar l'equip.");
             }
 
             // Get team using id
@@ -53,7 +53,7 @@ namespace Playcampus {
             }
 
             if (String::IsNullOrWhiteSpace(idEquip)) {
-                throw gcnew Exception("El capitÃ  no tÃ© equip assignat.");
+                throw gcnew Exception("El capità  no té equip assignat.");
             }
 
             // Get team players
