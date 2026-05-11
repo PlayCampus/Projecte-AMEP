@@ -137,16 +137,7 @@ namespace Playcampus {
                 detall["disciplina"] = reader["disciplina"]->ToString();
                 reader->Close();
 
-                String^ queryStatsTable =
-                    "CREATE TABLE IF NOT EXISTS PartitEstadisticaIndividual ("
-                    "idPartit VARCHAR(64) NOT NULL PRIMARY KEY, "
-                    "disciplina VARCHAR(30) NOT NULL, "
-                    "estadistiques LONGTEXT NULL, "
-                    "dataActualitzacio DATETIME NOT NULL)";
-                MySqlCommand^ cmdCreate = gcnew MySqlCommand(queryStatsTable, conn);
-                cmdCreate->ExecuteNonQuery();
-
-                String^ queryStats = "SELECT estadistiques FROM PartitEstadisticaIndividual WHERE idPartit = @idPartit LIMIT 1";
+                String^ queryStats = "SELECT GROUP_CONCAT(CONCAT(nomJugador, ':', targetesgrogues, ':', targetesvermelles) SEPARATOR ';') FROM PartitEstadisticaIndividual WHERE idPartit = @idPartit LIMIT 1";
                 MySqlCommand^ cmdStats = gcnew MySqlCommand(queryStats, conn);
                 cmdStats->Parameters->AddWithValue("@idPartit", idPartit);
                 Object^ stats = cmdStats->ExecuteScalar();
@@ -302,15 +293,8 @@ namespace Playcampus {
                 }
                 cmdPartit->ExecuteNonQuery();
 
-                String^ queryStatsTable =
-                    "CREATE TABLE IF NOT EXISTS PartitEstadisticaIndividual ("
-                    "idPartit VARCHAR(64) NOT NULL PRIMARY KEY, "
-                    "disciplina VARCHAR(30) NOT NULL, "
-                    "estadistiques LONGTEXT NULL, "
-                    "dataActualitzacio DATETIME NOT NULL)";
-                MySqlCommand^ cmdCreate = gcnew MySqlCommand(queryStatsTable, conn);
-                cmdCreate->ExecuteNonQuery();
-
+                // Dades d'estadístiques del partit (per ser inserides en la taula PartitEstadisticaIndividual)
+                // La taula es crea via script SQL
                 String^ queryUpsertStats =
                     "INSERT INTO PartitEstadisticaIndividual (idPartit, disciplina, estadistiques, dataActualitzacio) "
                     "VALUES (@idPartit, @disciplina, @estadistiques, NOW()) "
