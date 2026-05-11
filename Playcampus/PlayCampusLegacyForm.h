@@ -316,6 +316,25 @@ namespace CppCLRWinFormsProject {
 
 		String^ currentIdLligaEstadistiques; // Per guardar la ID de la lliga cercada
 
+	// NOU: Components per al panell d'edició de partits
+	private: System::Windows::Forms::Panel^ pnlEditarPartit;
+	private: System::Windows::Forms::Label^ lblEditarPartitTitle;
+	private: System::Windows::Forms::ComboBox^ cmbPartitsAEditar;
+	private: System::Windows::Forms::Label^ lblPartitsAEditar;
+	private: System::Windows::Forms::DataGridView^ dgvEstadistiquesJugadors;
+	private: System::Windows::Forms::Button^ btnGuardarEstadistiques;
+	private: System::Windows::Forms::Button^ btnTornarEditarPartit;
+	private: System::Windows::Forms::Label^ lblResultatLocal;
+	private: System::Windows::Forms::TextBox^ txtResultatLocal;
+	private: System::Windows::Forms::Label^ lblResultatVisitant;
+	private: System::Windows::Forms::TextBox^ txtResultatVisitant;
+	private: System::Windows::Forms::Label^ lblEstatPartit;
+	private: System::Windows::Forms::ComboBox^ cmbEstatPartit;
+	private: System::Windows::Forms::Label^ lblDataPartit;
+	private: System::Windows::Forms::DateTimePicker^ dtpDataPartit;
+	private: System::Collections::Generic::Dictionary<String^, String^>^ partitPerId;
+
+
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -1430,6 +1449,89 @@ namespace CppCLRWinFormsProject {
 				this->picLogoEst->ImageLocation = logoPath;
 			}
 
+			// NOU: Inicialització del panell d'edició de partits
+			this->pnlEditarPartit = gcnew System::Windows::Forms::Panel();
+			this->lblEditarPartitTitle = gcnew System::Windows::Forms::Label();
+			this->cmbPartitsAEditar = gcnew System::Windows::Forms::ComboBox();
+			this->lblPartitsAEditar = gcnew System::Windows::Forms::Label();
+			this->dgvEstadistiquesJugadors = gcnew System::Windows::Forms::DataGridView();
+			this->btnGuardarEstadistiques = gcnew System::Windows::Forms::Button();
+			this->btnTornarEditarPartit = gcnew System::Windows::Forms::Button();
+			this->lblResultatLocal = gcnew System::Windows::Forms::Label();
+			this->txtResultatLocal = gcnew System::Windows::Forms::TextBox();
+			this->lblResultatVisitant = gcnew System::Windows::Forms::Label();
+			this->txtResultatVisitant = gcnew System::Windows::Forms::TextBox();
+			this->lblEstatPartit = gcnew System::Windows::Forms::Label();
+			this->cmbEstatPartit = gcnew System::Windows::Forms::ComboBox();
+			this->lblDataPartit = gcnew System::Windows::Forms::Label();
+			this->dtpDataPartit = gcnew System::Windows::Forms::DateTimePicker();
+			this->partitPerId = gcnew System::Collections::Generic::Dictionary<String^, String^>();
+
+			this->pnlEditarPartit->SuspendLayout();
+			this->SuspendLayout();
+
+			// Configuració del panell
+			this->pnlEditarPartit->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->pnlEditarPartit->Visible = false;
+			this->pnlEditarPartit->Controls->Add(this->lblEditarPartitTitle);
+			this->pnlEditarPartit->Controls->Add(this->lblPartitsAEditar);
+			this->pnlEditarPartit->Controls->Add(this->cmbPartitsAEditar);
+			this->pnlEditarPartit->Controls->Add(this->dgvEstadistiquesJugadors);
+			this->pnlEditarPartit->Controls->Add(this->btnGuardarEstadistiques);
+			this->pnlEditarPartit->Controls->Add(this->btnTornarEditarPartit);
+			this->pnlEditarPartit->Controls->Add(this->lblResultatLocal);
+			this->pnlEditarPartit->Controls->Add(this->txtResultatLocal);
+			this->pnlEditarPartit->Controls->Add(this->lblResultatVisitant);
+			this->pnlEditarPartit->Controls->Add(this->txtResultatVisitant);
+			this->pnlEditarPartit->Controls->Add(this->lblEstatPartit);
+			this->pnlEditarPartit->Controls->Add(this->cmbEstatPartit);
+			this->pnlEditarPartit->Controls->Add(this->lblDataPartit);
+			this->pnlEditarPartit->Controls->Add(this->dtpDataPartit);
+
+			// Títol
+			this->lblEditarPartitTitle->Text = L"Editar Partit i Estadístiques";
+			this->lblEditarPartitTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16, System::Drawing::FontStyle::Bold);
+			this->lblEditarPartitTitle->AutoSize = true;
+
+			// Label i ComboBox per seleccionar partit
+			this->lblPartitsAEditar->Text = L"Selecciona un partit:";
+			this->lblPartitsAEditar->AutoSize = true;
+			this->cmbPartitsAEditar->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cmbPartitsAEditar->Size = System::Drawing::Size(400, 21);
+			this->cmbPartitsAEditar->SelectedIndexChanged += gcnew System::EventHandler(this, &PlayCampusLegacyForm::cmbPartitsAEditar_SelectedIndexChanged);
+
+			// Resultats i Estat
+			this->lblResultatLocal->Text = L"Gols Local:";
+			this->txtResultatLocal->Size = System::Drawing::Size(50, 20);
+			this->lblResultatVisitant->Text = L"Gols Visitant:";
+			this->txtResultatVisitant->Size = System::Drawing::Size(50, 20);
+			this->lblEstatPartit->Text = L"Estat:";
+			this->cmbEstatPartit->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cmbEstatPartit->Items->AddRange(gcnew cli::array< System::Object^  >(5) { L"Pendent", L"En joc", L"Finalitzat", L"Aplaçat", L"Cancel·lat" });
+			this->cmbEstatPartit->SelectedIndexChanged += gcnew System::EventHandler(this, &PlayCampusLegacyForm::cmbEstatPartit_SelectedIndexChanged);
+
+			// Data partit (per si s'aplaça)
+			this->lblDataPartit->Text = L"Nova data:";
+			this->dtpDataPartit->Format = System::Windows::Forms::DateTimePickerFormat::Custom;
+			this->dtpDataPartit->CustomFormat = L"yyyy-MM-dd HH:mm:ss";
+			this->dtpDataPartit->Visible = false;
+			this->lblDataPartit->Visible = false;
+
+			// DataGridView per a les estadístiques
+			this->dgvEstadistiquesJugadors->AllowUserToAddRows = false;
+			this->dgvEstadistiquesJugadors->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+
+			// Botons
+			this->btnGuardarEstadistiques->Text = L"Guardar Canvis";
+			this->btnGuardarEstadistiques->Click += gcnew System::EventHandler(this, &PlayCampusLegacyForm::btnGuardarEstadistiques_Click);
+			this->btnTornarEditarPartit->Text = L"Tornar";
+			this->btnTornarEditarPartit->Click += gcnew System::EventHandler(this, &PlayCampusLegacyForm::btnTornarEditarPartit_Click);
+
+			this->Controls->Add(this->pnlEditarPartit);
+			this->pnlEditarPartit->ResumeLayout(false);
+			this->pnlEditarPartit->PerformLayout();
+			this->ResumeLayout(false);
+
 		}
 #pragma endregion
 
@@ -1782,8 +1884,42 @@ namespace CppCLRWinFormsProject {
 			// Ponemos el botón de la Liga exactamente debajo del de Equipos
 			this->btnEstLliga->Location = System::Drawing::Point(this->btnEstEquips->Location.X, this->btnEstEquips->Location.Y + this->btnEstEquips->Height + 20);
 		}
-		
-		
+
+		// NOU: Posicionament del panell d'edició de partits
+		if (this->pnlEditarPartit->Visible) {
+			int startX = 50;
+			int startY = 30;
+			this->btnTornarEditarPartit->Location = System::Drawing::Point(startX, startY);
+			this->lblEditarPartitTitle->Location = System::Drawing::Point(centerX - this->lblEditarPartitTitle->Width / 2, startY);
+
+			startY += 60;
+			this->lblPartitsAEditar->Location = System::Drawing::Point(startX, startY);
+			this->cmbPartitsAEditar->Location = System::Drawing::Point(startX + 120, startY);
+
+           startY += 40;
+          this->lblResultatLocal->Location = System::Drawing::Point(startX, startY);
+			this->txtResultatLocal->Location = System::Drawing::Point(startX + 120, startY);
+			this->txtResultatLocal->Size = System::Drawing::Size(60, this->txtResultatLocal->Height);
+			this->lblResultatVisitant->Location = System::Drawing::Point(startX + 220, startY);
+			this->txtResultatVisitant->Location = System::Drawing::Point(startX + 360, startY);
+			this->txtResultatVisitant->Size = System::Drawing::Size(60, this->txtResultatVisitant->Height);
+
+			startY += 40;
+            this->lblEstatPartit->Location = System::Drawing::Point(startX, startY);
+			this->cmbEstatPartit->Location = System::Drawing::Point(startX + 120, startY);
+			this->cmbEstatPartit->Size = System::Drawing::Size(220, this->cmbEstatPartit->Height);
+
+           this->lblDataPartit->Location = System::Drawing::Point(startX + 380, startY);
+			this->dtpDataPartit->Location = System::Drawing::Point(startX + 490, startY);
+			this->dtpDataPartit->Size = System::Drawing::Size(200, this->dtpDataPartit->Height);
+
+			startY += 40;
+			this->dgvEstadistiquesJugadors->Location = System::Drawing::Point(startX, startY);
+			this->dgvEstadistiquesJugadors->Size = System::Drawing::Size(cw - 100, ch - startY - 100);
+
+			this->btnGuardarEstadistiques->Location = System::Drawing::Point(centerX - this->btnGuardarEstadistiques->Width / 2, ch - 70);
+		}
+
 	}
 
 	private: System::Void btnUnirEquipLligaAct_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1999,6 +2135,138 @@ namespace CppCLRWinFormsProject {
 			MessageBox::Show(L"Error en iniciar sessió: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
+
+	// NOU: Mètodes per gestionar el panell d'edició de partits
+	private: System::Void MostrarPantallaEditarPartit() {
+		pnlGestionarLliga->Visible = false;
+		pnlEditarPartit->Visible = true;
+		pnlEditarPartit->BringToFront();
+
+		try {
+			Playcampus::Domini::CtrlEditarPartit^ ctrl = gcnew Playcampus::Domini::CtrlEditarPartit();
+			String^ nomLliga = ctrl->ObtenirNomLligaAdmin(currentUsuariCorreu);
+			if (String::IsNullOrEmpty(nomLliga)) {
+				MessageBox::Show(L"No s'ha trobat cap lliga per a aquest administrador.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+
+			auto partits = ctrl->ObtenirPartitsPerLliga(nomLliga, currentUsuariCorreu);
+			cmbPartitsAEditar->Items->Clear();
+			partitPerId->Clear();
+
+			for each (auto partit in partits) {
+				String^ displayText = String::Format("{0} vs {1} ({2})", partit["equipLocal"], partit["equipVisitant"], partit["dataHora"]);
+				cmbPartitsAEditar->Items->Add(displayText);
+				partitPerId[displayText] = partit["idPartit"];
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error al carregar els partits: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+		Form1_Resize(nullptr, nullptr);
+	}
+
+	private: System::Void cmbPartitsAEditar_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (cmbPartitsAEditar->SelectedIndex == -1) return;
+
+		String^ selectedDisplayText = cmbPartitsAEditar->SelectedItem->ToString();
+		String^ idPartit = partitPerId[selectedDisplayText];
+
+		try {
+			Playcampus::Domini::CtrlEditarPartit^ ctrl = gcnew Playcampus::Domini::CtrlEditarPartit();
+			auto detallPartit = ctrl->ObtenirDetallPartit(idPartit, currentUsuariCorreu);
+
+			txtResultatLocal->Text = detallPartit["golsLocal"];
+			txtResultatVisitant->Text = detallPartit["golsVisitant"];
+           int idxEstat = cmbEstatPartit->FindStringExact(detallPartit["estat"]);
+			cmbEstatPartit->SelectedIndex = (idxEstat >= 0) ? idxEstat : -1;
+
+			auto jugadors = ctrl->ObtenirJugadorsPartit(idPartit, currentUsuariCorreu);
+			dgvEstadistiquesJugadors->Columns->Clear();
+			dgvEstadistiquesJugadors->DataSource = nullptr;
+
+			DataTable^ dt = gcnew DataTable();
+			dt->Columns->Add("idJugador");
+			dt->Columns->Add("Nom Jugador");
+			dt->Columns->Add("Equip");
+			dt->Columns->Add("Gols", System::Int32::typeid);
+			dt->Columns->Add("Assistencies", System::Int32::typeid);
+			dt->Columns->Add("Targetes Grogues", System::Int32::typeid);
+			dt->Columns->Add("Targetes Vermelles", System::Int32::typeid);
+
+			for each (auto jugador in jugadors) {
+				dt->Rows->Add(jugador["idJugador"], jugador["nomJugador"], jugador["nomEquip"], 0, 0, 0, 0);
+			}
+
+			dgvEstadistiquesJugadors->DataSource = dt;
+			dgvEstadistiquesJugadors->Columns["idJugador"]->Visible = false;
+			dgvEstadistiquesJugadors->Columns["Nom Jugador"]->ReadOnly = true;
+			dgvEstadistiquesJugadors->Columns["Equip"]->ReadOnly = true;
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error al carregar els detalls del partit: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
+
+	private: System::Void btnGuardarEstadistiques_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (cmbPartitsAEditar->SelectedIndex == -1) {
+			MessageBox::Show(L"Selecciona un partit primer.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		String^ selectedDisplayText = cmbPartitsAEditar->SelectedItem->ToString();
+		String^ idPartit = partitPerId[selectedDisplayText];
+		String^ nouEstat = cmbEstatPartit->SelectedItem->ToString();
+		int golsLocal;
+		int golsVisitant;
+
+		if (!Int32::TryParse(txtResultatLocal->Text, golsLocal) || !Int32::TryParse(txtResultatVisitant->Text, golsVisitant)) {
+			MessageBox::Show(L"Els resultats han de ser números enters.", L"Error de validació", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
+		}
+
+		System::Text::StringBuilder^ statsCsv = gcnew System::Text::StringBuilder();
+		statsCsv->AppendLine("idJugador;NomJugador;equip;gols;assistencies;targetesGrogues;targetesVermelles");
+
+		for each (DataGridViewRow^ row in dgvEstadistiquesJugadors->Rows) {
+			if (row->IsNewRow) continue;
+			String^ idJugador = row->Cells["idJugador"]->Value->ToString();
+			String^ nom = row->Cells["Nom Jugador"]->Value->ToString();
+			String^ equip = row->Cells["Equip"]->Value->ToString();
+			int gols = Convert::ToInt32(row->Cells["Gols"]->Value);
+			int assist = Convert::ToInt32(row->Cells["Assistencies"]->Value);
+			int tg = Convert::ToInt32(row->Cells["Targetes Grogues"]->Value);
+			int tv = Convert::ToInt32(row->Cells["Targetes Vermelles"]->Value);
+			statsCsv->AppendFormat("{0};{1};{2};{3};{4};{5};{6}\n", idJugador, nom, equip, gols, assist, tg, tv);
+		}
+
+		Nullable<DateTime> novaData;
+		if (nouEstat == "Aplaçat") {
+			novaData = dtpDataPartit->Value;
+		}
+
+		try {
+			Playcampus::Domini::CtrlEditarPartit^ ctrl = gcnew Playcampus::Domini::CtrlEditarPartit();
+			ctrl->ActualitzarPartitIStats(idPartit, nouEstat, golsLocal, golsVisitant, statsCsv->ToString(), currentUsuariCorreu, novaData);
+			MessageBox::Show(L"Partit i estadístiques actualitzats correctament.", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			btnTornarEditarPartit_Click(nullptr, nullptr);
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error al guardar les dades: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
+
+	private: System::Void btnTornarEditarPartit_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlEditarPartit->Visible = false;
+		pnlGestionarLliga->Visible = true;
+	}
+
+	private: System::Void cmbEstatPartit_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		bool esAplacat = cmbEstatPartit->SelectedItem->ToString() == "Aplaçat";
+		lblDataPartit->Visible = esAplacat;
+		dtpDataPartit->Visible = esAplacat;
+	}
+
 
 	private: System::Void btnRegAct_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ nom = txtRegNom->Text;
@@ -2252,6 +2520,8 @@ namespace CppCLRWinFormsProject {
 		}
 
 		private: System::Void btnGLEditarPartit_Click(System::Object^ sender, System::EventArgs^ e) {
+           MostrarPantallaEditarPartit();
+			return;
 			try {
                 Playcampus::Domini::CtrlEditarPartit^ ctrl = gcnew Playcampus::Domini::CtrlEditarPartit();
 
