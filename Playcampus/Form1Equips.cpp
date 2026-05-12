@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include "Form1Equips.h"
+#include "EditarJugadorForm.h"
 
 namespace CppCLRWinFormsProject {
 
@@ -312,27 +313,76 @@ System::Void Form1::btnGEEditarJugador_Click(System::Object^ sender, System::Eve
 	}
 
 	if (dgvPlantilla->SelectedRows == nullptr || dgvPlantilla->SelectedRows->Count == 0) {
-		MessageBox::Show(L"Selecciona un jugador de la plantilla.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		MessageBox::Show(L"Selecciona un jugador de la plantilla per editar.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		return;
 	}
 
 	DataGridViewRow^ row = dgvPlantilla->SelectedRows[0];
+
+	// Obtener los datos del jugador de la fila seleccionada
 	String^ idJugador = nullptr;
-	if (dgvPlantilla->Columns->Contains("IdJugador") && row->Cells["IdJugador"]->Value != nullptr) {
-		idJugador = row->Cells["IdJugador"]->Value->ToString();
-	}
+	String^ nomJugador = nullptr;
+	int dorsal = 0;
+	String^ posicio = nullptr;
 
-	if (String::IsNullOrWhiteSpace(idJugador)) {
-		MessageBox::Show(L"No s'ha pogut obtenir l'IdJugador de la fila seleccionada.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		return;
-	}
+	try {
+		if (dgvPlantilla->Columns->Contains("IdJugador") && row->Cells["IdJugador"]->Value != nullptr) {
+			idJugador = row->Cells["IdJugador"]->Value->ToString();
+		}
 
-	String^ nomJugador = L"";
-	if (dgvPlantilla->Columns->Contains("Nom") && row->Cells["Nom"]->Value != nullptr) {
-		nomJugador = row->Cells["Nom"]->Value->ToString();
-	}
+		if (dgvPlantilla->Columns->Contains("Nom") && row->Cells["Nom"]->Value != nullptr) {
+			nomJugador = row->Cells["Nom"]->Value->ToString();
+		}
 
-	MessageBox::Show(L"Funcionalitat en desenvolupament.", L"Informació", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		if (dgvPlantilla->Columns->Contains("Dorsal") && row->Cells["Dorsal"]->Value != nullptr) {
+			dorsal = Convert::ToInt32(row->Cells["Dorsal"]->Value);
+		}
+
+		if (dgvPlantilla->Columns->Contains("Posició") && row->Cells["Posició"]->Value != nullptr) {
+			posicio = row->Cells["Posició"]->Value->ToString();
+		}
+
+		// Validar datos mínimos
+		if (String::IsNullOrWhiteSpace(idJugador) || String::IsNullOrWhiteSpace(nomJugador)) {
+			MessageBox::Show(L"No s'ha pogut obtenir l'informació del jugador seleccionat.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
+		}
+
+		// Crear y mostrar el formulario de edición
+		EditarJugadorForm^ frmEditar = gcnew EditarJugadorForm(idJugador, nomJugador, dorsal, posicio);
+
+		if (frmEditar->ShowDialog(this) == System::Windows::Forms::DialogResult::OK) {
+			// Obtener los valores editados del formulario
+			int dorsalEditat = frmEditar->JugadorDorsal;
+			String^ posicioEditada = frmEditar->JugadorPosicio;
+
+			// Mostrar los datos capturados (posterior implementación guardará estos datos)
+			String^ missatgeConfirmacio = L"Jugador: " + nomJugador + 
+											L"\nDorsal: " + dorsalEditat.ToString() + 
+											L"\nPosició: " + (String::IsNullOrEmpty(posicioEditada) ? L"(no especificada)" : posicioEditada);
+
+			MessageBox::Show(missatgeConfirmacio, L"Dades a guardar", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+			// PRÓXIMA FASE: Aquí se guardarían los cambios en la base de datos
+			// try {
+			//     Playcampus::Domini::CtrlEditarJugador^ ctrlEditar = gcnew Playcampus::Domini::CtrlEditarJugador();
+			//     String^ resultat = ctrlEditar->EditarJugador(currentUsuariCorreu, idJugador, dorsalEditat, posicioEditada);
+			//     MessageBox::Show(resultat, L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			//     
+			//     Playcampus::Domini::CtrlVeurePlantilla^ ctrlVP = gcnew Playcampus::Domini::CtrlVeurePlantilla();
+			//     dgvPlantilla->DataSource = ctrlVP->ObtenirPlantillaEquip(currentUsuariCorreu);
+			//     if (dgvPlantilla->Columns->Contains("IdJugador")) {
+			//         dgvPlantilla->Columns["IdJugador"]->Visible = false;
+			//     }
+			// }
+			// catch (Exception^ ex) {
+			//     MessageBox::Show(L"Error al guardar les dades: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			// }
+		}
+	}
+	catch (Exception^ ex) {
+		MessageBox::Show(L"Error al editar el jugador: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
 }
 
 System::Void Form1::btnAJConfirmar_Click(System::Object^ sender, System::EventArgs^ e) {
