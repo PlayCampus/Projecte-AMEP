@@ -290,22 +290,15 @@ namespace CppCLRWinFormsProject {
 	}
 
 	System::Void Form1::btnEstJugadors_Click(System::Object^ sender, System::EventArgs^ e) {
-		// Mostrar un mensaje informativo (como alternativa mientras se desarrolla la funcionalidad completa)
-		// O abrir un formulario/panel de estadísticas de jugadores
-
-		// Temporalmente, mostrar información
 		try {
-			Playcampus::Domini::CtrlVeureEstadistiquesJugadors^ ctrl = gcnew Playcampus::Domini::CtrlVeureEstadistiquesJugadors();
+			// Crear instancia del formulario de estadísticas de jugadores
+			EstadistiquesJugadorsForm^ estadistiquesForm = gcnew EstadistiquesJugadorsForm();
 
-			// Obtener datos de jugadores para el equipo del capitán
-			// Esto puede expandirse según la estructura de datos disponible
-			MessageBox::Show(L"Estadístiques dels Jugadors\n\nFuncionalitat en desenvolupament.", 
-						   L"Estadístiques Jugadors", 
-						   MessageBoxButtons::OK, 
-						   MessageBoxIcon::Information);
+			// Mostrar el formulario de forma modal sobre el formulario principal
+			estadistiquesForm->ShowDialog(this);
 		}
 		catch (Exception^ ex) {
-			MessageBox::Show(L"Error carregant les estadístiques dels jugadors: " + ex->Message, 
+			MessageBox::Show(L"Error obrint las estadístiques dels jugadors: " + ex->Message, 
 						   L"Error", 
 						   MessageBoxButtons::OK, 
 						   MessageBoxIcon::Error);

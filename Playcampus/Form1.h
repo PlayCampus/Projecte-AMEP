@@ -23,6 +23,7 @@
 #include "Domini/CtlrConvocarJugadors.hxx"
 #include "Domini/Administrador.hxx"
 #include "Domini/CtrlRetirarTemporada.hxx"
+#include "EstadistiquesJugadorsForm.h"
 
 namespace CppCLRWinFormsProject {
 
