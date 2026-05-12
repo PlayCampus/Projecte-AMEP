@@ -14,6 +14,7 @@ namespace CppCLRWinFormsProject {
 		this->components = gcnew System::ComponentModel::Container();
 		this->Size = System::Drawing::Size(600, 500);
 		this->Text = L"Playcampus";
+     this->Icon = gcnew System::Drawing::Icon(L"imatges\\logo.ico");
 		this->Padding = System::Windows::Forms::Padding(0);
 		this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 		this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
