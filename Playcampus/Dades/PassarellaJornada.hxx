@@ -39,6 +39,8 @@ namespace Playcampus {
             void Insereix();
 
             static void ActualitzarEstats(String^ connString);
+
+            void RetirarJornadesTemporada(String^ idTemp);
         };
     }
 }
