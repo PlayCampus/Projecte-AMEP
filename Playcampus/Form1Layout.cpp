@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Form1Layout.h"
 
 namespace CppCLRWinFormsProject {
@@ -22,23 +22,23 @@ System::Void Form1::Form1_Resize(System::Object^ sender, System::EventArgs^ e) {
 		int centerX = cw / 2;
 		int centerY = ch / 2;
 
-		// 1. DISSENY DEL MEN� PRINCIPAL (Bot� del Capit�)
+		// 1. DISSENY DEL MENÚ PRINCIPAL (Botó del Capità)
 		int startBtnX = (this->ClientSize.Width - 800) / 2; // Punt de partida centrat
 
 		if (this->btnGestionarConvocatoria != nullptr && pnlMain->Visible) {
-			// El posem al costat dels altres botons del capit�. Ajusta el '600' i '80' si se superposen.
+			// El posem al costat dels altres botons del capità. Ajusta el '600' i '80' si se superposen.
 			this->btnGestionarConvocatoria->Location = System::Drawing::Point(startBtnX + 600, 80);
 			this->btnGestionarConvocatoria->Size = System::Drawing::Size(180, 40);
 		}
 
-		// 2. DISSENY DEL PANELL DE CONVOCAT�RIES
+		// 2. DISSENY DEL PANELL DE CONVOCATÒRIES
 		if (this->pnlConvocatoria != nullptr && this->pnlConvocatoria->Visible) {
-			// Ocupa gaireb� tota la pantalla
+			// Ocupa gairebé tota la pantalla
 			this->pnlConvocatoria->Location = System::Drawing::Point(0, 140);
 			this->pnlConvocatoria->Size = System::Drawing::Size(this->ClientSize.Width, this->ClientSize.Height - 140);
 			this->pnlConvocatoria->BackColor = System::Drawing::Color::WhiteSmoke;
 
-			// Bot� Tornar
+			// Botó Tornar
 			if (this->btnTornarConvocatoria != nullptr) {
 				this->btnTornarConvocatoria->Location = System::Drawing::Point(20, 10);
 				this->btnTornarConvocatoria->Size = System::Drawing::Size(120, 30);
@@ -58,7 +58,7 @@ System::Void Form1::Form1_Resize(System::Object^ sender, System::EventArgs^ e) {
 			}
 		}
 
-		// 3. DISSENY DEL CARTELL DEL JUGADOR (Si est� actiu)
+		// 3. DISSENY DEL CARTELL DEL JUGADOR (Si està actiu)
 		if (this->pnlAvisJugador != nullptr && pnlMain->Controls->Contains(pnlAvisJugador)) {
 			// El centrem just al mig del panell principal
 			this->pnlAvisJugador->Location = System::Drawing::Point(
@@ -179,15 +179,15 @@ System::Void Form1::Form1_Resize(System::Object^ sender, System::EventArgs^ e) {
 		this->picLogoGL->Location = System::Drawing::Point(centerX - (this->picLogoGL->Width / 2), glStartY - this->picLogoGL->Height - 40);
 
 		// --- PANEL CREAR PARTIT ---
-		this->lblCPTitle->Location = System::Drawing::Point(centerX - this->lblCPTitle->Width / 2, 10); // M�s arriba
+		this->lblCPTitle->Location = System::Drawing::Point(centerX - this->lblCPTitle->Width / 2, 10); // Más arriba
 
 		int cpStartX = centerX - 160;
-		int cpStartY = centerY - 150; // Empezamos m�s arriba
+		int cpStartY = centerY - 150; // Empezamos más arriba
 
 		// 1. Liga
 		this->lblCPNomLliga->Location = System::Drawing::Point(cpStartX, cpStartY);
 		this->txtCPNomLliga->Location = System::Drawing::Point(cpStartX + 120, cpStartY);
-		// Bot�n de validaci�n a un lado
+		// Botón de validación a un lado
 		this->btnCPValidarLliga->Location = System::Drawing::Point(cpStartX + 230, cpStartY - 3);
 
 		// 2. Temporada
@@ -202,7 +202,7 @@ System::Void Form1::Form1_Resize(System::Object^ sender, System::EventArgs^ e) {
 		this->lblCPData->Location = System::Drawing::Point(cpStartX, cpStartY + 120);
 		this->dtpCPData->Location = System::Drawing::Point(cpStartX + 120, cpStartY + 120);
 
-		// 5. Ubicaci�
+		// 5. Ubicació
 		this->lblCPUbicacio->Location = System::Drawing::Point(cpStartX, cpStartY + 160);
 		this->txtCPUbicacio->Location = System::Drawing::Point(cpStartX + 120, cpStartY + 160);
 
@@ -213,7 +213,7 @@ System::Void Form1::Form1_Resize(System::Object^ sender, System::EventArgs^ e) {
 		this->lblCPEquipVisitant->Location = System::Drawing::Point(cpStartX, cpStartY + 240);
 		this->cmbCPEquipVisitant->Location = System::Drawing::Point(cpStartX + 120, cpStartY + 240);
 
-		// 7. Botones confirmaci�n
+		// 7. Botones confirmación
 		this->btnCPConfirmar->Location = System::Drawing::Point(cpStartX + 20, cpStartY + 290);
 		this->btnCPCancellar->Location = System::Drawing::Point(cpStartX + 140, cpStartY + 290);
 
@@ -351,12 +351,12 @@ System::Void Form1::Form1_Resize(System::Object^ sender, System::EventArgs^ e) {
 		this->btnCJCancellar->Size = System::Drawing::Size(100, 30);
 
 		if (this->btnEstEquips != nullptr) {
-			// Centramos el bot�n de Equipos (un poco m�s arriba del centro de la pantalla)
+			// Centramos el botón de Equipos (un poco más arriba del centro de la pantalla)
 			this->btnEstEquips->Location = System::Drawing::Point(centerX - (this->btnEstEquips->Width / 2), centerY - 60);
 		}
 
 		if (this->btnEstLliga != nullptr && this->btnEstEquips != nullptr) {
-			// Ponemos el bot�n de la Liga exactamente debajo del de Equipos
+			// Ponemos el botón de la Liga exactamente debajo del de Equipos
 			this->btnEstLliga->Location = System::Drawing::Point(this->btnEstEquips->Location.X, this->btnEstEquips->Location.Y + this->btnEstEquips->Height + 20);
 		}
 		

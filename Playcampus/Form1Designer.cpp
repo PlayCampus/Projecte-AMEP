@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Form1Designer.h"
 
 namespace CppCLRWinFormsProject {
@@ -33,7 +33,7 @@ void Form1::InitializeComponent(void) {
 			this->picLogoInici->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->picLogoInici->Size = System::Drawing::Size(150, 150);
 
-			this->btnShowLogin->Text = L"Iniciar Sessi�";
+			this->btnShowLogin->Text = L"Iniciar Sessió";
 			this->btnShowLogin->Location = System::Drawing::Point(100, 100);
 			this->btnShowLogin->Size = System::Drawing::Size(200, 40);
 			this->btnShowLogin->Click += gcnew System::EventHandler(this, &Form1::btnShowLogin_Click);
@@ -68,7 +68,7 @@ void Form1::InitializeComponent(void) {
 			this->picLogoLogin->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->picLogoLogin->Size = System::Drawing::Size(150, 150);
 
-			this->lblLoginTitle->Text = L"Iniciar Sessi�";
+			this->lblLoginTitle->Text = L"Iniciar Sessió";
 			this->lblLoginTitle->Location = System::Drawing::Point(150, 20);
 
 			this->lblLoginUsuari->Text = L"Correu";
@@ -174,7 +174,7 @@ void Form1::InitializeComponent(void) {
 			this->cmbRegTipus->Size = System::Drawing::Size(150, 20);
 			this->cmbRegTipus->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbRegTipus_SelectedIndexChanged);
 
-			this->lblRegTelefon->Text = L"Tel�fon";
+			this->lblRegTelefon->Text = L"Telèfon";
 			this->lblRegTelefon->Location = System::Drawing::Point(50, 190);
 			this->lblRegTelefon->Size = System::Drawing::Size(100, 20);
 			this->lblRegTelefon->Visible = false;
@@ -227,7 +227,7 @@ void Form1::InitializeComponent(void) {
 			this->lblMainTitle->Location = System::Drawing::Point(230, 20);
 			this->lblMainTitle->AutoSize = true;
 
-			this->btnProgPartits->Text = L"Programaci� de partits";
+			this->btnProgPartits->Text = L"Programació de partits";
 			this->btnProgPartits->Location = System::Drawing::Point(20, 60);
 		 this->btnProgPartits->Size = System::Drawing::Size(130, 40);
 			this->btnProgPartits->Click += gcnew System::EventHandler(this, &Form1::btnProgPartits_Click);
@@ -237,7 +237,7 @@ void Form1::InitializeComponent(void) {
 			this->btnEstatLligues->Size = System::Drawing::Size(130, 40);
 			this->btnEstatLligues->Click += gcnew System::EventHandler(this, &Form1::btnEstatLligues_Click);
 
-			this->btnEstadistiques->Text = L"Estad�stiques";
+			this->btnEstadistiques->Text = L"Estadístiques";
 			this->btnEstadistiques->Location = System::Drawing::Point(300, 60);
 			this->btnEstadistiques->Size = System::Drawing::Size(130, 40);
 			this->btnEstadistiques->Click += gcnew System::EventHandler(this, &Form1::btnEstadistiquesMenu_Click);
@@ -251,14 +251,14 @@ void Form1::InitializeComponent(void) {
 			this->picImatge->Location = System::Drawing::Point(20, 120);
 			this->picImatge->Size = System::Drawing::Size(550, 200);
 
-			this->lblNoticies->Text = L"Not�cies Generals";
+			this->lblNoticies->Text = L"Notícies Generals";
 			this->lblNoticies->Location = System::Drawing::Point(20, 330);
 			this->lblNoticies->AutoSize = true;
 
 			this->lstNoticies->Location = System::Drawing::Point(20, 350);
 			this->lstNoticies->Size = System::Drawing::Size(550, 80);
 
-			this->btnLogoutMainMenu->Text = L"Tancar Sessi�";
+			this->btnLogoutMainMenu->Text = L"Tancar Sessió";
 			this->btnLogoutMainMenu->Location = System::Drawing::Point(470, 20);
 			this->btnLogoutMainMenu->Size = System::Drawing::Size(100, 25);
 			this->btnLogoutMainMenu->Click += gcnew System::EventHandler(this, &Form1::btnLogout_Click);
@@ -483,11 +483,11 @@ void Form1::InitializeComponent(void) {
 			this->picLogoEst->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->picLogoEst->Size = System::Drawing::Size(150, 100);
 
-			this->lblEstTitle->Text = L"Estad�stiques";
+			this->lblEstTitle->Text = L"Estadístiques";
 			this->lblEstTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
 			this->lblEstTitle->AutoSize = true;
 
-			this->btnEstEquips->Text = L"Estad�stiques equips";
+			this->btnEstEquips->Text = L"Estadístiques equips";
 			this->btnEstEquips->Size = System::Drawing::Size(220, 60);
 			this->btnEstEquips->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
 			this->btnEstEquips->Cursor = System::Windows::Forms::Cursors::Hand;
@@ -543,7 +543,7 @@ void Form1::InitializeComponent(void) {
 			this->btnGLEsborrarPartit->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->btnGLEsborrarPartit->Click += gcnew System::EventHandler(this, &Form1::btnGLEsborrarPartit_Click);
 
-			// --- A�adir todos los controles al Panel ---
+			// --- Añadir todos los controles al Panel ---
 			this->pnlCrearPartit->Controls->Add(this->lblCPTitle);
 			this->pnlCrearPartit->Controls->Add(this->lblCPNomLliga);     // AFEGIT
 			this->pnlCrearPartit->Controls->Add(this->txtCPNomLliga);     // AFEGIT
@@ -593,7 +593,7 @@ void Form1::InitializeComponent(void) {
 			this->dtpCPData->Size = System::Drawing::Size(150, 20);
 			this->dtpCPData->Format = System::Windows::Forms::DateTimePickerFormat::Short;
 
-			this->lblCPUbicacio->Text = L"Ubicaci�:";
+			this->lblCPUbicacio->Text = L"Ubicació:";
 			this->lblCPUbicacio->Size = System::Drawing::Size(100, 20);
 			this->txtCPUbicacio->Size = System::Drawing::Size(150, 20);
 
@@ -611,7 +611,7 @@ void Form1::InitializeComponent(void) {
 			this->btnCPConfirmar->Size = System::Drawing::Size(100, 30);
 			this->btnCPConfirmar->Click += gcnew System::EventHandler(this, &Form1::btnCPConfirmar_Click);
 
-			this->btnCPCancellar->Text = L"Cancel�lar";
+			this->btnCPCancellar->Text = L"Cancel·lar";
 			this->btnCPCancellar->Size = System::Drawing::Size(100, 30);
 			this->btnCPCancellar->Click += gcnew System::EventHandler(this, &Form1::btnCPCancellar_Click);
 
@@ -657,7 +657,7 @@ void Form1::InitializeComponent(void) {
 			this->btnCTConfirmar->Text = L"Confirmar";
 			this->btnCTConfirmar->Click += gcnew System::EventHandler(this, &Form1::btnCTConfirmar_Click);
 
-			this->btnCTCancellar->Text = L"Cancel�lar";
+			this->btnCTCancellar->Text = L"Cancel·lar";
 			this->btnCTCancellar->Click += gcnew System::EventHandler(this, &Form1::btnCTCancellar_Click);
 
 			this->Controls->Add(this->pnlCrearTemporada);
@@ -712,7 +712,7 @@ void Form1::InitializeComponent(void) {
 			this->lblCJTemporada->Text = L"Temporada:";
 			this->cmbCJTemporada->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 
-			this->lblCJNumero->Text = L"N�mero Jornada:";
+			this->lblCJNumero->Text = L"Número Jornada:";
 
 			this->lblCJDataInici->Text = L"Data d'Inici:";
 			this->dtpCJDataInici->Format = System::Windows::Forms::DateTimePickerFormat::Short;
@@ -723,7 +723,7 @@ void Form1::InitializeComponent(void) {
 			this->btnCJConfirmar->Text = L"Confirmar";
 			this->btnCJConfirmar->Click += gcnew System::EventHandler(this, &Form1::btnCJConfirmar_Click);
 
-			this->btnCJCancellar->Text = L"Cancel�lar";
+			this->btnCJCancellar->Text = L"Cancel·lar";
 			this->btnCJCancellar->Click += gcnew System::EventHandler(this, &Form1::btnCJCancellar_Click);
 
 			// AFEGIR pnlCrearJornada AL FORMULARi
@@ -762,7 +762,7 @@ void Form1::InitializeComponent(void) {
 
 			this->txtEENom->Size = System::Drawing::Size(150, 20);
 
-			this->lblEEData->Text = L"Data Fundaci�:";
+			this->lblEEData->Text = L"Data Fundació:";
 			this->lblEEData->Size = System::Drawing::Size(100, 20);
 
 			this->dtpEEData->Size = System::Drawing::Size(150, 20);
@@ -887,7 +887,7 @@ void Form1::InitializeComponent(void) {
 
 			this->txtAJDorsal->Size = System::Drawing::Size(200, 20);
 
-			this->lblAJPosicio->Text = L"Posici� (Opcional):";
+			this->lblAJPosicio->Text = L"Posició (Opcional):";
 			this->lblAJPosicio->Size = System::Drawing::Size(120, 20);
 
 			this->txtAJPosicio->Size = System::Drawing::Size(200, 20);
@@ -896,7 +896,7 @@ void Form1::InitializeComponent(void) {
 			this->btnAJConfirmar->Size = System::Drawing::Size(100, 30);
 			this->btnAJConfirmar->Click += gcnew System::EventHandler(this, &Form1::btnAJConfirmar_Click);
 
-			this->btnAJCancellar->Text = L"Cancel�lar";
+			this->btnAJCancellar->Text = L"Cancel·lar";
 			this->btnAJCancellar->Size = System::Drawing::Size(100, 30);
 			this->btnAJCancellar->Click += gcnew System::EventHandler(this, &Form1::btnAJCancellar_Click);
 
@@ -995,7 +995,7 @@ void Form1::InitializeComponent(void) {
 			this->pnlEsborrarPartit->Controls->Add(this->cmbEPPartits);
 			this->pnlEsborrarPartit->Controls->Add(this->btnEPEsborrarFinal);
 
-			this->lblEPTitle->Text = L"Esborrar Partit - Selecci�";
+			this->lblEPTitle->Text = L"Esborrar Partit - Selecció";
 			this->lblEPTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
 			this->lblEPTitle->AutoSize = true;
 
@@ -1031,24 +1031,24 @@ void Form1::InitializeComponent(void) {
 			this->Controls->Add(this->pnlEsborrarPartit);
 
 			this->btnEstLliga = gcnew System::Windows::Forms::Button();
-			this->btnEstLliga->Text = L"Estad�stiques Lliga";
+			this->btnEstLliga->Text = L"Estadístiques Lliga";
 			this->btnEstLliga->Size = System::Drawing::Size(220, 60);
 			this->btnEstLliga->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
 			this->btnEstLliga->Cursor = System::Windows::Forms::Cursors::Hand;
 
-			// Posici�n inicial fija
+			// Posición inicial fija
 			this->btnEstLliga->Location = System::Drawing::Point(190, 230);
 
 			this->btnEstLliga->Click += gcnew System::EventHandler(this, &Form1::btnEstLliga_Click);
 			this->pnlEstadistiques->Controls->Add(this->btnEstLliga);
 
-			// 2. Panel de Detalle (el que se abre al pulsar el bot�n)
+			// 2. Panel de Detalle (el que se abre al pulsar el botón)
 			this->pnlEstadistiquesLligaDetail = gcnew System::Windows::Forms::Panel();
 			this->pnlEstadistiquesLligaDetail->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->pnlEstadistiquesLligaDetail->Visible = false;
 			this->pnlEstadistiquesLligaDetail->BackColor = System::Drawing::Color::White;
 
-			// 3. Elementos de B�squeda (Estudiante)
+			// 3. Elementos de Búsqueda (Estudiante)
 			this->lblEstLligaBuscar = gcnew System::Windows::Forms::Label();
 			this->lblEstLligaBuscar->Text = L"Escriu el nom de la Lliga:";
 			this->lblEstLligaBuscar->Location = System::Drawing::Point(50, 40);
@@ -1082,7 +1082,7 @@ void Form1::InitializeComponent(void) {
 			this->dgvEstLligaClassificacio->ReadOnly = true;
 			this->dgvEstLligaClassificacio->AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode::Fill;
 
-			// 5. Bot�n Volver
+			// 5. Botón Volver
 			this->btnEstLligaTornar = gcnew System::Windows::Forms::Button();
 			this->btnEstLligaTornar->Text = L"<- Tornar";
 			this->btnEstLligaTornar->Location = System::Drawing::Point(50, 490);

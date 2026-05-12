@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Form1Consultes.h"
 
 namespace CppCLRWinFormsProject {
@@ -76,7 +76,7 @@ System::Void Form1::MostrarConsultaGeneral(System::String^ titol, System::Data::
 System::Void Form1::btnProgPartits_Click(System::Object^ sender, System::EventArgs^ e) {
 		try {
 			Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
-			MostrarConsultaGeneral(L"Programaci� de partits", ctrl->ObtenirProgramacioPartits());
+			MostrarConsultaGeneral(L"Programació de partits", ctrl->ObtenirProgramacioPartits());
 		}
 		catch (Exception^ ex) {
 			MessageBox::Show(L"Error carregant la programacio de partits: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);

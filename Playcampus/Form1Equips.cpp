@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Form1Equips.h"
 
 namespace CppCLRWinFormsProject {
@@ -40,7 +40,7 @@ System::Void Form1::btnGETornar_Click(System::Object^ sender, System::EventArgs^
 	}
 
 System::Void Form1::btnGEEsborrarEquip_Click(System::Object^ sender, System::EventArgs^ e) {
-		System::Windows::Forms::DialogResult result = MessageBox::Show(L"Est�s segur que vols esborrar l'equip?", L"Esborrar Equip", MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
+		System::Windows::Forms::DialogResult result = MessageBox::Show(L"Estàs segur que vols esborrar l'equip?", L"Esborrar Equip", MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
 		if (result == System::Windows::Forms::DialogResult::Yes) {
 			try {
 				Playcampus::Domini::CtrlEsborrarEquip^ ctrlEsborrar = gcnew Playcampus::Domini::CtrlEsborrarEquip();
@@ -58,7 +58,7 @@ System::Void Form1::btnGEEsborrarEquip_Click(System::Object^ sender, System::Eve
 
 System::Void Form1::btnGEAssignarJugador_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (currentUsuariTipus == nullptr || currentUsuariTipus->ToLower() != L"capita") {
-			MessageBox::Show(L"Nom�s els capitans poden accedir a aquesta funcionalitat.", L"Acc�s denegat", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show(L"Només els capitans poden accedir a aquesta funcionalitat.", L"Accés denegat", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
@@ -66,13 +66,13 @@ System::Void Form1::btnGEAssignarJugador_Click(System::Object^ sender, System::E
 			Playcampus::Domini::CtrlAssignarJugador^ ctrlAssignar = gcnew Playcampus::Domini::CtrlAssignarJugador();
 			auto partits = ctrlAssignar->ObtenirPartitsDisponibles(currentUsuariCorreu);
 			if (partits->Count == 0) {
-				MessageBox::Show(L"No hi ha partits no finalitzats disponibles per al teu equip.", L"Informaci�", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				MessageBox::Show(L"No hi ha partits no finalitzats disponibles per al teu equip.", L"Informació", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				return;
 			}
 
 			auto jugadors = ctrlAssignar->ObtenirJugadorsEquip(currentUsuariCorreu);
 			if (jugadors->Count == 0) {
-				MessageBox::Show(L"El teu equip no t� jugadors disponibles.", L"Informaci�", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				MessageBox::Show(L"El teu equip no té jugadors disponibles.", L"Informació", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				return;
 			}
 
@@ -126,7 +126,7 @@ System::Void Form1::btnGEAssignarJugador_Click(System::Object^ sender, System::E
 			btnConfirmar->Size = System::Drawing::Size(85, 30);
 
 			Button^ btnCancelar = gcnew Button();
-			btnCancelar->Text = L"Cancel�lar";
+			btnCancelar->Text = L"Cancel·lar";
 			btnCancelar->DialogResult = System::Windows::Forms::DialogResult::Cancel;
 			btnCancelar->Location = System::Drawing::Point(615, 170);
 			btnCancelar->Size = System::Drawing::Size(85, 30);
@@ -142,13 +142,13 @@ System::Void Form1::btnGEAssignarJugador_Click(System::Object^ sender, System::E
 
 			if (frmAssignar->ShowDialog(this) == System::Windows::Forms::DialogResult::OK) {
 				if (cmbPartits->SelectedIndex < 0 || cmbJugadors->SelectedIndex < 0) {
-					MessageBox::Show(L"Cal seleccionar un partit i un jugador.", L"Av�s", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					MessageBox::Show(L"Cal seleccionar un partit i un jugador.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				}
 				else {
 					String^ idPartit = partits[cmbPartits->SelectedIndex]->default["idPartit"];
 					String^ idJugador = jugadors[cmbJugadors->SelectedIndex]->default["idJugador"];
 					String^ resultat = ctrlAssignar->AssignarJugador(currentUsuariCorreu, idPartit, idJugador);
-					MessageBox::Show(resultat, L"�xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					MessageBox::Show(resultat, L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				}
 			}
 		}
@@ -167,12 +167,12 @@ System::Void Form1::btnGEAfegirJugador_Click(System::Object^ sender, System::Eve
 
 System::Void Form1::btnGEEliminarJugador_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (currentUsuariTipus == nullptr || currentUsuariTipus->ToLower() != L"capita") {
-			MessageBox::Show(L"Nom�s els capitans poden accedir a aquesta funcionalitat.", L"Acc�s denegat", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show(L"Només els capitans poden accedir a aquesta funcionalitat.", L"Accés denegat", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
 		if (dgvPlantilla->SelectedRows == nullptr || dgvPlantilla->SelectedRows->Count == 0) {
-			MessageBox::Show(L"Selecciona un jugador de la plantilla.", L"Av�s", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show(L"Selecciona un jugador de la plantilla.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
@@ -194,7 +194,7 @@ System::Void Form1::btnGEEliminarJugador_Click(System::Object^ sender, System::E
 
 		System::Windows::Forms::DialogResult confirmacio = MessageBox::Show(
 			L"Vols eliminar/expulsar el jugador '" + nomJugador + L"' de l'equip?",
-			L"Confirmaci�",
+			L"Confirmació",
 			MessageBoxButtons::YesNo,
 			MessageBoxIcon::Warning);
 
@@ -205,7 +205,7 @@ System::Void Form1::btnGEEliminarJugador_Click(System::Object^ sender, System::E
 		try {
 			Playcampus::Domini::CtrlEliminarJugador^ ctrlEliminar = gcnew Playcampus::Domini::CtrlEliminarJugador();
 			String^ resultat = ctrlEliminar->EliminarJugador(currentUsuariCorreu, idJugador);
-			MessageBox::Show(resultat, L"�xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			MessageBox::Show(resultat, L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
 			Playcampus::Domini::CtrlVeurePlantilla^ ctrlVP = gcnew Playcampus::Domini::CtrlVeurePlantilla();
 			dgvPlantilla->DataSource = ctrlVP->ObtenirPlantillaEquip(currentUsuariCorreu);
@@ -230,7 +230,7 @@ System::Void Form1::btnAJConfirmar_Click(System::Object^ sender, System::EventAr
 
 		int dorsal = 0;
 		if (!Int32::TryParse(dorsalText, dorsal) || dorsal < 0) {
-			MessageBox::Show(L"El dorsal ha de ser un n�mero enter positiu.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show(L"El dorsal ha de ser un número enter positiu.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
@@ -238,7 +238,7 @@ System::Void Form1::btnAJConfirmar_Click(System::Object^ sender, System::EventAr
 			Playcampus::Domini::CtrlAfegirJugador^ ctrlAfegir = gcnew Playcampus::Domini::CtrlAfegirJugador();
 			String^ resultat = ctrlAfegir->AfegirJugador(correuEstudiant, dorsal, posicioText, currentUsuariCorreu);
 
-			MessageBox::Show(resultat, L"�xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			MessageBox::Show(resultat, L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
           Playcampus::Domini::CtrlVeurePlantilla^ ctrlVP = gcnew Playcampus::Domini::CtrlVeurePlantilla();
 			dgvPlantilla->DataSource = ctrlVP->ObtenirPlantillaEquip(currentUsuariCorreu);
@@ -456,7 +456,7 @@ System::Void Form1::btnGLEsborrarEquip_Click(System::Object^ sender, System::Eve
 
 					System::Windows::Forms::DialogResult confirmacio = MessageBox::Show(
 						L"Vols treure l'equip '" + nomEquip + L"' de la lliga?",
-						L"Confirmaci�",
+						L"Confirmació",
 						MessageBoxButtons::YesNo,
 						MessageBoxIcon::Warning);
 

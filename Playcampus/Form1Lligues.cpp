@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Form1Lligues.h"
 
 namespace CppCLRWinFormsProject {
@@ -51,12 +51,12 @@ System::Void Form1::btnCLGuarda_Click(System::Object^ sender, System::EventArgs^
 
 		try {
 			Playcampus::Domini::CtrlCrearLliga^ ctrlCrear = gcnew Playcampus::Domini::CtrlCrearLliga();
-			// El m�tode CrearLliga requereix: idLliga, nom, disciplina, descripcio, contrasenya, tipusUsuari, correuUsuari
+			// El mètode CrearLliga requereix: idLliga, nom, disciplina, descripcio, contrasenya, tipusUsuari, correuUsuari
 			// Generem un ID aleatori o utilitzem el nom com a ID base per fer-ho simple.
 			String^ idLliga = "L-" + Guid::NewGuid().ToString()->Substring(0, 8);
 
 			ctrlCrear->CrearLliga(idLliga, nom, disc, L"Nova Lliga " + nom, pass, currentUsuariTipus, currentUsuariCorreu);
-			MessageBox::Show(L"Lliga creada correctament!", L"�xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			MessageBox::Show(L"Lliga creada correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			
 			btnCrearLligaMainMenu->Text = L"Gestionar Lliga";
 

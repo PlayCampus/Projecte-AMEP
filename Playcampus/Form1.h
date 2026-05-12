@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Domini/CtrlIniciSessio.hxx"
 #include "Domini/CtrlTancarSessio.hxx"
 #include "Domini/CtrlRegistrarUsuari.hxx"

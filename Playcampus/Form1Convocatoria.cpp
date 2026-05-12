@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Form1Convocatoria.h"
 
 namespace CppCLRWinFormsProject {
@@ -50,7 +50,7 @@ System::Void Form1::cbPartitsConvocatoria_SelectedIndexChanged(System::Object^ s
 		try {
 			String^ idPartit = convocatoriaPartitIds[cbPartitsConvocatoria->SelectedIndex];
 
-			// Necessitem l'equip del capit�
+			// Necessitem l'equip del capità
 			Playcampus::Domini::CtrlIniciSessio^ ctrlInici = gcnew Playcampus::Domini::CtrlIniciSessio();
 			String^ idEquip = ctrlInici->ObtenirIdEquipDeCapita(currentUsuariCorreu);
 
@@ -60,9 +60,9 @@ System::Void Form1::cbPartitsConvocatoria_SelectedIndexChanged(System::Object^ s
 			dgvConvocatoria->Columns->Clear();
 			dgvConvocatoria->Columns->Add("ID", "ID Jugador");
 			dgvConvocatoria->Columns->Add("Nom", "Nom");
-			dgvConvocatoria->Columns->Add("Pos", "Posici�");
-			dgvConvocatoria->Columns->Add("Estat", "Estat Convocat�ria");
-			dgvConvocatoria->Columns->Add("Conf", "Confirmaci�");
+			dgvConvocatoria->Columns->Add("Pos", "Posició");
+			dgvConvocatoria->Columns->Add("Estat", "Estat Convocatòria");
+			dgvConvocatoria->Columns->Add("Conf", "Confirmació");
 
 			dgvConvocatoria->Columns["ID"]->Visible = false; // Ocultem l'ID
 
@@ -102,26 +102,26 @@ System::Void Form1::MostrarAvisJugador(String^ missatge) {
 		if (pnlAvisJugador != nullptr) pnlMain->Controls->Remove(pnlAvisJugador);
 
 		pnlAvisJugador = gcnew System::Windows::Forms::Panel();
-		// 1. FEM EL PANELL M�S ALT (Abans era 150, ara 220)
+		// 1. FEM EL PANELL MÉS ALT (Abans era 150, ara 220)
 		pnlAvisJugador->Size = System::Drawing::Size(500, 220);
 		pnlAvisJugador->BackColor = System::Drawing::Color::LightYellow;
 		pnlAvisJugador->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 
-		// 2. EL POSEM A DALT A L'ESQUERRA (Marge de 20 p�xels perqu� no toqui la vora)
+		// 2. EL POSEM A DALT A L'ESQUERRA (Marge de 20 píxels perquè no toqui la vora)
 		pnlAvisJugador->Location = System::Drawing::Point(20, 20);
 
 		System::Windows::Forms::Label^ lblMissatge = gcnew System::Windows::Forms::Label();
 		lblMissatge->Text = missatge;
-		// 3. FEM L'ESPAI DEL TEXT M�S GRAN (Abans era 80, ara 140)
+		// 3. FEM L'ESPAI DEL TEXT MÉS GRAN (Abans era 80, ara 140)
 		lblMissatge->Size = System::Drawing::Size(480, 140);
-		lblMissatge->Location = System::Drawing::Point(10, 10); // Una mica m�s amunt
+		lblMissatge->Location = System::Drawing::Point(10, 10); // Una mica més amunt
 		lblMissatge->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 		lblMissatge->Font = gcnew System::Drawing::Font("Arial", 11, System::Drawing::FontStyle::Bold);
 
 		System::Windows::Forms::Button^ btnSi = gcnew System::Windows::Forms::Button();
-		btnSi->Text = L"S�, hi anir�";
+		btnSi->Text = L"Sí, hi aniré";
 		btnSi->Size = System::Drawing::Size(100, 35);
-		// 4. BAIXEM ELS BOTONS PERQU� NO TREPITGIN EL TEXT (Abans Y era 100, ara 160)
+		// 4. BAIXEM ELS BOTONS PERQUÈ NO TREPITGIN EL TEXT (Abans Y era 100, ara 160)
 		btnSi->Location = System::Drawing::Point(140, 160);
 		btnSi->BackColor = System::Drawing::Color::LightGreen;
 		btnSi->Click += gcnew System::EventHandler(this, &Form1::btnConfirmarSi_Click);
@@ -129,7 +129,7 @@ System::Void Form1::MostrarAvisJugador(String^ missatge) {
 		System::Windows::Forms::Button^ btnNo = gcnew System::Windows::Forms::Button();
 		btnNo->Text = L"No puc";
 		btnNo->Size = System::Drawing::Size(100, 35);
-		// BAIXEM TAMB� AQUEST BOT� (Y = 160)
+		// BAIXEM TAMBÉ AQUEST BOTÓ (Y = 160)
 		btnNo->Location = System::Drawing::Point(260, 160);
 		btnNo->BackColor = System::Drawing::Color::Salmon;
 		btnNo->Click += gcnew System::EventHandler(this, &Form1::btnConfirmarNo_Click);
@@ -153,7 +153,7 @@ System::Void Form1::btnConfirmarNo_Click(System::Object^ sender, System::EventAr
 System::Void Form1::ProcessarConfirmacio(bool assisteix) {
 		try {
 			Playcampus::Domini::CtrlIniciSessio^ ctrlInici = gcnew Playcampus::Domini::CtrlIniciSessio();
-			String^ idJugador = ctrlInici->ObtenirIdUsuari(currentUsuariCorreu); // Necessites aquest m�tode
+			String^ idJugador = ctrlInici->ObtenirIdUsuari(currentUsuariCorreu); // Necessites aquest mètode
 
 			Playcampus::Domini::CtlrConvocarJugadors^ ctrl = gcnew Playcampus::Domini::CtlrConvocarJugadors();
 			ctrl->ConfirmarAssistencia(idPartitPendentConfirmar, idJugador, assisteix);

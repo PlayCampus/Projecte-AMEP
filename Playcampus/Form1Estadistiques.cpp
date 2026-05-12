@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Form1Estadistiques.h"
 
 namespace CppCLRWinFormsProject {
@@ -23,7 +23,7 @@ System::Void Form1::btnEstTornar_Click(System::Object^ sender, System::EventArgs
 System::Void Form1::btnEstadistiques_Click(System::Object^ sender, System::EventArgs^ e) {
 		try {
 			Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
-			MostrarConsultaGeneral(L"Estad�stiques equips", ctrl->ObtenirEstadistiquesEquips());
+			MostrarConsultaGeneral(L"Estadístiques equips", ctrl->ObtenirEstadistiquesEquips());
 		}
 		catch (Exception^ ex) {
 			MessageBox::Show(L"Error carregant les estadistiques: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
@@ -38,7 +38,7 @@ System::Void Form1::btnEstLliga_Click(System::Object^ sender, System::EventArgs^
 		Playcampus::Domini::CtrlVeureEstadistiquesLliga^ ctrl = gcnew Playcampus::Domini::CtrlVeureEstadistiquesLliga();
 		String^ idLligaFound = nullptr;
 
-		// 1. Comprovem si �s un Administrador fent servir la teva variable de sessi�
+		// 1. Comprovem si és un Administrador fent servir la teva variable de sessió
 		if (currentUsuariTipus != nullptr && currentUsuariTipus == "Administrador") {
 			lblEstLligaBuscar->Visible = false;
 			txtEstLligaBuscar->Visible = false;
@@ -47,7 +47,7 @@ System::Void Form1::btnEstLliga_Click(System::Object^ sender, System::EventArgs^
 			// Passem el correu (o el que tinguis guardat) per buscar la seva lliga
 			idLligaFound = ctrl->ObtenirIdLligaAdmin(currentUsuariCorreu);
 		}
-		// 2. Comprovem si �s un Capit�
+		// 2. Comprovem si és un Capità
 		else if (currentUsuariTipus != nullptr && currentUsuariTipus == "Capita") {
 			lblEstLligaBuscar->Visible = false;
 			txtEstLligaBuscar->Visible = false;
@@ -56,7 +56,7 @@ System::Void Form1::btnEstLliga_Click(System::Object^ sender, System::EventArgs^
 			// Passem el correu per buscar la lliga del seu equip
 			idLligaFound = ctrl->ObtenirIdLligaCapita(currentUsuariCorreu);
 		}
-		// 3. Si �s Estudiant (o no hi ha sessi�)
+		// 3. Si és Estudiant (o no hi ha sessió)
 		else {
 			lblEstLligaBuscar->Visible = true;
 			txtEstLligaBuscar->Visible = true;
@@ -66,10 +66,10 @@ System::Void Form1::btnEstLliga_Click(System::Object^ sender, System::EventArgs^
 			cmbEstLligaTemporades->Visible = false;
 			dgvEstLligaClassificacio->Visible = false;
 
-			return; // Parem aqu� perqu� l'estudiant ha de teclejar i buscar manualment
+			return; // Parem aquí perquè l'estudiant ha de teclejar i buscar manualment
 		}
 
-		// Si hem arribat aqu� (sent Admin o Capit�), carreguem la taula autom�ticament
+		// Si hem arribat aquí (sent Admin o Capità), carreguem la taula automàticament
 		if (idLligaFound != nullptr) {
 			currentIdLligaEstadistiques = idLligaFound;
 			CarregarDadesLligaDirecte(ctrl, idLligaFound);

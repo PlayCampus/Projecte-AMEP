@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Form1Auth.h"
 
 namespace CppCLRWinFormsProject {
@@ -27,7 +27,7 @@ System::Void Form1::btnShowRegisterFromLogin_Click(System::Object^ sender, Syste
 
 System::Void Form1::cmbRegTipus_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 		String^ tipus = cmbRegTipus->Text;
-		if (tipus == L"Capit�" || tipus == L"Administrador") {
+		if (tipus == L"Capità" || tipus == L"Administrador") {
 			lblRegTelefon->Visible = true;
 			txtRegTelefon->Visible = true;
 		}
@@ -64,7 +64,7 @@ System::Void Form1::btnLoginAct_Click(System::Object^ sender, System::EventArgs^
 				pnlGestionarEquip->Visible = false;
 				pnlAfegirJugador->Visible = false;
 
-				// --- L�GICA ADMINISTRADOR ---
+				// --- LÒGICA ADMINISTRADOR ---
 				if (currentUsuariTipus->ToLower() == "administrador") {
 					btnCrearLligaMainMenu->Visible = true;
 					Playcampus::Domini::CtrlCrearLliga^ ctrlCrear = gcnew Playcampus::Domini::CtrlCrearLliga();
@@ -79,12 +79,12 @@ System::Void Form1::btnLoginAct_Click(System::Object^ sender, System::EventArgs^
 					btnCrearLligaMainMenu->Visible = false;
 				}
 
-				// --- L�GICA CAPIT� ---
+				// --- LÒGICA CAPITÀ ---
 				if (currentUsuariTipus->ToLower() == "capita") {
 					btnEnregistrarEquip->Visible = true;
 					btnUnirEquipLliga->Visible = true;
 
-					// NOU: Mostrem el bot� de gestionar convocat�ries
+					// NOU: Mostrem el botó de gestionar convocatòries
 					if (btnGestionarConvocatoria != nullptr) {
 						btnGestionarConvocatoria->Visible = true;
 						btnGestionarConvocatoria->BringToFront();
@@ -111,7 +111,7 @@ System::Void Form1::btnLoginAct_Click(System::Object^ sender, System::EventArgs^
 					if (btnGestionarConvocatoria != nullptr) btnGestionarConvocatoria->Visible = false;
 				}
 
-				// --- L�GICA JUGADOR (NOU CARTELL) ---
+				// --- LÒGICA JUGADOR (NOU CARTELL) ---
 				if (currentUsuariTipus->ToLower() == "jugador") {
 					Playcampus::Domini::CtlrConvocarJugadors^ ctrlConv = gcnew Playcampus::Domini::CtlrConvocarJugadors();
 					auto avis = ctrlConv->ObtenirAvisPendent(currentUsuariCorreu);
@@ -133,7 +133,7 @@ System::Void Form1::btnLoginAct_Click(System::Object^ sender, System::EventArgs^
 			}
 		}
 		catch (Exception^ ex) {
-			MessageBox::Show(L"Error en iniciar sessi�: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			MessageBox::Show(L"Error en iniciar sessió: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
 
@@ -149,14 +149,14 @@ System::Void Form1::btnRegAct_Click(System::Object^ sender, System::EventArgs^ e
 			return;
 		}
 		if ((tipus == L"Capita" || tipus == L"Administrador") && String::IsNullOrEmpty(telefon)) {
-			MessageBox::Show(L"Cal introduir el tel�fon per al capit� i administrador.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show(L"Cal introduir el telèfon per al capità i administrador.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
 		try {
 			Playcampus::Domini::CtrlRegistrarUsuari^ ctrlReg = gcnew Playcampus::Domini::CtrlRegistrarUsuari();
 			ctrlReg->CrearUsuari(nom, pass, DateTime::Now, correu, tipus, telefon);
-			MessageBox::Show(L"Usuari registrat correctament!", L"�xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			MessageBox::Show(L"Usuari registrat correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
 			pnlRegister->Visible = false;
 			pnlInici->Visible = true;

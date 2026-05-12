@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Form1.h"
 
 namespace CppCLRWinFormsProject {
@@ -13,7 +13,7 @@ namespace CppCLRWinFormsProject {
 Form1::Form1(void) {
 			InitializeComponent(); // IMPORTANT: NO ESBORRAR
 
-			// 1. Creació d'objectes
+			// 1. CreaciÃ³ d'objectes
 			this->pnlConvocatoria = gcnew System::Windows::Forms::Panel();
 			this->btnGestionarConvocatoria = gcnew System::Windows::Forms::Button();
 			this->btnTornarConvocatoria = gcnew System::Windows::Forms::Button();
@@ -22,10 +22,10 @@ Form1::Form1(void) {
 			this->convocatoriaPartitIds = gcnew System::Collections::Generic::List<System::String^>();
 
 			// 2. Propietats i Events
-			this->btnGestionarConvocatoria->Text = L"Gestionar Convocatòries";
+			this->btnGestionarConvocatoria->Text = L"Gestionar ConvocatÃ²ries";
 			this->btnGestionarConvocatoria->Click += gcnew System::EventHandler(this, &Form1::btnGestionarConvocatoria_Click);
 
-			this->btnTornarConvocatoria->Text = L"Tornar al Menú";
+			this->btnTornarConvocatoria->Text = L"Tornar al MenÃº";
 			this->btnTornarConvocatoria->Click += gcnew System::EventHandler(this, &Form1::btnTornarConvocatoria_Click);
 
 			this->cbPartitsConvocatoria->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;

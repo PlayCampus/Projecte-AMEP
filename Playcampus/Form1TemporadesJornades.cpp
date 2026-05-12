@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Form1TemporadesJornades.h"
 
 namespace CppCLRWinFormsProject {
@@ -29,7 +29,7 @@ System::Void Form1::btnCJCancellar_Click(System::Object^ sender, System::EventAr
 System::Void Form1::btnCJBuscarTemporades_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ nomLliga = txtCJNomLliga->Text;
 		if (String::IsNullOrWhiteSpace(nomLliga)) {
-			MessageBox::Show(L"Introdueix el nom de la Lliga.", L"Av�s", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show(L"Introdueix el nom de la Lliga.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
@@ -57,7 +57,7 @@ System::Void Form1::btnCJBuscarTemporades_Click(System::Object^ sender, System::
 			}
 
 			if (cmbCJTemporada->Items->Count > 0) cmbCJTemporada->SelectedIndex = 0;
-			else MessageBox::Show(L"No s'han trobat temporades per a aquesta lliga.", L"Av�s", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			else MessageBox::Show(L"No s'han trobat temporades per a aquesta lliga.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			
 
 		}
@@ -68,13 +68,13 @@ System::Void Form1::btnCJBuscarTemporades_Click(System::Object^ sender, System::
 
 System::Void Form1::btnCJConfirmar_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (cmbCJTemporada->SelectedIndex == -1) {
-			MessageBox::Show(L"Si us plau, cerca i selecciona una Temporada.", L"Av�s", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show(L"Si us plau, cerca i selecciona una Temporada.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
 		int numJornada = 0; 
 		if (!Int32::TryParse(txtCJNumero->Text, numJornada)) {
-			MessageBox::Show(L"Introdueix un n�mero de jornada v�lid.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show(L"Introdueix un número de jornada vàlid.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
@@ -94,7 +94,7 @@ System::Void Form1::btnCJConfirmar_Click(System::Object^ sender, System::EventAr
 
 			ctrl->CrearJornada(idTemporadaSelecionada, numJornada, dataInici, dataFi, estat);
 			
-			MessageBox::Show(L"Jornada creada correctament!", L"�xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			MessageBox::Show(L"Jornada creada correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			pnlCrearJornada->Visible = false;
 			pnlGestionarLliga->Visible = true;
 		}
@@ -106,7 +106,7 @@ System::Void Form1::btnCJConfirmar_Click(System::Object^ sender, System::EventAr
 System::Void Form1::btnGLCrearTemporada_Click(System::Object^ sender, System::EventArgs^ e) {
 			pnlGestionarLliga->Visible = false;
 			pnlCrearTemporada->Visible = true;
-			txtCTNomLliga->Text = L""; // <--- AFEGIR AQUESTA L�NIA PELS VALORS RESIDUALS
+			txtCTNomLliga->Text = L""; // <--- AFEGIR AQUESTA LÍNIA PELS VALORS RESIDUALS
 			dtpCTDataInici->Value = DateTime::Now;
 			dtpCTDataFi->Value = DateTime::Now.AddMonths(6); // Por defecto acaba en 6 meses
 		}
@@ -136,7 +136,7 @@ System::Void Form1::btnCTConfirmar_Click(System::Object^ sender, System::EventAr
 			Playcampus::Domini::CtrlCrearTemporada^ ctrl = gcnew Playcampus::Domini::CtrlCrearTemporada();
 			ctrl->CrearTemporada(dataInici, dataFi, currentUsuariCorreu, nomLliga); // <--- AFEGIM EL NOU PARAMETRE
 
-			MessageBox::Show(L"Temporada creada correctament!", L"�xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			MessageBox::Show(L"Temporada creada correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			pnlCrearTemporada->Visible = false;
 			pnlGestionarLliga->Visible = true;
 		}
