@@ -18,6 +18,7 @@
 #include "Domini/CtrlConsultes.hxx"
 #include "Domini/CtrlEsborrarPartit.hxx"
 #include "Domini/CtrlVeureEstadistiquesLliga.hxx"
+#include "Domini/CtrlVeureEstadistiquesEquip.hxx"
 #include "Domini/CtlrConvocarJugadors.hxx"
 #include "Domini/Administrador.hxx"
 #include "Domini/CtrlRetirarTemporada.hxx"
@@ -34,7 +35,7 @@ namespace CppCLRWinFormsProject {
 	/// <summary>
 	/// Summary for Form1
 	/// </summary>
-public ref class Form1 : public System::Windows::Forms::Form
+	public ref class Form1 : public System::Windows::Forms::Form
 	{
 	public:
 		Form1(void);
@@ -45,8 +46,8 @@ public ref class Form1 : public System::Windows::Forms::Form
 	private:
 		System::ComponentModel::Container^ components;
 
-		private:
-				System::Windows::Forms::Panel^ pnlInici;
+	private:
+		System::Windows::Forms::Panel^ pnlInici;
 		System::Windows::Forms::Button^ btnShowLogin;
 		System::Windows::Forms::Button^ btnShowRegister;
 		System::Windows::Forms::PictureBox^ picLogoInici;
@@ -196,9 +197,9 @@ public ref class Form1 : public System::Windows::Forms::Form
 		System::Windows::Forms::ComboBox^ cmbCPTemporada;
 		System::Collections::Generic::List<String^>^ cpTemporadesIds;
 		// Para guardar la ID de la temporada
-				System::Collections::Generic::List<String^>^ cpJornadesIds;
+		System::Collections::Generic::List<String^>^ cpJornadesIds;
 		// Para guardar la ID de la jornada
-				System::Windows::Forms::Label^ lblCPJornada;
+		System::Windows::Forms::Label^ lblCPJornada;
 		System::Windows::Forms::ComboBox^ cmbCPJornada;
 		System::Windows::Forms::Label^ lblCPData;
 		System::Windows::Forms::DateTimePicker^ dtpCPData;
@@ -225,7 +226,7 @@ public ref class Form1 : public System::Windows::Forms::Form
 		System::Collections::Generic::List<String^>^ epPartitIds;
 		System::Windows::Forms::Button^ btnEPEsborrarFinal;
 		// Nou panell per la cerca i la taula
-				System::Windows::Forms::Button^ btnEstLliga;
+		System::Windows::Forms::Button^ btnEstLliga;
 		System::Windows::Forms::Panel^ pnlEstadistiquesLligaDetail;
 		System::Windows::Forms::Label^ lblEstLligaBuscar;
 		System::Windows::Forms::TextBox^ txtEstLligaBuscar;
@@ -234,35 +235,49 @@ public ref class Form1 : public System::Windows::Forms::Form
 		System::Windows::Forms::ComboBox^ cmbEstLligaTemporades;
 		System::Windows::Forms::DataGridView^ dgvEstLligaClassificacio;
 		System::Windows::Forms::Button^ btnEstLligaTornar;
-		private: System::Windows::Forms::Panel^ pnlConvocatoria;
-		private: System::Windows::Forms::Button^ btnGestionarConvocatoria;
-		private: System::Windows::Forms::Button^ btnTornarConvocatoria;
-		private: System::Windows::Forms::ComboBox^ cbPartitsConvocatoria;
-		private: System::Windows::Forms::DataGridView^ dgvConvocatoria;
-		private: System::Collections::Generic::List<System::String^>^ convocatoriaPartitIds;
-		// Variables pel cartell del jugador
-			private: System::Windows::Forms::Panel^ pnlAvisJugador;
-		private: System::String^ idPartitPendentConfirmar;
-		String^ currentIdLligaEstadistiques;
-		// Per guardar la ID de la lliga cercada
-		
-			// NOU: Components per al panell d'edició de partits
-			private: System::Windows::Forms::Panel^ pnlEditarPartit;
-		private: System::Windows::Forms::Label^ lblEditarPartitTitle;
-		private: System::Windows::Forms::ComboBox^ cmbPartitsAEditar;
-		private: System::Windows::Forms::Label^ lblPartitsAEditar;
-		private: System::Windows::Forms::DataGridView^ dgvEstadistiquesJugadors;
-		private: System::Windows::Forms::Button^ btnGuardarEstadistiques;
-		private: System::Windows::Forms::Button^ btnTornarEditarPartit;
-		private: System::Windows::Forms::Label^ lblResultatLocal;
-		private: System::Windows::Forms::TextBox^ txtResultatLocal;
-		private: System::Windows::Forms::Label^ lblResultatVisitant;
-		private: System::Windows::Forms::TextBox^ txtResultatVisitant;
-		private: System::Windows::Forms::Label^ lblEstatPartit;
-		private: System::Windows::Forms::ComboBox^ cmbEstatPartit;
-		private: System::Windows::Forms::Label^ lblDataPartit;
-		private: System::Windows::Forms::DateTimePicker^ dtpDataPartit;
-		private: System::Collections::Generic::Dictionary<String^, String^>^ partitPerId;
+	private: System::Windows::Forms::Panel^ pnlConvocatoria;
+	private: System::Windows::Forms::Button^ btnGestionarConvocatoria;
+	private: System::Windows::Forms::Button^ btnTornarConvocatoria;
+	private: System::Windows::Forms::ComboBox^ cbPartitsConvocatoria;
+	private: System::Windows::Forms::DataGridView^ dgvConvocatoria;
+	private: System::Collections::Generic::List<System::String^>^ convocatoriaPartitIds;
+		   // Variables pel cartell del jugador
+	private: System::Windows::Forms::Panel^ pnlAvisJugador;
+	private: System::String^ idPartitPendentConfirmar;
+		   String^ currentIdLligaEstadistiques;
+		   // Per guardar la ID de la lliga cercada
+
+		   System::Windows::Forms::Panel^ pnlEstadistiquesEquipDetail;
+		   System::Windows::Forms::Label^ lblEstEquipTitle;
+		   System::Windows::Forms::Label^ lblEstEquipBuscar;
+		   System::Windows::Forms::TextBox^ txtEstEquipBuscar;
+		   System::Windows::Forms::Button^ btnEstEquipCercar;
+		   System::Windows::Forms::Label^ lblEstEquipLliga;
+		   System::Windows::Forms::ComboBox^ cmbEstEquipLligues;
+		   System::Windows::Forms::Label^ lblEstEquipTemporada;
+		   System::Windows::Forms::ComboBox^ cmbEstEquipTemporades;
+		   System::Windows::Forms::DataGridView^ dgvEstEquipStats;
+		   System::Windows::Forms::Button^ btnEstEquipTornar;
+		   System::Collections::Generic::List<String^>^ estEquipLligaIds;
+		   System::Collections::Generic::List<String^>^ estEquipTemporadaIds;
+
+		   // NOU: Components per al panell d'edició de partits
+	private: System::Windows::Forms::Panel^ pnlEditarPartit;
+	private: System::Windows::Forms::Label^ lblEditarPartitTitle;
+	private: System::Windows::Forms::ComboBox^ cmbPartitsAEditar;
+	private: System::Windows::Forms::Label^ lblPartitsAEditar;
+	private: System::Windows::Forms::DataGridView^ dgvEstadistiquesJugadors;
+	private: System::Windows::Forms::Button^ btnGuardarEstadistiques;
+	private: System::Windows::Forms::Button^ btnTornarEditarPartit;
+	private: System::Windows::Forms::Label^ lblResultatLocal;
+	private: System::Windows::Forms::TextBox^ txtResultatLocal;
+	private: System::Windows::Forms::Label^ lblResultatVisitant;
+	private: System::Windows::Forms::TextBox^ txtResultatVisitant;
+	private: System::Windows::Forms::Label^ lblEstatPartit;
+	private: System::Windows::Forms::ComboBox^ cmbEstatPartit;
+	private: System::Windows::Forms::Label^ lblDataPartit;
+	private: System::Windows::Forms::DateTimePicker^ dtpDataPartit;
+	private: System::Collections::Generic::Dictionary<String^, String^>^ partitPerId;
 
 	public:
 		System::Void MostrarPantallaEditarPartit();
@@ -331,6 +346,13 @@ public ref class Form1 : public System::Windows::Forms::Form
 		System::Void btnEstadistiquesMenu_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnEstTornar_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnEstadistiques_Click(System::Object^ sender, System::EventArgs^ e);
+
+		void ResetEstadistiquesEquipPanel();
+		void CarregarEstadistiquesEquipSeleccionades();
+		System::Void btnEstEquipCercar_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void cmbEstEquipLligues_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
+		System::Void cmbEstEquipTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnEstEquipTornar_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGLMostrarEquips_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGLEsborrarEquip_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGL_EnDesenvolupament_Click(System::Object^ sender, System::EventArgs^ e);
