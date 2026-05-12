@@ -163,6 +163,7 @@
     <ClInclude Include="Domini\Administrador.hxx" />
     <ClInclude Include="Domini\Capita.hxx" />
     <ClInclude Include="Domini\CtrlUnirEquipLliga.hxx" />
+    <ClInclude Include="Domini\CtrlVeureEstadistiquesJugadors.hxx" />
     <ClInclude Include="Domini\CtrlVeureEstadistiquesLliga.hxx" />
     <ClInclude Include="Domini\CtrlVeurePlantilla.hxx" />
     <ClInclude Include="Domini\Disciplina.hxx" />
@@ -276,6 +277,7 @@
     <ClCompile Include="Domini\Administrador.cxx" />
     <ClCompile Include="Domini\Capita.cxx" />
     <ClCompile Include="Domini\CtrlUnirEquipLliga.cxx" />
+    <ClCompile Include="Domini\CtrlVeureEstadistiquesJugadors.cxx" />
     <ClCompile Include="Domini\CtrlVeureEstadistiquesLliga.cxx" />
     <ClCompile Include="Domini\CtrlVeurePlantilla.cxx" />
     <ClCompile Include="Domini\Equip.cxx" />
