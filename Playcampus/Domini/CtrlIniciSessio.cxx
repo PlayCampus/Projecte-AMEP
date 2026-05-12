@@ -1,6 +1,8 @@
 ﻿#include "pch.h"
 #include "CtrlIniciSessio.hxx"
 #include "../Dades/PassarellaUsuari.hxx"
+#include "../Dades/PassarellaJornada.hxx"
+#include "../Dades/PassarellaTemporada.hxx"
 #include "../Dades/CercadoraUsuari.hxx"
 #include "../Dades/ConnexioBD.hxx"
 
@@ -16,7 +18,20 @@ namespace Playcampus {
             Playcampus::Dades::PassarellaUsuari^ pu = (gcnew Playcampus::Dades::CercadoraUsuari(connectionString))->LlegeixPerCorreu( correu);
             if (pu != nullptr) {
                 if (pu->GetContrasenya() == contrasenya) {
+                    //actualitzar estats temporada i jornada 
+                     // Actualitzar estats de temporades
+                    Playcampus::Dades::PassarellaTemporada^ pt =
+                        gcnew Playcampus::Dades::PassarellaTemporada(connectionString);
+
+                    pt->ActualitzarEstats(connectionString);
+
+                    // Actualitzar estats de jornades
+                    Playcampus::Dades::PassarellaJornada^ pj =
+                        gcnew Playcampus::Dades::PassarellaJornada(connectionString);
+
+                    pj->ActualitzarEstats(connectionString);
                     return true;
+         
                 }
             }
             return false;

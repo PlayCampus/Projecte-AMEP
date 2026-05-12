@@ -10,7 +10,6 @@ using namespace MySql::Data::MySqlClient;
 namespace Playcampus {
     namespace Dades {
 
-        // NUEVA IMPLEMENTACIÓN del constructor
         PassarellaTemporada::PassarellaTemporada(String^ connString) {
             connectionString = connString;
         }
@@ -51,7 +50,7 @@ namespace Playcampus {
             try {
                 conn->Open();
                 String^ queryT = "UPDATE Temporada SET estat = CASE "
-                    "WHEN NOW() >= dataInici AND NOW() <= dataFi THEN 'EnCurs' "
+                    "WHEN NOW() >= dataInici AND NOW() <= dataFi AND estat != 'Finalitzat' THEN 'EnCurs' "
                     "WHEN NOW() > dataFi THEN 'Finalitzat' "
                     "ELSE estat END "
                     "WHERE (NOW() >= dataInici AND NOW() <= dataFi AND estat != 'EnCurs') "
@@ -136,7 +135,7 @@ namespace Playcampus {
             try {
                 conn->Open();
                 // Actualizamos a 'Retirada' solo la temporada que esté 'EnCurs' para esta liga
-                String^ query = "UPDATE Temporada SET estat = 'Retirada' WHERE idLliga = @idLliga AND estat = 'EnCurs'";
+                String^ query = "UPDATE Temporada SET estat = 'Finalitzat' WHERE idLliga = @idLliga AND estat = 'EnCurs'";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idLliga", idLliga);
 
