@@ -4,7 +4,11 @@
 #include "../Dades/PassarellaUsuari.hxx"
 #include "../Dades/CercadoraUsuari.hxx"
 #include "../Dades/CercadoraLliga.hxx"
+#include "../Dades/CercadoraTemporada.hxx"
 #include "../Dades/PassarellaTemporada.hxx"
+#include "../Dades/CercadoraEquip.hxx"
+#include "../Dades/PassarellaCapita.hxx"
+
 #include <stdexcept>
 
 using namespace System;
@@ -35,9 +39,30 @@ namespace Playcampus {
                 throw gcnew Exception("Aquest administrador no té cap lliga assignada.");
             }
 
-            // 3. Fer servir PassarellaTemporada per utilitzar mètode UPDATE per retirar la temporada (EnCurs) d'aquesta lliga
+            // 3. Obtenir l'ID de la temporada en curs abans de retirar-la
+            Playcampus::Dades::CercadoraTemporada^ cercTemporada = gcnew Playcampus::Dades::CercadoraTemporada(connectionString);
+            String^ idTemporada = cercTemporada->ObtenirIdTemporadaEnCurs(idLliga);
+
+            if (String::IsNullOrEmpty(idTemporada)) {
+                // No hi ha temporada "En Curs", no cal fer res més.
+                return;
+            }
+
+            // 4. Fer servir PassarellaTemporada per utilitzar mètode UPDATE per retirar la temporada (EnCurs) d'aquesta lliga
             Playcampus::Dades::PassarellaTemporada^ passTemp = gcnew Playcampus::Dades::PassarellaTemporada(connectionString);
             passTemp->RetirarTemporada(idLliga);
+
+            // 5. Obtenir tots els equips de la temporada retirada
+            Playcampus::Dades::CercadoraEquip^ cercEquip = gcnew Playcampus::Dades::CercadoraEquip(connectionString);
+            List<String^>^ idsEquips = cercEquip->ObtenirIdsEquipsPerTemporada(idTemporada);
+
+           
+            // 6. Per a cada equip, desassignar el capità
+            Playcampus::Dades::PassarellaCapita^ passCapita = gcnew Playcampus::Dades::PassarellaCapita(connectionString);
+            for each (String ^ idEquip in idsEquips) {
+                passCapita->DesassignarEquip(idEquip);
+            }
+
         }
 
     }

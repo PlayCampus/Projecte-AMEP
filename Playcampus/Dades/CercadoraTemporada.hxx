@@ -15,6 +15,9 @@ namespace Playcampus {
             CercadoraTemporada(String^ connStr);
 
             List<Dictionary<String^, String^>^>^ ObtenirTemporadesAdmin(String^ correuAdmin);
+
+            String^ ObtenirIdTemporadaEnCurs(String^ idLliga);
+
         };
     }
 }

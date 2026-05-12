@@ -130,12 +130,14 @@
     <ResourceCompile Include="app.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Dades\CercadoraEquip.hxx" />
     <ClInclude Include="Dades\CercadoraJornada.hxx" />
     <ClInclude Include="Dades\CercadoraJugador.hxx" />
     <ClInclude Include="Dades\CercadoraLliga.hxx" />
     <ClInclude Include="Dades\CercadoraPartit.hxx" />
     <ClInclude Include="Dades\CercadoraTemporada.hxx" />
     <ClInclude Include="Dades\CercadoraUsuari.hxx" />
+    <ClInclude Include="Dades\PassarellaCapita.hxx" />
     <ClInclude Include="Dades\PassarellaEquip.hxx" />
     <ClInclude Include="Dades\PassarellaJornada.hxx" />
     <ClInclude Include="Dades\PassarellaJugador.hxx" />
@@ -244,12 +246,14 @@
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="CppCLR_WinFormsProject.cpp" />
+    <ClCompile Include="Dades\CercadoraEquip.cxx" />
     <ClCompile Include="Dades\CercadoraJornada.cxx" />
     <ClCompile Include="Dades\CercadoraJugador.cxx" />
     <ClCompile Include="Dades\CercadoraLliga.cxx" />
     <ClCompile Include="Dades\CercadoraPartit.cxx" />
     <ClCompile Include="Dades\CercadoraTemporada.cxx" />
     <ClCompile Include="Dades\CercadoraUsuari.cxx" />
+    <ClCompile Include="Dades\PassarellaCapita.cxx" />
     <ClCompile Include="Dades\PassarellaEquip.cxx" />
     <ClCompile Include="Dades\PassarellaJornada.cxx" />
     <ClCompile Include="Dades\PassarellaJugador.cxx" />
