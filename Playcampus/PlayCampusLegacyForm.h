@@ -20,7 +20,7 @@
 #include "Domini/CtrlVeureEstadistiquesLliga.hxx"
 #include "Domini/CtlrConvocarJugadors.hxx"
 #include "Domini/Administrador.hxx"
-
+#include "Domini/CtrlRetirarTemporada.hxx"
 
 namespace CppCLRWinFormsProject {
 
@@ -246,6 +246,7 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Button^ btnGLEsborrarEquip;
 		System::Windows::Forms::Button^ btnGLCrearJornada;
 		System::Windows::Forms::Button^ btnGLCrearTemporada;
+		System::Windows::Forms::Button^ btnGLRetirarTemporada;
 		System::Windows::Forms::Button^ btnGLTornar;
 		System::Windows::Forms::PictureBox^ picLogoGL;
 
@@ -796,6 +797,14 @@ namespace CppCLRWinFormsProject {
 			this->btnGLCrearTemporada->Font = actionBtnFont;
 			this->btnGLCrearTemporada->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->btnGLCrearTemporada->Click += gcnew System::EventHandler(this, &PlayCampusLegacyForm::btnGLCrearTemporada_Click);
+
+			this->btnGLRetirarTemporada = gcnew System::Windows::Forms::Button();
+			this->pnlGestionarLliga->Controls->Add(this->btnGLRetirarTemporada);
+			this->btnGLRetirarTemporada->Text = L"Retirar temporada";
+			this->btnGLRetirarTemporada->Size = System::Drawing::Size(220, 60);
+			this->btnGLRetirarTemporada->Font = actionBtnFont;
+			this->btnGLRetirarTemporada->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnGLRetirarTemporada->Click += gcnew System::EventHandler(this, &PlayCampusLegacyForm::btnGLRetirarTemporada_Click);
 
 			this->btnGLTornar->Text = L"Tornar";
 			this->btnGLTornar->Size = System::Drawing::Size(100, 30);
@@ -1699,7 +1708,9 @@ namespace CppCLRWinFormsProject {
 		this->btnGLCrearJornada->Location = System::Drawing::Point(centerX - btnGLW - (glSpacingX / 2), glStartY + (btnGLH + glSpacingY) * 2);
 		this->btnGLCrearTemporada->Location = System::Drawing::Point(centerX + (glSpacingX / 2), glStartY + (btnGLH + glSpacingY) * 2);
 		this->btnGLEsborrarPartit->Location = System::Drawing::Point(centerX - btnGLW - (glSpacingX / 2), glStartY + (btnGLH + glSpacingY) * 3);
-
+		if (this->btnGLRetirarTemporada != nullptr) {
+			this->btnGLRetirarTemporada->Location = System::Drawing::Point(centerX + (glSpacingX / 2), glStartY + (btnGLH + glSpacingY) * 3);
+		}
 
 		this->picLogoGL->Location = System::Drawing::Point(centerX - (this->picLogoGL->Width / 2), glStartY - this->picLogoGL->Height - 40);
 
@@ -3250,6 +3261,29 @@ namespace CppCLRWinFormsProject {
 			}
 		}
 	}
+			private: System::Void btnGLRetirarTemporada_Click(System::Object^ sender, System::EventArgs^ e) {
+				System::Windows::Forms::DialogResult confirmacio = MessageBox::Show(
+					L"Estàs segur que vols retirar la temporada activa respecte a la teva Lliga?",
+					L"Confirmació",
+					MessageBoxButtons::YesNo,
+					MessageBoxIcon::Warning
+				);
+
+				if (confirmacio == System::Windows::Forms::DialogResult::Yes) {
+					try {
+						// Es fa servir la teva classe CtrlRetirarTemporada que ja inclous.
+						Playcampus::Domini::CtrlRetirarTemporada^ ctrl = gcnew Playcampus::Domini::CtrlRetirarTemporada();
+
+						// Assumint que el mètode accepti el correu de l'administrador per saber-ne la lliga activa:
+						ctrl->RetirarTemporada(currentUsuariCorreu); // *Nota: Si la funció d'aquest controlador es diu diferent o prent un altre paràmetre, adapta aquest mètode aquí pel que posa a "CtrlRetirarTemporada.hxx".
+
+						MessageBox::Show(L"La temporada i les seves jornades han estat retirades correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					}
+					catch (Exception^ ex) {
+						MessageBox::Show(L"Error al retirar la temporada: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+					}
+				}
+			}
 
 	private: System::Void btnGEAssignarJugador_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (currentUsuariTipus == nullptr || currentUsuariTipus->ToLower() != L"capita") {

@@ -48,5 +48,28 @@ namespace Playcampus {
 
             return llista;
         }
+
+        String^ CercadoraTemporada::ObtenirIdTemporadaEnCurs(String^ idLliga) {
+
+            
+
+			String^ idTemporada = nullptr;
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "SELECT idTemporada FROM Temporada WHERE idLliga = @idLliga AND estat = 'EnCurs'";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idLliga", idLliga);
+                Object^ result = cmd->ExecuteScalar();
+                if (result != nullptr) {
+                    idTemporada = result->ToString();
+                }
+            }
+            finally {
+                conn->Close();
+            }
+			return idTemporada;
+
+        }
     }
 }

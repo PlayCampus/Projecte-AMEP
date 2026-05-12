@@ -130,26 +130,5 @@ namespace Playcampus {
         }
 
         
-        void PassarellaTemporada::RetirarTemporada(String^ idLliga)
-        {
-            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
-            try {
-                conn->Open();
-                // Actualizamos a 'Retirada' solo la temporada que esté 'EnCurs' para esta liga
-                String^ query = "UPDATE Temporada SET estat = 'Retirada' WHERE idLliga = @idLliga AND estat = 'EnCurs'";
-                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                cmd->Parameters->AddWithValue("@idLliga", idLliga);
-
-                int filesInfectades = cmd->ExecuteNonQuery();
-                if (filesInfectades == 0) {
-                    throw gcnew Exception("No s'ha trobat cap temporada en curs per a aquesta lliga.");
-                }
-            }
-            finally {
-                conn->Close();
-            }
-        }
-
-        
     }
 }

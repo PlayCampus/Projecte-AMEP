@@ -215,6 +215,12 @@
     <ClInclude Include="ConvocatoriaForm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Domini\CtrlRetirarTemporada.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dades\CercadoraLliga.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Domini\CtlrConvocarJugadors.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -353,6 +359,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Domini\CtrlEsborrarPartit.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\CtrlVeureEstadistiquesLliga.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\CtrlRetirarTemporada.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dades\CercadoraLliga.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LoginForm.cpp">

@@ -103,20 +103,10 @@ namespace Playcampus {
             return passLliga->EsAdministradorLliga(nomLliga, correuAdmin);
         }
 
-
+        // Obtenir Temporades 
         List<Dictionary<String^, String^>^>^ CtrlCrearPartit::ObtenirTemporadesLliga(String^ nomLliga) {
             Playcampus::Dades::PassarellaTemporada^ passTemp = gcnew Playcampus::Dades::PassarellaTemporada(connectionString);
-            List<Dictionary<String^, String^>^>^ totesLesTemporades = passTemp->ObtenirDictTemporadesPerLliga(nomLliga);
-
-            // FILTRAR "Retirada" y "Finalitzat", ja que no s'ha de poder afegir partits a aquestes temporades
-            List<Dictionary<String^, String^>^>^ temporadesActives = gcnew List<Dictionary<String^, String^>^>();
-            for each (Dictionary<String^, String^> ^ dict in totesLesTemporades) {
-                String^ estat = dict["estat"]->ToLower();
-                if (estat != "retirada" && estat != "finalitzat") {
-                    temporadesActives->Add(dict);
-                }
-            }
-            return temporadesActives;
+            return passTemp->ObtenirDictTemporadesPerLliga(nomLliga);
         }
 
         //  Obtenir Jornades
