@@ -66,7 +66,7 @@ namespace CppCLRWinFormsProject {
 				(pnlMain->Height - pnlAvisJugador->Height) / 2
 			);
 		}
-
+	
 		// --- PANELS DE LOGIN/REGISTRE ---
 		this->picLogoInici->Location = System::Drawing::Point(centerX - this->picLogoInici->Width / 2, centerY - 250);
 		this->btnShowLogin->Location = System::Drawing::Point(centerX - this->btnShowLogin->Width / 2, centerY - 50);
@@ -182,6 +182,8 @@ namespace CppCLRWinFormsProject {
 			this->dgvEstEquipStats->Location = System::Drawing::Point(50, 240);
 			this->dgvEstEquipStats->Size = System::Drawing::Size(dgvW, dgvH);
 		}
+
+
 
 		// --- PANEL GESTIONAR LLIGA ---
 		this->lblGLTitle->Location = System::Drawing::Point(centerX - this->lblGLTitle->Width / 2, 40);
@@ -388,8 +390,20 @@ namespace CppCLRWinFormsProject {
 			// Ponemos el botón de la Liga exactamente debajo del de Equipos
 			this->btnEstLliga->Location = System::Drawing::Point(this->btnEstEquips->Location.X, this->btnEstEquips->Location.Y + this->btnEstEquips->Height + 20);
 		}
+		if (this->btnEstPartit != nullptr && this->btnEstLliga != nullptr) {
+			// Posicionamos exactamente debajo del botón de Estadísticas Liga
+			this->btnEstPartit->Location = System::Drawing::Point(this->btnEstLliga->Location.X, this->btnEstLliga->Location.Y + this->btnEstLliga->Height + 20);
+
+			// Copiamos el tamaño y la fuente EXACTA del botón anterior
+			this->btnEstPartit->Size = this->btnEstLliga->Size;
+			this->btnEstPartit->Font = this->btnEstLliga->Font;
+		}
+		
 
 		// NOU: Posicionament del panell d'edició de partits
+
+		
+
 		if (this->pnlEditarPartit->Visible) {
 			int startX = 50;
 			int startY = 30;
@@ -422,6 +436,36 @@ namespace CppCLRWinFormsProject {
 			this->dgvEstadistiquesJugadors->Size = System::Drawing::Size(cw - 100, ch - startY - 100);
 
 			this->btnGuardarEstadistiques->Location = System::Drawing::Point(centerX - this->btnGuardarEstadistiques->Width / 2, ch - 70);
+		}
+		// --- PANEL ESTADISTIQUES PARTIT ---
+		if (this->pnlEstadistiquesPartitDetail != nullptr && this->pnlEstadistiquesPartitDetail->Visible) {
+			this->pnlEstadistiquesPartitDetail->Location = System::Drawing::Point(0, 0);
+			this->pnlEstadistiquesPartitDetail->Size = System::Drawing::Size(cw, ch);
+
+			this->btnEstPartitTornar->Location = System::Drawing::Point(30, 30);
+			this->lblEstPartitTitle->Location = System::Drawing::Point(centerX - (this->lblEstPartitTitle->Width / 2), 40);
+
+			int estpStartX = centerX - 300;
+			int estpStartY = 100;
+
+			this->lblEstPartitLliga->Location = System::Drawing::Point(estpStartX, estpStartY);
+			this->cmbEstPartitLligues->Location = System::Drawing::Point(estpStartX + 150, estpStartY - 3);
+			this->cmbEstPartitLligues->Size = System::Drawing::Size(200, 25);
+
+			this->lblEstPartitTemporada->Location = System::Drawing::Point(estpStartX, estpStartY + 40);
+			this->cmbEstPartitTemporades->Location = System::Drawing::Point(estpStartX + 150, estpStartY + 37);
+			this->cmbEstPartitTemporades->Size = System::Drawing::Size(300, 25);
+
+			this->lblEstPartitPartits->Location = System::Drawing::Point(estpStartX, estpStartY + 80);
+			this->cmbEstPartitPartits->Location = System::Drawing::Point(estpStartX + 150, estpStartY + 77);
+			this->cmbEstPartitPartits->Size = System::Drawing::Size(400, 25);
+
+			this->lblEstPartitResultat->Location = System::Drawing::Point(estpStartX, estpStartY + 120);
+
+			int dgvH = ch - (estpStartY + 160) - 40;
+			if (dgvH < 150) dgvH = 150;
+			this->dgvEstPartitDetalls->Location = System::Drawing::Point(50, estpStartY + 160);
+			this->dgvEstPartitDetalls->Size = System::Drawing::Size(cw - 100, dgvH);
 		}
 
 	}
@@ -540,6 +584,8 @@ namespace CppCLRWinFormsProject {
 		if (this->pnlEstadistiquesEquipDetail != nullptr) this->pnlEstadistiquesEquipDetail->Visible = false;
 		if (this->pnlEstadistiquesLligaDetail != nullptr) this->pnlEstadistiquesLligaDetail->Visible = false;
 		if (this->pnlConvocatoria != nullptr) this->pnlConvocatoria->Visible = false;
+		
+		if (this->pnlEstadistiquesPartitDetail != nullptr) this->pnlEstadistiquesPartitDetail->Visible = false;
 	}
 
 }

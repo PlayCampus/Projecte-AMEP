@@ -71,23 +71,24 @@ namespace Playcampus {
 			return dt;
 		}
 
-		//Return: Las estadísticas individuales de cada jugador en el partido (goles, tarjetas, asistencias, etc.) y su respectivo equipo (IdEquip) para poder agruparlos por equipo local y visitante.
+		//Return: Las estadísticas individuales de cada jugador en el partido (goles, tarjetas, asistencias, etc.) y su respectivo equipo (nomEquip) para poder agruparlos por equipo local y visitante.
 		DataTable^ CtrlVeureEstadistiquesJugadors::ObtenirEstadistiquesPartit(String^ idPartit) {
 			DataTable^ dt = gcnew DataTable();
 			MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
 			try {
 				conn->Open();
-				// Se incluyen todas las métricas de PartitEstadisticaIndividual 
+				// S'inclouen totes les mètriques i s'hi afegeix el JOIn de l'equip per obtenir el NOM
 				String^ query =
 					"SELECT pei.idJugador AS IdJugador, pei.nomJugador AS NomJugador, pei.posicio AS Posicio, "
 					"pei.targetesgrogues AS TargetesGrogues, pei.targetesvermelles AS TargetesVermelles, pei.golsmarcat AS GolsMarcats, "
 					"pei.asistencies AS Assistencies, pei.targetesgroguesobtenides AS TargetesGroguesObtenides, "
 					"pei.targetesvermelllesobtenides AS TargetesVermelllesObtenides, pei.dataActualitzacio AS DataActualitzacio, "
-					"j.idEquip AS IdEquip "
+					"e.nom AS Equip "
 					"FROM PartitEstadisticaIndividual pei "
 					"INNER JOIN Jugador j ON pei.idJugador = j.idJugador "
+					"INNER JOIN Equip e ON j.idEquip = e.idEquip "
 					"WHERE pei.idPartit = @idPartit "
-					"ORDER BY j.idEquip";
+					"ORDER BY e.nom";
 
 				MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
 				cmd->Parameters->AddWithValue("@idPartit", idPartit);

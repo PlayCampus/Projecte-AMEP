@@ -263,4 +263,132 @@ namespace CppCLRWinFormsProject {
 		pnlEstadistiques->Visible = true;
 	}
 
+	System::Void Form1::btnEstPartit_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlEstadistiques->Visible = false;
+		pnlEstadistiquesPartitDetail->Visible = true;
+		pnlEstadistiquesPartitDetail->BringToFront();
+
+		cmbEstPartitLligues->Items->Clear();
+		estPartitLligaIds->Clear();
+		cmbEstPartitTemporades->Items->Clear();
+		estPartitTemporadaIds->Clear();
+		cmbEstPartitPartits->Items->Clear();
+		estPartitIds->Clear();
+		dgvEstPartitDetalls->DataSource = nullptr;
+		lblEstPartitResultat->Text = L"";
+
+		try {
+			Playcampus::Domini::CtrlEstadistiquesPartit^ ctrl = gcnew Playcampus::Domini::CtrlEstadistiquesPartit();
+			DataTable^ lligues = ctrl->ObtenirTotesLligues();
+
+			for (int i = 0; i < lligues->Rows->Count; i++) {
+				estPartitLligaIds->Add(lligues->Rows[i]["idLliga"]->ToString());
+				cmbEstPartitLligues->Items->Add(lligues->Rows[i]["nom"]->ToString());
+			}
+
+			if (cmbEstPartitLligues->Items->Count > 0) {
+				cmbEstPartitLligues->SelectedIndex = 0;
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error carregant lligues: " + ex->Message);
+		}
+		Form1_Resize(nullptr, nullptr);
+	}
+
+	System::Void Form1::cmbEstPartitLligues_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (cmbEstPartitLligues->SelectedIndex < 0) return;
+
+		cmbEstPartitTemporades->Items->Clear();
+		estPartitTemporadaIds->Clear();
+		cmbEstPartitPartits->Items->Clear();
+		estPartitIds->Clear();
+		dgvEstPartitDetalls->DataSource = nullptr;
+		lblEstPartitResultat->Text = L"";
+
+		try {
+			String^ idLliga = estPartitLligaIds[cmbEstPartitLligues->SelectedIndex];
+			Playcampus::Domini::CtrlEstadistiquesPartit^ ctrl = gcnew Playcampus::Domini::CtrlEstadistiquesPartit();
+			DataTable^ temporades = ctrl->ObtenirTemporadesLliga(idLliga);
+
+			for (int i = 0; i < temporades->Rows->Count; i++) {
+				estPartitTemporadaIds->Add(temporades->Rows[i]["idTemporada"]->ToString());
+				String^ min = Convert::ToDateTime(temporades->Rows[i]["dataInici"]).ToString("dd/MM/yyyy");
+				String^ max = Convert::ToDateTime(temporades->Rows[i]["dataFi"]).ToString("dd/MM/yyyy");
+				cmbEstPartitTemporades->Items->Add(min + " - " + max);
+			}
+
+			if (cmbEstPartitTemporades->Items->Count > 0) {
+				cmbEstPartitTemporades->SelectedIndex = 0;
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error carregant temporades: " + ex->Message);
+		}
+	}
+
+	System::Void Form1::cmbEstPartitTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (cmbEstPartitTemporades->SelectedIndex < 0) return;
+
+		cmbEstPartitPartits->Items->Clear();
+		estPartitIds->Clear();
+		dgvEstPartitDetalls->DataSource = nullptr;
+		lblEstPartitResultat->Text = L"";
+
+		try {
+			String^ idTemporada = estPartitTemporadaIds[cmbEstPartitTemporades->SelectedIndex];
+			Playcampus::Domini::CtrlEstadistiquesPartit^ ctrl = gcnew Playcampus::Domini::CtrlEstadistiquesPartit();
+			DataTable^ partits = ctrl->ObtenirPartitsFinalitzats(idTemporada);
+
+			for (int i = 0; i < partits->Rows->Count; i++) {
+				estPartitIds->Add(partits->Rows[i]["idPartit"]->ToString());
+				String^ display = partits->Rows[i]["EquipLocal"]->ToString() + " vs " + partits->Rows[i]["EquipVisitant"]->ToString();
+				cmbEstPartitPartits->Items->Add(display);
+			}
+
+			if (cmbEstPartitPartits->Items->Count > 0) {
+				cmbEstPartitPartits->SelectedIndex = 0;
+			}
+			else {
+				lblEstPartitResultat->Text = L"No s'han jugat partits en aquesta temporada.";
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error carregant partits: " + ex->Message);
+		}
+	}
+
+	System::Void Form1::cmbEstPartitPartits_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (cmbEstPartitPartits->SelectedIndex < 0) return;
+
+		try {
+			String^ idPartit = estPartitIds[cmbEstPartitPartits->SelectedIndex];
+			Playcampus::Domini::CtrlEstadistiquesPartit^ ctrl = gcnew Playcampus::Domini::CtrlEstadistiquesPartit();
+
+			// Cargar los detalles del partido (como los goles)
+			DataTable^ detalls = ctrl->ObtenirDetallsPartit(idPartit);
+			if (detalls->Rows->Count > 0) {
+				String^ eqLocal = detalls->Rows[0]["EquipLocal"]->ToString();
+				String^ eqVisitant = detalls->Rows[0]["EquipVisitant"]->ToString();
+				String^ golsLocal = detalls->Rows[0]["GolsLocals"]->ToString();
+				String^ golsVisitant = detalls->Rows[0]["GolsVisitants"]->ToString();
+
+				lblEstPartitResultat->Text = String::Format("Resultat: {0} {1} - {2} {3}", eqLocal, golsLocal, golsVisitant, eqVisitant);
+				lblEstPartitResultat->Font = gcnew System::Drawing::Font(L"Segoe UI", 12, System::Drawing::FontStyle::Bold);
+			}
+
+			// Cargar DataGridView con las estadísticas
+			DataTable^ stats = ctrl->ObtenirEstadistiquesPartit(idPartit);
+			dgvEstPartitDetalls->DataSource = stats;
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error carregant dades del partit: " + ex->Message);
+		}
+	}
+
+	System::Void Form1::btnEstPartitTornar_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlEstadistiquesPartitDetail->Visible = false;
+		pnlEstadistiques->Visible = true;
+	}
+
 }

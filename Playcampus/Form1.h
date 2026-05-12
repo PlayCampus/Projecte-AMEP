@@ -22,7 +22,7 @@
 #include "Domini/CtlrConvocarJugadors.hxx"
 #include "Domini/Administrador.hxx"
 #include "Domini/CtrlRetirarTemporada.hxx"
-
+#include "Domini/CtrlEstadistiquesPartit.hxx"
 namespace CppCLRWinFormsProject {
 
 	using namespace System;
@@ -263,22 +263,40 @@ namespace CppCLRWinFormsProject {
 		   System::Collections::Generic::List<String^>^ estEquipTemporadaIds;
 
 		   // NOU: Components per al panell d'edició de partits
-	private: System::Windows::Forms::Panel^ pnlEditarPartit;
-	private: System::Windows::Forms::Label^ lblEditarPartitTitle;
-	private: System::Windows::Forms::ComboBox^ cmbPartitsAEditar;
-	private: System::Windows::Forms::Label^ lblPartitsAEditar;
-	private: System::Windows::Forms::DataGridView^ dgvEstadistiquesJugadors;
-	private: System::Windows::Forms::Button^ btnGuardarEstadistiques;
-	private: System::Windows::Forms::Button^ btnTornarEditarPartit;
-	private: System::Windows::Forms::Label^ lblResultatLocal;
-	private: System::Windows::Forms::TextBox^ txtResultatLocal;
-	private: System::Windows::Forms::Label^ lblResultatVisitant;
-	private: System::Windows::Forms::TextBox^ txtResultatVisitant;
-	private: System::Windows::Forms::Label^ lblEstatPartit;
-	private: System::Windows::Forms::ComboBox^ cmbEstatPartit;
-	private: System::Windows::Forms::Label^ lblDataPartit;
-	private: System::Windows::Forms::DateTimePicker^ dtpDataPartit;
-	private: System::Collections::Generic::Dictionary<String^, String^>^ partitPerId;
+			private: System::Windows::Forms::Panel^ pnlEditarPartit;
+			private: System::Windows::Forms::Label^ lblEditarPartitTitle;
+			private: System::Windows::Forms::ComboBox^ cmbPartitsAEditar;
+			private: System::Windows::Forms::Label^ lblPartitsAEditar;
+			private: System::Windows::Forms::DataGridView^ dgvEstadistiquesJugadors;
+			private: System::Windows::Forms::Button^ btnGuardarEstadistiques;
+			private: System::Windows::Forms::Button^ btnTornarEditarPartit;
+			private: System::Windows::Forms::Label^ lblResultatLocal;
+			private: System::Windows::Forms::TextBox^ txtResultatLocal;
+			private: System::Windows::Forms::Label^ lblResultatVisitant;
+			private: System::Windows::Forms::TextBox^ txtResultatVisitant;
+			private: System::Windows::Forms::Label^ lblEstatPartit;
+			private: System::Windows::Forms::ComboBox^ cmbEstatPartit;
+			private: System::Windows::Forms::Label^ lblDataPartit;
+			private: System::Windows::Forms::DateTimePicker^ dtpDataPartit;
+			private: System::Collections::Generic::Dictionary<String^, String^>^ partitPerId;
+
+		   //Panell Estadístiques partit 
+			private: System::Windows::Forms::Button^ btnEstPartit;
+			private: System::Windows::Forms::Panel^ pnlEstadistiquesPartitDetail;
+			private: System::Windows::Forms::Label^ lblEstPartitTitle;
+			private: System::Windows::Forms::Label^ lblEstPartitLliga;
+			private: System::Windows::Forms::ComboBox^ cmbEstPartitLligues;
+			private: System::Windows::Forms::Label^ lblEstPartitTemporada;
+			private: System::Windows::Forms::ComboBox^ cmbEstPartitTemporades;
+			private: System::Windows::Forms::Label^ lblEstPartitPartits;
+			private: System::Windows::Forms::ComboBox^ cmbEstPartitPartits;
+			private: System::Windows::Forms::Label^ lblEstPartitResultat;
+			private: System::Windows::Forms::DataGridView^ dgvEstPartitDetalls;
+			private: System::Windows::Forms::Button^ btnEstPartitTornar;
+
+			private: System::Collections::Generic::List<String^>^ estPartitLligaIds;
+			private: System::Collections::Generic::List<String^>^ estPartitTemporadaIds;
+			private: System::Collections::Generic::List<String^>^ estPartitIds;
 
 	public:
 		System::Void MostrarPantallaEditarPartit();
@@ -390,6 +408,13 @@ namespace CppCLRWinFormsProject {
 		System::Void btnConfirmarSi_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnConfirmarNo_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void ProcessarConfirmacio(bool assisteix);
+
+		System::Void btnEstPartit_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnEstPartitTornar_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void cmbEstPartitLligues_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
+		System::Void cmbEstPartitTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
+		System::Void cmbEstPartitPartits_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
+
 		void MostrarPanelInicialTask162(System::Windows::Forms::Panel^ panel);
 		void OcultarPantallesPrincipalsTask162();
 	};
