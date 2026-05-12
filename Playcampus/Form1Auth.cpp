@@ -10,22 +10,22 @@ namespace CppCLRWinFormsProject {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-System::Void Form1::btnShowLogin_Click(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::btnShowLogin_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlInici->Visible = false;
 		pnlLogin->Visible = true;
 	}
 
-System::Void Form1::btnShowRegister_Click(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::btnShowRegister_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlInici->Visible = false;
 		pnlRegister->Visible = true;
 	}
 
-System::Void Form1::btnShowRegisterFromLogin_Click(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::btnShowRegisterFromLogin_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlLogin->Visible = false;
 		pnlRegister->Visible = true;
 	}
 
-System::Void Form1::cmbRegTipus_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::cmbRegTipus_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 		String^ tipus = cmbRegTipus->Text;
 		if (tipus == L"Capita" || tipus == L"Capità" || tipus == L"Administrador") {
 			lblRegTelefon->Visible = true;
@@ -37,13 +37,13 @@ System::Void Form1::cmbRegTipus_SelectedIndexChanged(System::Object^ sender, Sys
 		}
 	}
 
-System::Void Form1::btnBack_Click(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::btnBack_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlLogin->Visible = false;
 		pnlRegister->Visible = false;
 		pnlInici->Visible = true;
 	}
 
-System::Void Form1::btnLoginAct_Click(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::btnLoginAct_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ correu = txtLoginCorreu->Text;
 		String^ pass = txtLoginPass->Text;
 
@@ -137,7 +137,7 @@ System::Void Form1::btnLoginAct_Click(System::Object^ sender, System::EventArgs^
 		}
 	}
 
-System::Void Form1::btnRegAct_Click(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::btnRegAct_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ nom = txtRegNom->Text;
 		String^ correu = txtRegCorreu->Text;
 		String^ pass = txtRegPass->Text;
@@ -163,7 +163,7 @@ System::Void Form1::btnRegAct_Click(System::Object^ sender, System::EventArgs^ e
 
 			txtRegNom->Text = L"";
 			txtRegCorreu->Text = L"";
-		txtRegPass->Text = L"";
+			txtRegPass->Text = L"";
 			cmbRegTipus->SelectedIndex = 0;
 			txtRegTelefon->Text = L"";
 		}
@@ -172,7 +172,7 @@ System::Void Form1::btnRegAct_Click(System::Object^ sender, System::EventArgs^ e
 		}
 	}
 
-System::Void Form1::btnLogout_Click(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::btnLogout_Click(System::Object^ sender, System::EventArgs^ e) {
 		Playcampus::Domini::CtrlTancarSessio^ ctrlTancar = gcnew Playcampus::Domini::CtrlTancarSessio();
 		ctrlTancar->TancarSessio();
 
@@ -185,6 +185,8 @@ System::Void Form1::btnLogout_Click(System::Object^ sender, System::EventArgs^ e
 		pnlGestionarEquip->Visible = false;
 		pnlAfegirJugador->Visible = false;
 		pnlEstadistiques->Visible = false;
+		pnlEstadistiquesEquipDetail->Visible = false;
+		pnlEstadistiquesLligaDetail->Visible = false;
 		pnlMain->Visible = false;
 		pnlInici->Visible = true;
 	}
