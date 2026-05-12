@@ -28,6 +28,7 @@ namespace CppCLRWinFormsProject {
 		this->pnlInici->Controls->Add(this->btnShowRegister);
 		this->pnlInici->Controls->Add(this->picLogoInici);
 		this->pnlInici->Dock = System::Windows::Forms::DockStyle::Fill;
+		this->pnlInici->Visible = true;
 
 		this->picLogoInici->ImageLocation = L"imatges\\logo.png";
 		this->picLogoInici->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
@@ -63,6 +64,7 @@ namespace CppCLRWinFormsProject {
 		this->pnlLogin->Controls->Add(this->lblLoginTitle);
 		this->pnlLogin->Controls->Add(this->picLogoLogin);
 		this->pnlLogin->Dock = System::Windows::Forms::DockStyle::Fill;
+		this->pnlLogin->Visible = false;
 
 		this->picLogoLogin->ImageLocation = L"imatges\\logo.png";
 		this->picLogoLogin->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
@@ -130,6 +132,7 @@ namespace CppCLRWinFormsProject {
 		this->pnlRegister->Controls->Add(this->lblRegTitle);
 		this->pnlRegister->Controls->Add(this->picLogoRegister);
 		this->pnlRegister->Dock = System::Windows::Forms::DockStyle::Fill;
+		this->pnlRegister->Visible = false;
 
 		this->picLogoRegister->ImageLocation = L"imatges\\logo.png";
 		this->picLogoRegister->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
@@ -216,6 +219,7 @@ namespace CppCLRWinFormsProject {
 		this->pnlMain->Controls->Add(this->btnLogoutMainMenu);
 		this->pnlMain->Controls->Add(this->picLogoMain);
 		this->pnlMain->Dock = System::Windows::Forms::DockStyle::Fill;
+		this->pnlMain->Visible = false;
 
 		this->picLogoMain->ImageLocation = L"imatges\\logo.png";
 		this->picLogoMain->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
