@@ -389,6 +389,11 @@ namespace CppCLRWinFormsProject {
 			this->btnEstLliga->Location = System::Drawing::Point(this->btnEstEquips->Location.X, this->btnEstEquips->Location.Y + this->btnEstEquips->Height + 20);
 		}
 
+		// Posicionamiento del botón dinámico de Estadísticas de Jugadores (debajo de Estadísticas Lliga)
+		if (this->btnEstJugadors != nullptr && this->btnEstLliga != nullptr) {
+			this->btnEstJugadors->Location = System::Drawing::Point(this->btnEstLliga->Location.X, this->btnEstLliga->Location.Y + this->btnEstLliga->Height + 20);
+		}
+
 		// NOU: Posicionament del panell d'edició de partits
 		if (this->pnlEditarPartit->Visible) {
 			int startX = 50;

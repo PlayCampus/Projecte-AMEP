@@ -13,6 +13,32 @@ namespace CppCLRWinFormsProject {
 	System::Void Form1::btnEstadistiquesMenu_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlMain->Visible = false;
 		pnlEstadistiques->Visible = true;
+
+		// Crear botón dinámico para Estadísticas de Jugadores si es Capitán
+		if (currentUsuariTipus != nullptr && currentUsuariTipus == "Capita") {
+			// Verificar si el botón ya existe para evitar duplicados
+			if (btnEstJugadors == nullptr) {
+				// 1. Crear el botón
+				btnEstJugadors = gcnew System::Windows::Forms::Button();
+
+				// 2. Configurar propiedades (mismo estilo que btnEstLliga y btnEstEquips)
+				btnEstJugadors->Text = L"Estadistiques Jugadors";
+				btnEstJugadors->Size = System::Drawing::Size(220, 60);
+				btnEstJugadors->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
+				btnEstJugadors->Cursor = System::Windows::Forms::Cursors::Hand;
+				btnEstJugadors->BackColor = System::Drawing::SystemColors::Control;
+				btnEstJugadors->ForeColor = System::Drawing::Color::Black;
+
+				// 3. Agregar el evento Click (handler específico para estadísticas de jugadores)
+				btnEstJugadors->Click += gcnew System::EventHandler(this, &Form1::btnEstJugadors_Click);
+
+				// 4. Añadir al panel de estadísticas
+				pnlEstadistiques->Controls->Add(btnEstJugadors);
+
+				// 5. Recalcular el layout para posicionar el botón correctamente
+				Form1_Resize(nullptr, nullptr);
+			}
+		}
 	}
 
 	System::Void Form1::btnEstTornar_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -261,6 +287,22 @@ namespace CppCLRWinFormsProject {
 	System::Void Form1::btnEstLligaTornar_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlEstadistiquesLligaDetail->Visible = false;
 		pnlEstadistiques->Visible = true;
+	}
+
+	System::Void Form1::btnEstJugadors_Click(System::Object^ sender, System::EventArgs^ e) {
+		try {
+			// Crear instancia del formulario de estadísticas de jugadores
+			EstadistiquesJugadorsForm^ estadistiquesForm = gcnew EstadistiquesJugadorsForm();
+
+			// Mostrar el formulario de forma modal sobre el formulario principal
+			estadistiquesForm->ShowDialog(this);
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error obrint las estadístiques dels jugadors: " + ex->Message, 
+						   L"Error", 
+						   MessageBoxButtons::OK, 
+						   MessageBoxIcon::Error);
+		}
 	}
 
 }

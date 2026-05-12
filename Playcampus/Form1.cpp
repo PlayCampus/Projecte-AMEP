@@ -13,6 +13,9 @@ namespace CppCLRWinFormsProject {
 Form1::Form1(void) {
 			InitializeComponent(); // IMPORTANT: NO ESBORRAR
 
+			// Inicializar el botón dinámico de Estadísticas de Jugadores como nullptr
+			this->btnEstJugadors = nullptr;
+
 			// 1. Creació d'objectes
 			this->pnlConvocatoria = gcnew System::Windows::Forms::Panel();
 			this->btnGestionarConvocatoria = gcnew System::Windows::Forms::Button();

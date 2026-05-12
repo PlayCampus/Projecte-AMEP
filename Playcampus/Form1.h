@@ -19,9 +19,11 @@
 #include "Domini/CtrlEsborrarPartit.hxx"
 #include "Domini/CtrlVeureEstadistiquesLliga.hxx"
 #include "Domini/CtrlVeureEstadistiquesEquip.hxx"
+#include "Domini/CtrlVeureEstadistiquesJugadors.hxx"
 #include "Domini/CtlrConvocarJugadors.hxx"
 #include "Domini/Administrador.hxx"
 #include "Domini/CtrlRetirarTemporada.hxx"
+#include "EstadistiquesJugadorsForm.h"
 
 namespace CppCLRWinFormsProject {
 
@@ -88,6 +90,7 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Panel^ pnlEstadistiques;
 		System::Windows::Forms::Label^ lblEstTitle;
 		System::Windows::Forms::Button^ btnEstEquips;
+		System::Windows::Forms::Button^ btnEstJugadors;
 		System::Windows::Forms::Button^ btnEstTornar;
 		System::Windows::Forms::PictureBox^ picLogoEst;
 		System::Windows::Forms::Button^ btnLogoutMainMenu;
@@ -379,6 +382,7 @@ namespace CppCLRWinFormsProject {
 		System::Void btnEstLligaExecutarCerca_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void cmbEPTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnEstLligaTornar_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnEstJugadors_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void cmbEPJornades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnEPEsborrarFinal_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGestionarConvocatoria_Click(System::Object^ sender, System::EventArgs^ e);

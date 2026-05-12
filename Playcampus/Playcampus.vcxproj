@@ -181,6 +181,7 @@
     <ClInclude Include="Domini\Temporada.hxx" />
     <ClInclude Include="Domini\Usuari.hxx" />
     <ClInclude Include="EditarJugadorForm.h" />
+    <ClInclude Include="EstadistiquesJugadorsForm.h" />
     <ClInclude Include="Form1.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -250,6 +251,7 @@
     <ClCompile Include="Domini\Temporada.cxx" />
     <ClCompile Include="Domini\Usuari.cxx" />
     <ClCompile Include="EditarJugadorForm.cpp" />
+    <ClCompile Include="EstadistiquesJugadorsForm.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
