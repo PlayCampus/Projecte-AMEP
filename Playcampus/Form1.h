@@ -154,6 +154,7 @@ public ref class Form1 : public System::Windows::Forms::Form
 		System::Windows::Forms::Button^ btnGEAfegirJugador;
 		System::Windows::Forms::Button^ btnGEEliminarJugador;
 		System::Windows::Forms::Button^ btnGEAssignarJugador;
+		System::Windows::Forms::Button^ btnGEEditarJugador;
 		System::Windows::Forms::Button^ btnGETornar;
 		System::Windows::Forms::Panel^ pnlAfegirJugador;
 		System::Windows::Forms::Label^ lblAJTitle;
@@ -343,6 +344,7 @@ public ref class Form1 : public System::Windows::Forms::Form
 		System::Void btnGEAssignarJugador_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGEAfegirJugador_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGEEliminarJugador_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnGEEditarJugador_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnAJConfirmar_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnAJCancellar_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnEETornar_Click(System::Object^ sender, System::EventArgs^ e);

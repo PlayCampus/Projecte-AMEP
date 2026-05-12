@@ -799,8 +799,9 @@ void Form1::InitializeComponent(void) {
 			this->dgvPlantilla = gcnew System::Windows::Forms::DataGridView();
 			this->btnGEEsborrarEquip = gcnew System::Windows::Forms::Button();
 			this->btnGEAfegirJugador = gcnew System::Windows::Forms::Button();
-            this->btnGEEliminarJugador = gcnew System::Windows::Forms::Button();
+			this->btnGEEliminarJugador = gcnew System::Windows::Forms::Button();
 			this->btnGEAssignarJugador = gcnew System::Windows::Forms::Button();
+			this->btnGEEditarJugador = gcnew System::Windows::Forms::Button();
 			this->btnGETornar = gcnew System::Windows::Forms::Button();
 
 			this->pnlGestionarEquip->Dock = System::Windows::Forms::DockStyle::Fill;
@@ -809,8 +810,9 @@ void Form1::InitializeComponent(void) {
 			this->pnlGestionarEquip->Controls->Add(this->dgvPlantilla);
 			this->pnlGestionarEquip->Controls->Add(this->btnGEEsborrarEquip);
 			this->pnlGestionarEquip->Controls->Add(this->btnGEAfegirJugador);
-         this->pnlGestionarEquip->Controls->Add(this->btnGEEliminarJugador);
+		 this->pnlGestionarEquip->Controls->Add(this->btnGEEliminarJugador);
 			this->pnlGestionarEquip->Controls->Add(this->btnGEAssignarJugador);
+			this->pnlGestionarEquip->Controls->Add(this->btnGEEditarJugador);
 			this->pnlGestionarEquip->Controls->Add(this->btnGETornar);
 
 			this->lblGETitle->Text = L"Gestionar Equip";
@@ -850,6 +852,12 @@ void Form1::InitializeComponent(void) {
 			this->btnGEAssignarJugador->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
 			this->btnGEAssignarJugador->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->btnGEAssignarJugador->Click += gcnew System::EventHandler(this, &Form1::btnGEAssignarJugador_Click);
+
+			this->btnGEEditarJugador->Text = L"Editar Jugador";
+			this->btnGEEditarJugador->Size = System::Drawing::Size(220, 60);
+			this->btnGEEditarJugador->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
+			this->btnGEEditarJugador->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnGEEditarJugador->Click += gcnew System::EventHandler(this, &Form1::btnGEEditarJugador_Click);
 
 			this->btnGETornar->Text = L"Tornar";
 			this->btnGETornar->Size = System::Drawing::Size(100, 30);

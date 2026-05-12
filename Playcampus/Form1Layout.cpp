@@ -232,6 +232,7 @@ System::Void Form1::Form1_Resize(System::Object^ sender, System::EventArgs^ e) {
 		this->btnGEAfegirJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 70);
 		this->btnGEEliminarJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 140);
 		this->btnGEAssignarJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 210);
+		this->btnGEEditarJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 280);
 
 		// --- PANEL ESBORRAR PARTIT 
 		this->lblEPTitle->Location = System::Drawing::Point(centerX - this->lblEPTitle->Width / 2, 30);

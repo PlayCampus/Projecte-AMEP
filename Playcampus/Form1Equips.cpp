@@ -305,6 +305,36 @@ System::Void Form1::btnGEEliminarJugador_Click(System::Object^ sender, System::E
 		}
 	}
 
+System::Void Form1::btnGEEditarJugador_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (currentUsuariTipus == nullptr || currentUsuariTipus->ToLower() != L"capita") {
+		MessageBox::Show(L"Només els capitans poden accedir a aquesta funcionalitat.", L"Accés denegat", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		return;
+	}
+
+	if (dgvPlantilla->SelectedRows == nullptr || dgvPlantilla->SelectedRows->Count == 0) {
+		MessageBox::Show(L"Selecciona un jugador de la plantilla.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		return;
+	}
+
+	DataGridViewRow^ row = dgvPlantilla->SelectedRows[0];
+	String^ idJugador = nullptr;
+	if (dgvPlantilla->Columns->Contains("IdJugador") && row->Cells["IdJugador"]->Value != nullptr) {
+		idJugador = row->Cells["IdJugador"]->Value->ToString();
+	}
+
+	if (String::IsNullOrWhiteSpace(idJugador)) {
+		MessageBox::Show(L"No s'ha pogut obtenir l'IdJugador de la fila seleccionada.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		return;
+	}
+
+	String^ nomJugador = L"";
+	if (dgvPlantilla->Columns->Contains("Nom") && row->Cells["Nom"]->Value != nullptr) {
+		nomJugador = row->Cells["Nom"]->Value->ToString();
+	}
+
+	MessageBox::Show(L"Funcionalitat en desenvolupament.", L"Informació", MessageBoxButtons::OK, MessageBoxIcon::Information);
+}
+
 System::Void Form1::btnAJConfirmar_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ correuEstudiant = txtAJCorreu->Text;
 		String^ dorsalText = txtAJDorsal->Text;
