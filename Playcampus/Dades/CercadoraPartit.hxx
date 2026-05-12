@@ -17,6 +17,7 @@ namespace Playcampus {
             DataTable^ ObtenirPartits();
 
             List<Dictionary<String^, String^>^>^ ObtenirPartitsPerJornada(String^ idJornada);
+            DataTable^ ObtenirPartitsFinalitzatsPerTemporada(String^ idTemporada);
         };
     }
 }

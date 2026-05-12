@@ -18,6 +18,9 @@ namespace Playcampus {
 
 			// Obtiene las estadísticas individuales registradas para un partido concreto
 			DataTable^ ObtenirEstadistiquesPartit(String^ idPartit);
+
+
+			DataTable^ ObtenirDetallsPartit(String^ idPartit);
 		};
 	}
 }

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -170,7 +170,52 @@
     <ClInclude Include="Domini\CtrlEditarJugador.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
-  <ClInclude Include="Form1Designer.h"><Filter>Header Files</Filter></ClInclude><ClInclude Include="Form1Layout.h"><Filter>Header Files</Filter></ClInclude><ClInclude Include="Form1Auth.h"><Filter>Header Files</Filter></ClInclude><ClInclude Include="Form1Consultes.h"><Filter>Header Files</Filter></ClInclude><ClInclude Include="Form1Lligues.h"><Filter>Header Files</Filter></ClInclude><ClInclude Include="Form1TemporadesJornades.h"><Filter>Header Files</Filter></ClInclude><ClInclude Include="Form1Partits.h"><Filter>Header Files</Filter></ClInclude><ClInclude Include="Form1Equips.h"><Filter>Header Files</Filter></ClInclude><ClInclude Include="Form1Estadistiques.h"><Filter>Header Files</Filter></ClInclude><ClInclude Include="Form1Convocatoria.h"><Filter>Header Files</Filter></ClInclude></ItemGroup>
+    <ClInclude Include="Form1Designer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Form1Layout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Form1Auth.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Form1Consultes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Form1Lligues.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Form1TemporadesJornades.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Form1Partits.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Form1Equips.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Form1Estadistiques.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Form1Convocatoria.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dades\CercadoraEquip.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dades\PassarellaCapita.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\CtrlVeureEstadistiquesJugadors.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditarJugadorForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\CtrlEstadistiquesPartit.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CppCLR_WinFormsProject.cpp">
       <Filter>Source Files</Filter>
@@ -322,7 +367,55 @@
     <ClCompile Include="Domini\CtrlEditarJugador.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
-  <ClCompile Include="Form1.cpp"><Filter>Source Files</Filter></ClCompile><ClCompile Include="Form1Designer.cpp"><Filter>Source Files</Filter></ClCompile><ClCompile Include="Form1Layout.cpp"><Filter>Source Files</Filter></ClCompile><ClCompile Include="Form1Auth.cpp"><Filter>Source Files</Filter></ClCompile><ClCompile Include="Form1Consultes.cpp"><Filter>Source Files</Filter></ClCompile><ClCompile Include="Form1Lligues.cpp"><Filter>Source Files</Filter></ClCompile><ClCompile Include="Form1TemporadesJornades.cpp"><Filter>Source Files</Filter></ClCompile><ClCompile Include="Form1Partits.cpp"><Filter>Source Files</Filter></ClCompile><ClCompile Include="Form1Equips.cpp"><Filter>Source Files</Filter></ClCompile><ClCompile Include="Form1Estadistiques.cpp"><Filter>Source Files</Filter></ClCompile><ClCompile Include="Form1Convocatoria.cpp"><Filter>Source Files</Filter></ClCompile></ItemGroup>
+    <ClCompile Include="Form1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Form1Designer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Form1Layout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Form1Auth.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Form1Consultes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Form1Lligues.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Form1TemporadesJornades.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Form1Partits.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Form1Equips.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Form1Estadistiques.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Form1Convocatoria.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dades\CercadoraEquip.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dades\PassarellaCapita.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\CtrlVeureEstadistiquesJugadors.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditarJugadorForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\CtrlEstadistiquesPartit.cxx">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+  </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico">
       <Filter>Resource Files</Filter>
