@@ -350,33 +350,26 @@ System::Void Form1::btnGEEditarJugador_Click(System::Object^ sender, System::Eve
 
 		// Crear y mostrar el formulario de edición
 		EditarJugadorForm^ frmEditar = gcnew EditarJugadorForm(idJugador, nomJugador, dorsal, posicio);
+		frmEditar->CorreuCapita = currentUsuariCorreu;
 
 		if (frmEditar->ShowDialog(this) == System::Windows::Forms::DialogResult::OK) {
 			// Obtener los valores editados del formulario
 			int dorsalEditat = frmEditar->JugadorDorsal;
 			String^ posicioEditada = frmEditar->JugadorPosicio;
 
-			// Mostrar los datos capturados (posterior implementación guardará estos datos)
-			String^ missatgeConfirmacio = L"Jugador: " + nomJugador + 
-											L"\nDorsal: " + dorsalEditat.ToString() + 
-											L"\nPosició: " + (String::IsNullOrEmpty(posicioEditada) ? L"(no especificada)" : posicioEditada);
+			try {
+				// Recargar la plantilla para mostrar los cambios actualizados
+				Playcampus::Domini::CtrlVeurePlantilla^ ctrlVP = gcnew Playcampus::Domini::CtrlVeurePlantilla();
+				dgvPlantilla->DataSource = ctrlVP->ObtenirPlantillaEquip(currentUsuariCorreu);
+				if (dgvPlantilla->Columns->Contains("IdJugador")) {
+					dgvPlantilla->Columns["IdJugador"]->Visible = false;
+				}
 
-			MessageBox::Show(missatgeConfirmacio, L"Dades a guardar", MessageBoxButtons::OK, MessageBoxIcon::Information);
-
-			// PRÓXIMA FASE: Aquí se guardarían los cambios en la base de datos
-			// try {
-			//     Playcampus::Domini::CtrlEditarJugador^ ctrlEditar = gcnew Playcampus::Domini::CtrlEditarJugador();
-			//     String^ resultat = ctrlEditar->EditarJugador(currentUsuariCorreu, idJugador, dorsalEditat, posicioEditada);
-			//     MessageBox::Show(resultat, L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			//     
-			//     Playcampus::Domini::CtrlVeurePlantilla^ ctrlVP = gcnew Playcampus::Domini::CtrlVeurePlantilla();
-			//     dgvPlantilla->DataSource = ctrlVP->ObtenirPlantillaEquip(currentUsuariCorreu);
-			//     if (dgvPlantilla->Columns->Contains("IdJugador")) {
-			//         dgvPlantilla->Columns["IdJugador"]->Visible = false;
-			//     }
-			// }
-			// catch (Exception^ ex) {
-			//     MessageBox::Show(L"Error al guardar les dades: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				MessageBox::Show(L"Jugador actualitzat correctament.", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show(L"Error al actualitzar la plantilla: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
 			// }
 		}
 	}

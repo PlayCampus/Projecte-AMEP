@@ -13,6 +13,8 @@ namespace Playcampus {
             CtrlEditarJugador();
             // Método para editar un jugador; la implementación concreta puede modificarse más adelante
             String^ EditarJugador(String^ correuCapita, String^ idJugador);
+            // Método para actualizar los datos del jugador
+            String^ ActualitzarJugador(String^ correuCapita, String^ idJugador, int dorsal, String^ posicio);
         };
     }
 }

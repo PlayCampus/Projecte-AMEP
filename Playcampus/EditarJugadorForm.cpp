@@ -1,17 +1,20 @@
 #include "pch.h"
 #include "EditarJugadorForm.h"
+#include "Domini/CtrlEditarJugador.hxx"
 
 namespace CppCLRWinFormsProject {
 
 	using namespace System;
 	using namespace System::Drawing;
 	using namespace System::Windows::Forms;
+	using namespace Playcampus::Domini;
 
 	EditarJugadorForm::EditarJugadorForm(String^ idJugador, String^ nom, int dorsal, String^ posicio) {
 		jugadorId = idJugador;
 		jugadorNom = nom;
 		jugadorDorsal = dorsal;
 		jugadorPosicio = posicio;
+		correuCapita = nullptr;
 
 		components = nullptr;
 		InitializeComponent();
@@ -132,13 +135,33 @@ namespace CppCLRWinFormsProject {
 			return;
 		}
 
-		// Actualizar los datos del jugador con los valores editados
-		jugadorDorsal = dorsal;
-		jugadorPosicio = this->txtPosicio->Text;
+		// Validar que la posició no estigui buida
+		if (String::IsNullOrWhiteSpace(this->txtPosicio->Text)) {
+			MessageBox::Show(L"La posció no pot estar buida.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
 
-		// Cerrar el formulario con resultado OK
-		this->DialogResult = System::Windows::Forms::DialogResult::OK;
-		this->Close();
+		try {
+			// Connectar amb el controlador
+			CtrlEditarJugador^ ctrl = gcnew CtrlEditarJugador();
+			String^ posicio = this->txtPosicio->Text;
+
+			// Actualitzar el jugador a la base de dades
+			ctrl->ActualitzarJugador(correuCapita, jugadorId, dorsal, posicio);
+
+			// Actualizar los datos del jugador con los valores editados
+			jugadorDorsal = dorsal;
+			jugadorPosicio = posicio;
+
+			MessageBox::Show(L"Jugador actualitzat correctament.", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+			// Cerrar el formulario con resultado OK
+			this->DialogResult = System::Windows::Forms::DialogResult::OK;
+			this->Close();
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
 	}
 
 	System::Void EditarJugadorForm::btnCancelar_Click(System::Object^ sender, System::EventArgs^ e) {

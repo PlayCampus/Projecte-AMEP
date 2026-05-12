@@ -22,6 +22,7 @@ public ref class EditarJugadorForm : public System::Windows::Forms::Form
 		property String^ JugadorNom { String^ get() { return jugadorNom; } }
 		property int JugadorDorsal { int get() { return jugadorDorsal; } }
 		property String^ JugadorPosicio { String^ get() { return jugadorPosicio; } }
+		property String^ CorreuCapita { String^ get() { return correuCapita; } void set(String^ value) { correuCapita = value; } }
 
 	private:
 		System::ComponentModel::Container^ components;
@@ -31,6 +32,7 @@ public ref class EditarJugadorForm : public System::Windows::Forms::Form
 		String^ jugadorNom;
 		int jugadorDorsal;
 		String^ jugadorPosicio;
+		String^ correuCapita;
 
 		// Controles
 		System::Windows::Forms::Label^ lblTitle;
