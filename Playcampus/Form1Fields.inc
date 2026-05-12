@@ -1,47 +1,3 @@
-#pragma once
-#include "Domini/CtrlIniciSessio.hxx"
-#include "Domini/CtrlTancarSessio.hxx"
-#include "Domini/CtrlRegistrarUsuari.hxx"
-#include "Domini/CtrlCrearLliga.hxx"
-#include "Domini/CtrlEnregistrarEquip.hxx"
-#include "Domini/CtrlUnirEquipLliga.hxx"
-#include "Domini/CtrlCrearPartit.hxx"
-#include "Domini/CtrlEditarPartit.hxx"
-#include "Domini/CtrlCrearTemporada.hxx"
-#include "Domini/CtrlCrearJornada.hxx"
-#include "Dades/ConnexioBD.hxx"
-#include "Domini/CtrlEsborrarEquip.hxx"
-#include "Domini/CtrlAfegirJugador.hxx"
-#include "Domini/CtrlAssignarJugador.hxx"
-#include "Domini/CtrlVeurePlantilla.hxx"
-#include "Domini/CtrlEliminarJugador.hxx"
-#include "Domini/CtrlConsultes.hxx"
-#include "Domini/CtrlEsborrarPartit.hxx"
-#include "Domini/CtrlVeureEstadistiquesLliga.hxx"
-#include "Domini/CtlrConvocarJugadors.hxx"
-#include "Domini/Administrador.hxx"
-
-
-namespace CppCLRWinFormsProject {
-
-	using namespace System;
-	using namespace System::ComponentModel;
-	using namespace System::Collections;
-	using namespace System::Windows::Forms;
-	using namespace System::Data;
-	using namespace System::Drawing;
-
-	/// <summary>
-	/// Summary for Form1
-	/// </summary>
-	public ref class Form1 : public System::Windows::Forms::Form
-	{
-	public:
-		Form1(void);
-
-	protected:
-		~Form1();
-
 
 	private:
 		System::Windows::Forms::Panel^ pnlInici;
@@ -256,17 +212,6 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::DataGridView^ dgvEstLligaClassificacio;
 		System::Windows::Forms::Button^ btnEstLligaTornar;
 
-	private: System::Windows::Forms::Panel^ pnlConvocatoria;
-	private: System::Windows::Forms::Button^ btnGestionarConvocatoria;
-	private: System::Windows::Forms::Button^ btnTornarConvocatoria;
-	private: System::Windows::Forms::ComboBox^ cbPartitsConvocatoria;
-	private: System::Windows::Forms::DataGridView^ dgvConvocatoria;
-	private: System::Collections::Generic::List<System::String^>^ convocatoriaPartitIds;
-
-		   // Variables pel cartell del jugador
-	private: System::Windows::Forms::Panel^ pnlAvisJugador;
-	private: System::String^ idPartitPendentConfirmar;
-
 		String^ currentIdLligaEstadistiques; // Per guardar la ID de la lliga cercada
 
 		/// <summary>
@@ -274,79 +219,3 @@ namespace CppCLRWinFormsProject {
 		/// </summary>
 		System::ComponentModel::Container^ components;
 
-	private:
-		void InitializeComponent(void);
-		System::Void Form1_Resize(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnUnirEquipLligaAct_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnUELTornar_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnUELComprovar_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnUELUnir_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnShowLogin_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnShowRegister_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnShowRegisterFromLogin_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void cmbRegTipus_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnBack_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnLoginAct_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnRegAct_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnLogout_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnConsultar_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnTornarConsultar_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnComprovarLliga_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnCrearLligaMainMenu_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnGLTornar_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnGLCrearJornada_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnCJCancellar_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnCJBuscarTemporades_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnCJConfirmar_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnGLCrearTemporada_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnCTCancellar_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnCTConfirmar_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnGLAfegirPartit_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnGLEditarPartit_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnCPValidarLliga_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void cmbCPTemporada_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnCPCancellar_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnCPConfirmar_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void MostrarTaulaConsulta(System::String^ titol, System::Data::DataTable^ dades);
-		System::Void MostrarConsultaGeneral(System::String^ titol, System::Data::DataTable^ dades);
-		System::Void btnProgPartits_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnEstatLligues_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnEstadistiquesMenu_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnEstTornar_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnEstadistiques_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnGLMostrarEquips_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnGLEsborrarEquip_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnGL_EnDesenvolupament_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnCLTornar_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnCLGuarda_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnEnregistrarEquip_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnGETornar_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnGEEsborrarEquip_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnGEAssignarJugador_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnGEAfegirJugador_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnGEEliminarJugador_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnAJConfirmar_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnAJCancellar_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnEETornar_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnEEEnregistrar_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnGLEsborrarPartit_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnEPTornar_Click(System::Object^ sender, System::EventArgs^ e);
-		void CarregarTemporadesEsborrar();
-		System::Void btnEstLliga_Click(System::Object^ sender, System::EventArgs^ e);
-		void CarregarDadesLligaDirecte(Playcampus::Domini::CtrlVeureEstadistiquesLliga^ ctrl, String^ idLliga);
-		System::Void btnEstLligaExecutarCerca_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void cmbEPTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnEstLligaTornar_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void cmbEPJornades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnEPEsborrarFinal_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnGestionarConvocatoria_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnTornarConvocatoria_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void CarregarPartitsConvocatoria();
-		System::Void cbPartitsConvocatoria_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
-		System::Void dgvConvocatoria_CellClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e);
-		System::Void MostrarAvisJugador(String^ missatge);
-		System::Void btnConfirmarSi_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnConfirmarNo_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void ProcessarConfirmacio(bool assisteix);
-	};
-}
