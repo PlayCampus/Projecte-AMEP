@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -215,6 +215,12 @@
     <ClInclude Include="ConvocatoriaForm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Domini\CtlrConvocarJugadors.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Domini\CtrlEditarJugador.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CppCLR_WinFormsProject.cpp">
@@ -349,9 +355,6 @@
     <ClCompile Include="Domini\CtrlEsborrarPartit.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CtrlVeureEstadistiquesLliga.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="LoginForm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -409,6 +412,15 @@
     <ClCompile Include="ConvocatoriaForm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Domini\CtlrConvocarJugadors.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\CtrlVeureEstadistiquesLliga.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Domini\CtrlEditarJugador.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico">
@@ -417,5 +429,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="schemajugador.sql" />
+    <None Include="schema_assignacio_jugador_partit.sql" />
+    <None Include="schema_partit_estadistica_individual.sql" />
   </ItemGroup>
 </Project>

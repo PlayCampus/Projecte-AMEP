@@ -1,4 +1,5 @@
 #pragma once
+// Header preserved: no functional changes to class declaration.
 #include <string>
 
 using namespace System;

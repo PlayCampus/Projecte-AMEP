@@ -151,6 +151,7 @@
     <ClInclude Include="Domini\CtrlCrearLliga.hxx" />
     <ClInclude Include="Domini\CtrlCrearPartit.hxx" />
     <ClInclude Include="Domini\CtrlCrearTemporada.hxx" />
+    <ClInclude Include="Domini\CtrlEditarJugador.hxx" />
     <ClInclude Include="Domini\CtrlEditarPartit.hxx" />
     <ClInclude Include="Domini\CtrlEliminarJugador.hxx" />
     <ClInclude Include="Domini\CtrlEnregistrarEquip.hxx" />
@@ -263,6 +264,7 @@
     <ClCompile Include="Domini\CtrlCrearLliga.cxx" />
     <ClCompile Include="Domini\CtrlCrearPartit.cxx" />
     <ClCompile Include="Domini\CtrlCrearTemporada.cxx" />
+    <ClCompile Include="Domini\CtrlEditarJugador.cxx" />
     <ClCompile Include="Domini\CtrlEditarPartit.cxx" />
     <ClCompile Include="Domini\CtrlEliminarJugador.cxx" />
     <ClCompile Include="Domini\CtrlEnregistrarEquip.cxx" />
