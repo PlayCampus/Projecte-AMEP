@@ -4,6 +4,7 @@
 
 using namespace System;
 using namespace System::Collections::Generic;
+using namespace System::Data;
 
 namespace Playcampus {
     namespace Dades {
@@ -17,7 +18,7 @@ namespace Playcampus {
             List<Dictionary<String^, String^>^>^ ObtenirTemporadesAdmin(String^ correuAdmin);
 
             String^ ObtenirIdTemporadaEnCurs(String^ idLliga);
-
+            DataTable^ ObtenirTemporadesLliga(String^ idLliga);
         };
     }
 }

@@ -64,5 +64,31 @@ namespace Playcampus {
             return llista;
         }
 
+        DataTable^ CercadoraPartit::ObtenirPartitsFinalitzatsPerTemporada(String^ idTemporada) {
+            DataTable^ dt = gcnew DataTable();
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                // Hacemos JOIN con Jornada para filtrar por temporada, y con Equip para sacar los nombres. Filtramos por estado 'Finalitzat'
+                String^ query =
+                    "SELECT p.idPartit, el.nom AS EquipLocal, ev.nom AS EquipVisitant "
+                    "FROM Partit p "
+                    "INNER JOIN Jornada j ON p.idJornada = j.idJornada "
+                    "INNER JOIN Equip el ON p.idEquipLocal = el.idEquip "
+                    "INNER JOIN Equip ev ON p.idEquipVisitant = ev.idEquip "
+                    "WHERE j.idTemporada = @idTemporada AND p.estat = 'Finalitzat' "
+                    "ORDER BY p.dataHora DESC";
+
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idTemporada", idTemporada);
+                MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
+                adapter->Fill(dt);
+            }
+            finally {
+                if (conn != nullptr) { conn->Close(); delete conn; }
+            }
+            return dt;
+        }
+
     }
 }

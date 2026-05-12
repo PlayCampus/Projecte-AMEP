@@ -50,5 +50,21 @@ namespace Playcampus {
             }
         }
 
+        DataTable^ CercadoraLliga::ObtenirTotesLligues() {
+            DataTable^ dt = gcnew DataTable();
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "SELECT idLliga, nom FROM Lliga";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
+                adapter->Fill(dt);
+            }
+            finally {
+                if (conn != nullptr) { conn->Close(); delete conn; }
+            }
+            return dt;
+        }
+
     }
 }

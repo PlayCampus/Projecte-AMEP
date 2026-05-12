@@ -71,5 +71,22 @@ namespace Playcampus {
 			return idTemporada;
 
         }
+
+        DataTable^ CercadoraTemporada::ObtenirTemporadesLliga(String^ idLliga) {
+            DataTable^ dt = gcnew DataTable();
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "SELECT idTemporada, dataInici, dataFi FROM Temporada WHERE idLliga = @idLliga ORDER BY dataInici DESC";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idLliga", idLliga);
+                MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
+                adapter->Fill(dt);
+            }
+            finally {
+                if (conn != nullptr) { conn->Close(); delete conn; }
+            }
+            return dt;
+        }
     }
 }

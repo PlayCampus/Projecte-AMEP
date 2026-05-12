@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
 #include "PassarellaLliga.hxx"
+using namespace System;
+using namespace System::Data;
+
 
 using namespace System;
 
@@ -15,6 +18,7 @@ namespace Playcampus {
 
             String^ ObtenirLligaActivaAdmin(String^ idAdmin);
             String^ ObtenirIdLligaPerNom(String^ nomLliga);
+            DataTable^ ObtenirTotesLligues();
         };
     }
 }
