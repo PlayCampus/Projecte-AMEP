@@ -134,7 +134,7 @@ namespace Playcampus {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
-                // Actualizamos a 'Finalitzat' solo la temporada que esté 'EnCurs' para esta liga
+                // Actualizamos a 'Retirada' solo la temporada que esté 'EnCurs' para esta liga
                 String^ query = "UPDATE Temporada SET estat = 'Finalitzat' WHERE idLliga = @idLliga AND estat = 'EnCurs'";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idLliga", idLliga);

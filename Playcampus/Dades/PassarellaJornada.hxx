@@ -19,6 +19,11 @@ namespace Playcampus {
 
         public:
             // Constructores
+
+             // NUEVO CONSTRUCTOR  (solo necesita la conexión)
+            PassarellaJornada (String^ connString);
+
+
             PassarellaJornada(String^ connStr, String^ idJornada, String^ idTemporada,int numero, DateTime dataInici, DateTime dataFi, String^ estat);
 
             // Getters
@@ -34,6 +39,8 @@ namespace Playcampus {
             void Insereix();
 
             static void ActualitzarEstats(String^ connString);
+
+            void RetirarJornadesTemporada(String^ idTemp);
         };
     }
 }
