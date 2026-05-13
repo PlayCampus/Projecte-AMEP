@@ -12,7 +12,7 @@ namespace Playcampus {
             String^ estat;
             int golsLocal;
             int golsVisitant;
-            String^ idJornada; // relacion opcional
+            String^ idJornada; 
 
         public:
             Partit(String^ identificador, DateTime dataHora, String^ ubicacio, String^ estat, int golsLocal, int golsVisitant, String^ idJornada);

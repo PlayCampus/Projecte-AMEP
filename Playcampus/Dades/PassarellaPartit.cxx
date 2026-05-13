@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "PassarellaPartit.hxx"
 
 using namespace System;
@@ -7,11 +7,12 @@ using namespace MySql::Data::MySqlClient;
 
 namespace Playcampus {
     namespace Dades {
+
         PassarellaPartit::PassarellaPartit(String^ connStr) {
             connectionString = connStr;
         }
 
-        PassarellaPartit::PassarellaPartit(String^ connStr, String^ idPartit, DateTime dataHora, String^ ubicacio, String^ estat, int golsLocal, int golsVisitant, String^ idJornada) {
+        PassarellaPartit::PassarellaPartit(String^ connStr, String^ idPartit, DateTime dataHora, String^ ubicacio, String^ estat, int golsLocal, int golsVisitant, String^ idJornada, String^ idEquipLocal, String^ idEquipVisitant) {
             connectionString = connStr;
             this->idPartit = idPartit;
             this->dataHora = dataHora;
@@ -20,6 +21,8 @@ namespace Playcampus {
             this->golsLocal = golsLocal;
             this->golsVisitant = golsVisitant;
             this->idJornada = idJornada;
+            this->idEquipLocal = idEquipLocal;
+            this->idEquipVisitant = idEquipVisitant;
         }
 
         String^ PassarellaPartit::GetIdPartit() { return idPartit; }
@@ -29,6 +32,8 @@ namespace Playcampus {
         int PassarellaPartit::GetGolsLocal() { return golsLocal; }
         int PassarellaPartit::GetGolsVisitant() { return golsVisitant; }
         String^ PassarellaPartit::GetIdJornada() { return idJornada; }
+        String^ PassarellaPartit::GetIdEquipLocal() { return idEquipLocal; }
+        String^ PassarellaPartit::GetIdEquipVisitant() { return idEquipVisitant; }
 
         void PassarellaPartit::InsereixPartit() {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
@@ -39,7 +44,7 @@ namespace Playcampus {
                     idPartit = Guid::NewGuid().ToString();
                 }
 
-                String^ query = "INSERT INTO Partit (idPartit, dataHora, ubicacio, estat, golsLocal, golsVisitant, idJornada) VALUES (@idPartit, @dataHora, @ubicacio, @estat, @golsLocal, @golsVisitant, @idJornada)";
+                String^ query = "INSERT INTO Partit (idPartit, dataHora, ubicacio, estat, golsLocal, golsVisitant, idJornada, idEquipLocal, idEquipVisitant) VALUES (@idPartit, @dataHora, @ubicacio, @estat, @golsLocal, @golsVisitant, @idJornada, @idEquipLocal, @idEquipVisitant)";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
 
                 cmd->Parameters->AddWithValue("@idPartit", idPartit);
@@ -49,6 +54,8 @@ namespace Playcampus {
                 cmd->Parameters->AddWithValue("@golsLocal", golsLocal);
                 cmd->Parameters->AddWithValue("@golsVisitant", golsVisitant);
                 cmd->Parameters->AddWithValue("@idJornada", idJornada);
+                cmd->Parameters->AddWithValue("@idEquipLocal", idEquipLocal);
+                cmd->Parameters->AddWithValue("@idEquipVisitant", idEquipVisitant);
 
                 cmd->ExecuteNonQuery();
             }
@@ -58,21 +65,17 @@ namespace Playcampus {
                 }
             }
         }
-        
-        DataTable^ PassarellaPartit::ObtenirPartits() {
-            DataTable^ dt = gcnew DataTable();
+        void PassarellaPartit::EsborrarPartit(String^ idPartit) {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
-                String^ query = "SELECT idPartit, dataHora, ubicacio, estat, golsLocal, golsVisitant, idJornada FROM Partit";
-                MySqlDataAdapter^ da = gcnew MySqlDataAdapter(query, conn);
-                da->Fill(dt);
-                return dt;
+                String^ query = "DELETE FROM Partit WHERE idPartit = @idPartit";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idPartit", idPartit);
+                cmd->ExecuteNonQuery();
             }
             finally {
-                if (conn != nullptr) {
-                    delete conn;
-                }
+                conn->Close();
             }
         }
     }

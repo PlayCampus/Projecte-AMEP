@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -130,59 +130,120 @@
     <ResourceCompile Include="app.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Dades\CercadoraEquip.hxx" />
+    <ClInclude Include="Dades\CercadoraJornada.hxx" />
+    <ClInclude Include="Dades\CercadoraJugador.hxx" />
+    <ClInclude Include="Dades\CercadoraLliga.hxx" />
+    <ClInclude Include="Dades\CercadoraPartit.hxx" />
+    <ClInclude Include="Dades\CercadoraTemporada.hxx" />
+    <ClInclude Include="Dades\CercadoraUsuari.hxx" />
+    <ClInclude Include="Dades\PassarellaCapita.hxx" />
     <ClInclude Include="Dades\PassarellaEquip.hxx" />
+    <ClInclude Include="Dades\PassarellaJornada.hxx" />
+    <ClInclude Include="Dades\PassarellaJugador.hxx" />
     <ClInclude Include="Dades\PassarellaLliga.hxx" />
     <ClInclude Include="Dades\PassarellaPartit.hxx" />
-    <ClInclude Include="Dades\UsuariTx.h" />
+    <ClInclude Include="Dades\PassarellaTemporada.hxx" />
     <ClInclude Include="Dades\PassarellaUsuari.hxx" />
     <ClInclude Include="Dades\ConnexioBD.hxx" />
+    <ClInclude Include="Domini\CtlrConvocarJugadors.hxx" />
+    <ClInclude Include="Domini\CtrlAfegirJugador.hxx" />
+    <ClInclude Include="Domini\CtrlAssignarJugador.hxx" />
+    <ClInclude Include="Domini\CtrlConsultes.hxx" />
+    <ClInclude Include="Domini\CtrlCrearJornada.hxx" />
     <ClInclude Include="Domini\CtrlCrearLliga.hxx" />
     <ClInclude Include="Domini\CtrlCrearPartit.hxx" />
+    <ClInclude Include="Domini\CtrlCrearTemporada.hxx" />
+    <ClInclude Include="Domini\CtrlEditarJugador.hxx" />
+    <ClInclude Include="Domini\CtrlEditarPartit.hxx" />
+    <ClInclude Include="Domini\CtrlEliminarJugador.hxx" />
     <ClInclude Include="Domini\CtrlEnregistrarEquip.hxx" />
     <ClInclude Include="Domini\CtrlEsborrarEquip.hxx" />
+    <ClInclude Include="Domini\CtrlEsborrarPartit.hxx" />
+    <ClInclude Include="Domini\CtrlEstadistiquesPartit.hxx" />
     <ClInclude Include="Domini\CtrlIniciSessio.hxx" />
     <ClInclude Include="Domini\CtrlRegistrarUsuari.hxx" />
+    <ClInclude Include="Domini\CtrlRetirarTemporada.hxx" />
     <ClInclude Include="Domini\CtrlTancarSessio.hxx" />
-    <ClInclude Include="Domini\Administrador.h" />
     <ClInclude Include="Domini\Administrador.hxx" />
-    <ClInclude Include="Domini\Capita.h" />
     <ClInclude Include="Domini\Capita.hxx" />
     <ClInclude Include="Domini\CtrlUnirEquipLliga.hxx" />
+    <ClInclude Include="Domini\CtrlVeureEstadistiquesJugadors.hxx" />
+    <ClInclude Include="Domini\CtrlVeureEstadistiquesEquip.hxx" />
+    <ClInclude Include="Domini\CtrlVeureEstadistiquesLliga.hxx" />
+    <ClInclude Include="Domini\CtrlVeurePlantilla.hxx" />
     <ClInclude Include="Domini\Disciplina.hxx" />
     <ClInclude Include="Domini\Equip.hxx" />
-    <ClInclude Include="Domini\Estudiant.h" />
     <ClInclude Include="Domini\Estudiant.hxx" />
     <ClInclude Include="Domini\Jornada.hxx" />
     <ClInclude Include="Domini\Jugador.hxx" />
     <ClInclude Include="Domini\Lliga.hxx" />
     <ClInclude Include="Domini\Partit.hxx" />
     <ClInclude Include="Domini\Temporada.hxx" />
-    <ClInclude Include="Domini\Usuari.h" />
     <ClInclude Include="Domini\Usuari.hxx" />
+    <ClInclude Include="EditarJugadorForm.h" />
+    <ClInclude Include="EstadistiquesJugadorsForm.h" />
     <ClInclude Include="Form1.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Form1Designer.h" />
+    <ClInclude Include="Form1Layout.h" />
+    <ClInclude Include="Form1Auth.h" />
+    <ClInclude Include="Form1Consultes.h" />
+    <ClInclude Include="Form1Lligues.h" />
+    <ClInclude Include="Form1TemporadesJornades.h" />
+    <ClInclude Include="Form1Partits.h" />
+    <ClInclude Include="Form1Equips.h" />
+    <ClInclude Include="Form1Estadistiques.h" />
+    <ClInclude Include="Form1Convocatoria.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="CppCLR_WinFormsProject.cpp" />
+    <ClCompile Include="Dades\CercadoraEquip.cxx" />
+    <ClCompile Include="Dades\CercadoraJornada.cxx" />
+    <ClCompile Include="Dades\CercadoraJugador.cxx" />
+    <ClCompile Include="Dades\CercadoraLliga.cxx" />
+    <ClCompile Include="Dades\CercadoraPartit.cxx" />
+    <ClCompile Include="Dades\CercadoraTemporada.cxx" />
+    <ClCompile Include="Dades\CercadoraUsuari.cxx" />
+    <ClCompile Include="Dades\PassarellaCapita.cxx" />
     <ClCompile Include="Dades\PassarellaEquip.cxx" />
+    <ClCompile Include="Dades\PassarellaJornada.cxx" />
+    <ClCompile Include="Dades\PassarellaJugador.cxx" />
     <ClCompile Include="Dades\PassarellaLliga.cxx" />
     <ClCompile Include="Dades\PassarellaPartit.cxx" />
+    <ClCompile Include="Dades\PassarellaTemporada.cxx" />
     <ClCompile Include="Dades\PassarellaUsuari.cxx" />
     <ClCompile Include="Dades\ConnexioBD.cxx" />
+    <ClCompile Include="Domini\CtlrConvocarJugadors.cxx" />
+    <ClCompile Include="Domini\CtrlAfegirJugador.cxx" />
+    <ClCompile Include="Domini\CtrlAssignarJugador.cxx" />
+    <ClCompile Include="Domini\CtrlConsultes.cxx" />
+    <ClCompile Include="Domini\CtrlCrearJornada.cxx" />
     <ClCompile Include="Domini\CtrlCrearLliga.cxx" />
     <ClCompile Include="Domini\CtrlCrearPartit.cxx" />
+    <ClCompile Include="Domini\CtrlCrearTemporada.cxx" />
+    <ClCompile Include="Domini\CtrlEditarJugador.cxx" />
+    <ClCompile Include="Domini\CtrlEditarPartit.cxx" />
+    <ClCompile Include="Domini\CtrlEliminarJugador.cxx" />
     <ClCompile Include="Domini\CtrlEnregistrarEquip.cxx" />
     <ClCompile Include="Domini\CtrlEsborrarEquip.cxx" />
+    <ClCompile Include="Domini\CtrlEsborrarPartit.cxx" />
+    <ClCompile Include="Domini\CtrlEstadistiquesPartit.cxx" />
     <ClCompile Include="Domini\CtrlIniciSessio.cxx" />
     <ClCompile Include="Domini\CtrlRegistrarUsuari.cxx" />
+    <ClCompile Include="Domini\CtrlRetirarTemporada.cxx" />
     <ClCompile Include="Domini\CtrlTancarSessio.cxx" />
     <ClCompile Include="Domini\Administrador.cxx" />
     <ClCompile Include="Domini\Capita.cxx" />
     <ClCompile Include="Domini\CtrlUnirEquipLliga.cxx" />
+    <ClCompile Include="Domini\CtrlVeureEstadistiquesJugadors.cxx" />
+    <ClCompile Include="Domini\CtrlVeureEstadistiquesEquip.cxx" />
+    <ClCompile Include="Domini\CtrlVeureEstadistiquesLliga.cxx" />
+    <ClCompile Include="Domini\CtrlVeurePlantilla.cxx" />
     <ClCompile Include="Domini\Equip.cxx" />
     <ClCompile Include="Domini\Estudiant.cxx" />
     <ClCompile Include="Domini\Jornada.cxx" />
@@ -191,13 +252,25 @@
     <ClCompile Include="Domini\Partit.cxx" />
     <ClCompile Include="Domini\Temporada.cxx" />
     <ClCompile Include="Domini\Usuari.cxx" />
-    <ClCompile Include="Form1.cpp" />
+    <ClCompile Include="EditarJugadorForm.cpp" />
+    <ClCompile Include="EstadistiquesJugadorsForm.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Form1.cpp" />
+    <ClCompile Include="Form1Designer.cpp" />
+    <ClCompile Include="Form1Layout.cpp" />
+    <ClCompile Include="Form1Auth.cpp" />
+    <ClCompile Include="Form1Consultes.cpp" />
+    <ClCompile Include="Form1Lligues.cpp" />
+    <ClCompile Include="Form1TemporadesJornades.cpp" />
+    <ClCompile Include="Form1Partits.cpp" />
+    <ClCompile Include="Form1Equips.cpp" />
+    <ClCompile Include="Form1Estadistiques.cpp" />
+    <ClCompile Include="Form1Convocatoria.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico" />
@@ -213,8 +286,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="amep06_equip.sql" />
-    <None Include="configuracio.env" />
+    <None Include="schemajugador.sql" />
+    <None Include="schema_assignacio_jugador_partit.sql" />
+    <None Include="schema_partit_estadistica_individual.sql" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

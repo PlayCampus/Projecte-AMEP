@@ -9,6 +9,8 @@ namespace Playcampus {
         private:
             String^ connectionString;
         public:
+            System::String^ ObtenirIdEquipDeCapita(System::String^ correu);
+            System::String^ ObtenirIdUsuari(System::String^ correu);
             CtrlIniciSessio();
             bool IniciarSessio(String^ correu, String^ contrasenya);
             String^ ObtenirTipusUsuari(String^ correu);

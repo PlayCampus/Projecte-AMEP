@@ -1,10 +1,10 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Jugador.hxx"
 
 namespace Playcampus {
     namespace Domini {
-        Jugador::Jugador(String^ nom, String^ posicio, int dorsal, int edat, DateTime antiguitat) {
-            this->nom = nom;
+        Jugador::Jugador(String^ identificador, String^ nom, String^ contrasenya, DateTime data_registre, String^ correu_electronic, String^ posicio, int dorsal, int edat, DateTime antiguitat) 
+            : Usuari(identificador, nom, contrasenya, data_registre, correu_electronic) {
             this->posicio = posicio;
             this->dorsal = dorsal;
             this->edat = edat;
@@ -16,9 +16,6 @@ namespace Playcampus {
             this->faltesLleus = 0;
             this->faltesGreus = 0;
         }
-
-        String^ Jugador::GetNom() { return nom; }
-        void Jugador::SetNom(String^ nom) { this->nom = nom; }
 
         String^ Jugador::GetPosicio() { return posicio; }
         void Jugador::SetPosicio(String^ posicio) { this->posicio = posicio; }
@@ -63,11 +60,6 @@ namespace Playcampus {
         bool Jugador::ValidarAntiguitat() {
             // RIT10
             return antiguitat <= DateTime::Now;
-        }
-
-        bool Jugador::ValidarNom() {
-            // RIT22
-            return !String::IsNullOrEmpty(nom);
         }
     }
 }

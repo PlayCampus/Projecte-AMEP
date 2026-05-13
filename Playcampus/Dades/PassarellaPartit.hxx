@@ -16,9 +16,11 @@ namespace Playcampus {
             int golsLocal;
             int golsVisitant;
             String^ idJornada;
+            String^ idEquipLocal;    // Añadido
+            String^ idEquipVisitant; // Añadido
         public:
             PassarellaPartit(String^ connStr);
-            PassarellaPartit(String^ connStr, String^ idPartit, DateTime dataHora, String^ ubicacio, String^ estat, int golsLocal, int golsVisitant, String^ idJornada);
+            PassarellaPartit(String^ connStr, String^ idPartit, DateTime dataHora, String^ ubicacio, String^ estat, int golsLocal, int golsVisitant, String^ idJornada, String^ idEquipLocal, String^ idEquipVisitant);
 
             String^ GetIdPartit();
             DateTime GetDataHora();
@@ -27,9 +29,11 @@ namespace Playcampus {
             int GetGolsLocal();
             int GetGolsVisitant();
             String^ GetIdJornada();
+            String^ GetIdEquipLocal();
+            String^ GetIdEquipVisitant();
 
             void InsereixPartit();
-            DataTable^ ObtenirPartits();
+            void EsborrarPartit(String^ idPartit);
         };
     }
 }

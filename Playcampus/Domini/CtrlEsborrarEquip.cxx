@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include <msclr\marshal_cppstd.h>
 #include "CtrlEsborrarEquip.hxx"
 #include "../Dades/ConnexioBD.hxx"
@@ -43,7 +43,18 @@ namespace Playcampus {
                     String^ queryUpdate = "UPDATE Capita C JOIN Usuari U ON C.identificador = U.identificador SET C.idEquip = NULL WHERE U.correu_electronic = @correu";
                     MySqlCommand^ cmdUpdate = gcnew MySqlCommand(queryUpdate, connUpdate);
                     cmdUpdate->Parameters->AddWithValue("@correu", correuCapita);
-                    cmdUpdate->ExecuteNonQuery();
+                    int filesAfectades = cmdUpdate->ExecuteNonQuery();
+                    if (filesAfectades != 1) {
+                        throw gcnew Exception("No s'ha pogut desvincular l'equip del capita.");
+                    }
+
+                    String^ queryVerificacio = "SELECT COUNT(*) FROM Capita C JOIN Usuari U ON C.identificador = U.identificador WHERE U.correu_electronic = @correu AND C.idEquip IS NULL";
+                    MySqlCommand^ cmdVerificacio = gcnew MySqlCommand(queryVerificacio, connUpdate);
+                    cmdVerificacio->Parameters->AddWithValue("@correu", correuCapita);
+                    int filesVerificades = Convert::ToInt32(cmdVerificacio->ExecuteScalar());
+                    if (filesVerificades != 1) {
+                        throw gcnew Exception("La base de dades no ha confirmat que el capita hagi quedat sense equip.");
+                    }
                 }
                 finally {
                     delete connUpdate;

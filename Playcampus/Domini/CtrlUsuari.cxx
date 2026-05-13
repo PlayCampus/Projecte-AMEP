@@ -1,6 +1,7 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CtrlUsuari.hxx"
 #include "../Dades/PassarellaUsuari.hxx"
+#include "../Dades/CercadoraUsuari.hxx"
 
 using namespace System;
 
@@ -17,7 +18,7 @@ namespace Playcampus {
         }
 
         bool CtrlUsuari::IniciarSessio(String^ correu, String^ contrasenya) {
-            Playcampus::Dades::PassarellaUsuari^ pu = Playcampus::Dades::PassarellaUsuari::LlegeixPerCorreu(connectionString, correu);
+            Playcampus::Dades::PassarellaUsuari^ pu = (gcnew Playcampus::Dades::CercadoraUsuari(connectionString))->LlegeixPerCorreu( correu);
             if (pu != nullptr) {
                 if (pu->GetContrasenya() == contrasenya) {
                     return true;

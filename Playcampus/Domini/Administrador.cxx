@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Administrador.hxx"
 
 using namespace System;
@@ -13,15 +13,15 @@ namespace Playcampus {
         String^ Administrador::GetTelefonContacte() { return telefonContacte; }
 
         void Administrador::ValidarEquip(String^ idEquip) {
-            // Lògica de validació d'equips
+            // LÃ²gica de validaciÃ³ d'equips
         }
 
         void Administrador::AssignarRolCapita(Usuari^ usuari) {
-            // Assignar rol de capità a l'usuari
+            // Assignar rol de capitÃ  a l'usuari
         }
 
         void Administrador::ConfigurarLliga(String^ nomLliga) {
-            // Configurar paràmetres de la lliga
+            // Configurar parÃ metres de la lliga
         }
 
         void Administrador::EstablirCalendariOficial(String^ iLliga) {

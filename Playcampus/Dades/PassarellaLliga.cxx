@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "PassarellaLliga.hxx"
 
 using namespace System;
@@ -10,13 +10,12 @@ namespace Playcampus {
             connectionString = connStr;
         }
 
-        PassarellaLliga::PassarellaLliga(String^ connStr, String^ idLliga, String^ nom, Playcampus::Domini::Disciplina disciplina, String^ descripcio, String^ estat, String^ contrasenya, String^ idAdministrador) {
+        PassarellaLliga::PassarellaLliga(String^ connStr, String^ idLliga, String^ nom, Playcampus::Domini::Disciplina disciplina, String^ descripcio, String^ contrasenya, String^ idAdministrador) {
             connectionString = connStr;
             this->idLliga = idLliga;
             this->nom = nom;
             this->disciplina = disciplina;
             this->descripcio = descripcio;
-            this->estat = estat;
             this->contrasenya = contrasenya;
             this->idAdministrador = idAdministrador;
         }
@@ -25,7 +24,6 @@ namespace Playcampus {
         String^ PassarellaLliga::GetNom() { return nom; }
         Playcampus::Domini::Disciplina PassarellaLliga::GetDisciplina() { return disciplina; }
         String^ PassarellaLliga::GetDescripcio() { return descripcio; }
-        String^ PassarellaLliga::GetEstat() { return estat; }
         String^ PassarellaLliga::GetContrasenya() { return contrasenya; }
         String^ PassarellaLliga::GetIdAdministrador() { return idAdministrador; }
 
@@ -38,14 +36,13 @@ namespace Playcampus {
                     idLliga = Guid::NewGuid().ToString();
                 }
 
-                String^ query = "INSERT INTO Lliga (idLliga, nom, disciplina, descripcio, estat, contrasenya, idAdministrador) VALUES (@idLliga, @nom, @disciplina, @descripcio, @estat, @contrasenya, @idAdministrador)";
+                String^ query = "INSERT INTO Lliga (idLliga, nom, disciplina, descripcio, contrasenya, idAdministrador) VALUES (@idLliga, @nom, @disciplina, @descripcio, @contrasenya, @idAdministrador)";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                
+
                 cmd->Parameters->AddWithValue("@idLliga", idLliga);
                 cmd->Parameters->AddWithValue("@nom", nom);
                 cmd->Parameters->AddWithValue("@disciplina", disciplina.ToString());
                 cmd->Parameters->AddWithValue("@descripcio", descripcio);
-                cmd->Parameters->AddWithValue("@estat", estat);
 
                 if (String::IsNullOrEmpty(contrasenya)) {
                     cmd->Parameters->AddWithValue("@contrasenya", DBNull::Value);
@@ -98,7 +95,7 @@ namespace Playcampus {
             try {
                 conn->Open();
 
-                String^ query = "SELECT COUNT(*) FROM Lliga WHERE idAdministrador = @idAdmin AND estat = 'en_curs'";
+                String^ query = "SELECT COUNT(*) FROM Lliga WHERE idAdministrador = @idAdmin";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idAdmin", idAdmin);
 
@@ -114,5 +111,36 @@ namespace Playcampus {
 
             return teActiva;
         }
+
+        bool PassarellaLliga::EsAdministradorLliga(System::String^ nomLliga, System::String^ correuAdmin)
+        {
+            bool esAdmin = false;
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+
+            try {
+                conn->Open();
+
+                // Fem un JOIN amb Usuari per poder comparar el correu electrònic amb l'idAdministrador guardat a Lliga
+                String^ query = "SELECT COUNT(*) FROM Lliga L INNER JOIN Usuari U ON L.idAdministrador = U.identificador WHERE L.nom = @nom AND U.correu_electronic = @correuAdmin";
+
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@nom", nomLliga);
+                cmd->Parameters->AddWithValue("@correuAdmin", correuAdmin);
+
+                int count = Convert::ToInt32(cmd->ExecuteScalar());
+                esAdmin = (count > 0);
+            }
+            catch (Exception^ ex) {
+                throw ex;
+            }
+            finally {
+                if (conn != nullptr) {
+                    conn->Close();
+                }
+            }
+
+            return esAdmin;
+        }
+
     }
 }

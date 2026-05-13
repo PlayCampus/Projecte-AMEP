@@ -5,7 +5,6 @@ CREATE TABLE IF NOT EXISTS Lliga (
     nom VARCHAR(100) NOT NULL,
     disciplina VARCHAR(50) NOT NULL,
     descripcio TEXT,
-    estat VARCHAR(50) NOT NULL,
     contrasenya VARCHAR(255),
     idAdministrador INT,
     FOREIGN KEY (idAdministrador) REFERENCES Administrador(identificador) ON DELETE SET NULL

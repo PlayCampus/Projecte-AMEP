@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/enc_temp_folder/306fed5be70fbd7f3b1ec7907bf56/CtrlRetirarTemporada.cxx
+/enc_temp_folder/4f884f346a9f402530f9b1b27960c987/PassarellaJornada.cxx
+/enc_temp_folder/ba132badd45655ab915feebf373cdf/PassarellaTemporada.cxx
