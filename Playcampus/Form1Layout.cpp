@@ -27,7 +27,7 @@ namespace CppCLRWinFormsProject {
 
 		if (this->btnGestionarConvocatoria != nullptr && pnlMain->Visible) {
 			// El posem al costat dels altres botons del capità. Ajusta el '600' i '80' si se superposen.
-			this->btnGestionarConvocatoria->Location = System::Drawing::Point(startBtnX + 600, 80);
+         this->btnGestionarConvocatoria->Location = System::Drawing::Point(startBtnX + 750, 80);
 			this->btnGestionarConvocatoria->Size = System::Drawing::Size(180, 40);
 		}
 
@@ -113,17 +113,69 @@ namespace CppCLRWinFormsProject {
 		this->btnEstadistiques->Location = System::Drawing::Point(startBtnX + 300, 80);
 		this->btnConsultar->Location = System::Drawing::Point(startBtnX + 450, 80);
 
-		this->btnCrearLligaMainMenu->Location = System::Drawing::Point(startBtnX + 600, 80);
+        this->btnCrearLligaMainMenu->Location = System::Drawing::Point(startBtnX + 750, 80);
 		this->btnEnregistrarEquip->Location = System::Drawing::Point(startBtnX - 150, 80); // Posicionament a l'esquerra
 		this->btnUnirEquipLliga->Location = System::Drawing::Point(startBtnX - 300, 80);
+		if (this->btnSeguirLligaMainMenu != nullptr) {
+           this->btnSeguirLligaMainMenu->Location = System::Drawing::Point(startBtnX + 600, 80);
+			this->btnSeguirLligaMainMenu->Size = System::Drawing::Size(130, 40);
+		}
 
 		int picY = 140;
 		int picBottomMargin = 160;
 		int picH = System::Math::Max(10, ch - picY - picBottomMargin);
 		this->picImatge->Location = System::Drawing::Point(50, picY);
 		this->picImatge->Size = System::Drawing::Size(cw - 100, picH);
+		if (this->pnlDashboardLliga != nullptr) {
+			this->pnlDashboardLliga->Location = this->picImatge->Location;
+			this->pnlDashboardLliga->Size = this->picImatge->Size;
+			this->pnlDashboardLliga->BringToFront();
 
-		int noticiesY = this->picImatge->Bottom + 20;
+			int pad = 12;
+			int titleY = pad;
+			if (this->lblDashboardLliga != nullptr) {
+				this->lblDashboardLliga->Location = System::Drawing::Point(pad, titleY);
+			}
+			int y = titleY + 30;
+			int w = this->pnlDashboardLliga->Width - pad * 2;
+			int hTotal = this->pnlDashboardLliga->Height - y - pad;
+			int hEach = System::Math::Max(60, (hTotal - 40 * 3) / 3);
+
+			if (this->lblDashboardClassificacio != nullptr) {
+				this->lblDashboardClassificacio->Location = System::Drawing::Point(pad, y);
+			}
+			y += 20;
+			if (this->dgvDashboardClassificacio != nullptr) {
+				this->dgvDashboardClassificacio->Location = System::Drawing::Point(pad, y);
+				this->dgvDashboardClassificacio->Size = System::Drawing::Size(w, hEach);
+			}
+			y += hEach + 20;
+
+			if (this->lblDashboardProximsPartits != nullptr) {
+				this->lblDashboardProximsPartits->Location = System::Drawing::Point(pad, y);
+			}
+			y += 20;
+			if (this->dgvDashboardProximsPartits != nullptr) {
+				this->dgvDashboardProximsPartits->Location = System::Drawing::Point(pad, y);
+				this->dgvDashboardProximsPartits->Size = System::Drawing::Size(w, hEach);
+			}
+			y += hEach + 20;
+
+			if (this->lblDashboardUltimsResultats != nullptr) {
+				this->lblDashboardUltimsResultats->Location = System::Drawing::Point(pad, y);
+			}
+			y += 20;
+			if (this->dgvDashboardUltimsResultats != nullptr) {
+				this->dgvDashboardUltimsResultats->Location = System::Drawing::Point(pad, y);
+				this->dgvDashboardUltimsResultats->Size = System::Drawing::Size(w, System::Math::Max(60, this->pnlDashboardLliga->Height - y - pad));
+			}
+		}
+
+       int dashboardBottom = this->picImatge->Bottom;
+		if (this->pnlDashboardLliga != nullptr && this->pnlDashboardLliga->Visible) {
+			dashboardBottom = this->pnlDashboardLliga->Bottom;
+		}
+		int noticiesY = dashboardBottom + 20;
 		this->lblNoticies->Location = System::Drawing::Point(50, noticiesY);
 		this->lstNoticies->Location = System::Drawing::Point(50, noticiesY + 25);
 		this->lstNoticies->Size = System::Drawing::Size(cw - 100, ch - (noticiesY + 25) - 20);

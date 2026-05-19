@@ -120,6 +120,63 @@ Form1::Form1(void) {
 			this->pnlEstadistiquesPartitDetail->Visible = false;
 			// --- FI ESTADÍSTIQUES PARTIT ---
 
+			// --- INICI SEGUIR LLIGA (MENÚ PRINCIPAL) ---
+			this->btnSeguirLligaMainMenu = gcnew System::Windows::Forms::Button();
+			this->btnSeguirLligaMainMenu->Text = L"Seguir Lliga";
+			this->btnSeguirLligaMainMenu->Size = System::Drawing::Size(180, 40);
+			this->btnSeguirLligaMainMenu->Visible = false;
+			this->btnSeguirLligaMainMenu->Click += gcnew System::EventHandler(this, &Form1::btnSeguirLligaMainMenu_Click);
+			this->pnlMain->Controls->Add(this->btnSeguirLligaMainMenu);
+
+			this->pnlDashboardLliga = gcnew System::Windows::Forms::Panel();
+			this->pnlDashboardLliga->Visible = false;
+			this->pnlDashboardLliga->BackColor = System::Drawing::Color::White;
+			this->pnlDashboardLliga->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->pnlMain->Controls->Add(this->pnlDashboardLliga);
+
+			this->lblDashboardLliga = gcnew System::Windows::Forms::Label();
+			this->lblDashboardLliga->Text = L"";
+			this->lblDashboardLliga->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Bold);
+			this->lblDashboardLliga->AutoSize = true;
+			this->pnlDashboardLliga->Controls->Add(this->lblDashboardLliga);
+
+			this->lblDashboardClassificacio = gcnew System::Windows::Forms::Label();
+			this->lblDashboardClassificacio->Text = L"Classificació";
+			this->lblDashboardClassificacio->AutoSize = true;
+			this->pnlDashboardLliga->Controls->Add(this->lblDashboardClassificacio);
+
+			this->dgvDashboardClassificacio = gcnew System::Windows::Forms::DataGridView();
+			this->dgvDashboardClassificacio->AllowUserToAddRows = false;
+			this->dgvDashboardClassificacio->ReadOnly = true;
+			this->dgvDashboardClassificacio->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
+			this->dgvDashboardClassificacio->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::AllCells;
+			this->pnlDashboardLliga->Controls->Add(this->dgvDashboardClassificacio);
+
+			this->lblDashboardProximsPartits = gcnew System::Windows::Forms::Label();
+			this->lblDashboardProximsPartits->Text = L"Pròxims partits";
+			this->lblDashboardProximsPartits->AutoSize = true;
+			this->pnlDashboardLliga->Controls->Add(this->lblDashboardProximsPartits);
+
+			this->dgvDashboardProximsPartits = gcnew System::Windows::Forms::DataGridView();
+			this->dgvDashboardProximsPartits->AllowUserToAddRows = false;
+			this->dgvDashboardProximsPartits->ReadOnly = true;
+			this->dgvDashboardProximsPartits->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
+			this->dgvDashboardProximsPartits->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::AllCells;
+			this->pnlDashboardLliga->Controls->Add(this->dgvDashboardProximsPartits);
+
+			this->lblDashboardUltimsResultats = gcnew System::Windows::Forms::Label();
+			this->lblDashboardUltimsResultats->Text = L"Últims resultats";
+			this->lblDashboardUltimsResultats->AutoSize = true;
+			this->pnlDashboardLliga->Controls->Add(this->lblDashboardUltimsResultats);
+
+			this->dgvDashboardUltimsResultats = gcnew System::Windows::Forms::DataGridView();
+			this->dgvDashboardUltimsResultats->AllowUserToAddRows = false;
+			this->dgvDashboardUltimsResultats->ReadOnly = true;
+			this->dgvDashboardUltimsResultats->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
+			this->dgvDashboardUltimsResultats->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::AllCells;
+			this->pnlDashboardLliga->Controls->Add(this->dgvDashboardUltimsResultats);
+			// --- FI SEGUIR LLIGA ---
+
 			Form1_Resize(nullptr, nullptr);
 		}
 

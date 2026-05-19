@@ -164,6 +164,7 @@
     <ClInclude Include="Domini\CtrlIniciSessio.hxx" />
     <ClInclude Include="Domini\CtrlRegistrarUsuari.hxx" />
     <ClInclude Include="Domini\CtrlRetirarTemporada.hxx" />
+    <ClInclude Include="Domini\CtrlSeguirLliga.hxx" />
     <ClInclude Include="Domini\CtrlTancarSessio.hxx" />
     <ClInclude Include="Domini\Administrador.hxx" />
     <ClInclude Include="Domini\Capita.hxx" />
@@ -236,6 +237,7 @@
     <ClCompile Include="Domini\CtrlIniciSessio.cxx" />
     <ClCompile Include="Domini\CtrlRegistrarUsuari.cxx" />
     <ClCompile Include="Domini\CtrlRetirarTemporada.cxx" />
+    <ClCompile Include="Domini\CtrlSeguirLliga.cxx" />
     <ClCompile Include="Domini\CtrlTancarSessio.cxx" />
     <ClCompile Include="Domini\Administrador.cxx" />
     <ClCompile Include="Domini\Capita.cxx" />
@@ -289,6 +291,10 @@
     <None Include="schemajugador.sql" />
     <None Include="schema_assignacio_jugador_partit.sql" />
     <None Include="schema_partit_estadistica_individual.sql" />
+    <None Include="schema_seguir_lliga.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Dades\SQL_UsuariSegueixLliga_README.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

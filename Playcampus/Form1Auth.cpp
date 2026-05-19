@@ -122,6 +122,11 @@ namespace CppCLRWinFormsProject {
 					}
 				}
 
+				if (this->btnSeguirLligaMainMenu != nullptr) {
+					this->btnSeguirLligaMainMenu->Visible = true;
+					ActualitzarEstatSeguirLliga();
+				}
+
 				txtLoginCorreu->Text = "";
 				txtLoginPass->Text = "";
 
@@ -189,6 +194,131 @@ namespace CppCLRWinFormsProject {
 		pnlEstadistiquesLligaDetail->Visible = false;
 		pnlMain->Visible = false;
 		pnlInici->Visible = true;
+       if (this->btnSeguirLligaMainMenu != nullptr) {
+			this->btnSeguirLligaMainMenu->Visible = false;
+			this->btnSeguirLligaMainMenu->Text = L"Seguir Lliga";
+		}
+		if (this->pnlDashboardLliga != nullptr) this->pnlDashboardLliga->Visible = false;
+		if (this->picImatge != nullptr) this->picImatge->Visible = true;
+	}
+
+	System::String^ Form1::DemanarNomLliga(System::String^ titol, System::String^ missatge) {
+		Form^ dlg = gcnew Form();
+		dlg->Text = titol;
+        dlg->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
+		dlg->StartPosition = FormStartPosition::CenterParent;
+		dlg->MinimizeBox = false;
+		dlg->MaximizeBox = false;
+		dlg->ClientSize = System::Drawing::Size(420, 140);
+
+		Label^ lbl = gcnew Label();
+		lbl->Text = missatge;
+		lbl->AutoSize = false;
+		lbl->Size = System::Drawing::Size(390, 40);
+		lbl->Location = System::Drawing::Point(15, 10);
+
+		TextBox^ txt = gcnew TextBox();
+		txt->Size = System::Drawing::Size(390, 22);
+		txt->Location = System::Drawing::Point(15, 55);
+
+		Button^ ok = gcnew Button();
+		ok->Text = L"OK";
+		ok->DialogResult = System::Windows::Forms::DialogResult::OK;
+		ok->Location = System::Drawing::Point(235, 95);
+		ok->Size = System::Drawing::Size(80, 30);
+
+		Button^ cancel = gcnew Button();
+		cancel->Text = L"Cancel·lar";
+		cancel->DialogResult = System::Windows::Forms::DialogResult::Cancel;
+		cancel->Location = System::Drawing::Point(325, 95);
+		cancel->Size = System::Drawing::Size(80, 30);
+
+		dlg->AcceptButton = ok;
+		dlg->CancelButton = cancel;
+		dlg->Controls->Add(lbl);
+		dlg->Controls->Add(txt);
+		dlg->Controls->Add(ok);
+		dlg->Controls->Add(cancel);
+
+     System::Windows::Forms::DialogResult r = dlg->ShowDialog(this);
+		String^ value = nullptr;
+        if (r == System::Windows::Forms::DialogResult::OK) {
+			value = txt->Text;
+		}
+		delete dlg;
+		return value;
+	}
+
+	void Form1::CarregarDashboardLliga(System::String^ idLliga) {
+		if (String::IsNullOrEmpty(idLliga)) return;
+		Playcampus::Domini::CtrlSeguirLliga^ ctrl = gcnew Playcampus::Domini::CtrlSeguirLliga();
+		String^ nom = ctrl->ObtenirNomLligaPerId(idLliga);
+		if (this->lblDashboardLliga != nullptr) {
+			this->lblDashboardLliga->Text = String::IsNullOrEmpty(nom) ? L"" : (L"Lliga: " + nom);
+		}
+		if (this->dgvDashboardClassificacio != nullptr) {
+			this->dgvDashboardClassificacio->DataSource = ctrl->ObtenirClassificacioLliga(idLliga);
+		}
+		if (this->dgvDashboardProximsPartits != nullptr) {
+			this->dgvDashboardProximsPartits->DataSource = ctrl->ObtenirProximsPartits(idLliga, 5);
+		}
+		if (this->dgvDashboardUltimsResultats != nullptr) {
+			this->dgvDashboardUltimsResultats->DataSource = ctrl->ObtenirUltimsResultats(idLliga, 5);
+		}
+
+		if (this->pnlDashboardLliga != nullptr) this->pnlDashboardLliga->Visible = true;
+		if (this->picImatge != nullptr) this->picImatge->Visible = false;
+		Form1_Resize(nullptr, nullptr);
+	}
+
+	void Form1::ActualitzarEstatSeguirLliga() {
+		if (String::IsNullOrEmpty(currentUsuariCorreu) || this->btnSeguirLligaMainMenu == nullptr) return;
+		try {
+			Playcampus::Domini::CtrlSeguirLliga^ ctrl = gcnew Playcampus::Domini::CtrlSeguirLliga();
+			String^ id = ctrl->ObtenirIdLligaSeguida(currentUsuariCorreu);
+			if (!String::IsNullOrEmpty(id)) {
+				this->btnSeguirLligaMainMenu->Text = L"Deixar de seguir lliga actual";
+				CarregarDashboardLliga(id);
+			}
+			else {
+				this->btnSeguirLligaMainMenu->Text = L"Seguir Lliga";
+				if (this->pnlDashboardLliga != nullptr) this->pnlDashboardLliga->Visible = false;
+				if (this->picImatge != nullptr) this->picImatge->Visible = true;
+			}
+		}
+		catch (Exception^) {
+			this->btnSeguirLligaMainMenu->Text = L"Seguir Lliga";
+			if (this->pnlDashboardLliga != nullptr) this->pnlDashboardLliga->Visible = false;
+			if (this->picImatge != nullptr) this->picImatge->Visible = true;
+		}
+	}
+
+	System::Void Form1::btnSeguirLligaMainMenu_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (String::IsNullOrEmpty(currentUsuariCorreu)) return;
+		try {
+			Playcampus::Domini::CtrlSeguirLliga^ ctrl = gcnew Playcampus::Domini::CtrlSeguirLliga();
+			String^ idActual = ctrl->ObtenirIdLligaSeguida(currentUsuariCorreu);
+
+			if (!String::IsNullOrEmpty(idActual)) {
+				auto r = MessageBox::Show(L"Estàs segur que vols deixar de seguir la lliga?", L"Confirmació", MessageBoxButtons::YesNo, MessageBoxIcon::Question);
+				if (r == System::Windows::Forms::DialogResult::Yes) {
+					ctrl->DeixarDeSeguir(currentUsuariCorreu);
+					ActualitzarEstatSeguirLliga();
+				}
+				return;
+			}
+
+			String^ nomLliga = DemanarNomLliga(L"Seguir Lliga", L"Introdueix el nom de la lliga que vols seguir:");
+			if (String::IsNullOrWhiteSpace(nomLliga)) return;
+
+			ctrl->SeguirLliga(currentUsuariCorreu, nomLliga->Trim());
+			String^ id = ctrl->ObtenirIdLligaPerNom(nomLliga->Trim());
+			this->btnSeguirLligaMainMenu->Text = L"Deixar de seguir lliga actual";
+			CarregarDashboardLliga(id);
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error: " + ex->Message, L"Seguir Lliga", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
 	}
 
 }

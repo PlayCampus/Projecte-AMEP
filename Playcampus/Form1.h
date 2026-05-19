@@ -24,6 +24,7 @@
 #include "Domini/Administrador.hxx"
 #include "Domini/CtrlRetirarTemporada.hxx"
 #include "Domini/CtrlEstadistiquesPartit.hxx"
+#include "Domini/CtrlSeguirLliga.hxx"
 #include "EstadistiquesJugadorsForm.h"
 
 namespace CppCLRWinFormsProject {
@@ -88,6 +89,15 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Button^ btnConsultar;
 		System::Windows::Forms::Button^ btnEnregistrarEquip;
 		System::Windows::Forms::Button^ btnUnirEquipLliga;
+        System::Windows::Forms::Button^ btnSeguirLligaMainMenu;
+		System::Windows::Forms::Panel^ pnlDashboardLliga;
+		System::Windows::Forms::Label^ lblDashboardLliga;
+		System::Windows::Forms::Label^ lblDashboardClassificacio;
+		System::Windows::Forms::DataGridView^ dgvDashboardClassificacio;
+		System::Windows::Forms::Label^ lblDashboardProximsPartits;
+		System::Windows::Forms::DataGridView^ dgvDashboardProximsPartits;
+		System::Windows::Forms::Label^ lblDashboardUltimsResultats;
+		System::Windows::Forms::DataGridView^ dgvDashboardUltimsResultats;
 		System::Windows::Forms::Panel^ pnlEstadistiques;
 		System::Windows::Forms::Label^ lblEstTitle;
 		System::Windows::Forms::Button^ btnEstEquips;
@@ -338,12 +348,16 @@ namespace CppCLRWinFormsProject {
 		System::Void cmbRegTipus_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnBack_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnLoginAct_Click(System::Object^ sender, System::EventArgs^ e);
+      System::Void btnSeguirLligaMainMenu_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void cmbPartitsAEditar_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGuardarEstadistiques_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnTornarEditarPartit_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void cmbEstatPartit_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnRegAct_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnLogout_Click(System::Object^ sender, System::EventArgs^ e);
+      void ActualitzarEstatSeguirLliga();
+		void CarregarDashboardLliga(System::String^ idLliga);
+		System::String^ DemanarNomLliga(System::String^ titol, System::String^ missatge);
 		System::Void btnConsultar_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnTornarConsultar_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnComprovarLliga_Click(System::Object^ sender, System::EventArgs^ e);
