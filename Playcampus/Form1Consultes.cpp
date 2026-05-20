@@ -14,6 +14,7 @@ System::Void Form1::btnConsultar_Click(System::Object^ sender, System::EventArgs
 		pnlMain->Visible = false;
 		pnlConsultar->Visible = true;
 		txtNomLliga->Text = L"";
+       ActualitzarAccesRapidCalendariLligaSeguida();
 	}
 
 System::Void Form1::btnTornarConsultar_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -22,16 +23,65 @@ System::Void Form1::btnTornarConsultar_Click(System::Object^ sender, System::Eve
 		txtNomLliga->Text = L"";
 	}
 
-System::Void Form1::btnComprovarLliga_Click(System::Object^ sender, System::EventArgs^ e) {
-		String^ nom = txtNomLliga->Text;
+	void Form1::ActualitzarAccesRapidCalendariLligaSeguida() {
+		if (this->lblAccesRapidCalendari == nullptr || this->btnCalendariLligaSeguida == nullptr) return;
+
+		this->lblAccesRapidCalendari->Visible = false;
+		this->btnCalendariLligaSeguida->Visible = false;
+		this->btnCalendariLligaSeguida->Text = L"Veure calendari de la lliga seguida";
+
+		if (String::IsNullOrEmpty(currentUsuariCorreu)) return;
 		try {
-			Playcampus::Domini::CtrlCrearLliga^ ctrlTornar = gcnew Playcampus::Domini::CtrlCrearLliga();
-			bool check = ctrlTornar->ExisteixLliga(nom);
-			if (check) MessageBox::Show(L"Aquesta lliga ja existeix");
-			else MessageBox::Show(L"Aquesta lliga no existeix");
+			Playcampus::Domini::CtrlSeguirLliga^ ctrl = gcnew Playcampus::Domini::CtrlSeguirLliga();
+			String^ id = ctrl->ObtenirIdLligaSeguida(currentUsuariCorreu);
+			if (String::IsNullOrEmpty(id)) return;
+			String^ nom = ctrl->ObtenirNomLligaPerId(id);
+			if (!String::IsNullOrEmpty(nom)) {
+				this->btnCalendariLligaSeguida->Text = L"Calendari: " + nom;
+			}
+			this->lblAccesRapidCalendari->Visible = true;
+			this->btnCalendariLligaSeguida->Visible = true;
+		}
+		catch (Exception^) {
+			// Ignorem errors d'accés ràpid; el buscador segueix funcionant.
+		}
+	}
+
+	System::Void Form1::btnCalendariLligaSeguida_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (String::IsNullOrEmpty(currentUsuariCorreu)) return;
+		try {
+			Playcampus::Domini::CtrlSeguirLliga^ ctrlSeguir = gcnew Playcampus::Domini::CtrlSeguirLliga();
+			String^ idLliga = ctrlSeguir->ObtenirIdLligaSeguida(currentUsuariCorreu);
+			if (String::IsNullOrEmpty(idLliga)) {
+				MessageBox::Show(L"No estàs seguint cap lliga.", L"Calendari", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				return;
+			}
+
+			String^ nom = ctrlSeguir->ObtenirNomLligaPerId(idLliga);
+			Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
+			MostrarConsultaGeneral(L"Calendari - " + (String::IsNullOrEmpty(nom) ? idLliga : nom), ctrl->ObtenirCalendariCompletLligaPerId(idLliga));
 		}
 		catch (Exception^ ex) {
-			MessageBox::Show(L"Error : " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			MessageBox::Show(L"Error carregant el calendari: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
+
+System::Void Form1::btnComprovarLliga_Click(System::Object^ sender, System::EventArgs^ e) {
+        String^ nom = txtNomLliga->Text;
+		if (String::IsNullOrWhiteSpace(nom)) return;
+		try {
+            nom = nom->Trim();
+			Playcampus::Domini::CtrlSeguirLliga^ ctrlSeguir = gcnew Playcampus::Domini::CtrlSeguirLliga();
+			String^ idLliga = ctrlSeguir->ObtenirIdLligaPerNom(nom);
+			if (String::IsNullOrEmpty(idLliga)) {
+				MessageBox::Show(L"Aquesta lliga no existeix", L"Calendari", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				return;
+			}
+			Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
+			MostrarConsultaGeneral(L"Calendari - " + nom, ctrl->ObtenirCalendariCompletLligaPerId(idLliga));
+		}
+		catch (Exception^ ex) {
+         MessageBox::Show(L"Error : " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
 

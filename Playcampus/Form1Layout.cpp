@@ -107,18 +107,42 @@ namespace CppCLRWinFormsProject {
 		this->btnLogoutMainMenu->Location = System::Drawing::Point(20, 20);
 		this->btnLogoutMainMenu->BringToFront();
 
-		int totalBtnWidth = 130 * 5 + 20 * 4;
-		this->btnProgPartits->Location = System::Drawing::Point(startBtnX, 80);
-		this->btnEstatLligues->Location = System::Drawing::Point(startBtnX + 150, 80);
-		this->btnEstadistiques->Location = System::Drawing::Point(startBtnX + 300, 80);
-		this->btnConsultar->Location = System::Drawing::Point(startBtnX + 450, 80);
+       // Botons del menú principal: els centrem segons els que estiguin visibles (per tipus d'usuari)
+		{
+			const int menuBtnY = 80;
+			const int menuBtnH = 40;
+			const int gap = 15;
 
-        this->btnCrearLligaMainMenu->Location = System::Drawing::Point(startBtnX + 750, 80);
-		this->btnEnregistrarEquip->Location = System::Drawing::Point(startBtnX - 150, 80); // Posicionament a l'esquerra
-		this->btnUnirEquipLliga->Location = System::Drawing::Point(startBtnX - 300, 80);
-		if (this->btnSeguirLligaMainMenu != nullptr) {
-           this->btnSeguirLligaMainMenu->Location = System::Drawing::Point(startBtnX + 600, 80);
-			this->btnSeguirLligaMainMenu->Size = System::Drawing::Size(130, 40);
+         System::Collections::Generic::List<System::Windows::Forms::Button^>^ btns =
+				gcnew System::Collections::Generic::List<System::Windows::Forms::Button^>();
+			cli::array<System::Windows::Forms::Button^>^ candidates = gcnew cli::array<System::Windows::Forms::Button^>(9) {
+				this->btnUnirEquipLliga,
+				this->btnEnregistrarEquip,
+				this->btnProgPartits,
+				this->btnEstatLligues,
+				this->btnEstadistiques,
+				this->btnConsultar,
+				this->btnSeguirLligaMainMenu,
+				this->btnCrearLligaMainMenu,
+				this->btnGestionarConvocatoria
+			};
+			for each (auto b in candidates) {
+				if (b != nullptr && b->Visible) btns->Add(b);
+			}
+
+			int totalW = 0;
+			for (int i = 0; i < btns->Count; i++) {
+				auto b = btns[i];
+				b->Height = menuBtnH;
+				totalW += b->Width;
+				if (i < btns->Count - 1) totalW += gap;
+			}
+
+			int x = System::Math::Max(20, (cw - totalW) / 2);
+			for each (auto b in btns) {
+				b->Location = System::Drawing::Point(x, menuBtnY);
+				x += b->Width + gap;
+			}
 		}
 
 		int picY = 140;
@@ -180,9 +204,17 @@ namespace CppCLRWinFormsProject {
 		this->lstNoticies->Location = System::Drawing::Point(50, noticiesY + 25);
 		this->lstNoticies->Size = System::Drawing::Size(cw - 100, ch - (noticiesY + 25) - 20);
 
-		// --- PANEL CONSULTAR ---
+      // --- PANEL CONSULTAR ---
 		this->lblConsultarTitle->Location = System::Drawing::Point(centerX - this->lblConsultarTitle->Width / 2, 30);
 		this->btnTornarConsultar->Location = System::Drawing::Point(30, 30);
+        int quickY = centerY - 110;
+		if (quickY < 80) quickY = 80;
+		if (this->lblAccesRapidCalendari != nullptr) {
+			this->lblAccesRapidCalendari->Location = System::Drawing::Point(centerX - 170, quickY);
+		}
+		if (this->btnCalendariLligaSeguida != nullptr) {
+			this->btnCalendariLligaSeguida->Location = System::Drawing::Point(centerX - 30, quickY - 5);
+		}
 		this->lblNomLliga->Location = System::Drawing::Point(centerX - 170, centerY - 30);
 		this->txtNomLliga->Location = System::Drawing::Point(centerX - 30, centerY - 30);
 		this->btnComprovarLliga->Location = System::Drawing::Point(centerX - 30, centerY + 15);
@@ -580,7 +612,10 @@ namespace CppCLRWinFormsProject {
 		Form1_Resize(nullptr, nullptr);
 	}
 
-	void Form1::MostrarPantallaConsultarInicial() { MostrarPanelInicialTask162(this->pnlConsultar); }
+   void Form1::MostrarPantallaConsultarInicial() {
+		MostrarPanelInicialTask162(this->pnlConsultar);
+		ActualitzarAccesRapidCalendariLligaSeguida();
+	}
 
 	void Form1::MostrarPantallaCrearLligaInicial() { MostrarPanelInicialTask162(this->pnlCrearLliga); }
 

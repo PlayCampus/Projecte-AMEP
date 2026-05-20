@@ -9,6 +9,7 @@ namespace Playcampus {
         public ref class CtrlConsultes {
         private:
             String^ connectionString;
+            String^ ObtenirDisciplinaLliga(String^ idLliga);
 
         public:
             CtrlConsultes();
@@ -16,6 +17,7 @@ namespace Playcampus {
             DataTable^ ObtenirProgramacioPartits();
             DataTable^ ObtenirEstatLligues();
             DataTable^ ObtenirEstadistiquesEquips();
+            DataTable^ ObtenirCalendariCompletLligaPerId(String^ idLliga);
             DataTable^ ObtenirEquipsDeLaLligaAdministrador(String^ correuAdmin);
             String^ ObtenirNomLligaAdministrador(String^ correuAdmin);
             void TreureEquipDeLaLliga(String^ idEquip, String^ correuAdmin);

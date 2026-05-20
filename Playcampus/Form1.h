@@ -112,6 +112,8 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Panel^ pnlConsultar;
 		System::Windows::Forms::Label^ lblConsultarTitle;
 		System::Windows::Forms::Button^ btnTornarConsultar;
+     System::Windows::Forms::Label^ lblAccesRapidCalendari;
+		System::Windows::Forms::Button^ btnCalendariLligaSeguida;
 		System::Windows::Forms::Label^ lblNomLliga;
 		System::Windows::Forms::TextBox^ txtNomLliga;
 		System::Windows::Forms::Button^ btnComprovarLliga;
@@ -360,6 +362,8 @@ namespace CppCLRWinFormsProject {
 		System::String^ DemanarNomLliga(System::String^ titol, System::String^ missatge);
 		System::Void btnConsultar_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnTornarConsultar_Click(System::Object^ sender, System::EventArgs^ e);
+     void ActualitzarAccesRapidCalendariLligaSeguida();
+		System::Void btnCalendariLligaSeguida_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnComprovarLliga_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnCrearLligaMainMenu_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGLTornar_Click(System::Object^ sender, System::EventArgs^ e);

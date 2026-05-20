@@ -37,6 +37,27 @@ namespace Playcampus {
             connectionString = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
         }
 
+        String^ CtrlConsultes::ObtenirDisciplinaLliga(String^ idLliga) {
+            if (String::IsNullOrEmpty(idLliga)) return nullptr;
+
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ consulta = "SELECT disciplina FROM Lliga WHERE idLliga = @idLliga";
+                MySqlCommand^ cmd = gcnew MySqlCommand(consulta, conn);
+                cmd->Parameters->AddWithValue("@idLliga", idLliga);
+                Object^ resultat = cmd->ExecuteScalar();
+                if (resultat == nullptr || resultat == DBNull::Value) return nullptr;
+                return resultat->ToString();
+            }
+            finally {
+                if (conn != nullptr) {
+                    conn->Close();
+                    delete conn;
+                }
+            }
+        }
+
         DataTable^ CtrlConsultes::ObtenirProgramacioPartits() {
             String^ consulta =
                 "SELECT L.nom AS Lliga, J.numero AS Jornada, "
@@ -81,6 +102,31 @@ namespace Playcampus {
                 "ORDER BY IFNULL(L.nom, ''), E.posicioClassificacio ASC, E.punts DESC, E.nom ASC";
 
             return ExecutaConsulta(connectionString, consulta, nullptr);
+        }
+
+        DataTable^ CtrlConsultes::ObtenirCalendariCompletLligaPerId(String^ idLliga) {
+            String^ disciplina = ObtenirDisciplinaLliga(idLliga);
+            bool esFutbol = !String::IsNullOrEmpty(disciplina) && disciplina->Equals("Futbol", StringComparison::OrdinalIgnoreCase);
+            String^ labelLocal = esFutbol ? "Gols locals" : "Punts locals";
+            String^ labelVisitant = esFutbol ? "Gols visitant" : "Punts visitant";
+
+            String^ consulta =
+                "SELECT J.numero AS Jornada, "
+                "DATE_FORMAT(P.dataHora, '%d/%m/%Y %H:%i') AS DataHora, "
+                "COALESCE(EL.nom, '(TBD)') AS Local, COALESCE(EV.nom, '(TBD)') AS Visitant, "
+                "P.ubicacio AS Ubicacio, P.estat AS Estat, "
+                "P.golsLocal AS `" + labelLocal + "`, P.golsVisitant AS `" + labelVisitant + "` "
+                "FROM Partit P "
+                "INNER JOIN Jornada J ON P.idJornada = J.idJornada "
+                "INNER JOIN Temporada T ON J.idTemporada = T.idTemporada "
+                "LEFT JOIN Equip EL ON P.idEquipLocal = EL.idEquip "
+                "LEFT JOIN Equip EV ON P.idEquipVisitant = EV.idEquip "
+                "WHERE T.idLliga = @idLliga "
+                "ORDER BY J.numero ASC, P.dataHora ASC";
+
+            cli::array<MySqlParameter^>^ parametres = gcnew cli::array<MySqlParameter^>(1);
+            parametres[0] = gcnew MySqlParameter("@idLliga", idLliga);
+            return ExecutaConsulta(connectionString, consulta, parametres);
         }
 
         DataTable^ CtrlConsultes::ObtenirEquipsDeLaLligaAdministrador(String^ correuAdmin) {

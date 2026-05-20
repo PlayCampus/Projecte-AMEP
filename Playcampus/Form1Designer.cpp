@@ -247,9 +247,9 @@ namespace CppCLRWinFormsProject {
 		this->btnEstadistiques->Size = System::Drawing::Size(130, 40);
 		this->btnEstadistiques->Click += gcnew System::EventHandler(this, &Form1::btnEstadistiquesMenu_Click);
 
-		this->btnConsultar->Text = L"Consultar";
+        this->btnConsultar->Text = L"Consultar calendari";
 		this->btnConsultar->Location = System::Drawing::Point(440, 60);
-		this->btnConsultar->Size = System::Drawing::Size(130, 40);
+      this->btnConsultar->Size = System::Drawing::Size(160, 40);
 		this->btnConsultar->Click += gcnew System::EventHandler(this, &Form1::btnConsultar_Click);
 
 		this->picImatge->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
@@ -272,6 +272,8 @@ namespace CppCLRWinFormsProject {
 		this->pnlConsultar = gcnew System::Windows::Forms::Panel();
 		this->lblConsultarTitle = gcnew System::Windows::Forms::Label();
 		this->btnTornarConsultar = gcnew System::Windows::Forms::Button();
+      this->lblAccesRapidCalendari = gcnew System::Windows::Forms::Label();
+		this->btnCalendariLligaSeguida = gcnew System::Windows::Forms::Button();
 		this->lblNomLliga = gcnew System::Windows::Forms::Label();
 		this->txtNomLliga = gcnew System::Windows::Forms::TextBox();
 		this->btnComprovarLliga = gcnew System::Windows::Forms::Button();
@@ -290,11 +292,13 @@ namespace CppCLRWinFormsProject {
 		this->pnlConsultar->Visible = false;
 		this->pnlConsultar->Controls->Add(this->lblConsultarTitle);
 		this->pnlConsultar->Controls->Add(this->btnTornarConsultar);
+       this->pnlConsultar->Controls->Add(this->lblAccesRapidCalendari);
+		this->pnlConsultar->Controls->Add(this->btnCalendariLligaSeguida);
 		this->pnlConsultar->Controls->Add(this->lblNomLliga);
 		this->pnlConsultar->Controls->Add(this->txtNomLliga);
 		this->pnlConsultar->Controls->Add(this->btnComprovarLliga);
 
-		this->lblConsultarTitle->Text = L"Consultar";
+       this->lblConsultarTitle->Text = L"Consultar calendari";
 		this->lblConsultarTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
 		this->lblConsultarTitle->AutoSize = true;
 		this->lblConsultarTitle->Location = System::Drawing::Point(350, 30);
@@ -304,18 +308,30 @@ namespace CppCLRWinFormsProject {
 		this->btnTornarConsultar->Location = System::Drawing::Point(30, 30);
 		this->btnTornarConsultar->Click += gcnew System::EventHandler(this, &Form1::btnTornarConsultar_Click);
 
+		this->lblAccesRapidCalendari->Text = L"Accés ràpid";
+		this->lblAccesRapidCalendari->AutoSize = true;
+		this->lblAccesRapidCalendari->Location = System::Drawing::Point(300, 85);
+		this->lblAccesRapidCalendari->Visible = false;
+
+		this->btnCalendariLligaSeguida->Text = L"Veure calendari de la lliga seguida";
+		this->btnCalendariLligaSeguida->Location = System::Drawing::Point(430, 80);
+		this->btnCalendariLligaSeguida->Size = System::Drawing::Size(250, 35);
+		this->btnCalendariLligaSeguida->UseVisualStyleBackColor = true;
+		this->btnCalendariLligaSeguida->Visible = false;
+		this->btnCalendariLligaSeguida->Click += gcnew System::EventHandler(this, &Form1::btnCalendariLligaSeguida_Click);
+
 		this->lblNomLliga->Text = L"Nom de la lliga";
-		this->lblNomLliga->Location = System::Drawing::Point(300, 140);
+     this->lblNomLliga->Location = System::Drawing::Point(300, 150);
 		this->lblNomLliga->Size = System::Drawing::Size(120, 20);
 		this->lblNomLliga->Visible = true;
 
 		this->txtNomLliga->Text = L"";
-		this->txtNomLliga->Location = System::Drawing::Point(430, 140);
+     this->txtNomLliga->Location = System::Drawing::Point(430, 150);
 		this->txtNomLliga->Size = System::Drawing::Size(200, 20);
 		this->txtNomLliga->Visible = true;
 
-		this->btnComprovarLliga->Text = L"Comprovar lliga";
-		this->btnComprovarLliga->Location = System::Drawing::Point(430, 180);
+     this->btnComprovarLliga->Text = L"Veure calendari";
+		this->btnComprovarLliga->Location = System::Drawing::Point(430, 190);
 		this->btnComprovarLliga->Size = System::Drawing::Size(200, 35);
 		this->btnComprovarLliga->UseVisualStyleBackColor = true;
 		this->btnComprovarLliga->Visible = true;
