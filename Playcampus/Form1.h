@@ -364,6 +364,7 @@ namespace CppCLRWinFormsProject {
 		System::Void btnTornarConsultar_Click(System::Object^ sender, System::EventArgs^ e);
      void ActualitzarAccesRapidCalendariLligaSeguida();
 		System::Void btnCalendariLligaSeguida_Click(System::Object^ sender, System::EventArgs^ e);
+     void CarregarUltimsFitxatges();
 		System::Void btnComprovarLliga_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnCrearLligaMainMenu_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGLTornar_Click(System::Object^ sender, System::EventArgs^ e);

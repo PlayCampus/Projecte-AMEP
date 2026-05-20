@@ -10,6 +10,37 @@ namespace CppCLRWinFormsProject {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
+	void Form1::CarregarUltimsFitxatges() {
+		if (this->lblNoticies != nullptr) this->lblNoticies->Text = L"Últims fitxatges";
+		if (this->lstNoticies == nullptr) return;
+
+		this->lstNoticies->Items->Clear();
+		try {
+			Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
+			DataTable^ dt = ctrl->ObtenirUltimsFitxatges(10);
+			if (dt == nullptr || dt->Rows->Count == 0) {
+				this->lstNoticies->Items->Add(L"No hi ha fitxatges recents.");
+				return;
+			}
+
+			for each (DataRow^ row in dt->Rows) {
+				String^ data = row->Table->Columns->Contains("Data") ? row["Data"]->ToString() : L"";
+				String^ jugador = row->Table->Columns->Contains("Jugador") ? row["Jugador"]->ToString() : L"";
+				String^ equip = row->Table->Columns->Contains("Equip") ? row["Equip"]->ToString() : L"";
+				String^ esport = row->Table->Columns->Contains("Esport") ? row["Esport"]->ToString() : L"";
+
+				String^ linia = String::IsNullOrEmpty(esport)
+					? String::Format(L"{0} - {1}  {2}", data, jugador, equip)
+					: String::Format(L"{0} - {1}  {2} ({3})", data, jugador, equip, esport);
+
+				this->lstNoticies->Items->Add(linia);
+			}
+		}
+		catch (Exception^) {
+			this->lstNoticies->Items->Add(L"No s'han pogut carregar els fitxatges.");
+		}
+	}
+
 System::Void Form1::btnConsultar_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlMain->Visible = false;
 		pnlConsultar->Visible = true;

@@ -129,6 +129,24 @@ namespace Playcampus {
             return ExecutaConsulta(connectionString, consulta, parametres);
         }
 
+        DataTable^ CtrlConsultes::ObtenirUltimsFitxatges(int limit) {
+            if (limit <= 0) limit = 10;
+
+            String^ consulta =
+              "SELECT DATE_FORMAT(J.data_naixement, '%d/%m/%Y') AS Data, "
+                "U.nom AS Jugador, "
+                "COALESCE(E.nom, '(Sense equip)') AS Equip, "
+                "COALESCE(E.esport, '') AS Esport "
+                "FROM Jugador J "
+                "INNER JOIN Usuari U ON J.idJugador = U.identificador "
+                "LEFT JOIN Equip E ON J.idEquip = E.idEquip "
+                "WHERE J.idEquip IS NOT NULL "
+                "ORDER BY J.data_naixement DESC, J.idJugador DESC "
+                "LIMIT " + limit;
+
+            return ExecutaConsulta(connectionString, consulta, nullptr);
+        }
+
         DataTable^ CtrlConsultes::ObtenirEquipsDeLaLligaAdministrador(String^ correuAdmin) {
             String^ consulta =
                 "SELECT E.idEquip AS IdEquip, E.nom AS Equip, E.esport AS Esport, "

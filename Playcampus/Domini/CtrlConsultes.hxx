@@ -18,6 +18,7 @@ namespace Playcampus {
             DataTable^ ObtenirEstatLligues();
             DataTable^ ObtenirEstadistiquesEquips();
             DataTable^ ObtenirCalendariCompletLligaPerId(String^ idLliga);
+            DataTable^ ObtenirUltimsFitxatges(int limit);
             DataTable^ ObtenirEquipsDeLaLligaAdministrador(String^ correuAdmin);
             String^ ObtenirNomLligaAdministrador(String^ correuAdmin);
             void TreureEquipDeLaLliga(String^ idEquip, String^ correuAdmin);

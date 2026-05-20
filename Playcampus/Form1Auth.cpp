@@ -127,6 +127,8 @@ namespace CppCLRWinFormsProject {
 					ActualitzarEstatSeguirLliga();
 				}
 
+				CarregarUltimsFitxatges();
+
 				txtLoginCorreu->Text = "";
 				txtLoginPass->Text = "";
 

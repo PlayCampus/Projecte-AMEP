@@ -256,7 +256,7 @@ namespace CppCLRWinFormsProject {
 		this->picImatge->Location = System::Drawing::Point(20, 120);
 		this->picImatge->Size = System::Drawing::Size(550, 200);
 
-		this->lblNoticies->Text = L"Notícies Generals";
+     this->lblNoticies->Text = L"Últims fitxatges";
 		this->lblNoticies->Location = System::Drawing::Point(20, 330);
 		this->lblNoticies->AutoSize = true;
 
