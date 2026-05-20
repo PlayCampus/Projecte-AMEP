@@ -10,6 +10,7 @@ namespace Playcampus {
             String^ connectionString;
             int ObtenirIdUsuariPerCorreu(String^ correu);
             String^ ObtenirIdTemporadaRellevant(String^ idLliga);
+            String^ ObtenirDisciplinaLliga(String^ idLliga);
         public:
             CtrlSeguirLliga();
 

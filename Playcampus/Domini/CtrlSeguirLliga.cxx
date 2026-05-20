@@ -29,6 +29,22 @@ namespace Playcampus {
             }
         }
 
+        String^ CtrlSeguirLliga::ObtenirDisciplinaLliga(String^ idLliga) {
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "SELECT disciplina FROM Lliga WHERE idLliga = @idLliga";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idLliga", idLliga);
+                Object^ result = cmd->ExecuteScalar();
+                if (result == nullptr || result == DBNull::Value) return nullptr;
+                return result->ToString();
+            }
+            finally {
+                if (conn != nullptr) { conn->Close(); delete conn; }
+            }
+        }
+
         String^ CtrlSeguirLliga::ObtenirIdLligaPerNom(String^ nomLliga) {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
@@ -152,13 +168,21 @@ namespace Playcampus {
             DataTable^ dt = gcnew DataTable();
             try {
                 conn->Open();
+
+                String^ disciplina = ObtenirDisciplinaLliga(idLliga);
+                bool esFutbol = !String::IsNullOrEmpty(disciplina) && disciplina->Equals("Futbol", StringComparison::OrdinalIgnoreCase);
+                String^ labelFavor = esFutbol ? "GF" : "PF";
+                String^ labelContra = esFutbol ? "GC" : "PC";
+                String^ labelDif = esFutbol ? "DG" : "DP";
+
                 String^ query = "SELECT E.nom AS Equip, E.partitsJugats AS PJ, E.victories AS V, E.empats AS E, "
-                    "E.derrotes AS D, E.golsAFavor AS GF, E.golsEnContra AS GC, "
-                    "E.diferenciaGols AS DG, E.punts AS Punts "
+                    "E.derrotes AS D, E.golsAFavor AS " + labelFavor + ", E.golsEnContra AS " + labelContra + ", "
+                    "E.diferenciaGols AS " + labelDif + ", E.punts AS Punts "
                     "FROM Equip E "
                     "INNER JOIN Temporada T ON E.idTemporada = T.idTemporada "
                     "WHERE T.idLliga = @idLliga "
                     "ORDER BY E.punts DESC, E.diferenciaGols DESC";
+
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idLliga", idLliga);
                 MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
@@ -204,10 +228,16 @@ namespace Playcampus {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
+
+                String^ disciplina = ObtenirDisciplinaLliga(idLliga);
+                bool esFutbol = !String::IsNullOrEmpty(disciplina) && disciplina->Equals("Futbol", StringComparison::OrdinalIgnoreCase);
+                String^ labelLocal = esFutbol ? "Gols locals" : "Punts locals";
+                String^ labelVisitant = esFutbol ? "Gols visitant" : "Punts visitant";
+
                 String^ query =
                     "SELECT DATE_FORMAT(p.dataHora, '%d/%m/%Y %H:%i') AS DataHora, "
                  "COALESCE(el.nom, '(TBD)') AS Local, COALESCE(ev.nom, '(TBD)') AS Visitant, "
-                    "p.golsLocal AS GolsLocal, p.golsVisitant AS GolsVisitant "
+                    "p.golsLocal AS `" + labelLocal + "`, p.golsVisitant AS `" + labelVisitant + "` "
                     "FROM Partit p "
                     "INNER JOIN Jornada j ON p.idJornada = j.idJornada "
                    "INNER JOIN Temporada t ON j.idTemporada = t.idTemporada "
