@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
@@ -29,6 +29,7 @@
     <ClCompile Include="Domini\CtrlCrearTemporada.cxx" />
     <ClCompile Include="Domini\CtrlEditarJugador.cxx" />
     <ClCompile Include="Domini\CtrlEditarPartit.cxx" />
+    <ClCompile Include="Domini\EtiquetesEditarPartit.cxx" />
     <ClCompile Include="Domini\CtrlEliminarJugador.cxx" />
     <ClCompile Include="Domini\CtrlEnregistrarEquip.cxx" />
     <ClCompile Include="Domini\CtrlEsborrarEquip.cxx" />
@@ -96,6 +97,7 @@
     <ClInclude Include="Domini\CtrlCrearTemporada.hxx" />
     <ClInclude Include="Domini\CtrlEditarJugador.hxx" />
     <ClInclude Include="Domini\CtrlEditarPartit.hxx" />
+    <ClInclude Include="Domini\EtiquetesEditarPartit.hxx" />
     <ClInclude Include="Domini\CtrlEliminarJugador.hxx" />
     <ClInclude Include="Domini\CtrlEnregistrarEquip.hxx" />
     <ClInclude Include="Domini\CtrlEsborrarEquip.hxx" />

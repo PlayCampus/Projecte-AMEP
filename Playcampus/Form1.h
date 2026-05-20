@@ -7,6 +7,7 @@
 #include "Domini/CtrlUnirEquipLliga.hxx"
 #include "Domini/CtrlCrearPartit.hxx"
 #include "Domini/CtrlEditarPartit.hxx"
+#include "Domini/EtiquetesEditarPartit.hxx"
 #include "Domini/CtrlCrearTemporada.hxx"
 #include "Domini/CtrlCrearJornada.hxx"
 #include "Dades/ConnexioBD.hxx"
@@ -295,6 +296,8 @@ namespace CppCLRWinFormsProject {
 			private: System::Windows::Forms::Label^ lblDataPartit;
 			private: System::Windows::Forms::DateTimePicker^ dtpDataPartit;
 			private: System::Collections::Generic::Dictionary<String^, String^>^ partitPerId;
+				private: System::Collections::Generic::Dictionary<String^, String^>^ etiquetesEditarPartitActual;
+				private: System::String^ disciplinaPartitEditarActual;
 
 		   //Panell Estadístiques partit 
 			private: System::Windows::Forms::Button^ btnEstPartit;
@@ -355,6 +358,9 @@ namespace CppCLRWinFormsProject {
 		System::Void btnGuardarEstadistiques_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnTornarEditarPartit_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void cmbEstatPartit_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
+			void ConfigurarLabelsEditarPartitSegonsEsport(System::String^ disciplina);
+			System::String^ ObtenirIdPartitEditarSeleccionat();
+			System::Boolean ValidarEnterNoNegatiuEditarPartit(System::String^ textValor, System::String^ etiquetaCamp, int% valorNumeric);
 		System::Void btnRegAct_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnLogout_Click(System::Object^ sender, System::EventArgs^ e);
       void ActualitzarEstatSeguirLliga();

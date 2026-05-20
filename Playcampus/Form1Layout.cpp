@@ -569,6 +569,13 @@ namespace CppCLRWinFormsProject {
 		pnlEditarPartit->Visible = true;
 		pnlEditarPartit->BringToFront();
 
+		ConfigurarLabelsEditarPartitSegonsEsport(L"");
+		txtResultatLocal->Text = L"";
+		txtResultatVisitant->Text = L"";
+		cmbEstatPartit->SelectedIndex = -1;
+		dgvEstadistiquesJugadors->DataSource = nullptr;
+		dgvEstadistiquesJugadors->Columns->Clear();
+
 		try {
 			Playcampus::Domini::CtrlEditarPartit^ ctrl = gcnew Playcampus::Domini::CtrlEditarPartit();
 			String^ nomLliga = ctrl->ObtenirNomLligaAdmin(currentUsuariCorreu);
@@ -585,6 +592,13 @@ namespace CppCLRWinFormsProject {
 				String^ displayText = String::Format("{0} vs {1} ({2})", partit["equipLocal"], partit["equipVisitant"], partit["dataHora"]);
 				cmbPartitsAEditar->Items->Add(displayText);
 				partitPerId[displayText] = partit["idPartit"];
+			}
+
+			if (cmbPartitsAEditar->Items->Count > 0) {
+				cmbPartitsAEditar->SelectedIndex = 0;
+			}
+			else {
+				MessageBox::Show(L"No s'han trobat partits per editar en aquesta lliga.", L"Informació", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
 		}
 		catch (Exception^ ex) {

@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include "CtrlEditarPartit.hxx"
+#include "EtiquetesEditarPartit.hxx"
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/PassarellaLliga.hxx"
 #include "../Dades/PassarellaUsuari.hxx"
@@ -222,6 +223,20 @@ namespace Playcampus {
             Dictionary<String^, String^>^ detall = ObtenirDetallPartit(idPartit, correuAdmin);
             String^ disciplina = detall["disciplina"];
             String^ estatAnterior = detall["estat"];
+
+            if (String::IsNullOrWhiteSpace(nouEstat)) {
+                throw gcnew ArgumentException("L'estat del partit és obligatori.");
+            }
+
+            Dictionary<String^, String^>^ etiquetes = EtiquetesEditarPartit::ObtenirEtiquetesEditarPartit(disciplina);
+            if (resultatLocal < 0) {
+                String^ campLocal = etiquetes["marcadorLocal"]->Replace(":", "")->Trim();
+                throw gcnew ArgumentException("El camp '" + campLocal + "' no pot ser negatiu.");
+            }
+            if (resultatVisitant < 0) {
+                String^ campVisitant = etiquetes["marcadorVisitant"]->Replace(":", "")->Trim();
+                throw gcnew ArgumentException("El camp '" + campVisitant + "' no pot ser negatiu.");
+            }
 
             int golsLocalAnterior = 0;
             int golsVisitantAnterior = 0;

@@ -1293,9 +1293,9 @@ namespace CppCLRWinFormsProject {
 		this->cmbPartitsAEditar->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbPartitsAEditar_SelectedIndexChanged);
 
 		// Resultats i Estat
-		this->lblResultatLocal->Text = L"Gols Local:";
+		this->lblResultatLocal->Text = L"Marcador local:";
 		this->txtResultatLocal->Size = System::Drawing::Size(50, 20);
-		this->lblResultatVisitant->Text = L"Gols Visitant:";
+		this->lblResultatVisitant->Text = L"Marcador visitant:";
 		this->txtResultatVisitant->Size = System::Drawing::Size(50, 20);
 		this->lblEstatPartit->Text = L"Estat:";
 		this->cmbEstatPartit->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
