@@ -482,12 +482,17 @@ namespace CppCLRWinFormsProject {
 			this->btnEstPartit->Size = this->btnEstLliga->Size;
 			this->btnEstPartit->Font = this->btnEstLliga->Font;
 		}
+
+		if (this->btnEstJugadors != nullptr && this->btnEstPartit != nullptr) {
+			// Posicionamos exactamente debajo del botón de Estadísticas Partit
+			this->btnEstJugadors->Location = System::Drawing::Point(this->btnEstPartit->Location.X, this->btnEstPartit->Location.Y + this->btnEstPartit->Height + 20);
+
+			// Copiamos el tamaño y la fuente EXACTA del botón anterior
+			this->btnEstJugadors->Size = this->btnEstPartit->Size;
+			this->btnEstJugadors->Font = this->btnEstPartit->Font;
+		}
 		
 
-		// Posicionamiento del botón dinámico de Estadísticas de Jugadores (debajo de Estadísticas Lliga)
-		if (this->btnEstJugadors != nullptr && this->btnEstLliga != nullptr) {
-			this->btnEstJugadors->Location = System::Drawing::Point(this->btnEstLliga->Location.X, this->btnEstLliga->Location.Y + this->btnEstLliga->Height + 20);
-		}
 
 		// NOU: Posicionament del panell d'edició de partits
 

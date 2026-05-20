@@ -13,9 +13,6 @@ namespace CppCLRWinFormsProject {
 Form1::Form1(void) {
 			InitializeComponent(); // IMPORTANT: NO ESBORRAR
 
-			// Inicializar el botón dinámico de Estadísticas de Jugadores como nullptr
-			this->btnEstJugadors = nullptr;
-
 			// 1. Creació d'objectes
 			this->pnlConvocatoria = gcnew System::Windows::Forms::Panel();
 			this->btnGestionarConvocatoria = gcnew System::Windows::Forms::Button();
@@ -52,6 +49,7 @@ Form1::Form1(void) {
 
 			// --- INICI ESTADÍSTIQUES PARTIT ---
 			this->btnEstPartit = gcnew System::Windows::Forms::Button();
+			this->btnEstJugadors = gcnew System::Windows::Forms::Button();
 			this->pnlEstadistiquesPartitDetail = gcnew System::Windows::Forms::Panel();
 			this->lblEstPartitTitle = gcnew System::Windows::Forms::Label();
 			this->lblEstPartitLliga = gcnew System::Windows::Forms::Label();
@@ -101,9 +99,13 @@ Form1::Form1(void) {
 
 			this->dgvEstPartitDetalls->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::AllCells;
 
+			// Configuración del botón Estadístiques Jugadors
+			this->btnEstJugadors->Text = L"Estadístiques Jugadors";
+			this->btnEstJugadors->Click += gcnew System::EventHandler(this, &Form1::btnEstJugadors_Click);
 
 			// Jerarquia
 			this->pnlEstadistiques->Controls->Add(this->btnEstPartit);
+			this->pnlEstadistiques->Controls->Add(this->btnEstJugadors);
 
 			this->pnlEstadistiquesPartitDetail->Controls->Add(this->lblEstPartitTitle);
 			this->pnlEstadistiquesPartitDetail->Controls->Add(this->lblEstPartitLliga);
