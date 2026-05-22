@@ -48,6 +48,15 @@ namespace Playcampus {
             String^ GetIdTemporada();
 
             void SetIdTemporada(String^ nouIdTemporada);
+            void SetPartitsJugats(unsigned int partits);
+            void SetVictories(unsigned int victories);
+            void SetDerrotes(unsigned int derrotes);
+            void SetEmpats(unsigned int empats);
+            void SetPunts(unsigned int punts);
+            void SetGolsAFavor(unsigned int golsAFavor);
+            void SetGolsEnContra(unsigned int golsEnContra);
+            void SetDiferenciaGols(int diferencia);
+            void SetPosicioClassificacio(int posicio);
 
             void Insereix();
             void Modifica();

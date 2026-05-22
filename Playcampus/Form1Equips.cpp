@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "Form1Equips.h"
 #include "EditarJugadorForm.h"
+#include "Domini/CtrlAbandonarLliga.hxx"
 
 namespace CppCLRWinFormsProject {
 
@@ -13,7 +14,22 @@ namespace CppCLRWinFormsProject {
 
 System::Void Form1::btnUnirEquipLligaAct_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (btnUnirEquipLliga->Text == L"Abandonar Lliga") {
-			MessageBox::Show(L"Funcionalitat en desenvolupament.");
+			System::Windows::Forms::DialogResult result = MessageBox::Show(L"Estàs segur que vols abandonar la lliga? Les estadístiques de l'equip es reiniciaran.", L"Abandonar Lliga", MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
+			if (result == System::Windows::Forms::DialogResult::Yes) {
+				try {
+					Playcampus::Domini::CtrlAbandonarLliga^ ctrl = gcnew Playcampus::Domini::CtrlAbandonarLliga();
+					String^ missatgeExit = ctrl->AbandonarLliga(currentUsuariCorreu);
+					MessageBox::Show(missatgeExit, L"Exit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+					btnUnirEquipLliga->Text = L"Unir-se a una Lliga";
+
+					pnlMain->Visible = false;
+					pnlMain->Visible = true;
+				}
+				catch (Exception^ ex) {
+					MessageBox::Show(L"Error al abandonar la lliga: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				}
+			}
 			return;
 		}
 

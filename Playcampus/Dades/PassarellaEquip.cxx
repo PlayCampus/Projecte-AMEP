@@ -65,6 +65,16 @@ namespace Playcampus {
 
         void PassarellaEquip::SetIdTemporada(String^ nouIdTemporada) { idTemporada = nouIdTemporada; }
 
+        void PassarellaEquip::SetPartitsJugats(unsigned int partits) { partitsJugats = partits; }
+        void PassarellaEquip::SetVictories(unsigned int victories_count) { victories = victories_count; }
+        void PassarellaEquip::SetDerrotes(unsigned int derrotes_count) { derrotes = derrotes_count; }
+        void PassarellaEquip::SetEmpats(unsigned int empats_count) { empats = empats_count; }
+        void PassarellaEquip::SetPunts(unsigned int punts_count) { punts = punts_count; }
+        void PassarellaEquip::SetGolsAFavor(unsigned int golsFavor) { golsAFavor = golsFavor; }
+        void PassarellaEquip::SetGolsEnContra(unsigned int golsContra) { golsEnContra = golsContra; }
+        void PassarellaEquip::SetDiferenciaGols(int diferencia) { diferenciaGols = diferencia; }
+        void PassarellaEquip::SetPosicioClassificacio(int posicio) { posicioClassificacio = posicio; }
+
         void PassarellaEquip::Insereix() {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
