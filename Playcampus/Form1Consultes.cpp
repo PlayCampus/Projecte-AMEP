@@ -97,27 +97,6 @@ System::Void Form1::btnTornarConsultar_Click(System::Object^ sender, System::Eve
 		}
 	}
 
-
-System::Void Form1::MostrarTelefonsContacteUsuariActual() {
-        if (String::IsNullOrWhiteSpace(currentUsuariCorreu)) {
-            MessageBox::Show(L"Has d'iniciar sessió per consultar els telèfons de contacte.", L"Consultar telèfons", MessageBoxButtons::OK, MessageBoxIcon::Information);
-        }
-        else {
-            try {
-                Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
-                DataTable^ dades = ctrl->ObtenirTelefonsContacte(currentUsuariCorreu);
-                MostrarConsultaGeneral(L"Telèfons de contacte", dades);
-            }
-            catch (Exception^ ex) {
-                MessageBox::Show(L"Error carregant els telèfons de contacte: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
-            }
-        }
-    }
-
-System::Void Form1::btnConsultarTelefons_Click(System::Object^ sender, System::EventArgs^ e) {
-        MostrarTelefonsContacteUsuariActual();
-    }
-
 System::Void Form1::btnComprovarLliga_Click(System::Object^ sender, System::EventArgs^ e) {
         String^ nom = txtNomLliga->Text;
 		if (String::IsNullOrWhiteSpace(nom)) return;
@@ -174,6 +153,28 @@ System::Void Form1::MostrarConsultaGeneral(System::String^ titol, System::Data::
 			MostrarTaulaConsulta(titol, dades);
 		}
 	}
+
+
+
+System::Void Form1::MostrarTelefonsContacteUsuariActual() {
+        if (String::IsNullOrWhiteSpace(currentUsuariCorreu)) {
+            MessageBox::Show(L"No s'ha pogut identificar l'usuari actual.", L"Consultar telèfons", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+        }
+        else {
+            try {
+                Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
+                DataTable^ dades = ctrl->ObtenirTelefonsContacte(currentUsuariCorreu);
+                MostrarConsultaGeneral(L"Telèfons de contacte", dades);
+            }
+            catch (Exception^ ex) {
+                MessageBox::Show(L"Error carregant els telèfons de contacte: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+            }
+        }
+}
+
+System::Void Form1::btnConsultarTelefons_Click(System::Object^ sender, System::EventArgs^ e) {
+        MostrarTelefonsContacteUsuariActual();
+}
 
 System::Void Form1::btnProgPartits_Click(System::Object^ sender, System::EventArgs^ e) {
 		try {

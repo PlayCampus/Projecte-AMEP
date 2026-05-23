@@ -88,6 +88,7 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Button^ btnEstatLligues;
 		System::Windows::Forms::Button^ btnEstadistiques;
 		System::Windows::Forms::Button^ btnConsultar;
+		System::Windows::Forms::Button^ btnMenuConsultarTelefons;
 		System::Windows::Forms::Button^ btnEnregistrarEquip;
 		System::Windows::Forms::Button^ btnUnirEquipLliga;
         System::Windows::Forms::Button^ btnSeguirLligaMainMenu;
@@ -173,6 +174,7 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Button^ btnGEEliminarJugador;
 		System::Windows::Forms::Button^ btnGEAssignarJugador;
 		System::Windows::Forms::Button^ btnGEEditarJugador;
+		System::Windows::Forms::Button^ btnGEConsultarTelefons;
 		System::Windows::Forms::Button^ btnGETornar;
 		System::Windows::Forms::Panel^ pnlAfegirJugador;
 		System::Windows::Forms::Label^ lblAJTitle;
@@ -204,6 +206,7 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Button^ btnGLCrearJornada;
 		System::Windows::Forms::Button^ btnGLCrearTemporada;
 		System::Windows::Forms::Button^ btnGLRetirarTemporada;
+		System::Windows::Forms::Button^ btnGLConsultarTelefons;
 		System::Windows::Forms::Button^ btnGLTornar;
 		System::Windows::Forms::PictureBox^ picLogoGL;
 		System::Windows::Forms::Panel^ pnlCrearPartit;
@@ -372,8 +375,6 @@ namespace CppCLRWinFormsProject {
 		System::Void btnCalendariLligaSeguida_Click(System::Object^ sender, System::EventArgs^ e);
      void CarregarUltimsFitxatges();
 		System::Void btnComprovarLliga_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void MostrarTelefonsContacteUsuariActual();
-		System::Void btnConsultarTelefons_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnCrearLligaMainMenu_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGLTornar_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGLCrearJornada_Click(System::Object^ sender, System::EventArgs^ e);
@@ -391,6 +392,8 @@ namespace CppCLRWinFormsProject {
 		System::Void btnCPConfirmar_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void MostrarTaulaConsulta(System::String^ titol, System::Data::DataTable^ dades);
 		System::Void MostrarConsultaGeneral(System::String^ titol, System::Data::DataTable^ dades);
+		System::Void MostrarTelefonsContacteUsuariActual();
+		System::Void btnConsultarTelefons_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnProgPartits_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnEstatLligues_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnEstadistiquesMenu_Click(System::Object^ sender, System::EventArgs^ e);

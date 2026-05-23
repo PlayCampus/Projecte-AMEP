@@ -33,6 +33,48 @@ namespace Playcampus {
             return resultat;
         }
 
+        static Object^ ExecutaEscalarConsulta(String^ connectionString, String^ consulta, cli::array<MySqlParameter^>^ parametres) {
+            Object^ resultat = nullptr;
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                MySqlCommand^ cmd = gcnew MySqlCommand(consulta, conn);
+                if (parametres != nullptr) {
+                    for each (MySqlParameter^ p in parametres) {
+                        cmd->Parameters->Add(p);
+                    }
+                }
+
+                resultat = cmd->ExecuteScalar();
+            }
+            finally {
+                if (conn != nullptr) {
+                    conn->Close();
+                    delete conn;
+                }
+            }
+
+            return resultat;
+        }
+
+        static bool EquipTeColumnaConsulta(String^ connectionString, String^ nomColumna) {
+            bool existeix = false;
+            String^ consulta =
+                "SELECT COUNT(*) "
+                "FROM INFORMATION_SCHEMA.COLUMNS "
+                "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'Equip' AND COLUMN_NAME = @nomColumna";
+
+            cli::array<MySqlParameter^>^ parametres = gcnew cli::array<MySqlParameter^>(1);
+            parametres[0] = gcnew MySqlParameter("@nomColumna", nomColumna);
+
+            Object^ resultat = ExecutaEscalarConsulta(connectionString, consulta, parametres);
+            if (resultat != nullptr && resultat != DBNull::Value) {
+                existeix = Convert::ToInt32(resultat) > 0;
+            }
+
+            return existeix;
+        }
+
         CtrlConsultes::CtrlConsultes() {
             connectionString = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
         }
@@ -223,14 +265,18 @@ namespace Playcampus {
         }
 
         DataTable^ CtrlConsultes::ObtenirTelefonsPerCapita(String^ correuUsuari) {
+            bool equipTeIdTemporada = EquipTeColumnaConsulta(connectionString, "idTemporada");
+            String^ relacioLliga = equipTeIdTemporada
+                ? "INNER JOIN Temporada T ON T.idTemporada = E.idTemporada INNER JOIN Lliga L ON L.idLliga = T.idLliga "
+                : "INNER JOIN Lliga L ON L.idLliga = E.idLliga ";
+
             String^ consulta =
                 "SELECT 'Administrador' AS Rol, UA.nom AS Nom, UA.correu_electronic AS Correu, "
                 "COALESCE(A.telefonContacte, '') AS Telefon, E.nom AS Equip, L.nom AS Lliga "
                 "FROM Usuari UC "
                 "INNER JOIN Capita C ON C.identificador = UC.identificador "
-                "INNER JOIN Equip E ON E.idEquip = C.idEquip "
-                "INNER JOIN Temporada T ON T.idTemporada = E.idTemporada "
-                "INNER JOIN Lliga L ON L.idLliga = T.idLliga "
+                "INNER JOIN Equip E ON E.idEquip = C.idEquip " +
+                relacioLliga +
                 "INNER JOIN Administrador A ON A.identificador = L.idAdministrador "
                 "INNER JOIN Usuari UA ON UA.identificador = A.identificador "
                 "WHERE UC.correu_electronic = @correuUsuari "
@@ -242,6 +288,11 @@ namespace Playcampus {
         }
 
         DataTable^ CtrlConsultes::ObtenirTelefonsPerJugador(String^ correuUsuari) {
+            bool equipTeIdTemporada = EquipTeColumnaConsulta(connectionString, "idTemporada");
+            String^ relacioLliga = equipTeIdTemporada
+                ? "INNER JOIN Temporada T ON T.idTemporada = E.idTemporada INNER JOIN Lliga L ON L.idLliga = T.idLliga "
+                : "INNER JOIN Lliga L ON L.idLliga = E.idLliga ";
+
             String^ consulta =
                 "SELECT 'Capita' AS Rol, UC.nom AS Nom, UC.correu_electronic AS Correu, "
                 "COALESCE(C.telefonContacte, '') AS Telefon, E.nom AS Equip, '' AS Lliga "
@@ -256,9 +307,8 @@ namespace Playcampus {
                 "COALESCE(A.telefonContacte, '') AS Telefon, E.nom AS Equip, L.nom AS Lliga "
                 "FROM Usuari UJ "
                 "INNER JOIN Jugador J ON J.idJugador = UJ.identificador "
-                "INNER JOIN Equip E ON E.idEquip = J.idEquip "
-                "INNER JOIN Temporada T ON T.idTemporada = E.idTemporada "
-                "INNER JOIN Lliga L ON L.idLliga = T.idLliga "
+                "INNER JOIN Equip E ON E.idEquip = J.idEquip " +
+                relacioLliga +
                 "INNER JOIN Administrador A ON A.identificador = L.idAdministrador "
                 "INNER JOIN Usuari UA ON UA.identificador = A.identificador "
                 "WHERE UJ.correu_electronic = @correuUsuari "
@@ -270,19 +320,22 @@ namespace Playcampus {
         }
 
         DataTable^ CtrlConsultes::ObtenirTelefonsPerAdministrador(String^ correuUsuari) {
+            bool equipTeIdTemporada = EquipTeColumnaConsulta(connectionString, "idTemporada");
+            String^ relacioLliga = equipTeIdTemporada
+                ? "INNER JOIN Lliga L ON L.idAdministrador = ALogin.identificador INNER JOIN Temporada T ON T.idLliga = L.idLliga INNER JOIN Equip E ON E.idTemporada = T.idTemporada "
+                : "INNER JOIN Lliga L ON L.idAdministrador = ALogin.identificador INNER JOIN Equip E ON E.idLliga = L.idLliga ";
+
             String^ consulta =
                 "SELECT 'Capita' AS Rol, UC.nom AS Nom, UC.correu_electronic AS Correu, "
                 "COALESCE(C.telefonContacte, '') AS Telefon, COALESCE(E.nom, '') AS Equip, "
                 "COALESCE(L.nom, '') AS Lliga "
                 "FROM Usuari UA "
-                "INNER JOIN Administrador ALogin ON ALogin.identificador = UA.identificador "
-                "INNER JOIN Capita C ON 1 = 1 "
+                "INNER JOIN Administrador ALogin ON ALogin.identificador = UA.identificador " +
+                relacioLliga +
+                "INNER JOIN Capita C ON C.idEquip = E.idEquip "
                 "INNER JOIN Usuari UC ON UC.identificador = C.identificador "
-                "LEFT JOIN Equip E ON E.idEquip = C.idEquip "
-                "LEFT JOIN Temporada T ON T.idTemporada = E.idTemporada "
-                "LEFT JOIN Lliga L ON L.idLliga = T.idLliga "
                 "WHERE UA.correu_electronic = @correuUsuari "
-                "ORDER BY UC.nom ASC, E.nom ASC";
+                "ORDER BY L.nom ASC, E.nom ASC, UC.nom ASC";
 
             cli::array<MySqlParameter^>^ parametres = gcnew cli::array<MySqlParameter^>(1);
             parametres[0] = gcnew MySqlParameter("@correuUsuari", correuUsuari);
@@ -298,13 +351,18 @@ namespace Playcampus {
 
             String^ tipusUsuari = ObtenirTipusUsuariPerCorreu(correuUsuari);
 
-            if (tipusUsuari == "Capita") {
+            String^ tipusNormalitzat = "";
+            if (!String::IsNullOrEmpty(tipusUsuari)) {
+                tipusNormalitzat = tipusUsuari->ToLower();
+            }
+
+            if (tipusNormalitzat == "capita") {
                 resultat = ObtenirTelefonsPerCapita(correuUsuari);
             }
-            else if (tipusUsuari == "Jugador") {
+            else if (tipusNormalitzat == "jugador") {
                 resultat = ObtenirTelefonsPerJugador(correuUsuari);
             }
-            else if (tipusUsuari == "Administrador") {
+            else if (tipusNormalitzat == "administrador") {
                 resultat = ObtenirTelefonsPerAdministrador(correuUsuari);
             }
             else {

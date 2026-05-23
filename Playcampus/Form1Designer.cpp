@@ -203,6 +203,7 @@ namespace CppCLRWinFormsProject {
 		this->btnEstatLligues = gcnew System::Windows::Forms::Button();
 		this->btnEstadistiques = gcnew System::Windows::Forms::Button();
 		this->btnConsultar = gcnew System::Windows::Forms::Button();
+		this->btnMenuConsultarTelefons = gcnew System::Windows::Forms::Button();
 		this->picImatge = gcnew System::Windows::Forms::PictureBox();
 		this->lblNoticies = gcnew System::Windows::Forms::Label();
 		this->lstNoticies = gcnew System::Windows::Forms::ListBox();
@@ -214,6 +215,7 @@ namespace CppCLRWinFormsProject {
 		this->pnlMain->Controls->Add(this->btnEstatLligues);
 		this->pnlMain->Controls->Add(this->btnEstadistiques);
 		this->pnlMain->Controls->Add(this->btnConsultar);
+		this->pnlMain->Controls->Add(this->btnMenuConsultarTelefons);
 		this->pnlMain->Controls->Add(this->picImatge);
 		this->pnlMain->Controls->Add(this->lblNoticies);
 		this->pnlMain->Controls->Add(this->lstNoticies);
@@ -251,6 +253,13 @@ namespace CppCLRWinFormsProject {
 		this->btnConsultar->Location = System::Drawing::Point(440, 60);
       this->btnConsultar->Size = System::Drawing::Size(160, 40);
 		this->btnConsultar->Click += gcnew System::EventHandler(this, &Form1::btnConsultar_Click);
+
+		this->btnMenuConsultarTelefons->Text = L"Consultar telèfons";
+		this->btnMenuConsultarTelefons->Location = System::Drawing::Point(610, 60);
+		this->btnMenuConsultarTelefons->Size = System::Drawing::Size(160, 40);
+		this->btnMenuConsultarTelefons->Visible = false;
+		this->btnMenuConsultarTelefons->UseVisualStyleBackColor = true;
+		this->btnMenuConsultarTelefons->Click += gcnew System::EventHandler(this, &Form1::btnConsultarTelefons_Click);
 
 		this->picImatge->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 		this->picImatge->Location = System::Drawing::Point(20, 120);
@@ -420,6 +429,7 @@ namespace CppCLRWinFormsProject {
 		this->btnGLCrearJornada = gcnew System::Windows::Forms::Button();
 		this->btnGLCrearTemporada = gcnew System::Windows::Forms::Button();
 		this->btnGLTornar = gcnew System::Windows::Forms::Button();
+		this->btnGLConsultarTelefons = gcnew System::Windows::Forms::Button();
 
 		this->picLogoGL = gcnew System::Windows::Forms::PictureBox();
 		this->pnlGestionarLliga->Dock = System::Windows::Forms::DockStyle::Fill;
@@ -432,6 +442,7 @@ namespace CppCLRWinFormsProject {
 		this->pnlGestionarLliga->Controls->Add(this->btnGLCrearJornada);
 		this->pnlGestionarLliga->Controls->Add(this->btnGLCrearTemporada);
 		this->pnlGestionarLliga->Controls->Add(this->btnGLTornar);
+		this->pnlGestionarLliga->Controls->Add(this->btnGLConsultarTelefons);
 		this->pnlGestionarLliga->Controls->Add(this->picLogoGL);
 
 		this->picLogoGL->ImageLocation = L"imatges\\logo.png";
@@ -489,6 +500,13 @@ namespace CppCLRWinFormsProject {
 		this->btnGLRetirarTemporada->Font = actionBtnFont;
 		this->btnGLRetirarTemporada->Cursor = System::Windows::Forms::Cursors::Hand;
 		this->btnGLRetirarTemporada->Click += gcnew System::EventHandler(this, &Form1::btnGLRetirarTemporada_Click);
+
+		this->btnGLConsultarTelefons->Text = L"Consultar telèfons";
+		this->btnGLConsultarTelefons->Size = System::Drawing::Size(220, 60);
+		this->btnGLConsultarTelefons->Font = actionBtnFont;
+		this->btnGLConsultarTelefons->Cursor = System::Windows::Forms::Cursors::Hand;
+		this->btnGLConsultarTelefons->UseVisualStyleBackColor = true;
+		this->btnGLConsultarTelefons->Click += gcnew System::EventHandler(this, &Form1::btnConsultarTelefons_Click);
 
 		this->btnGLTornar->Text = L"Tornar";
 		this->btnGLTornar->Size = System::Drawing::Size(100, 30);
@@ -832,6 +850,7 @@ namespace CppCLRWinFormsProject {
 			this->btnGEEliminarJugador = gcnew System::Windows::Forms::Button();
 			this->btnGEAssignarJugador = gcnew System::Windows::Forms::Button();
 			this->btnGEEditarJugador = gcnew System::Windows::Forms::Button();
+			this->btnGEConsultarTelefons = gcnew System::Windows::Forms::Button();
 			this->btnGETornar = gcnew System::Windows::Forms::Button();
 
 		this->pnlGestionarEquip->Dock = System::Windows::Forms::DockStyle::Fill;
@@ -852,6 +871,7 @@ namespace CppCLRWinFormsProject {
 		 this->pnlGestionarEquip->Controls->Add(this->btnGEEliminarJugador);
 			this->pnlGestionarEquip->Controls->Add(this->btnGEAssignarJugador);
 			this->pnlGestionarEquip->Controls->Add(this->btnGEEditarJugador);
+			this->pnlGestionarEquip->Controls->Add(this->btnGEConsultarTelefons);
 			this->pnlGestionarEquip->Controls->Add(this->btnGETornar);
 
 		this->lblGETitle->Text = L"Gestionar Equip";
@@ -897,6 +917,13 @@ namespace CppCLRWinFormsProject {
 			this->btnGEEditarJugador->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
 			this->btnGEEditarJugador->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->btnGEEditarJugador->Click += gcnew System::EventHandler(this, &Form1::btnGEEditarJugador_Click);
+
+			this->btnGEConsultarTelefons->Text = L"Consultar telèfons";
+			this->btnGEConsultarTelefons->Size = System::Drawing::Size(220, 60);
+			this->btnGEConsultarTelefons->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
+			this->btnGEConsultarTelefons->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnGEConsultarTelefons->UseVisualStyleBackColor = true;
+			this->btnGEConsultarTelefons->Click += gcnew System::EventHandler(this, &Form1::btnConsultarTelefons_Click);
 
 			this->btnGETornar->Text = L"Tornar";
 			this->btnGETornar->Size = System::Drawing::Size(100, 30);

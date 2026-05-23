@@ -115,13 +115,14 @@ namespace CppCLRWinFormsProject {
 
          System::Collections::Generic::List<System::Windows::Forms::Button^>^ btns =
 				gcnew System::Collections::Generic::List<System::Windows::Forms::Button^>();
-			cli::array<System::Windows::Forms::Button^>^ candidates = gcnew cli::array<System::Windows::Forms::Button^>(9) {
+			cli::array<System::Windows::Forms::Button^>^ candidates = gcnew cli::array<System::Windows::Forms::Button^>(10) {
 				this->btnUnirEquipLliga,
 				this->btnEnregistrarEquip,
 				this->btnProgPartits,
 				this->btnEstatLligues,
 				this->btnEstadistiques,
 				this->btnConsultar,
+				this->btnMenuConsultarTelefons,
 				this->btnSeguirLligaMainMenu,
 				this->btnCrearLligaMainMenu,
 				this->btnGestionarConvocatoria
@@ -273,21 +274,27 @@ namespace CppCLRWinFormsProject {
 		this->lblGLTitle->Location = System::Drawing::Point(centerX - this->lblGLTitle->Width / 2, 40);
 		this->btnGLTornar->Location = System::Drawing::Point(30, 30);
 
-		int glStartY = centerY - 20;
-		int glSpacingX = 40;
-		int glSpacingY = 40;
+		int glSpacingX = 25;
+		int glSpacingY = 20;
 		int btnGLW = this->btnGLAfegirPartit->Width;
 		int btnGLH = this->btnGLAfegirPartit->Height;
+		int glTotalW = (btnGLW * 3) + (glSpacingX * 2);
+		int glStartX = centerX - (glTotalW / 2);
+		int glStartY = centerY - 70;
+		int glStepY = btnGLH + glSpacingY;
 
-		this->btnGLAfegirPartit->Location = System::Drawing::Point(centerX - btnGLW - (glSpacingX / 2), glStartY);
-		this->btnGLEditarPartit->Location = System::Drawing::Point(centerX + (glSpacingX / 2), glStartY);
-		this->btnGLMostrarEquips->Location = System::Drawing::Point(centerX - btnGLW - (glSpacingX / 2), glStartY + btnGLH + glSpacingY);
-		this->btnGLEsborrarEquip->Location = System::Drawing::Point(centerX + (glSpacingX / 2), glStartY + btnGLH + glSpacingY);
-		this->btnGLCrearJornada->Location = System::Drawing::Point(centerX - btnGLW - (glSpacingX / 2), glStartY + (btnGLH + glSpacingY) * 2);
-		this->btnGLCrearTemporada->Location = System::Drawing::Point(centerX + (glSpacingX / 2), glStartY + (btnGLH + glSpacingY) * 2);
-		this->btnGLEsborrarPartit->Location = System::Drawing::Point(centerX - btnGLW - (glSpacingX / 2), glStartY + (btnGLH + glSpacingY) * 3);
+		this->btnGLAfegirPartit->Location = System::Drawing::Point(glStartX, glStartY);
+		this->btnGLEditarPartit->Location = System::Drawing::Point(glStartX + btnGLW + glSpacingX, glStartY);
+		this->btnGLMostrarEquips->Location = System::Drawing::Point(glStartX + (btnGLW + glSpacingX) * 2, glStartY);
+		this->btnGLEsborrarEquip->Location = System::Drawing::Point(glStartX, glStartY + glStepY);
+		this->btnGLCrearJornada->Location = System::Drawing::Point(glStartX + btnGLW + glSpacingX, glStartY + glStepY);
+		this->btnGLCrearTemporada->Location = System::Drawing::Point(glStartX + (btnGLW + glSpacingX) * 2, glStartY + glStepY);
+		this->btnGLEsborrarPartit->Location = System::Drawing::Point(glStartX, glStartY + glStepY * 2);
 		if (this->btnGLRetirarTemporada != nullptr) {
-			this->btnGLRetirarTemporada->Location = System::Drawing::Point(centerX + (glSpacingX / 2), glStartY + (btnGLH + glSpacingY) * 3);
+			this->btnGLRetirarTemporada->Location = System::Drawing::Point(glStartX + btnGLW + glSpacingX, glStartY + glStepY * 2);
+		}
+		if (this->btnGLConsultarTelefons != nullptr) {
+			this->btnGLConsultarTelefons->Location = System::Drawing::Point(glStartX + (btnGLW + glSpacingX) * 2, glStartY + glStepY * 2);
 		}
 
 		this->picLogoGL->Location = System::Drawing::Point(centerX - (this->picLogoGL->Width / 2), glStartY - this->picLogoGL->Height - 40);
@@ -340,11 +347,21 @@ namespace CppCLRWinFormsProject {
 
 		int geStartY = geDgvY + this->dgvPlantilla->Height + 20;
 		int btnGEW = this->btnGEEsborrarEquip->Width;
-		this->btnGEEsborrarEquip->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY);
-		this->btnGEAfegirJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 70);
-		this->btnGEEliminarJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 140);
-		this->btnGEAssignarJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 210);
-		this->btnGEEditarJugador->Location = System::Drawing::Point(centerX - (btnGEW / 2), geStartY + 280);
+		int btnGEH = this->btnGEEsborrarEquip->Height;
+		int geSpacingX = 30;
+		int geSpacingY = 15;
+		int geLeftX = centerX - btnGEW - (geSpacingX / 2);
+		int geRightX = centerX + (geSpacingX / 2);
+		int geStepY = btnGEH + geSpacingY;
+
+		this->btnGEEsborrarEquip->Location = System::Drawing::Point(geLeftX, geStartY);
+		this->btnGEAfegirJugador->Location = System::Drawing::Point(geRightX, geStartY);
+		this->btnGEEliminarJugador->Location = System::Drawing::Point(geLeftX, geStartY + geStepY);
+		this->btnGEAssignarJugador->Location = System::Drawing::Point(geRightX, geStartY + geStepY);
+		this->btnGEEditarJugador->Location = System::Drawing::Point(geLeftX, geStartY + geStepY * 2);
+		if (this->btnGEConsultarTelefons != nullptr) {
+			this->btnGEConsultarTelefons->Location = System::Drawing::Point(geRightX, geStartY + geStepY * 2);
+		}
 
 		// --- PANEL ESBORRAR PARTIT 
 		this->lblEPTitle->Location = System::Drawing::Point(centerX - this->lblEPTitle->Width / 2, 30);

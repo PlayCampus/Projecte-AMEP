@@ -125,6 +125,18 @@ namespace CppCLRWinFormsProject {
 					}
 				}
 
+
+				String^ tipusNormalitzat = currentUsuariTipus->ToLower();
+				if (this->btnMenuConsultarTelefons != nullptr) {
+					this->btnMenuConsultarTelefons->Visible = (tipusNormalitzat == "jugador");
+				}
+				if (this->btnGEConsultarTelefons != nullptr) {
+					this->btnGEConsultarTelefons->Visible = (tipusNormalitzat == "capita");
+				}
+				if (this->btnGLConsultarTelefons != nullptr) {
+					this->btnGLConsultarTelefons->Visible = (tipusNormalitzat == "administrador");
+				}
+
 				if (this->btnSeguirLligaMainMenu != nullptr) {
 					this->btnSeguirLligaMainMenu->Visible = true;
 					ActualitzarEstatSeguirLliga();
@@ -199,6 +211,10 @@ namespace CppCLRWinFormsProject {
 		pnlEstadistiquesLligaDetail->Visible = false;
 		pnlMain->Visible = false;
 		pnlInici->Visible = true;
+		if (this->btnMenuConsultarTelefons != nullptr) this->btnMenuConsultarTelefons->Visible = false;
+		if (this->btnGEConsultarTelefons != nullptr) this->btnGEConsultarTelefons->Visible = false;
+		if (this->btnGLConsultarTelefons != nullptr) this->btnGLConsultarTelefons->Visible = false;
+
        if (this->btnSeguirLligaMainMenu != nullptr) {
 			this->btnSeguirLligaMainMenu->Visible = false;
 			this->btnSeguirLligaMainMenu->Text = L"Seguir Lliga";
