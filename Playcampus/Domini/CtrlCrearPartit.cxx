@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "CtrlCrearPartit.hxx"
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/PassarellaPartit.hxx"
@@ -9,10 +9,10 @@
 #include "../Dades/CercadoraJornada.hxx"
 #include "../Dades/PassarellaJornada.hxx"
 #include "../Dades/PassarellaEquip.hxx" // Necesario para buscar los equipos
+#include "../Dades/CercadoraSistema.hxx"
 #include <stdexcept>
 
 using namespace System;
-using namespace MySql::Data::MySqlClient;
 
 namespace Playcampus {
     namespace Domini {
@@ -71,25 +71,8 @@ namespace Playcampus {
         }
 
         String^ CtrlCrearPartit::ObtenirIdEquip(String^ nomEquip) {
-            String^ idRetorn = nullptr;
-            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
-            try {
-                conn->Open();
-                String^ query = "SELECT idEquip FROM Equip WHERE nom COLLATE utf8mb4_bin = @nom LIMIT 1";
-                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                cmd->Parameters->AddWithValue("@nom", nomEquip);
-                Object^ result = cmd->ExecuteScalar();
-                if (result != nullptr) {
-                    idRetorn = result->ToString();
-                }
-            }
-            finally {
-                if (conn != nullptr) {
-                    conn->Close();
-                    delete conn;
-                }
-            }
-            return idRetorn;
+            Playcampus::Dades::CercadoraSistema^ cercadora = gcnew Playcampus::Dades::CercadoraSistema(connectionString);
+            return cercadora->ObtenirIdEquipPerNomExacte(nomEquip);
         }
 
         // Validar Admin 
@@ -127,21 +110,8 @@ namespace Playcampus {
 
         // Obtenir Equips de la Lliga per nom
         List<String^>^ CtrlCrearPartit::ObtenirNomsEquipsPerLliga(String^ nomLliga) {
-            List<String^>^ equips = gcnew List<String^>();
-            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
-            try {
-                conn->Open();
-                String^ query = "SELECT e.nom FROM Equip e INNER JOIN Temporada t ON e.idTemporada = t.idTemporada INNER JOIN Lliga l ON t.idLliga = l.idLliga WHERE l.nom = @nomLliga";
-                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                cmd->Parameters->AddWithValue("@nomLliga", nomLliga);
-                MySqlDataReader^ reader = cmd->ExecuteReader();
-                while (reader->Read()) {
-                    equips->Add(reader->GetString("nom"));
-                }
-                reader->Close();
-            }
-            finally { conn->Close(); }
-            return equips;
+            Playcampus::Dades::CercadoraSistema^ cercadora = gcnew Playcampus::Dades::CercadoraSistema(connectionString);
+            return cercadora->ObtenirNomsEquipsPerLliga(nomLliga);
         }
     }
     

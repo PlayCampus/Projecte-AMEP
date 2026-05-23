@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "CtrlAfegirJugador.hxx"
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/CercadoraUsuari.hxx"
@@ -6,9 +6,9 @@
 #include "../Dades/PassarellaJugador.hxx"
 #include "../Dades/CercadoraJugador.hxx"
 #include "../Dades/PassarellaEquip.hxx"
+#include "../Dades/CercadoraSistema.hxx"
 
 using namespace System;
-using namespace MySql::Data::MySqlClient;
 using namespace Playcampus::Dades;
 
 namespace Playcampus {
@@ -45,51 +45,18 @@ namespace Playcampus {
                 throw gcnew Exception("L'usuari no és de tipus Capita.");
             }
 
-            // Obtenir l'idEquip del capta (necesita consulta a BD)
-            MySqlConnection^ conn = gcnew MySqlConnection(connStr);
-            String^ idEquip = nullptr;
-
-            try {
-                conn->Open();
-                String^ query = "SELECT idEquip FROM Capita WHERE identificador = @id";
-                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                cmd->Parameters->AddWithValue("@id", usuariCapita->GetIdentificador());
-
-                MySqlDataReader^ reader = cmd->ExecuteReader();
-                if (reader->Read()) {
-                    if (!reader->IsDBNull(0)) {
-                        idEquip = reader->GetString(0)->Trim();
-                    }
-                }
-                reader->Close();
-
-                conn->Close();
-            }
-            catch (Exception^ ex) {
-                conn->Close();
-                throw ex;
+            CercadoraSistema^ cercadoraSistema = gcnew CercadoraSistema(connStr);
+            String^ idEquip = cercadoraSistema->ObtenirIdEquipCapitaPerIdentificador(usuariCapita->GetIdentificador());
+            if (!String::IsNullOrWhiteSpace(idEquip)) {
+                idEquip = idEquip->Trim();
             }
 
             if (String::IsNullOrWhiteSpace(idEquip)) {
                 throw gcnew Exception("El capta no té equip assignat.");
             }
 
-            // Verificar que l'equip existeix (evitar errors de clau forana)
-            {
-                MySqlConnection^ connEquip = gcnew MySqlConnection(connStr);
-                try {
-                    connEquip->Open();
-                    String^ queryEquip = "SELECT COUNT(*) FROM Equip WHERE idEquip = @idEquip";
-                    MySqlCommand^ cmdEquip = gcnew MySqlCommand(queryEquip, connEquip);
-                    cmdEquip->Parameters->AddWithValue("@idEquip", idEquip);
-                    int existeix = Convert::ToInt32(cmdEquip->ExecuteScalar());
-                    if (existeix <= 0) {
-                        throw gcnew Exception("L'equip associat al capità  no existeix o no és vàlid.");
-                    }
-                }
-                finally {
-                    connEquip->Close();
-                }
+            if (!cercadoraSistema->ExisteixEquip(idEquip)) {
+                throw gcnew Exception("L'equip associat al capità  no existeix o no és vàlid.");
             }
 
             // Verificar que el dorsal no existeix en l'equip

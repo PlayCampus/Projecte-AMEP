@@ -3,6 +3,7 @@
 #include "PassarellaUsuari.hxx"
 
 using namespace System;
+using namespace System::Data;
 
 namespace Playcampus {
     namespace Dades {
@@ -15,6 +16,10 @@ namespace Playcampus {
 
             PassarellaUsuari^ LlegeixPerCorreu(String^ correu);
             PassarellaUsuari^ LlegeixPerNomUsuari(String^ nomUsuari);
+
+            DataTable^ ObtenirTelefonsAdministradorPerCapita(String^ correuCapita);
+            DataTable^ ObtenirTelefonsContactePerJugador(String^ correuJugador);
+            DataTable^ ObtenirTelefonsCapitansPerAdministrador(String^ correuAdministrador);
         };
     }
 }

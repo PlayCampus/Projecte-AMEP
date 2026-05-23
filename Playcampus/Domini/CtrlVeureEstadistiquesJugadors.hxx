@@ -16,6 +16,8 @@ namespace Playcampus {
 			// Obtiene las estadísticas generales almacenadas en la tabla Jugador para un jugador
 			DataTable^ ObtenirEstadistiquesJugador(String^ idJugador);
 
+			DataTable^ ObtenirTotesEstadistiquesJugadors();
+
 			// Obtiene las estadísticas individuales registradas para un partido concreto
 			DataTable^ ObtenirEstadistiquesPartit(String^ idPartit);
 

@@ -10,10 +10,6 @@ namespace Playcampus {
         private:
             String^ connectionString;
             String^ ObtenirDisciplinaLliga(String^ idLliga);
-            String^ ObtenirTipusUsuariPerCorreu(String^ correuUsuari);
-            DataTable^ ObtenirTelefonsPerCapita(String^ correuUsuari);
-            DataTable^ ObtenirTelefonsPerJugador(String^ correuUsuari);
-            DataTable^ ObtenirTelefonsPerAdministrador(String^ correuUsuari);
 
         public:
             CtrlConsultes();

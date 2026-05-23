@@ -137,6 +137,7 @@
     <ClInclude Include="Dades\CercadoraPartit.hxx" />
     <ClInclude Include="Dades\CercadoraTemporada.hxx" />
     <ClInclude Include="Dades\CercadoraUsuari.hxx" />
+    <ClInclude Include="Dades\CercadoraSistema.hxx" />
     <ClInclude Include="Dades\PassarellaCapita.hxx" />
     <ClInclude Include="Dades\PassarellaEquip.hxx" />
     <ClInclude Include="Dades\PassarellaJornada.hxx" />
@@ -145,6 +146,7 @@
     <ClInclude Include="Dades\PassarellaPartit.hxx" />
     <ClInclude Include="Dades\PassarellaTemporada.hxx" />
     <ClInclude Include="Dades\PassarellaUsuari.hxx" />
+    <ClInclude Include="Dades\PassarellaSistema.hxx" />
     <ClInclude Include="Dades\ConnexioBD.hxx" />
     <ClInclude Include="Domini\CtlrConvocarJugadors.hxx" />
     <ClInclude Include="Domini\CtrlAbandonarLliga.hxx" />
@@ -212,6 +214,7 @@
     <ClCompile Include="Dades\CercadoraPartit.cxx" />
     <ClCompile Include="Dades\CercadoraTemporada.cxx" />
     <ClCompile Include="Dades\CercadoraUsuari.cxx" />
+    <ClCompile Include="Dades\CercadoraSistema.cxx" />
     <ClCompile Include="Dades\PassarellaCapita.cxx" />
     <ClCompile Include="Dades\PassarellaEquip.cxx" />
     <ClCompile Include="Dades\PassarellaJornada.cxx" />
@@ -220,6 +223,7 @@
     <ClCompile Include="Dades\PassarellaPartit.cxx" />
     <ClCompile Include="Dades\PassarellaTemporada.cxx" />
     <ClCompile Include="Dades\PassarellaUsuari.cxx" />
+    <ClCompile Include="Dades\PassarellaSistema.cxx" />
     <ClCompile Include="Dades\ConnexioBD.cxx" />
     <ClCompile Include="Domini\CtlrConvocarJugadors.cxx" />
     <ClCompile Include="Domini\CtrlAbandonarLliga.cxx" />

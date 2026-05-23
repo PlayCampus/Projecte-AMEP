@@ -1,15 +1,15 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "CtrlTancarSessio.hxx"
-
-using namespace System;
+#include "../Dades/PassarellaSistema.hxx"
+#include "../Dades/ConnexioBD.hxx"
 
 namespace Playcampus {
     namespace Domini {
-        CtrlTancarSessio::CtrlTancarSessio() {
-        }
+        CtrlTancarSessio::CtrlTancarSessio() {}
 
         void CtrlTancarSessio::TancarSessio() {
-            MySql::Data::MySqlClient::MySqlConnection::ClearAllPools();
+            Playcampus::Dades::PassarellaSistema^ passarella = gcnew Playcampus::Dades::PassarellaSistema(Playcampus::Dades::ConnexioBD::ObtenirConnectionString());
+            passarella->TancarPools();
         }
     }
 }
