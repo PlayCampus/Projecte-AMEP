@@ -131,7 +131,7 @@ namespace Playcampus {
                         d["confirmacio"] = "Confirmat"; // Si en la BD es 1
                     }
                     else {
-                        d["confirmacio"] = "No pot anar"; // Si en la BD es 0
+                        d["confirmacio"] = "D'acord"; // Si en la BD es 0
                     }
 
                     jugadors->Add(d);
@@ -148,35 +148,29 @@ namespace Playcampus {
             try {
                 conn->Open();
                 String^ query;
+
                 if (!convocat.HasValue) {
-                    // Si es NULL, insertamos/actualizamos a NULL en la BD en vez de eliminar
+                    // Estado: 'Sense establir' -> Todo a NULL
                     query = "INSERT INTO ConvocatoriaPartit (idPartit, idJugador, convocat, confirmat) "
                         "VALUES (@idP, @idJ, NULL, NULL) "
                         "ON DUPLICATE KEY UPDATE convocat = NULL, confirmat = NULL";
-                    MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                    cmd->Parameters->AddWithValue("@idP", idPartit);
-                    cmd->Parameters->AddWithValue("@idJ", idJugador);
-                    cmd->ExecuteNonQuery();
-                    return;
+                }
+                else if (convocat.Value == true) {
+                    // Estado: 'Convocat' -> Reseteamos la confirmación a NULL ('Pendent')
+                    query = "INSERT INTO ConvocatoriaPartit (idPartit, idJugador, convocat, confirmat) "
+                        "VALUES (@idP, @idJ, 1, NULL) "
+                        "ON DUPLICATE KEY UPDATE convocat = 1, confirmat = NULL";
+                }
+                else {
+                    // Estado: 'No Convocat' -> También se resetea a NULL ('Pendent') para que le salte el aviso
+                    query = "INSERT INTO ConvocatoriaPartit (idPartit, idJugador, convocat, confirmat) "
+                        "VALUES (@idP, @idJ, 0, NULL) "
+                        "ON DUPLICATE KEY UPDATE convocat = 0, confirmat = NULL";
                 }
 
-                bool esConvocat = convocat.Value;
-
-                if (esConvocat) {
-                    // Si convoca, mantén el confirmat actual (solo actualiza convocat)
-                    query = "INSERT INTO ConvocatoriaPartit (idPartit, idJugador, convocat, confirmat) "
-                        "VALUES (@idP, @idJ, @conv, NULL) "
-                        "ON DUPLICATE KEY UPDATE convocat = @conv";
-                } else {
-                    // Si desconvoca, resetea convocat a 0 y confirmat a NULL (pasa a Pendent)
-                    query = "INSERT INTO ConvocatoriaPartit (idPartit, idJugador, convocat, confirmat) "
-                        "VALUES (@idP, @idJ, @conv, NULL) "
-                        "ON DUPLICATE KEY UPDATE convocat = @conv, confirmat = NULL";
-                }
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idP", idPartit);
                 cmd->Parameters->AddWithValue("@idJ", idJugador);
-                cmd->Parameters->AddWithValue("@conv", esConvocat ? 1 : 0);
                 cmd->ExecuteNonQuery();
             }
             finally { conn->Close(); }
