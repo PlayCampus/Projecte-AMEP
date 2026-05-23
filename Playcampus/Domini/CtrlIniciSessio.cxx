@@ -4,7 +4,7 @@
 #include "../Dades/PassarellaJornada.hxx"
 #include "../Dades/PassarellaTemporada.hxx"
 #include "../Dades/CercadoraUsuari.hxx"
-#include "../Dades/CercadoraSistema.hxx"
+#include "../Dades/CercadoraEquip.hxx"
 #include "../Dades/ConnexioBD.hxx"
 
 using namespace System;
@@ -39,26 +39,26 @@ namespace Playcampus {
         }
 
         bool CtrlIniciSessio::CapitaTeEquip(String^ correu) {
-            CercadoraSistema^ cercadora = gcnew CercadoraSistema(connectionString);
+            CercadoraEquip^ cercadora = gcnew CercadoraEquip(connectionString);
             return cercadora->CapitaTeEquip(correu);
         }
 
         bool CtrlIniciSessio::EquipEstaEnLliga(String^ correu) {
-            CercadoraSistema^ cercadora = gcnew CercadoraSistema(connectionString);
+            CercadoraEquip^ cercadora = gcnew CercadoraEquip(connectionString);
             return cercadora->EquipEstaEnLliga(correu);
         }
 
         String^ CtrlIniciSessio::ObtenirIdEquipDeCapita(String^ correu) {
-            CercadoraSistema^ cercadora = gcnew CercadoraSistema(connectionString);
-            String^ idEquip = cercadora->ObtenirIdEquipCapitaPerCorreu(correu);
-            if (idEquip == nullptr) {
-                idEquip = "";
+            CercadoraEquip^ cercadora = gcnew CercadoraEquip(connectionString);
+            PassarellaEquip^ pEquip = cercadora->LlegeixCapitaPerCorreu(correu);
+            if (pEquip != nullptr) {
+                return pEquip->GetIdEquip();
             }
-            return idEquip;
+            return "";
         }
 
         String^ CtrlIniciSessio::ObtenirIdUsuari(String^ correu) {
-            CercadoraSistema^ cercadora = gcnew CercadoraSistema(connectionString);
+            CercadoraUsuari^ cercadora = gcnew CercadoraUsuari(connectionString);
             String^ idUsuari = cercadora->ObtenirIdUsuariPerCorreuString(correu);
             if (idUsuari == nullptr) {
                 idUsuari = "";

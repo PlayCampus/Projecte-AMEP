@@ -1,8 +1,11 @@
 #include "pch.h"
 #include "CtrlConsultes.hxx"
 #include "../Dades/ConnexioBD.hxx"
-#include "../Dades/CercadoraSistema.hxx"
-#include "../Dades/PassarellaSistema.hxx"
+#include "../Dades/CercadoraLliga.hxx"
+#include "../Dades/CercadoraPartit.hxx"
+#include "../Dades/CercadoraEquip.hxx"
+#include "../Dades/CercadoraUsuari.hxx"
+#include "../Dades/PassarellaEquip.hxx"
 
 using namespace System;
 using namespace System::Data;
@@ -15,43 +18,62 @@ namespace Playcampus {
         }
 
         String^ CtrlConsultes::ObtenirDisciplinaLliga(String^ idLliga) {
-            CercadoraSistema^ cercadora = gcnew CercadoraSistema(connectionString);
+            CercadoraLliga^ cercadora = gcnew CercadoraLliga(connectionString);
             return cercadora->ObtenirDisciplinaLliga(idLliga);
         }
 
         DataTable^ CtrlConsultes::ObtenirProgramacioPartits() {
-            CercadoraSistema^ cercadora = gcnew CercadoraSistema(connectionString);
+            CercadoraPartit^ cercadora = gcnew CercadoraPartit(connectionString);
             return cercadora->ObtenirProgramacioPartits();
         }
 
         DataTable^ CtrlConsultes::ObtenirEstatLligues() {
-            CercadoraSistema^ cercadora = gcnew CercadoraSistema(connectionString);
+            CercadoraLliga^ cercadora = gcnew CercadoraLliga(connectionString);
             return cercadora->ObtenirEstatLligues();
         }
 
         DataTable^ CtrlConsultes::ObtenirEstadistiquesEquips() {
-            CercadoraSistema^ cercadora = gcnew CercadoraSistema(connectionString);
+            CercadoraLliga^ cercadora = gcnew CercadoraLliga(connectionString);
             return cercadora->ObtenirEstadistiquesEquipsGenerals();
         }
 
         DataTable^ CtrlConsultes::ObtenirCalendariCompletLligaPerId(String^ idLliga) {
-            CercadoraSistema^ cercadora = gcnew CercadoraSistema(connectionString);
+            CercadoraPartit^ cercadora = gcnew CercadoraPartit(connectionString);
             return cercadora->ObtenirCalendariCompletLligaPerId(idLliga);
         }
 
         DataTable^ CtrlConsultes::ObtenirUltimsFitxatges(int limit) {
-            CercadoraSistema^ cercadora = gcnew CercadoraSistema(connectionString);
-            return cercadora->ObtenirUltimsFitxatges(limit);
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query =
+                    "SELECT DATE_FORMAT(J.data_naixement, '%d/%m/%Y') AS Data, "
+                    "U.nom AS Jugador, E.nom AS Equip, J.dorsal AS Dorsal, J.posicio AS Posicio "
+                    "FROM Jugador J "
+                    "INNER JOIN Usuari U ON J.idJugador = U.identificador "
+                    "LEFT JOIN Equip E ON J.idEquip = E.idEquip "
+                    "ORDER BY U.data_registre DESC "
+                    "LIMIT @limit";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@limit", limit);
+                MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
+                DataTable^ dt = gcnew DataTable();
+                adapter->Fill(dt);
+                return dt;
+            }
+            finally {
+                if (conn != nullptr) { conn->Close(); delete conn; }
+            }
         }
 
         DataTable^ CtrlConsultes::ObtenirEquipsDeLaLligaAdministrador(String^ correuAdmin) {
-            CercadoraSistema^ cercadora = gcnew CercadoraSistema(connectionString);
+            CercadoraEquip^ cercadora = gcnew CercadoraEquip(connectionString);
             return cercadora->ObtenirEquipsDeLaLligaAdministrador(correuAdmin);
         }
 
         String^ CtrlConsultes::ObtenirNomLligaAdministrador(String^ correuAdmin) {
-            CercadoraSistema^ cercadora = gcnew CercadoraSistema(connectionString);
-            return cercadora->ObtenirNomLligaAdministrador(correuAdmin);
+            CercadoraLliga^ cercadora = gcnew CercadoraLliga(connectionString);
+            return cercadora->ObtenirNomLligaAdmin(correuAdmin);
         }
 
         DataTable^ CtrlConsultes::ObtenirTelefonsContacte(String^ correuUsuari) {
@@ -59,7 +81,7 @@ namespace Playcampus {
                 throw gcnew Exception("No s'ha pogut identificar l'usuari actual.");
             }
 
-            CercadoraSistema^ cercadora = gcnew CercadoraSistema(connectionString);
+            CercadoraUsuari^ cercadora = gcnew CercadoraUsuari(connectionString);
             String^ tipusUsuari = cercadora->ObtenirTipusUsuariPerCorreu(correuUsuari);
             String^ tipusNormalitzat = "";
             if (!String::IsNullOrEmpty(tipusUsuari)) {
@@ -83,7 +105,7 @@ namespace Playcampus {
         }
 
         void CtrlConsultes::TreureEquipDeLaLliga(String^ idEquip, String^ correuAdmin) {
-            PassarellaSistema^ passarella = gcnew PassarellaSistema(connectionString);
+            PassarellaEquip^ passarella = gcnew PassarellaEquip(connectionString);
             passarella->TreureEquipDeLaLliga(idEquip, correuAdmin);
         }
     }

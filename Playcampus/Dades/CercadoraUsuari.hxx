@@ -17,6 +17,11 @@ namespace Playcampus {
             PassarellaUsuari^ LlegeixPerCorreu(String^ correu);
             PassarellaUsuari^ LlegeixPerNomUsuari(String^ nomUsuari);
 
+            String^ ObtenirTipusUsuariPerCorreu(String^ correu);
+            String^ ObtenirNomUsuariPerIdentificador(String^ identificador);
+            String^ ObtenirIdUsuariPerCorreuString(String^ correu);
+            int ObtenirIdUsuariPerCorreuInt(String^ correu);
+
             DataTable^ ObtenirTelefonsAdministradorPerCapita(String^ correuCapita);
             DataTable^ ObtenirTelefonsContactePerJugador(String^ correuJugador);
             DataTable^ ObtenirTelefonsCapitansPerAdministrador(String^ correuAdministrador);

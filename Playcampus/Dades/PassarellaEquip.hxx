@@ -63,6 +63,8 @@ namespace Playcampus {
             void Esborra();
             static PassarellaEquip^ Llegeix(String^ connStr, String^ idEq);
             List <String^>^ ObtenirNomsEquipsPerTemporada(String^ idTemporada);
+            void ActualitzarJugador(String^ idJugador, int dorsal, String^ posicio);
+            void TreureEquipDeLaLliga(String^ idEquip, String^ correuAdmin);
         };
     }
 }

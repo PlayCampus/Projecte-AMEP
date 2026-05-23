@@ -256,7 +256,7 @@ namespace Playcampus {
                 String^ query = "SELECT nom FROM Equip WHERE idTemporada = @idTemporada";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idTemporada", idTemporada);
-                
+
                 MySqlDataReader^ reader = cmd->ExecuteReader();
                 while (reader->Read()) {
                     nomsEquips->Add(reader->GetString("nom"));
@@ -268,8 +268,54 @@ namespace Playcampus {
                     delete conn;
                 }
             }
-            
+
             return nomsEquips;
+        }
+
+        void PassarellaEquip::ActualitzarJugador(String^ idJugador, int dorsal, String^ posicio) {
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "UPDATE Jugador SET dorsal = @dorsal, posicio = @posicio WHERE idJugador = @idJugador";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idJugador", idJugador);
+                cmd->Parameters->AddWithValue("@dorsal", dorsal);
+                cmd->Parameters->AddWithValue("@posicio", posicio);
+                cmd->ExecuteNonQuery();
+            }
+            finally {
+                if(conn != nullptr) {
+                    conn->Close();
+                    delete conn;
+                }
+            }
+        }
+
+        void PassarellaEquip::TreureEquipDeLaLliga(String^ idEquip, String^ correuAdmin) {
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ consulta =
+                    "UPDATE Equip E "
+                    "INNER JOIN Temporada T ON E.idTemporada = T.idTemporada "
+                    "INNER JOIN Lliga L ON T.idLliga = L.idLliga "
+                    "INNER JOIN Usuari U ON L.idAdministrador = U.identificador "
+                    "SET E.idTemporada = NULL "
+                    "WHERE E.idEquip = @idEquip AND U.correu_electronic = @correuAdmin";
+                MySqlCommand^ cmd = gcnew MySqlCommand(consulta, conn);
+                cmd->Parameters->AddWithValue("@idEquip", idEquip);
+                cmd->Parameters->AddWithValue("@correuAdmin", correuAdmin);
+                int filesAfectades = cmd->ExecuteNonQuery();
+                if (filesAfectades == 0) {
+                    throw gcnew Exception("No s'ha trobat l'equip dins d'una lliga administrada per aquest usuari.");
+                }
+            }
+            finally {
+                if(conn != nullptr) {
+                    conn->Close();
+                    delete conn;
+                }
+            }
         }
 
     }

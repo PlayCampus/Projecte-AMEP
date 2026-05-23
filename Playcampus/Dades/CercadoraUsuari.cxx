@@ -223,5 +223,77 @@ namespace Playcampus {
             return ExecutaConsultaUsuaris(connectionString, consulta, parametres);
         }
 
+        String^ CercadoraUsuari::ObtenirTipusUsuariPerCorreu(String^ correu) {
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "SELECT Tipus FROM Usuari WHERE correu_electronic = @correu LIMIT 1";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@correu", correu);
+                Object^ result = cmd->ExecuteScalar();
+                if (result != nullptr && result != DBNull::Value) {
+                    return result->ToString();
+                }
+                return nullptr;
+            }
+            finally {
+                conn->Close();
+            }
+        }
+
+        String^ CercadoraUsuari::ObtenirNomUsuariPerIdentificador(String^ identificador) {
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "SELECT nom FROM Usuari WHERE identificador = @id";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@id", identificador);
+                Object^ result = cmd->ExecuteScalar();
+                if (result != nullptr && result != DBNull::Value) {
+                    return result->ToString();
+                }
+                return nullptr;
+            }
+            finally {
+                conn->Close();
+            }
+        }
+
+        String^ CercadoraUsuari::ObtenirIdUsuariPerCorreuString(String^ correu) {
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "SELECT identificador FROM Usuari WHERE correu_electronic = @correu LIMIT 1";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@correu", correu);
+                Object^ result = cmd->ExecuteScalar();
+                if (result != nullptr && result != DBNull::Value) {
+                    return result->ToString();
+                }
+                return nullptr;
+            }
+            finally {
+                conn->Close();
+            }
+        }
+
+        int CercadoraUsuari::ObtenirIdUsuariPerCorreuInt(String^ correu) {
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "SELECT identificador FROM Usuari WHERE correu_electronic = @correu";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@correu", correu);
+                Object^ result = cmd->ExecuteScalar();
+                if (result != nullptr && result != DBNull::Value) {
+                    return Convert::ToInt32(result);
+                }
+                return -1;
+            }
+            finally {
+                conn->Close();
+            }
+        }
+
     }
 }
