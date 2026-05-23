@@ -10,6 +10,10 @@ namespace Playcampus {
         private:
             String^ connectionString;
             String^ ObtenirDisciplinaLliga(String^ idLliga);
+            String^ ObtenirTipusUsuariPerCorreu(String^ correuUsuari);
+            DataTable^ ObtenirTelefonsPerCapita(String^ correuUsuari);
+            DataTable^ ObtenirTelefonsPerJugador(String^ correuUsuari);
+            DataTable^ ObtenirTelefonsPerAdministrador(String^ correuUsuari);
 
         public:
             CtrlConsultes();
@@ -21,6 +25,7 @@ namespace Playcampus {
             DataTable^ ObtenirUltimsFitxatges(int limit);
             DataTable^ ObtenirEquipsDeLaLligaAdministrador(String^ correuAdmin);
             String^ ObtenirNomLligaAdministrador(String^ correuAdmin);
+            DataTable^ ObtenirTelefonsContacte(String^ correuUsuari);
             void TreureEquipDeLaLliga(String^ idEquip, String^ correuAdmin);
         };
     }

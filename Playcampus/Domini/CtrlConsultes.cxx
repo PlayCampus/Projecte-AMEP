@@ -191,6 +191,129 @@ namespace Playcampus {
             return nomLliga;
         }
 
+        String^ CtrlConsultes::ObtenirTipusUsuariPerCorreu(String^ correuUsuari) {
+            String^ tipus = "";
+
+            if (!String::IsNullOrWhiteSpace(correuUsuari)) {
+                MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+                try {
+                    conn->Open();
+                    String^ consulta =
+                        "SELECT Tipus "
+                        "FROM Usuari "
+                        "WHERE correu_electronic = @correuUsuari "
+                        "LIMIT 1";
+
+                    MySqlCommand^ cmd = gcnew MySqlCommand(consulta, conn);
+                    cmd->Parameters->AddWithValue("@correuUsuari", correuUsuari);
+
+                    Object^ resultat = cmd->ExecuteScalar();
+                    if (resultat != nullptr && resultat != DBNull::Value) {
+                        tipus = resultat->ToString();
+                    }
+                }
+                finally {
+                    if (conn != nullptr) {
+                        conn->Close();
+                    }
+                }
+            }
+
+            return tipus;
+        }
+
+        DataTable^ CtrlConsultes::ObtenirTelefonsPerCapita(String^ correuUsuari) {
+            String^ consulta =
+                "SELECT 'Administrador' AS Rol, UA.nom AS Nom, UA.correu_electronic AS Correu, "
+                "COALESCE(A.telefonContacte, '') AS Telefon, E.nom AS Equip, L.nom AS Lliga "
+                "FROM Usuari UC "
+                "INNER JOIN Capita C ON C.identificador = UC.identificador "
+                "INNER JOIN Equip E ON E.idEquip = C.idEquip "
+                "INNER JOIN Temporada T ON T.idTemporada = E.idTemporada "
+                "INNER JOIN Lliga L ON L.idLliga = T.idLliga "
+                "INNER JOIN Administrador A ON A.identificador = L.idAdministrador "
+                "INNER JOIN Usuari UA ON UA.identificador = A.identificador "
+                "WHERE UC.correu_electronic = @correuUsuari "
+                "ORDER BY L.nom ASC, UA.nom ASC";
+
+            cli::array<MySqlParameter^>^ parametres = gcnew cli::array<MySqlParameter^>(1);
+            parametres[0] = gcnew MySqlParameter("@correuUsuari", correuUsuari);
+            return ExecutaConsulta(connectionString, consulta, parametres);
+        }
+
+        DataTable^ CtrlConsultes::ObtenirTelefonsPerJugador(String^ correuUsuari) {
+            String^ consulta =
+                "SELECT 'Capita' AS Rol, UC.nom AS Nom, UC.correu_electronic AS Correu, "
+                "COALESCE(C.telefonContacte, '') AS Telefon, E.nom AS Equip, '' AS Lliga "
+                "FROM Usuari UJ "
+                "INNER JOIN Jugador J ON J.idJugador = UJ.identificador "
+                "INNER JOIN Equip E ON E.idEquip = J.idEquip "
+                "INNER JOIN Capita C ON C.idEquip = E.idEquip "
+                "INNER JOIN Usuari UC ON UC.identificador = C.identificador "
+                "WHERE UJ.correu_electronic = @correuUsuari "
+                "UNION "
+                "SELECT 'Administrador' AS Rol, UA.nom AS Nom, UA.correu_electronic AS Correu, "
+                "COALESCE(A.telefonContacte, '') AS Telefon, E.nom AS Equip, L.nom AS Lliga "
+                "FROM Usuari UJ "
+                "INNER JOIN Jugador J ON J.idJugador = UJ.identificador "
+                "INNER JOIN Equip E ON E.idEquip = J.idEquip "
+                "INNER JOIN Temporada T ON T.idTemporada = E.idTemporada "
+                "INNER JOIN Lliga L ON L.idLliga = T.idLliga "
+                "INNER JOIN Administrador A ON A.identificador = L.idAdministrador "
+                "INNER JOIN Usuari UA ON UA.identificador = A.identificador "
+                "WHERE UJ.correu_electronic = @correuUsuari "
+                "ORDER BY Rol ASC, Nom ASC";
+
+            cli::array<MySqlParameter^>^ parametres = gcnew cli::array<MySqlParameter^>(1);
+            parametres[0] = gcnew MySqlParameter("@correuUsuari", correuUsuari);
+            return ExecutaConsulta(connectionString, consulta, parametres);
+        }
+
+        DataTable^ CtrlConsultes::ObtenirTelefonsPerAdministrador(String^ correuUsuari) {
+            String^ consulta =
+                "SELECT 'Capita' AS Rol, UC.nom AS Nom, UC.correu_electronic AS Correu, "
+                "COALESCE(C.telefonContacte, '') AS Telefon, COALESCE(E.nom, '') AS Equip, "
+                "COALESCE(L.nom, '') AS Lliga "
+                "FROM Usuari UA "
+                "INNER JOIN Administrador ALogin ON ALogin.identificador = UA.identificador "
+                "INNER JOIN Capita C ON 1 = 1 "
+                "INNER JOIN Usuari UC ON UC.identificador = C.identificador "
+                "LEFT JOIN Equip E ON E.idEquip = C.idEquip "
+                "LEFT JOIN Temporada T ON T.idTemporada = E.idTemporada "
+                "LEFT JOIN Lliga L ON L.idLliga = T.idLliga "
+                "WHERE UA.correu_electronic = @correuUsuari "
+                "ORDER BY UC.nom ASC, E.nom ASC";
+
+            cli::array<MySqlParameter^>^ parametres = gcnew cli::array<MySqlParameter^>(1);
+            parametres[0] = gcnew MySqlParameter("@correuUsuari", correuUsuari);
+            return ExecutaConsulta(connectionString, consulta, parametres);
+        }
+
+        DataTable^ CtrlConsultes::ObtenirTelefonsContacte(String^ correuUsuari) {
+            DataTable^ resultat = gcnew DataTable();
+
+            if (String::IsNullOrWhiteSpace(correuUsuari)) {
+                throw gcnew Exception("No s'ha pogut identificar l'usuari actual.");
+            }
+
+            String^ tipusUsuari = ObtenirTipusUsuariPerCorreu(correuUsuari);
+
+            if (tipusUsuari == "Capita") {
+                resultat = ObtenirTelefonsPerCapita(correuUsuari);
+            }
+            else if (tipusUsuari == "Jugador") {
+                resultat = ObtenirTelefonsPerJugador(correuUsuari);
+            }
+            else if (tipusUsuari == "Administrador") {
+                resultat = ObtenirTelefonsPerAdministrador(correuUsuari);
+            }
+            else {
+                throw gcnew Exception("Aquest usuari no té permisos per consultar números de telèfon.");
+            }
+
+            return resultat;
+        }
+
         void CtrlConsultes::TreureEquipDeLaLliga(String^ idEquip, String^ correuAdmin) {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
