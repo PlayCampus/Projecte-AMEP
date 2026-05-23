@@ -100,7 +100,25 @@ void Form1::ConfigurarLabelsEditarPartitSegonsEsport(System::String^ disciplina)
 			dt->Columns->Add(etiquetesEditarPartitActual["estadistica4"], System::Int32::typeid);
 
 			for each (auto jugador in jugadors) {
-				dt->Rows->Add(jugador["idJugador"], jugador["nomJugador"], jugador["nomEquip"], safe_cast<System::Object^>(0), safe_cast<System::Object^>(0), safe_cast<System::Object^>(0), safe_cast<System::Object^>(0));
+				int estadistica1 = 0;
+				int estadistica2 = 0;
+				int estadistica3 = 0;
+				int estadistica4 = 0;
+
+				if (jugador->ContainsKey("estadistica1") && !String::IsNullOrWhiteSpace(jugador["estadistica1"])) {
+					Int32::TryParse(jugador["estadistica1"], estadistica1);
+				}
+				if (jugador->ContainsKey("estadistica2") && !String::IsNullOrWhiteSpace(jugador["estadistica2"])) {
+					Int32::TryParse(jugador["estadistica2"], estadistica2);
+				}
+				if (jugador->ContainsKey("estadistica3") && !String::IsNullOrWhiteSpace(jugador["estadistica3"])) {
+					Int32::TryParse(jugador["estadistica3"], estadistica3);
+				}
+				if (jugador->ContainsKey("estadistica4") && !String::IsNullOrWhiteSpace(jugador["estadistica4"])) {
+					Int32::TryParse(jugador["estadistica4"], estadistica4);
+				}
+
+				dt->Rows->Add(jugador["idJugador"], jugador["nomJugador"], jugador["nomEquip"], safe_cast<System::Object^>(estadistica1), safe_cast<System::Object^>(estadistica2), safe_cast<System::Object^>(estadistica3), safe_cast<System::Object^>(estadistica4));
 			}
 
 			dgvEstadistiquesJugadors->DataSource = dt;

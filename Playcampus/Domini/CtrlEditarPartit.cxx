@@ -188,16 +188,26 @@ namespace Playcampus {
                 readerPartit->Close();
 
                 String^ queryJugadors =
-                    "SELECT u.nom AS nomJugador, j.idEquip, j.idJugador "
+                    "SELECT u.nom AS nomJugador, j.idEquip, j.idJugador, "
+                    "IFNULL(pei.golsmarcat, 0) AS estadistica1, "
+                    "IFNULL(pei.asistencies, 0) AS estadistica2, "
+                    "IFNULL(pei.targetesgrogues, 0) AS estadistica3, "
+                    "IFNULL(pei.targetesvermelles, 0) AS estadistica4 "
                     "FROM Jugador j "
                     "INNER JOIN Usuari u ON j.idJugador = u.identificador "
-                    "INNER JOIN ConvocatoriaPartit cp ON j.idJugador = cp.idJugador "
-                    "WHERE cp.idPartit = @idPartit AND cp.convocat = 1 "
+                    "LEFT JOIN AssignacioJugadorPartit ajp ON j.idJugador = ajp.idJugador AND ajp.idPartit = @idPartit "
+                    "LEFT JOIN ConvocatoriaPartit cp ON j.idJugador = cp.idJugador AND cp.idPartit = @idPartit AND cp.convocat = 1 "
+                    "LEFT JOIN PartitEstadisticaIndividual pei ON j.idJugador = pei.idJugador AND pei.idPartit = @idPartit "
+                    "WHERE (j.idEquip = @idLocal OR j.idEquip = @idVisitant) "
+                    "AND (ajp.idJugador IS NOT NULL OR cp.idJugador IS NOT NULL "
+                    "OR (NOT EXISTS (SELECT 1 FROM AssignacioJugadorPartit ajp2 WHERE ajp2.idPartit = @idPartit) "
+                    "AND NOT EXISTS (SELECT 1 FROM ConvocatoriaPartit cp2 WHERE cp2.idPartit = @idPartit AND cp2.convocat = 1))) "
                     "ORDER BY CASE WHEN j.idEquip = @idLocal THEN 0 ELSE 1 END, u.nom";
 
                 MySqlCommand^ cmdJugadors = gcnew MySqlCommand(queryJugadors, conn);
                 cmdJugadors->Parameters->AddWithValue("@idPartit", idPartit);
                 cmdJugadors->Parameters->AddWithValue("@idLocal", idEquipLocal);
+                cmdJugadors->Parameters->AddWithValue("@idVisitant", idEquipVisitant);
                 MySqlDataReader^ readerJugadors = cmdJugadors->ExecuteReader();
 
                 while (readerJugadors->Read()) {
@@ -208,6 +218,10 @@ namespace Playcampus {
                     j["nomJugador"] = readerJugadors["nomJugador"]->ToString();
                     j["equip"] = idEquip->Equals(idEquipLocal, StringComparison::OrdinalIgnoreCase) ? "Local" : "Visitant";
                     j["nomEquip"] = idEquip->Equals(idEquipLocal, StringComparison::OrdinalIgnoreCase) ? nomEquipLocal : nomEquipVisitant;
+                    j["estadistica1"] = readerJugadors["estadistica1"]->ToString();
+                    j["estadistica2"] = readerJugadors["estadistica2"]->ToString();
+                    j["estadistica3"] = readerJugadors["estadistica3"]->ToString();
+                    j["estadistica4"] = readerJugadors["estadistica4"]->ToString();
                     jugadors->Add(j);
                 }
                 readerJugadors->Close();
@@ -499,7 +513,109 @@ namespace Playcampus {
                         cmdUndoV->Parameters->AddWithValue("@empO", empV_old); cmdUndoV->Parameters->AddWithValue("@empN", empV_new);
                         cmdUndoV->Parameters->AddWithValue("@ptsO", puntsV_old); cmdUndoV->Parameters->AddWithValue("@ptsN", puntsV_new);
                         cmdUndoV->ExecuteNonQuery();
+                }
+
+                if (!(nouEstat == "Finalitzat" && estatAnterior != "Finalitzat") && !String::IsNullOrWhiteSpace(statsJson)) {
+                    cli::array<String^>^ lines = statsJson->Split(gcnew cli::array<wchar_t>{'\n'}, StringSplitOptions::RemoveEmptyEntries);
+                    if (lines->Length > 1) {
+                        for (int i = 1; i < lines->Length; ++i) {
+                            cli::array<String^>^ fields = lines[i]->Trim()->Split(';');
+                            if (fields->Length >= 7) {
+                                int idJugador = Int32::Parse(fields[0]);
+                                String^ nomJugador = fields[1];
+                                int gols = Int32::Parse(fields[3]);
+                                int assistencies = Int32::Parse(fields[4]);
+                                int targetesGrogues = Int32::Parse(fields[5]);
+                                int targetesVermelles = Int32::Parse(fields[6]);
+
+                                int golsAnteriors = 0;
+                                int assistenciesAnteriors = 0;
+                                int targetesGroguesAnteriors = 0;
+                                int targetesVermellesAnteriors = 0;
+                                bool estadisticaJaExistia = false;
+
+                                String^ queryStatsAnteriors =
+                                    "SELECT golsmarcat, asistencies, targetesgrogues, targetesvermelles "
+                                    "FROM PartitEstadisticaIndividual "
+                                    "WHERE idPartit = @idPartit AND idJugador = @idJugador LIMIT 1";
+                                MySqlCommand^ cmdStatsAnteriors = gcnew MySqlCommand(queryStatsAnteriors, conn);
+                                cmdStatsAnteriors->Parameters->AddWithValue("@idPartit", idPartit);
+                                cmdStatsAnteriors->Parameters->AddWithValue("@idJugador", idJugador);
+                                MySqlDataReader^ readerStatsAnteriors = cmdStatsAnteriors->ExecuteReader();
+                                if (readerStatsAnteriors->Read()) {
+                                    estadisticaJaExistia = true;
+                                    golsAnteriors = readerStatsAnteriors->IsDBNull(readerStatsAnteriors->GetOrdinal("golsmarcat")) ? 0 : Convert::ToInt32(readerStatsAnteriors["golsmarcat"]);
+                                    assistenciesAnteriors = readerStatsAnteriors->IsDBNull(readerStatsAnteriors->GetOrdinal("asistencies")) ? 0 : Convert::ToInt32(readerStatsAnteriors["asistencies"]);
+                                    targetesGroguesAnteriors = readerStatsAnteriors->IsDBNull(readerStatsAnteriors->GetOrdinal("targetesgrogues")) ? 0 : Convert::ToInt32(readerStatsAnteriors["targetesgrogues"]);
+                                    targetesVermellesAnteriors = readerStatsAnteriors->IsDBNull(readerStatsAnteriors->GetOrdinal("targetesvermelles")) ? 0 : Convert::ToInt32(readerStatsAnteriors["targetesvermelles"]);
+                                }
+                                readerStatsAnteriors->Close();
+
+                                String^ queryPosicio = "SELECT posicio FROM Jugador WHERE idJugador = @idJugador LIMIT 1";
+                                MySqlCommand^ cmdPosicio = gcnew MySqlCommand(queryPosicio, conn);
+                                cmdPosicio->Parameters->AddWithValue("@idJugador", idJugador);
+                                Object^ posicioObj = cmdPosicio->ExecuteScalar();
+                                String^ posicio = (posicioObj == nullptr || posicioObj == DBNull::Value) ? "" : posicioObj->ToString();
+
+                                String^ queryUpsertStats =
+                                    "INSERT INTO PartitEstadisticaIndividual (idPartit, disciplina, idJugador, nomJugador, posicio, "
+                                    "targetesgrogues, targetesvermelles, golsmarcat, asistencies, "
+                                    "targetesgroguesobtenides, targetesvermelllesobtenides, dataActualitzacio) "
+                                    "VALUES (@idPartit, @disciplina, @idJugador, @nomJugador, @posicio, "
+                                    "@targetesGrogues, @targetesVermelles, @gols, @assistencies, "
+                                    "@targetesGrogues, @targetesVermelles, NOW()) "
+                                    "ON DUPLICATE KEY UPDATE disciplina = VALUES(disciplina), nomJugador = VALUES(nomJugador), posicio = VALUES(posicio), "
+                                    "targetesgrogues = VALUES(targetesgrogues), targetesvermelles = VALUES(targetesvermelles), "
+                                    "golsmarcat = VALUES(golsmarcat), asistencies = VALUES(asistencies), "
+                                    "targetesgroguesobtenides = VALUES(targetesgroguesobtenides), targetesvermelllesobtenides = VALUES(targetesvermelllesobtenides), "
+                                    "dataActualitzacio = NOW()";
+
+                                MySqlCommand^ cmdStats = gcnew MySqlCommand(queryUpsertStats, conn);
+                                cmdStats->Parameters->AddWithValue("@idPartit", idPartit);
+                                cmdStats->Parameters->AddWithValue("@disciplina", disciplina);
+                                cmdStats->Parameters->AddWithValue("@idJugador", idJugador);
+                                cmdStats->Parameters->AddWithValue("@nomJugador", nomJugador);
+                                cmdStats->Parameters->AddWithValue("@posicio", posicio);
+                                cmdStats->Parameters->AddWithValue("@targetesGrogues", targetesGrogues);
+                                cmdStats->Parameters->AddWithValue("@targetesVermelles", targetesVermelles);
+                                cmdStats->Parameters->AddWithValue("@gols", gols);
+                                cmdStats->Parameters->AddWithValue("@assistencies", assistencies);
+                                cmdStats->ExecuteNonQuery();
+
+                                String^ queryUpdateJugador =
+                                    "UPDATE Jugador SET "
+                                    "partitsJugats = partitsJugats + @partitJugatDelta, "
+                                    "anotacions = anotacions + @golsDelta, "
+                                    "assistencies = assistencies + @assistenciesDelta, "
+                                    "faltesLleus = faltesLleus + @targetesGroguesDelta, "
+                                    "faltesGreus = faltesGreus + @targetesVermellesDelta "
+                                    "WHERE idJugador = @idJugador";
+
+                                int partitJugatDelta = 0;
+                                int golsDelta = 0;
+                                int assistenciesDelta = 0;
+                                int targetesGroguesDelta = 0;
+                                int targetesVermellesDelta = 0;
+                                if (nouEstat == "Finalitzat") {
+                                    partitJugatDelta = estadisticaJaExistia ? 0 : 1;
+                                    golsDelta = gols - golsAnteriors;
+                                    assistenciesDelta = assistencies - assistenciesAnteriors;
+                                    targetesGroguesDelta = targetesGrogues - targetesGroguesAnteriors;
+                                    targetesVermellesDelta = targetesVermelles - targetesVermellesAnteriors;
+                                }
+
+                                MySqlCommand^ cmdUpdateJugador = gcnew MySqlCommand(queryUpdateJugador, conn);
+                                cmdUpdateJugador->Parameters->AddWithValue("@idJugador", idJugador);
+                                cmdUpdateJugador->Parameters->AddWithValue("@partitJugatDelta", partitJugatDelta);
+                                cmdUpdateJugador->Parameters->AddWithValue("@golsDelta", golsDelta);
+                                cmdUpdateJugador->Parameters->AddWithValue("@assistenciesDelta", assistenciesDelta);
+                                cmdUpdateJugador->Parameters->AddWithValue("@targetesGroguesDelta", targetesGroguesDelta);
+                                cmdUpdateJugador->Parameters->AddWithValue("@targetesVermellesDelta", targetesVermellesDelta);
+                                cmdUpdateJugador->ExecuteNonQuery();
+                            }
+                        }
                     }
+                }
             }
             finally {
                 if(conn != nullptr) {
