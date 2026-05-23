@@ -24,7 +24,7 @@ namespace Playcampus {
             List<Dictionary<String^, String^>^>^ ObtenirEstatConvocatoria(String^ idPartit, String^ idEquip);
 
             // El capitán marca si convoca o no a un jugador
-            void ActualitzarConvocatoria(String^ idPartit, String^ idJugador, bool convocat);
+            void ActualitzarConvocatoria(String^ idPartit, String^ idJugador, Nullable<bool> convocat);
         
             // El jugador confirma si asistirá o no
             void ConfirmarAssistencia(String^ idPartit, String^ idJugador, bool assisteix);

@@ -434,7 +434,7 @@ namespace CppCLRWinFormsProject {
 		System::Void CarregarPartitsConvocatoria();
 		System::Void cbPartitsConvocatoria_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void dgvConvocatoria_CellClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e);
-		System::Void MostrarAvisJugador(String^ missatge);
+		System::Void MostrarAvisJugador(System::String^ missatge, System::String^ tipus);
 		System::Void btnConfirmarSi_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnConfirmarNo_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void ProcessarConfirmacio(bool assisteix);

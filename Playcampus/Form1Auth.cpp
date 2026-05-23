@@ -118,7 +118,10 @@ namespace CppCLRWinFormsProject {
 
 					if (avis != nullptr) {
 						idPartitPendentConfirmar = avis["idPartit"];
-						MostrarAvisJugador(avis["missatge"] + L"\n\nPots assistir-hi?");
+
+						// EN VEZ DE AÑADIR EL TEXTO "Pots assistir-hi?", PASAMOS EL TIPO DE AVISO
+						// El controlador ya se encarga de poner el texto correcto según si está convocado o no
+						MostrarAvisJugador(avis["missatge"], avis["tipus"]);
 					}
 				}
 

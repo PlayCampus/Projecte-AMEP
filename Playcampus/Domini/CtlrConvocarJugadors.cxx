@@ -93,9 +93,9 @@ namespace Playcampus {
 
             try {
                 conn->Open();
-                // Fíjate que aquí hemos quitado el IFNULL de cp.confirmat para que nos devuelva el NULL real si existe
+                // Ahoracp.convocat no tiene IFNULL para que podamos distinguir NULL de 0
                 String^ query = "SELECT j.idJugador, u.nom, j.posicio, "
-                    "IFNULL(cp.convocat, 0) AS convocat, cp.confirmat AS confirmat "
+                    "cp.convocat AS convocat, cp.confirmat AS confirmat "
                     "FROM Jugador j "
                     "JOIN Usuari u ON j.idJugador = u.identificador "
                     "LEFT JOIN ConvocatoriaPartit cp ON j.idJugador = cp.idJugador AND cp.idPartit = @idPartit "
@@ -112,8 +112,16 @@ namespace Playcampus {
                     d["nom"] = reader["nom"]->ToString();
                     d["posicio"] = reader["posicio"]->ToString();
 
-                    // Estado de si está convocado o no
-                    d["estat_convocatoria"] = (reader["convocat"]->ToString() == "1" || reader["convocat"]->ToString() == "True") ? "Convocat" : "No Convocat";
+                    // Estado de si está convocado o no o null
+                    if (reader["convocat"] == DBNull::Value) {
+                        d["estat_convocatoria"] = "Sense establir";
+                    }
+                    else if (reader["convocat"]->ToString() == "1" || reader["convocat"]->ToString() == "True") {
+                        d["estat_convocatoria"] = "Convocat";
+                    }
+                    else {
+                        d["estat_convocatoria"] = "No Convocat";
+                    }
 
                     // LÓGICA DE CONFIRMACIÓN DE ASISTENCIA
                     if (reader["confirmat"] == DBNull::Value) {
@@ -135,12 +143,26 @@ namespace Playcampus {
         }
 
         // 5. El capitán convoca o desconvoca
-        void CtlrConvocarJugadors::ActualitzarConvocatoria(String^ idPartit, String^ idJugador, bool convocat) {
+        void CtlrConvocarJugadors::ActualitzarConvocatoria(String^ idPartit, String^ idJugador, Nullable<bool> convocat) {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
                 String^ query;
-                if (convocat) {
+                if (!convocat.HasValue) {
+                    // Si es NULL, insertamos/actualizamos a NULL en la BD en vez de eliminar
+                    query = "INSERT INTO ConvocatoriaPartit (idPartit, idJugador, convocat, confirmat) "
+                        "VALUES (@idP, @idJ, NULL, NULL) "
+                        "ON DUPLICATE KEY UPDATE convocat = NULL, confirmat = NULL";
+                    MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                    cmd->Parameters->AddWithValue("@idP", idPartit);
+                    cmd->Parameters->AddWithValue("@idJ", idJugador);
+                    cmd->ExecuteNonQuery();
+                    return;
+                }
+
+                bool esConvocat = convocat.Value;
+
+                if (esConvocat) {
                     // Si convoca, mantén el confirmat actual (solo actualiza convocat)
                     query = "INSERT INTO ConvocatoriaPartit (idPartit, idJugador, convocat, confirmat) "
                         "VALUES (@idP, @idJ, @conv, NULL) "
@@ -154,7 +176,7 @@ namespace Playcampus {
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idP", idPartit);
                 cmd->Parameters->AddWithValue("@idJ", idJugador);
-                cmd->Parameters->AddWithValue("@conv", convocat ? 1 : 0);
+                cmd->Parameters->AddWithValue("@conv", esConvocat ? 1 : 0);
                 cmd->ExecuteNonQuery();
             }
             finally { conn->Close(); }
@@ -180,15 +202,15 @@ namespace Playcampus {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
-                // Busca si el jugador está convocado (1) pero aún no ha confirmado (0)
-                String^ query = "SELECT cp.idPartit, p.dataHora, el.nom AS local, ev.nom AS visitant "
+                // Buscamos si el jugador tiene un estado asignado (1 o 0) pero aún no ha respondido (confirmat IS NULL)
+                String^ query = "SELECT cp.idPartit, cp.convocat, p.dataHora, el.nom AS local, ev.nom AS visitant "
                     "FROM ConvocatoriaPartit cp "
                     "JOIN Partit p ON cp.idPartit = p.idPartit "
                     "JOIN Equip el ON p.idEquipLocal = el.idEquip "
                     "JOIN Equip ev ON p.idEquipVisitant = ev.idEquip "
                     "JOIN Jugador j ON cp.idJugador = j.idJugador "
                     "JOIN Usuari u ON j.idJugador = u.identificador "
-                    "WHERE u.correu_electronic = @correu AND cp.convocat = 1 AND cp.confirmat IS NULL LIMIT 1";
+                    "WHERE u.correu_electronic = @correu AND cp.convocat IS NOT NULL AND cp.confirmat IS NULL LIMIT 1";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@correu", correuJugador);
                 MySqlDataReader^ reader = cmd->ExecuteReader();
@@ -196,7 +218,16 @@ namespace Playcampus {
                 if (reader->Read()) {
                     avis = gcnew Dictionary<String^, String^>();
                     avis["idPartit"] = reader["idPartit"]->ToString();
-                    avis["missatge"] = "Has estat convocat pel partit:\n" + reader["local"]->ToString() + " vs " + reader["visitant"]->ToString() + "\n(" + reader["dataHora"]->ToString() + ")";
+
+                    String^ estatConvocat = reader["convocat"]->ToString();
+                    if (estatConvocat == "1" || estatConvocat == "True") {
+                        avis["tipus"] = "convocat";
+                        avis["missatge"] = "Has estat convocat pel partit:\n" + reader["local"]->ToString() + " vs " + reader["visitant"]->ToString() + "\n(" + reader["dataHora"]->ToString() + ")";
+                    }
+                    else {
+                        avis["tipus"] = "no_convocat";
+                        avis["missatge"] = "No has estat convocat pel partit:\n" + reader["local"]->ToString() + " vs " + reader["visitant"]->ToString() + "\n(" + reader["dataHora"]->ToString() + ")";
+                    }
                 }
                 reader->Close();
             }
