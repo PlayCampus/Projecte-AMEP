@@ -1,5 +1,6 @@
 #include "pch.h"
 #include <gtest/gtest.h>
+#include "Validators.h"
 
 using namespace std;
 
@@ -20,23 +21,19 @@ protected:
     }
 };
 
-// Test: Equips no són iguals
+// Test: Equips no sn iguals
 TEST_F(CtrlCrearPartitTest, EquipsDiferents) {
-    bool sonIguals = (nomEquipLocal == nomEquipVisitant);
-    EXPECT_FALSE(sonIguals);
+    EXPECT_TRUE(CoreValidators::ValidateCrearPartit(nomEquipLocal, nomEquipVisitant, ubicacio));
 }
 
-// Test: Equips són iguals (error espertat)
+// Test: Equips sn iguals (error espertat)
 TEST_F(CtrlCrearPartitTest, EquipsIguals) {
-    string equipLocal = "FC Barcelona";
-    string equipVisitant = "FC Barcelona";
-    bool sonIguals = (equipLocal == equipVisitant);
-    EXPECT_TRUE(sonIguals); // Això és un error al crear partit
+    EXPECT_FALSE(CoreValidators::ValidateCrearPartit(nomEquipLocal, nomEquipLocal, ubicacio));
 }
 
-// Test: Ubicació no és buida
+// Test: Ubicaci no s buida
 TEST_F(CtrlCrearPartitTest, UbicacioNoVuida) {
-    EXPECT_FALSE(ubicacio.empty());
+    EXPECT_FALSE(CoreValidators::ValidateCrearPartit(nomEquipLocal, nomEquipVisitant, ""));
 }
 
 // ============================================================================
@@ -58,27 +55,24 @@ protected:
     }
 };
 
-// Test: Correu vàlid format
+// Test: Correu vlid format
 TEST_F(CtrlIniciSessioTest, CorreuFormatValid) {
-    bool conteAroba = (correuValid.find("@") != string::npos);
-    bool conteDomin = (correuValid.find(".") != string::npos);
-    EXPECT_TRUE(conteAroba && conteDomin);
+    EXPECT_TRUE(CoreValidators::ValidateUsuariAuth(correuValid, passValid));
 }
 
-// Test: Correu invàlid (buit)
+// Test: Correu invlid (buit)
 TEST_F(CtrlIniciSessioTest, CorreuBuit) {
-    EXPECT_TRUE(correuInvalid.empty());
+    EXPECT_FALSE(CoreValidators::ValidateUsuariAuth(correuInvalid, passValid));
 }
 
-// Test: Contrasenya vàlida
+// Test: Contrasenya vlida
 TEST_F(CtrlIniciSessioTest, ContrasenyaValida) {
-    EXPECT_FALSE(passValid.empty());
-    EXPECT_TRUE(passValid.length() >= 8);
+    EXPECT_TRUE(CoreValidators::ValidateUsuariAuth(correuValid, passValid));
 }
 
-// Test: Contrasenya invàlida (buida)
+// Test: Contrasenya invlida (buida)
 TEST_F(CtrlIniciSessioTest, ContrasenyaBuida) {
-    EXPECT_TRUE(passInvalid.empty());
+    EXPECT_FALSE(CoreValidators::ValidateUsuariAuth(correuValid, passInvalid));
 }
 
 // ============================================================================
@@ -96,16 +90,15 @@ protected:
     }
 };
 
-// Test: Nom d'equip no és buit
+// Test: Nom d'equip no s buit
 TEST_F(CtrlEnregistrarEquipTest, NomEquipNoVuit) {
-    EXPECT_FALSE(nomEquip.empty());
+    EXPECT_FALSE(CoreValidators::ValidateCrearEquip("", esport));
 }
 
-// Test: Esport és vàlid
+// Test: Esport s vlid
 TEST_F(CtrlEnregistrarEquipTest, EsportValid) {
-    vector<string> esportsFerits = {"Futbol", "Basquet", "Voleibol"};
-    bool esValid = find(esportsFerits.begin(), esportsFerits.end(), esport) != esportsFerits.end();
-    EXPECT_TRUE(esValid);
+    EXPECT_TRUE(CoreValidators::ValidateCrearEquip(nomEquip, esport));
+    EXPECT_FALSE(CoreValidators::ValidateCrearEquip(nomEquip, "Test invalid"));
 }
 
 // ============================================================================
@@ -125,22 +118,21 @@ protected:
     }
 };
 
-// Test: Nom de lliga no és buit
+// Test: Nom de lliga no s buit
 TEST_F(CtrlCrearLligaTest, NomLligaNoVuit) {
-    EXPECT_FALSE(nomLliga.empty());
+    EXPECT_FALSE(CoreValidators::ValidateCrearLliga("", disciplina, contrasenya));
 }
 
-// Test: Disciplina vàlida
+// Test: Disciplina vlida
 TEST_F(CtrlCrearLligaTest, DisciplinaValida) {
-    vector<string> disciplinesValides = {"Futbol", "Basquet", "Voleibol"};
-    bool esValid = find(disciplinesValides.begin(), disciplinesValides.end(), disciplina) != disciplinesValides.end();
-    EXPECT_TRUE(esValid);
+    EXPECT_TRUE(CoreValidators::ValidateCrearLliga(nomLliga, disciplina, contrasenya));
+    EXPECT_FALSE(CoreValidators::ValidateCrearLliga(nomLliga, "Golf", contrasenya));
 }
 
-// Test: Contrasenya vàlida
+// Test: Contrasenya vlida
 TEST_F(CtrlCrearLligaTest, ContrasenyaValida) {
-    EXPECT_FALSE(contrasenya.empty());
-    EXPECT_TRUE(contrasenya.length() >= 6);
+    EXPECT_TRUE(CoreValidators::ValidateCrearLliga(nomLliga, disciplina, contrasenya));
+    EXPECT_FALSE(CoreValidators::ValidateCrearLliga(nomLliga, disciplina, "123")); // mass curta
 }
 
 // ============================================================================
@@ -158,19 +150,22 @@ protected:
     }
 };
 
-// Test: Durada de temporada (mínim 30 dies)
+// Test: Durada de temporada (mnim 30 dies)
 TEST_F(CtrlCrearTemporadaTest, DuradaTemporada) {
-    EXPECT_TRUE(diasDuracio >= 30);
+    EXPECT_TRUE(CoreValidators::ValidateCrearTemporada(diasDuracio, nomLliga));
+    EXPECT_FALSE(CoreValidators::ValidateCrearTemporada(15, nomLliga)); // Less than 30
 }
 
-// Test: Temporada té menys de 1 any (típicament)
+// Test: Temporada t menys de 1 any (tpicament)
 TEST_F(CtrlCrearTemporadaTest, DuradaMenysUnAny) {
-    EXPECT_TRUE(diasDuracio <= 365);
+    EXPECT_TRUE(CoreValidators::ValidateCrearTemporada(diasDuracio, nomLliga));
+    EXPECT_FALSE(CoreValidators::ValidateCrearTemporada(400, nomLliga)); // More than 365
 }
 
 // Test: Nom lliga no buit
 TEST_F(CtrlCrearTemporadaTest, NomLligaValid) {
-    EXPECT_FALSE(nomLliga.empty());
+    EXPECT_TRUE(CoreValidators::ValidateCrearTemporada(diasDuracio, nomLliga));
+    EXPECT_FALSE(CoreValidators::ValidateCrearTemporada(diasDuracio, ""));
 }
 
 // ============================================================================
@@ -192,25 +187,26 @@ protected:
     }
 };
 
-// Test: Correu del jugador vàlid
+// Test: Correu del jugador vlid
 TEST_F(CtrlAfegirJugadorTest, CorreuJugadorValid) {
-    EXPECT_FALSE(correuJugador.empty());
-    EXPECT_NE(correuJugador.find("@"), string::npos);
+    EXPECT_TRUE(CoreValidators::ValidateAfegirJugador(correuJugador, dorsal, posicio, correuCapita));
+    EXPECT_FALSE(CoreValidators::ValidateAfegirJugador("bademail", dorsal, posicio, correuCapita)); // Invalid mail
 }
 
-// Test: Dorsal vàlid
+// Test: Dorsal vlid
 TEST_F(CtrlAfegirJugadorTest, DorsalValid) {
-    EXPECT_TRUE(dorsal > 0 && dorsal <= 99);
+    EXPECT_TRUE(CoreValidators::ValidateAfegirJugador(correuJugador, dorsal, posicio, correuCapita));
+    EXPECT_FALSE(CoreValidators::ValidateAfegirJugador(correuJugador, 150, posicio, correuCapita)); // outside 1..99
 }
 
-// Test: Posició no és buida
+// Test: Posici no s buida
 TEST_F(CtrlAfegirJugadorTest, PosicioNoVuida) {
-    EXPECT_FALSE(posicio.empty());
+    EXPECT_FALSE(CoreValidators::ValidateAfegirJugador(correuJugador, dorsal, "", correuCapita));
 }
 
-// Test: Correu de capita vàlid
+// Test: Correu de capita vlid
 TEST_F(CtrlAfegirJugadorTest, CorreuCapitaValid) {
-    EXPECT_FALSE(correuCapita.empty());
+    EXPECT_FALSE(CoreValidators::ValidateAfegirJugador(correuJugador, dorsal, posicio, ""));
 }
 
 // ============================================================================
@@ -228,20 +224,19 @@ protected:
     }
 };
 
-// Test: Tipus d'usuari vàlid
+// Test: Tipus d'usuari vlid
 TEST_F(CtrlConsultesTest, TipusUsuariValid) {
-    vector<string> tiposValids = {"Administrador", "Capita", "Jugador"};
-    bool esValid = find(tiposValids.begin(), tiposValids.end(), tipusUsuari) != tiposValids.end();
-    EXPECT_TRUE(esValid);
+    EXPECT_TRUE(CoreValidators::ValidateTipusUsuari(tipusUsuari));
+    EXPECT_FALSE(CoreValidators::ValidateTipusUsuari("Desconegut"));
 }
 
-// Test: Correu d'usuari vàlid
+// Test: Correu d'usuari vlid
 TEST_F(CtrlConsultesTest, CorreuUsuariValid) {
     EXPECT_FALSE(correuUsuari.empty());
 }
 
 // ============================================================================
-// TESTS PER ALS CONTROLADORS DE CONVOCATÒRIA
+// TESTS PER ALS CONTROLADORS DE CONVOCATRIA
 // ============================================================================
 
 class CtrlConvocarJugadorsTest : public ::testing::Test {

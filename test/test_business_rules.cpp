@@ -1,11 +1,12 @@
 #include "pch.h"
 #include <gtest/gtest.h>
+#include "Validators.h"
 
 // ============================================================================
-// TESTS DE VALIDACIÓ DE BD - CASOS ESPECÍFICS
+// TESTS DE VALIDACI DE BD - CASOS ESPECIFICS
 // ============================================================================
 
-class ValidacióBDTest : public ::testing::Test {
+class ValidacioBDTest : public ::testing::Test {
 protected:
     virtual void SetUp() {
         // Nota: Aquesta seria la connection string per a proves
@@ -13,20 +14,15 @@ protected:
     }
 };
 
-// Test: Verificar que un identificador és únic
-TEST_F(ValidacióBDTest, IdentificadorUnic) {
-    std::string id1 = "USR001";
-    std::string id2 = "USR001";
-    std::string id3 = "USR002";
-    
-    // Els primers dos són iguals
-    EXPECT_EQ(id1, id2);
-    // El tercer és diferent
-    EXPECT_NE(id1, id3);
+// Test: Verificar que un identificador s nic
+TEST_F(ValidacioBDTest, IdentificadorUnic) {
+    std::vector<std::string> db = {"USR001", "USR002"};
+    EXPECT_FALSE(CoreValidators::ValidateIdentificadorUnic("USR001", db));
+    EXPECT_TRUE(CoreValidators::ValidateIdentificadorUnic("USR003", db));
 }
 
-// Test: Format d'ID correcte (prefix + números)
-TEST_F(ValidacióBDTest, FormatIDCorrecte) {
+// Test: Format d'ID correcte (prefix + nmeros)
+TEST_F(ValidacioBDTest, FormatIDCorrecte) {
     std::string id = "E-12345678";
     bool conteGuio = (id.find("-") != std::string::npos);
     bool esValid = conteGuio;
@@ -34,7 +30,7 @@ TEST_F(ValidacióBDTest, FormatIDCorrecte) {
 }
 
 // ============================================================================
-// TESTS DE RÈGLES DE NEGOCI RELACIONADES AMB PARTITS
+// TESTS DE RGLES DE NEGOCI RELACIONADES AMB PARTITS
 // ============================================================================
 
 class ReglesPartitTest : public ::testing::Test {
@@ -71,28 +67,26 @@ TEST_F(ReglesPartitTest, DeterminacioGuanyador) {
     }
 }
 
-// Test: Cálcul de punts (victòria = 3, empat = 1)
+// Test: Clcul de punts (victria = 3, empat = 1)
 TEST_F(ReglesPartitTest, CalculPuntsVictoria) {
-    int puntsLocal = (golsLocal > golsVisitant) ? 3 : ((golsLocal == golsVisitant) ? 1 : 0);
-    EXPECT_EQ(puntsLocal, 3);
+    int punts = CoreValidators::ValidateCalculPunts(1, 0, 0);
+    EXPECT_EQ(punts, 3);
 }
 
-// Test: Cálcul de punts (empat)
+// Test: Clcul de punts (empat)
 TEST_F(ReglesPartitTest, CalculPuntsEmpat) {
-    int golsL = 2, golsV = 2;
-    int punts = (golsL == golsV) ? 1 : 0;
+    int punts = CoreValidators::ValidateCalculPunts(0, 1, 0);
     EXPECT_EQ(punts, 1);
 }
 
-// Test: Cálcul de punts (derrota)
+// Test: Clcul de punts (derrota)
 TEST_F(ReglesPartitTest, CalculPuntsDerrota) {
-    int golsL = 1, golsV = 3;
-    int punts = (golsL < golsV) ? 0 : 3;
+    int punts = CoreValidators::ValidateCalculPunts(0, 0, 1);
     EXPECT_EQ(punts, 0);
 }
 
 // ============================================================================
-// TESTS DE RÈGLES DE NEGOCI RELACIONADES AMB EQUIPS
+// TESTS DE RGLES DE NEGOCI RELACIONADES AMB EQUIPS
 // ============================================================================
 
 class ReglesEquipTest : public ::testing::Test {
@@ -120,11 +114,11 @@ TEST_F(ReglesEquipTest, PartitsJugats) {
 
 // Test: Punts = V*3 + E*1
 TEST_F(ReglesEquipTest, PuntsCalcul) {
-    int punts = (victories * 3) + (empats * 1);
+    int punts = CoreValidators::ValidateCalculPunts(victories, empats, derrotes);
     EXPECT_EQ(punts, 33);
 }
 
-// Test: Diferència de gols
+// Test: Diferncia de gols
 TEST_F(ReglesEquipTest, DiferenciaGols) {
     int diferenciaGols = golsAFavor - golsEnContra;
     EXPECT_EQ(diferenciaGols, 15);
