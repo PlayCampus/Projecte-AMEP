@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "PassarellaLliga.hxx"
 
 using namespace System;
@@ -140,6 +140,42 @@ namespace Playcampus {
             }
 
             return esAdmin;
+        }
+
+
+        void PassarellaLliga::SeguirLliga(String^ idUsuari, String^ idLliga) {
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+
+                String^ delQuery = "DELETE FROM UsuariSegueixLliga WHERE idUsuari = @idUsuari";
+                MySqlCommand^ delCmd = gcnew MySqlCommand(delQuery, conn);
+                delCmd->Parameters->AddWithValue("@idUsuari", idUsuari);
+                delCmd->ExecuteNonQuery();
+
+                String^ insQuery = "INSERT INTO UsuariSegueixLliga (idUsuari, idLliga, dataSeguiment) VALUES (@idUsuari, @idLliga, NOW())";
+                MySqlCommand^ insCmd = gcnew MySqlCommand(insQuery, conn);
+                insCmd->Parameters->AddWithValue("@idUsuari", idUsuari);
+                insCmd->Parameters->AddWithValue("@idLliga", idLliga);
+                insCmd->ExecuteNonQuery();
+            }
+            finally {
+                conn->Close();
+            }
+        }
+
+        void PassarellaLliga::DeixarDeSeguir(String^ idUsuari) {
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "DELETE FROM UsuariSegueixLliga WHERE idUsuari = @idUsuari";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idUsuari", idUsuari);
+                cmd->ExecuteNonQuery();
+            }
+            finally {
+                conn->Close();
+            }
         }
 
     }

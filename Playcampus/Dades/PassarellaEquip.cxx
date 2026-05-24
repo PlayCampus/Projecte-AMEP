@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "PassarellaEquip.hxx"
 
 using namespace System::Collections::Generic;
@@ -272,5 +272,31 @@ namespace Playcampus {
             return nomsEquips;
         }
 
+
+        void PassarellaEquip::TreureDeLaLligaSiAdmin(String^ idEquip, String^ correuAdmin) {
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query =
+                    "UPDATE Equip E "
+                    "INNER JOIN Temporada T ON E.idTemporada = T.idTemporada "
+                    "INNER JOIN Lliga L ON T.idLliga = L.idLliga "
+                    "INNER JOIN Usuari U ON L.idAdministrador = U.identificador "
+                    "SET E.idTemporada = NULL "
+                    "WHERE E.idEquip = @idEquip AND U.correu_electronic = @correuAdmin";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idEquip", idEquip);
+                cmd->Parameters->AddWithValue("@correuAdmin", correuAdmin);
+                int files = cmd->ExecuteNonQuery();
+                if (files == 0) {
+                    throw gcnew Exception("No s'ha trobat l'equip dins d'una lliga administrada per aquest usuari.");
+                }
+            }
+            finally {
+                conn->Close();
+            }
+        }
+
+        
     }
 }

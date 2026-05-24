@@ -1,7 +1,5 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "CtrlTancarSessio.hxx"
-
-using namespace System;
 
 namespace Playcampus {
     namespace Domini {
@@ -9,7 +7,7 @@ namespace Playcampus {
         }
 
         void CtrlTancarSessio::TancarSessio() {
-            MySql::Data::MySqlClient::MySqlConnection::ClearAllPools();
+            // Transaction script sense accés a BD: la sessió es gestiona a la capa d'interfície.
         }
     }
 }

@@ -18,6 +18,22 @@ namespace Playcampus {
 
             List<Dictionary<String^, String^>^>^ ObtenirPartitsPerJornada(String^ idJornada);
             DataTable^ ObtenirPartitsFinalitzatsPerTemporada(String^ idTemporada);
+            List<Dictionary<String^, String^>^>^ ObtenirPartitsCapita(String^ correuCapita);
+            List<Dictionary<String^, String^>^>^ ObtenirPartitsDeLEquip(String^ idEquip);
+            List<Dictionary<String^, String^>^>^ ObtenirEstatConvocatoria(String^ idPartit, String^ idEquip);
+            Dictionary<String^, String^>^ ObtenirAvisPendent(String^ correuJugador);
+            bool PartitDisponiblePerEquip(String^ idPartit, String^ idEquip);
+            bool AssignacioJugadorPartitExisteix(String^ idPartit, String^ idJugador);
+            List<Dictionary<String^, String^>^>^ ObtenirPartitsDisponiblesPerEquip(String^ idEquip);
+            List<Dictionary<String^, String^>^>^ ObtenirPartitsPerLliga(String^ nomLliga);
+            Dictionary<String^, String^>^ ObtenirDetallPartit(String^ idPartit, String^ correuAdmin);
+            List<Dictionary<String^, String^>^>^ ObtenirJugadorsPartit(String^ idPartit, String^ correuAdmin);
+            DataTable^ ObtenirProgramacioPartits();
+            DataTable^ ObtenirCalendariCompletLligaPerId(String^ idLliga);
+            DataTable^ ObtenirUltimsResultats(String^ idLliga, String^ idTemporada, int limit);
+            DataTable^ ObtenirProximsPartits(String^ idLliga, String^ idTemporada, int limit);
+            DataTable^ ObtenirDetallsPartitEstadistiques(String^ idPartit);
+            DataTable^ ObtenirEstadistiquesPartit(String^ idPartit);
         };
     }
 }
