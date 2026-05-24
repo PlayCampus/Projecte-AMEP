@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "PassarellaJugador.hxx"
 
 using namespace System;
@@ -173,5 +173,71 @@ namespace Playcampus {
             }
             return resultat;
         }
+
+        void PassarellaJugador::ActualitzarDorsalIPosicio(String^ idJugador, int dorsalNou, String^ posicioNova) {
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "UPDATE Jugador SET dorsal = @dorsal, posicio = @posicio WHERE idJugador = @idJugador";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@dorsal", dorsalNou);
+                cmd->Parameters->AddWithValue("@posicio", posicioNova);
+                cmd->Parameters->AddWithValue("@idJugador", Convert::ToInt32(idJugador));
+                cmd->ExecuteNonQuery();
+            }
+            finally {
+                conn->Close();
+            }
+        }
+
+        void PassarellaJugador::EliminarJugadorDeEquip(String^ idJugador, String^ idEquip) {
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "DELETE FROM Jugador WHERE idJugador = @idJugador AND idEquip = @idEquip";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idJugador", Convert::ToInt32(idJugador));
+                cmd->Parameters->AddWithValue("@idEquip", idEquip);
+                int files = cmd->ExecuteNonQuery();
+                if (files <= 0) {
+                    throw gcnew Exception("No s'ha pogut eliminar el jugador de l'equip.");
+                }
+            }
+            finally {
+                conn->Close();
+            }
+        }
+
+
+        void PassarellaJugador::ExpulsarJugadorDeEquip(String^ idJugador, String^ idEquip) {
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+
+                String^ queryUpdate = "UPDATE Jugador SET idEquip = NULL WHERE idJugador = @idJugador AND idEquip = @idEquip";
+                MySqlCommand^ cmdUpdate = gcnew MySqlCommand(queryUpdate, conn);
+                cmdUpdate->Parameters->AddWithValue("@idJugador", Convert::ToInt32(idJugador));
+                cmdUpdate->Parameters->AddWithValue("@idEquip", idEquip);
+
+                int files = cmdUpdate->ExecuteNonQuery();
+                if (files != 1) {
+                    throw gcnew Exception("No s'ha pogut expulsar el jugador de l'equip.");
+                }
+
+                String^ queryUsuari = "UPDATE Usuari SET Tipus = 'Estudiant' WHERE identificador = @idJugador";
+                MySqlCommand^ cmdUsuari = gcnew MySqlCommand(queryUsuari, conn);
+                cmdUsuari->Parameters->AddWithValue("@idJugador", Convert::ToInt32(idJugador));
+                cmdUsuari->ExecuteNonQuery();
+
+                String^ queryBorrarJugador = "DELETE FROM Jugador WHERE idJugador = @idJugador AND idEquip IS NULL";
+                MySqlCommand^ cmdBorrarJugador = gcnew MySqlCommand(queryBorrarJugador, conn);
+                cmdBorrarJugador->Parameters->AddWithValue("@idJugador", Convert::ToInt32(idJugador));
+                cmdBorrarJugador->ExecuteNonQuery();
+            }
+            finally {
+                conn->Close();
+            }
+        }
+
     }
 }

@@ -1,7 +1,9 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "CercadoraJugador.hxx"
 
 using namespace System;
+using namespace System::Collections::Generic;
+using namespace System::Data;
 using namespace MySql::Data::MySqlClient;
 
 namespace Playcampus {
@@ -139,5 +141,95 @@ namespace Playcampus {
                 conn->Close();
             }
         }
+
+        bool CercadoraJugador::JugadorPertanyAEquip(String^ idJugador, String^ idEquip) {
+            bool pertany = false;
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "SELECT COUNT(*) FROM Jugador WHERE idJugador = @idJugador AND idEquip = @idEquip";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idJugador", Convert::ToInt32(idJugador));
+                cmd->Parameters->AddWithValue("@idEquip", idEquip);
+                pertany = Convert::ToInt32(cmd->ExecuteScalar()) > 0;
+            }
+            finally {
+                conn->Close();
+            }
+            return pertany;
+        }
+
+        bool CercadoraJugador::JugadorPertanyAEquipDelCapita(String^ correuCapita, String^ idJugador) {
+            bool pertany = false;
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query =
+                    "SELECT COUNT(*) "
+                    "FROM Jugador J "
+                    "INNER JOIN Capita C ON J.idEquip = C.idEquip "
+                    "INNER JOIN Usuari U ON C.identificador = U.identificador "
+                    "WHERE U.correu_electronic = @correuCapita AND J.idJugador = @idJugador";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@correuCapita", correuCapita);
+                cmd->Parameters->AddWithValue("@idJugador", Convert::ToInt32(idJugador));
+                pertany = Convert::ToInt32(cmd->ExecuteScalar()) > 0;
+            }
+            finally {
+                conn->Close();
+            }
+            return pertany;
+        }
+
+        DataTable^ CercadoraJugador::ObtenirEstadistiquesJugador(String^ idJugador) {
+            DataTable^ dt = gcnew DataTable();
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query =
+                    "SELECT u.identificador AS IdJugador, u.nom AS Nom, j.dorsal AS Dorsal, j.posicio AS Posicio, "
+                    "j.partitsJugats AS PartitsJugats, j.anotacions AS Anotacions, j.assistencies AS Assistencies, "
+                    "j.faltesLleus AS FaltesLleus, j.faltesGreus AS FaltesGreus, j.minutsJugats AS MinutsJugats, j.idEquip AS IdEquip "
+                    "FROM Jugador j INNER JOIN Usuari u ON j.idJugador = u.identificador "
+                    "WHERE j.idJugador = @idJugador";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idJugador", idJugador);
+                MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
+                adapter->Fill(dt);
+            }
+            finally {
+                conn->Close();
+            }
+            return dt;
+        }
+
+        DataTable^ CercadoraJugador::ObtenirUltimsFitxatges(int limit) {
+            if (limit <= 0) limit = 10;
+            DataTable^ dt = gcnew DataTable();
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query =
+                    "SELECT DATE_FORMAT(J.data_naixement, '%d/%m/%Y') AS Data, "
+                    "U.nom AS Jugador, "
+                    "COALESCE(E.nom, '(Sense equip)') AS Equip, "
+                    "COALESCE(E.esport, '') AS Esport "
+                    "FROM Jugador J "
+                    "INNER JOIN Usuari U ON J.idJugador = U.identificador "
+                    "LEFT JOIN Equip E ON J.idEquip = E.idEquip "
+                    "WHERE J.idEquip IS NOT NULL "
+                    "ORDER BY J.data_naixement DESC, J.idJugador DESC "
+                    "LIMIT " + limit.ToString();
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
+                adapter->Fill(dt);
+            }
+            finally {
+                conn->Close();
+            }
+            return dt;
+        }
+
+        
     }
 }

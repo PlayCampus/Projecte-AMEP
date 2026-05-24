@@ -3,7 +3,6 @@
 
 using namespace System;
 using namespace System::Collections::Generic;
-using namespace MySql::Data::MySqlClient;
 
 namespace Playcampus {
     namespace Domini {
@@ -13,9 +12,6 @@ namespace Playcampus {
 
             String^ ObtenirIdEquipCapita(String^ correuCapita);
             void ValidarUsuariCapita(String^ correuCapita);
-            bool PartitDisponiblePerEquip(String^ idPartit, String^ idEquip, MySqlConnection^ conn);
-            bool JugadorPertanyAEquip(String^ idJugador, String^ idEquip, MySqlConnection^ conn);
-            bool AssignacioJaExisteix(String^ idPartit, String^ idJugador, MySqlConnection^ conn);
 
         public:
             CtrlAssignarJugador();

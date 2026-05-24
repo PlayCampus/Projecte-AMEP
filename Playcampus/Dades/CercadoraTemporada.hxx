@@ -19,6 +19,8 @@ namespace Playcampus {
 
             String^ ObtenirIdTemporadaEnCurs(String^ idLliga);
             DataTable^ ObtenirTemporadesLliga(String^ idLliga);
+            String^ ObtenirIdTemporadaRellevant(String^ idLliga);
+            DataTable^ ObtenirTemporadesLligaEstadistiques(String^ idLliga);
         };
     }
 }

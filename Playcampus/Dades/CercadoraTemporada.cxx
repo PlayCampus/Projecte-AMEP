@@ -1,8 +1,9 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "CercadoraTemporada.hxx"
 
 using namespace MySql::Data::MySqlClient;
 using namespace System;
+using namespace System::Data;
 using namespace System::Collections::Generic;
 
 namespace Playcampus {
@@ -88,5 +89,54 @@ namespace Playcampus {
             }
             return dt;
         }
+
+        String^ CercadoraTemporada::ObtenirIdTemporadaRellevant(String^ idLliga) {
+            String^ idTemporada = nullptr;
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+
+                String^ query = "SELECT idTemporada FROM Temporada WHERE idLliga = @idLliga AND estat = 'EnCurs' ORDER BY dataInici DESC LIMIT 1";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idLliga", idLliga);
+                Object^ result = cmd->ExecuteScalar();
+                if (result != nullptr && result != DBNull::Value) {
+                    idTemporada = result->ToString();
+                }
+                else {
+                    String^ query2 = "SELECT idTemporada FROM Temporada WHERE idLliga = @idLliga ORDER BY dataInici DESC LIMIT 1";
+                    MySqlCommand^ cmd2 = gcnew MySqlCommand(query2, conn);
+                    cmd2->Parameters->AddWithValue("@idLliga", idLliga);
+                    Object^ result2 = cmd2->ExecuteScalar();
+                    if (result2 != nullptr && result2 != DBNull::Value) {
+                        idTemporada = result2->ToString();
+                    }
+                }
+            }
+            finally {
+                conn->Close();
+            }
+            return idTemporada;
+        }
+
+        DataTable^ CercadoraTemporada::ObtenirTemporadesLligaEstadistiques(String^ idLliga) {
+            DataTable^ dt = gcnew DataTable();
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query =
+                    "SELECT idTemporada, CONCAT('Temporada ', DATE_FORMAT(dataInici, '%Y'), '-', DATE_FORMAT(dataFi, '%Y')) AS NomTemporada "
+                    "FROM Temporada WHERE idLliga = @idLliga ORDER BY dataInici DESC";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idLliga", idLliga);
+                MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
+                adapter->Fill(dt);
+            }
+            finally {
+                conn->Close();
+            }
+            return dt;
+        }
+
     }
 }
