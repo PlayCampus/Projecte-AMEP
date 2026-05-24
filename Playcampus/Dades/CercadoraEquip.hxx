@@ -16,6 +16,8 @@ namespace Playcampus {
             CercadoraEquip(String^ connStr);
 
 			List<String^>^ ObtenirIdsEquipsPerTemporada(String^ idTemporada);
+            List<String^>^ ObtenirNomsEquipsPerTemporada(String^ idTemporada);
+            String^ ObtenirIdEquipPerNomITemporada(String^ nomEquip, String^ idTemporada);
             String^ ObtenirIdEquipPerNom(String^ nomEquip);
             String^ ObtenirIdEquipCapita(String^ correuCapita);
             bool ExisteixEquipPerId(String^ idEquip);

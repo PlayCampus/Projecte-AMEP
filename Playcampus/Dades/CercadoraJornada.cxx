@@ -42,3 +42,25 @@ List<Dictionary<String^, String^>^>^ CercadoraJornada::ObtenirDictJornadesPerTem
     }
     return jornades;
 }
+
+String^ CercadoraJornada::ObtenirIdTemporadaPerJornada(String^ idJornada) {
+    String^ idTemporada = nullptr;
+    MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+    try {
+        conn->Open();
+        String^ query = "SELECT idTemporada FROM Jornada WHERE idJornada = @idJornada LIMIT 1";
+        MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+        cmd->Parameters->AddWithValue("@idJornada", idJornada);
+        Object^ result = cmd->ExecuteScalar();
+        if (result != nullptr) {
+            idTemporada = result->ToString();
+        }
+    }
+    finally {
+        if (conn != nullptr) {
+            conn->Close();
+            delete conn;
+        }
+    }
+    return idTemporada;
+}

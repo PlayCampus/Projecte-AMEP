@@ -281,20 +281,14 @@ System::Void Form1::btnCPValidarLliga_Click(System::Object^ sender, System::Even
 				cpTemporadesIds->Add(temp["idTemporada"]); // Guardar ID Oculto
 			}
 
-			// 3. Cargar Equipos (se hace por liga, así que los cargamos ya)
-			auto equips = ctrl->ObtenirNomsEquipsPerLliga(nomLliga);
+			// Els equips es carreguen quan es selecciona una temporada.
+			// Així evitem agafar l'id d'un equip antic amb el mateix nom.
 			cmbCPEquipLocal->Items->Clear();
 			cmbCPEquipVisitant->Items->Clear();
+			cmbCPEquipLocal->Enabled = false;
+			cmbCPEquipVisitant->Enabled = false;
 
-			for each(String ^ nom in equips) {
-				cmbCPEquipLocal->Items->Add(nom);
-				cmbCPEquipVisitant->Items->Add(nom);
-			}
-
-			// Habilitar los combos porque la liga es válida
 			cmbCPTemporada->Enabled = true;
-			cmbCPEquipLocal->Enabled = true;
-			cmbCPEquipVisitant->Enabled = true;
 
 			if (cmbCPTemporada->Items->Count > 0) cmbCPTemporada->SelectedIndex = 0;
 
@@ -316,6 +310,8 @@ System::Void Form1::cmbCPTemporada_SelectedIndexChanged(System::Object^ sender, 
 
 			cmbCPJornada->Items->Clear();
 			cpJornadesIds->Clear();
+			cmbCPEquipLocal->Items->Clear();
+			cmbCPEquipVisitant->Items->Clear();
 
 			for each(auto jorn in jornades) {
 				String^ text = L"Jornada " + jorn["numero"] + L" (" + jorn["dataInici"] + L")";
@@ -323,9 +319,22 @@ System::Void Form1::cmbCPTemporada_SelectedIndexChanged(System::Object^ sender, 
 				cpJornadesIds->Add(jorn["idJornada"]); // Guardar la ID
 			}
 
+			auto equips = ctrl->ObtenirNomsEquipsPerTemporada(idTempSeleccionada);
+			for each(String ^ nom in equips) {
+				cmbCPEquipLocal->Items->Add(nom);
+				cmbCPEquipVisitant->Items->Add(nom);
+			}
+
 			cmbCPJornada->Enabled = true;
+			cmbCPEquipLocal->Enabled = cmbCPEquipLocal->Items->Count > 0;
+			cmbCPEquipVisitant->Enabled = cmbCPEquipVisitant->Items->Count > 0;
+
 			if (cmbCPJornada->Items->Count > 0) cmbCPJornada->SelectedIndex = 0;
 			else MessageBox::Show(L"Aquesta temporada no té jornades.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+
+			if (cmbCPEquipLocal->Items->Count == 0) {
+				MessageBox::Show(L"Aquesta temporada no té equips inscrits.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			}
 
 		}
 		catch (Exception^ ex) {

@@ -32,6 +32,48 @@ namespace Playcampus {
             return idsEquips;
 		}
 
+
+
+        List<String^>^ CercadoraEquip::ObtenirNomsEquipsPerTemporada(String^ idTemporada) {
+            List<String^>^ nomsEquips = gcnew List<String^>();
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "SELECT nom FROM Equip WHERE idTemporada = @idTemporada ORDER BY nom";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idTemporada", idTemporada);
+                MySqlDataReader^ reader = cmd->ExecuteReader();
+                while (reader->Read()) {
+                    nomsEquips->Add(reader["nom"]->ToString());
+                }
+                reader->Close();
+            }
+            finally {
+                conn->Close();
+            }
+            return nomsEquips;
+        }
+
+        String^ CercadoraEquip::ObtenirIdEquipPerNomITemporada(String^ nomEquip, String^ idTemporada) {
+            String^ idEquip = nullptr;
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "SELECT idEquip FROM Equip WHERE nom COLLATE utf8mb4_bin = @nom AND idTemporada = @idTemporada LIMIT 1";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@nom", nomEquip);
+                cmd->Parameters->AddWithValue("@idTemporada", idTemporada);
+                Object^ resultat = cmd->ExecuteScalar();
+                if (resultat != nullptr && resultat != DBNull::Value) {
+                    idEquip = resultat->ToString();
+                }
+            }
+            finally {
+                conn->Close();
+            }
+            return idEquip;
+        }
+
         String^ CercadoraEquip::ObtenirIdEquipPerNom(String^ nomEquip) {
             String^ idEquip = nullptr;
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
