@@ -4,4 +4,5 @@
     <Platform Name="x86" />
   </Configurations>
   <Project Path="Playcampus/Playcampus.vcxproj" Id="e03a85b2-bfa9-4488-8c37-cd42aa3095be" />
+  <Project Path="test/test.vcxproj" Id="b7b2a492-4884-4363-b704-501c95e11f65" />
 </Solution>
