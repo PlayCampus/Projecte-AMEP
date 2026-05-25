@@ -27,7 +27,7 @@ namespace CppCLRWinFormsProject {
 
 		if (this->btnGestionarConvocatoria != nullptr && pnlMain->Visible) {
 			// El posem al costat dels altres botons del capità. Ajusta el '600' i '80' si se superposen.
-			this->btnGestionarConvocatoria->Location = System::Drawing::Point(startBtnX + 750, 80);
+         this->btnGestionarConvocatoria->Location = System::Drawing::Point(startBtnX + 750, 80);
 			this->btnGestionarConvocatoria->Size = System::Drawing::Size(180, 40);
 		}
 
@@ -66,7 +66,7 @@ namespace CppCLRWinFormsProject {
 				(pnlMain->Height - pnlAvisJugador->Height) / 2
 			);
 		}
-
+	
 		// --- PANELS DE LOGIN/REGISTRE ---
 		this->picLogoInici->Location = System::Drawing::Point(centerX - this->picLogoInici->Width / 2, centerY - 250);
 		this->btnShowLogin->Location = System::Drawing::Point(centerX - this->btnShowLogin->Width / 2, centerY - 50);
@@ -107,25 +107,25 @@ namespace CppCLRWinFormsProject {
 		this->btnLogoutMainMenu->Location = System::Drawing::Point(20, 20);
 		this->btnLogoutMainMenu->BringToFront();
 
-		// Botons del menú principal: els centrem segons els que estiguin visibles (per tipus d'usuari)
+       // Botons del menú principal: els centrem segons els que estiguin visibles (per tipus d'usuari)
 		{
 			const int menuBtnY = 80;
 			const int menuBtnH = 40;
 			const int gap = 15;
 
-			System::Collections::Generic::List<System::Windows::Forms::Button^>^ btns =
+         System::Collections::Generic::List<System::Windows::Forms::Button^>^ btns =
 				gcnew System::Collections::Generic::List<System::Windows::Forms::Button^>();
 			cli::array<System::Windows::Forms::Button^>^ candidates = gcnew cli::array<System::Windows::Forms::Button^>(10) {
 				this->btnUnirEquipLliga,
-					this->btnEnregistrarEquip,
-					this->btnProgPartits,
-					this->btnEstatLligues,
-					this->btnEstadistiques,
-					this->btnConsultar,
-					this->btnMenuConsultarTelefons,
-					this->btnSeguirLligaMainMenu,
-					this->btnCrearLligaMainMenu,
-					this->btnGestionarConvocatoria
+				this->btnEnregistrarEquip,
+				this->btnProgPartits,
+				this->btnEstatLligues,
+				this->btnEstadistiques,
+				this->btnConsultar,
+				this->btnMenuConsultarTelefons,
+				this->btnSeguirLligaMainMenu,
+				this->btnCrearLligaMainMenu,
+				this->btnGestionarConvocatoria
 			};
 			for each (auto b in candidates) {
 				if (b != nullptr && b->Visible) btns->Add(b);
@@ -196,7 +196,7 @@ namespace CppCLRWinFormsProject {
 			}
 		}
 
-		int dashboardBottom = this->picImatge->Bottom;
+       int dashboardBottom = this->picImatge->Bottom;
 		if (this->pnlDashboardLliga != nullptr && this->pnlDashboardLliga->Visible) {
 			dashboardBottom = this->pnlDashboardLliga->Bottom;
 		}
@@ -205,10 +205,10 @@ namespace CppCLRWinFormsProject {
 		this->lstNoticies->Location = System::Drawing::Point(50, noticiesY + 25);
 		this->lstNoticies->Size = System::Drawing::Size(cw - 100, ch - (noticiesY + 25) - 20);
 
-		// --- PANEL CONSULTAR ---
+      // --- PANEL CONSULTAR ---
 		this->lblConsultarTitle->Location = System::Drawing::Point(centerX - this->lblConsultarTitle->Width / 2, 30);
 		this->btnTornarConsultar->Location = System::Drawing::Point(30, 30);
-		int quickY = centerY - 110;
+        int quickY = centerY - 110;
 		if (quickY < 80) quickY = 80;
 		if (this->lblAccesRapidCalendari != nullptr) {
 			this->lblAccesRapidCalendari->Location = System::Drawing::Point(centerX - 170, quickY);
@@ -527,12 +527,12 @@ namespace CppCLRWinFormsProject {
 			this->btnEstJugadors->Size = this->btnEstPartit->Size;
 			this->btnEstJugadors->Font = this->btnEstPartit->Font;
 		}
-
+		
 
 
 		// NOU: Posicionament del panell d'edició de partits
 
-
+		
 
 		if (this->pnlEditarPartit->Visible) {
 			int startX = 50;
@@ -667,7 +667,7 @@ namespace CppCLRWinFormsProject {
 		Form1_Resize(nullptr, nullptr);
 	}
 
-	void Form1::MostrarPantallaConsultarInicial() {
+   void Form1::MostrarPantallaConsultarInicial() {
 		MostrarPanelInicialTask162(this->pnlConsultar);
 		ActualitzarAccesRapidCalendariLligaSeguida();
 	}
@@ -732,7 +732,7 @@ namespace CppCLRWinFormsProject {
 		if (this->pnlEstadistiquesEquipDetail != nullptr) this->pnlEstadistiquesEquipDetail->Visible = false;
 		if (this->pnlEstadistiquesLligaDetail != nullptr) this->pnlEstadistiquesLligaDetail->Visible = false;
 		if (this->pnlConvocatoria != nullptr) this->pnlConvocatoria->Visible = false;
-
+		
 		if (this->pnlEstadistiquesPartitDetail != nullptr) this->pnlEstadistiquesPartitDetail->Visible = false;
 	}
 
