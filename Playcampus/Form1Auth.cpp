@@ -136,6 +136,9 @@ namespace CppCLRWinFormsProject {
 				if (this->btnGLConsultarTelefons != nullptr) {
 					this->btnGLConsultarTelefons->Visible = (tipusNormalitzat == "administrador");
 				}
+				if (this->btnGLEsborrarJornada != nullptr) {
+					this->btnGLEsborrarJornada->Visible = (tipusNormalitzat == "administrador");
+				}
 
 				if (this->btnSeguirLligaMainMenu != nullptr) {
 					this->btnSeguirLligaMainMenu->Visible = true;
@@ -215,7 +218,7 @@ namespace CppCLRWinFormsProject {
 		if (this->btnGEConsultarTelefons != nullptr) this->btnGEConsultarTelefons->Visible = false;
 		if (this->btnGLConsultarTelefons != nullptr) this->btnGLConsultarTelefons->Visible = false;
 
-       if (this->btnSeguirLligaMainMenu != nullptr) {
+		if (this->btnSeguirLligaMainMenu != nullptr) {
 			this->btnSeguirLligaMainMenu->Visible = false;
 			this->btnSeguirLligaMainMenu->Text = L"Seguir Lliga";
 		}
@@ -226,7 +229,7 @@ namespace CppCLRWinFormsProject {
 	System::String^ Form1::DemanarNomLliga(System::String^ titol, System::String^ missatge) {
 		Form^ dlg = gcnew Form();
 		dlg->Text = titol;
-        dlg->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
+		dlg->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
 		dlg->StartPosition = FormStartPosition::CenterParent;
 		dlg->MinimizeBox = false;
 		dlg->MaximizeBox = false;
@@ -261,9 +264,9 @@ namespace CppCLRWinFormsProject {
 		dlg->Controls->Add(ok);
 		dlg->Controls->Add(cancel);
 
-     System::Windows::Forms::DialogResult r = dlg->ShowDialog(this);
+		System::Windows::Forms::DialogResult r = dlg->ShowDialog(this);
 		String^ value = nullptr;
-        if (r == System::Windows::Forms::DialogResult::OK) {
+		if (r == System::Windows::Forms::DialogResult::OK) {
 			value = txt->Text;
 		}
 		delete dlg;

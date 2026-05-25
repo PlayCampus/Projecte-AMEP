@@ -162,6 +162,7 @@
     <ClInclude Include="Domini\CtrlEnregistrarEquip.hxx" />
     <ClInclude Include="Domini\CtrlEsborrarEquip.hxx" />
     <ClInclude Include="Domini\CtrlEsborrarPartit.hxx" />
+    <ClInclude Include="Domini\CtrlEsborrarJornada.hxx" />
     <ClInclude Include="Domini\CtrlEstadistiquesPartit.hxx" />
     <ClInclude Include="Domini\CtrlIniciSessio.hxx" />
     <ClInclude Include="Domini\CtrlRegistrarUsuari.hxx" />
@@ -237,6 +238,7 @@
     <ClCompile Include="Domini\CtrlEnregistrarEquip.cxx" />
     <ClCompile Include="Domini\CtrlEsborrarEquip.cxx" />
     <ClCompile Include="Domini\CtrlEsborrarPartit.cxx" />
+    <ClCompile Include="Domini\CtrlEsborrarJornada.cxx" />
     <ClCompile Include="Domini\CtrlEstadistiquesPartit.cxx" />
     <ClCompile Include="Domini\CtrlIniciSessio.cxx" />
     <ClCompile Include="Domini\CtrlRegistrarUsuari.cxx" />

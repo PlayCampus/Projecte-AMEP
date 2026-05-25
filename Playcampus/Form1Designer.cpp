@@ -14,7 +14,7 @@ namespace CppCLRWinFormsProject {
 		this->components = gcnew System::ComponentModel::Container();
 		this->Size = System::Drawing::Size(600, 500);
 		this->Text = L"Playcampus";
-     this->Icon = gcnew System::Drawing::Icon(L"imatges\\logo.ico");
+		this->Icon = gcnew System::Drawing::Icon(L"imatges\\logo.ico");
 		this->Padding = System::Windows::Forms::Padding(0);
 		this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 		this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
@@ -249,9 +249,9 @@ namespace CppCLRWinFormsProject {
 		this->btnEstadistiques->Size = System::Drawing::Size(130, 40);
 		this->btnEstadistiques->Click += gcnew System::EventHandler(this, &Form1::btnEstadistiquesMenu_Click);
 
-        this->btnConsultar->Text = L"Consultar calendari";
+		this->btnConsultar->Text = L"Consultar calendari";
 		this->btnConsultar->Location = System::Drawing::Point(440, 60);
-      this->btnConsultar->Size = System::Drawing::Size(160, 40);
+		this->btnConsultar->Size = System::Drawing::Size(160, 40);
 		this->btnConsultar->Click += gcnew System::EventHandler(this, &Form1::btnConsultar_Click);
 
 		this->btnMenuConsultarTelefons->Text = L"Consultar telèfons";
@@ -265,7 +265,7 @@ namespace CppCLRWinFormsProject {
 		this->picImatge->Location = System::Drawing::Point(20, 120);
 		this->picImatge->Size = System::Drawing::Size(550, 200);
 
-     this->lblNoticies->Text = L"Últims fitxatges";
+		this->lblNoticies->Text = L"Últims fitxatges";
 		this->lblNoticies->Location = System::Drawing::Point(20, 330);
 		this->lblNoticies->AutoSize = true;
 
@@ -281,7 +281,7 @@ namespace CppCLRWinFormsProject {
 		this->pnlConsultar = gcnew System::Windows::Forms::Panel();
 		this->lblConsultarTitle = gcnew System::Windows::Forms::Label();
 		this->btnTornarConsultar = gcnew System::Windows::Forms::Button();
-      this->lblAccesRapidCalendari = gcnew System::Windows::Forms::Label();
+		this->lblAccesRapidCalendari = gcnew System::Windows::Forms::Label();
 		this->btnCalendariLligaSeguida = gcnew System::Windows::Forms::Button();
 		this->lblNomLliga = gcnew System::Windows::Forms::Label();
 		this->txtNomLliga = gcnew System::Windows::Forms::TextBox();
@@ -301,13 +301,13 @@ namespace CppCLRWinFormsProject {
 		this->pnlConsultar->Visible = false;
 		this->pnlConsultar->Controls->Add(this->lblConsultarTitle);
 		this->pnlConsultar->Controls->Add(this->btnTornarConsultar);
-       this->pnlConsultar->Controls->Add(this->lblAccesRapidCalendari);
+		this->pnlConsultar->Controls->Add(this->lblAccesRapidCalendari);
 		this->pnlConsultar->Controls->Add(this->btnCalendariLligaSeguida);
 		this->pnlConsultar->Controls->Add(this->lblNomLliga);
 		this->pnlConsultar->Controls->Add(this->txtNomLliga);
 		this->pnlConsultar->Controls->Add(this->btnComprovarLliga);
 
-       this->lblConsultarTitle->Text = L"Consultar calendari";
+		this->lblConsultarTitle->Text = L"Consultar calendari";
 		this->lblConsultarTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
 		this->lblConsultarTitle->AutoSize = true;
 		this->lblConsultarTitle->Location = System::Drawing::Point(350, 30);
@@ -330,16 +330,16 @@ namespace CppCLRWinFormsProject {
 		this->btnCalendariLligaSeguida->Click += gcnew System::EventHandler(this, &Form1::btnCalendariLligaSeguida_Click);
 
 		this->lblNomLliga->Text = L"Nom de la lliga";
-     this->lblNomLliga->Location = System::Drawing::Point(300, 150);
+		this->lblNomLliga->Location = System::Drawing::Point(300, 150);
 		this->lblNomLliga->Size = System::Drawing::Size(120, 20);
 		this->lblNomLliga->Visible = true;
 
 		this->txtNomLliga->Text = L"";
-     this->txtNomLliga->Location = System::Drawing::Point(430, 150);
+		this->txtNomLliga->Location = System::Drawing::Point(430, 150);
 		this->txtNomLliga->Size = System::Drawing::Size(200, 20);
 		this->txtNomLliga->Visible = true;
 
-     this->btnComprovarLliga->Text = L"Veure calendari";
+		this->btnComprovarLliga->Text = L"Veure calendari";
 		this->btnComprovarLliga->Location = System::Drawing::Point(430, 190);
 		this->btnComprovarLliga->Size = System::Drawing::Size(200, 35);
 		this->btnComprovarLliga->UseVisualStyleBackColor = true;
@@ -589,6 +589,14 @@ namespace CppCLRWinFormsProject {
 		this->btnGLEsborrarPartit->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
 		this->btnGLEsborrarPartit->Cursor = System::Windows::Forms::Cursors::Hand;
 		this->btnGLEsborrarPartit->Click += gcnew System::EventHandler(this, &Form1::btnGLEsborrarPartit_Click);
+
+		this->btnGLEsborrarJornada = gcnew System::Windows::Forms::Button();
+		this->pnlGestionarLliga->Controls->Add(this->btnGLEsborrarJornada);
+		this->btnGLEsborrarJornada->Text = L"Esborrar jornada";
+		this->btnGLEsborrarJornada->Size = System::Drawing::Size(220, 60);
+		this->btnGLEsborrarJornada->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
+		this->btnGLEsborrarJornada->Cursor = System::Windows::Forms::Cursors::Hand;
+		this->btnGLEsborrarJornada->Click += gcnew System::EventHandler(this, &Form1::btnGLEsborrarJornada_Click);
 
 		// --- Añadir todos los controles al Panel ---
 		this->pnlCrearPartit->Controls->Add(this->lblCPTitle);
@@ -841,17 +849,17 @@ namespace CppCLRWinFormsProject {
 		this->btnGEEliminarJugador = gcnew System::Windows::Forms::Button();
 		this->btnGEAssignarJugador = gcnew System::Windows::Forms::Button();
 		this->btnGETornar = gcnew System::Windows::Forms::Button();
-			// pnlGestionarEquip
-			this->pnlGestionarEquip = gcnew System::Windows::Forms::Panel();
-			this->lblGETitle = gcnew System::Windows::Forms::Label();
-			this->dgvPlantilla = gcnew System::Windows::Forms::DataGridView();
-			this->btnGEEsborrarEquip = gcnew System::Windows::Forms::Button();
-			this->btnGEAfegirJugador = gcnew System::Windows::Forms::Button();
-			this->btnGEEliminarJugador = gcnew System::Windows::Forms::Button();
-			this->btnGEAssignarJugador = gcnew System::Windows::Forms::Button();
-			this->btnGEEditarJugador = gcnew System::Windows::Forms::Button();
-			this->btnGEConsultarTelefons = gcnew System::Windows::Forms::Button();
-			this->btnGETornar = gcnew System::Windows::Forms::Button();
+		// pnlGestionarEquip
+		this->pnlGestionarEquip = gcnew System::Windows::Forms::Panel();
+		this->lblGETitle = gcnew System::Windows::Forms::Label();
+		this->dgvPlantilla = gcnew System::Windows::Forms::DataGridView();
+		this->btnGEEsborrarEquip = gcnew System::Windows::Forms::Button();
+		this->btnGEAfegirJugador = gcnew System::Windows::Forms::Button();
+		this->btnGEEliminarJugador = gcnew System::Windows::Forms::Button();
+		this->btnGEAssignarJugador = gcnew System::Windows::Forms::Button();
+		this->btnGEEditarJugador = gcnew System::Windows::Forms::Button();
+		this->btnGEConsultarTelefons = gcnew System::Windows::Forms::Button();
+		this->btnGETornar = gcnew System::Windows::Forms::Button();
 
 		this->pnlGestionarEquip->Dock = System::Windows::Forms::DockStyle::Fill;
 		this->pnlGestionarEquip->Visible = false;
@@ -862,17 +870,17 @@ namespace CppCLRWinFormsProject {
 		this->pnlGestionarEquip->Controls->Add(this->btnGEEliminarJugador);
 		this->pnlGestionarEquip->Controls->Add(this->btnGEAssignarJugador);
 		this->pnlGestionarEquip->Controls->Add(this->btnGETornar);
-			this->pnlGestionarEquip->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->pnlGestionarEquip->Visible = false;
-			this->pnlGestionarEquip->Controls->Add(this->lblGETitle);
-			this->pnlGestionarEquip->Controls->Add(this->dgvPlantilla);
-			this->pnlGestionarEquip->Controls->Add(this->btnGEEsborrarEquip);
-			this->pnlGestionarEquip->Controls->Add(this->btnGEAfegirJugador);
-		 this->pnlGestionarEquip->Controls->Add(this->btnGEEliminarJugador);
-			this->pnlGestionarEquip->Controls->Add(this->btnGEAssignarJugador);
-			this->pnlGestionarEquip->Controls->Add(this->btnGEEditarJugador);
-			this->pnlGestionarEquip->Controls->Add(this->btnGEConsultarTelefons);
-			this->pnlGestionarEquip->Controls->Add(this->btnGETornar);
+		this->pnlGestionarEquip->Dock = System::Windows::Forms::DockStyle::Fill;
+		this->pnlGestionarEquip->Visible = false;
+		this->pnlGestionarEquip->Controls->Add(this->lblGETitle);
+		this->pnlGestionarEquip->Controls->Add(this->dgvPlantilla);
+		this->pnlGestionarEquip->Controls->Add(this->btnGEEsborrarEquip);
+		this->pnlGestionarEquip->Controls->Add(this->btnGEAfegirJugador);
+		this->pnlGestionarEquip->Controls->Add(this->btnGEEliminarJugador);
+		this->pnlGestionarEquip->Controls->Add(this->btnGEAssignarJugador);
+		this->pnlGestionarEquip->Controls->Add(this->btnGEEditarJugador);
+		this->pnlGestionarEquip->Controls->Add(this->btnGEConsultarTelefons);
+		this->pnlGestionarEquip->Controls->Add(this->btnGETornar);
 
 		this->lblGETitle->Text = L"Gestionar Equip";
 		this->lblGETitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
@@ -912,22 +920,22 @@ namespace CppCLRWinFormsProject {
 		this->btnGEAssignarJugador->Cursor = System::Windows::Forms::Cursors::Hand;
 		this->btnGEAssignarJugador->Click += gcnew System::EventHandler(this, &Form1::btnGEAssignarJugador_Click);
 
-			this->btnGEEditarJugador->Text = L"Editar Jugador";
-			this->btnGEEditarJugador->Size = System::Drawing::Size(220, 60);
-			this->btnGEEditarJugador->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
-			this->btnGEEditarJugador->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->btnGEEditarJugador->Click += gcnew System::EventHandler(this, &Form1::btnGEEditarJugador_Click);
+		this->btnGEEditarJugador->Text = L"Editar Jugador";
+		this->btnGEEditarJugador->Size = System::Drawing::Size(220, 60);
+		this->btnGEEditarJugador->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
+		this->btnGEEditarJugador->Cursor = System::Windows::Forms::Cursors::Hand;
+		this->btnGEEditarJugador->Click += gcnew System::EventHandler(this, &Form1::btnGEEditarJugador_Click);
 
-			this->btnGEConsultarTelefons->Text = L"Consultar telèfons";
-			this->btnGEConsultarTelefons->Size = System::Drawing::Size(220, 60);
-			this->btnGEConsultarTelefons->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
-			this->btnGEConsultarTelefons->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->btnGEConsultarTelefons->UseVisualStyleBackColor = true;
-			this->btnGEConsultarTelefons->Click += gcnew System::EventHandler(this, &Form1::btnConsultarTelefons_Click);
+		this->btnGEConsultarTelefons->Text = L"Consultar telèfons";
+		this->btnGEConsultarTelefons->Size = System::Drawing::Size(220, 60);
+		this->btnGEConsultarTelefons->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
+		this->btnGEConsultarTelefons->Cursor = System::Windows::Forms::Cursors::Hand;
+		this->btnGEConsultarTelefons->UseVisualStyleBackColor = true;
+		this->btnGEConsultarTelefons->Click += gcnew System::EventHandler(this, &Form1::btnConsultarTelefons_Click);
 
-			this->btnGETornar->Text = L"Tornar";
-			this->btnGETornar->Size = System::Drawing::Size(100, 30);
-			this->btnGETornar->Click += gcnew System::EventHandler(this, &Form1::btnGETornar_Click);
+		this->btnGETornar->Text = L"Tornar";
+		this->btnGETornar->Size = System::Drawing::Size(100, 30);
+		this->btnGETornar->Click += gcnew System::EventHandler(this, &Form1::btnGETornar_Click);
 
 		this->Controls->Add(this->pnlGestionarEquip);
 
@@ -1111,6 +1119,54 @@ namespace CppCLRWinFormsProject {
 		this->btnEPEsborrarFinal->Click += gcnew System::EventHandler(this, &Form1::btnEPEsborrarFinal_Click);
 
 		this->Controls->Add(this->pnlEsborrarPartit);
+
+		// pnlEsborrarJornada
+		this->pnlEsborrarJornada = gcnew System::Windows::Forms::Panel();
+		this->lblEJTitle = gcnew System::Windows::Forms::Label();
+		this->btnEJTornar = gcnew System::Windows::Forms::Button();
+		this->lblEJTemporada = gcnew System::Windows::Forms::Label();
+		this->cmbEJTemporades = gcnew System::Windows::Forms::ComboBox();
+		this->ejTemporadaIds = gcnew System::Collections::Generic::List<String^>();
+		this->lblEJJornada = gcnew System::Windows::Forms::Label();
+		this->cmbEJJornades = gcnew System::Windows::Forms::ComboBox();
+		this->ejJornadaIds = gcnew System::Collections::Generic::List<String^>();
+		this->btnEJEsborrarFinal = gcnew System::Windows::Forms::Button();
+
+		this->pnlEsborrarJornada->Dock = System::Windows::Forms::DockStyle::Fill;
+		this->pnlEsborrarJornada->Visible = false;
+		this->pnlEsborrarJornada->Controls->Add(this->lblEJTitle);
+		this->pnlEsborrarJornada->Controls->Add(this->btnEJTornar);
+		this->pnlEsborrarJornada->Controls->Add(this->lblEJTemporada);
+		this->pnlEsborrarJornada->Controls->Add(this->cmbEJTemporades);
+		this->pnlEsborrarJornada->Controls->Add(this->lblEJJornada);
+		this->pnlEsborrarJornada->Controls->Add(this->cmbEJJornades);
+		this->pnlEsborrarJornada->Controls->Add(this->btnEJEsborrarFinal);
+
+		this->lblEJTitle->Text = L"Esborrar Jornada - Selecció";
+		this->lblEJTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
+		this->lblEJTitle->AutoSize = true;
+
+		this->btnEJTornar->Text = L"Tornar";
+		this->btnEJTornar->Click += gcnew System::EventHandler(this, &Form1::btnEJTornar_Click);
+
+		this->lblEJTemporada->Text = L"Tria una Temporada:";
+		this->lblEJTemporada->AutoSize = true;
+		this->cmbEJTemporades->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+		this->cmbEJTemporades->Size = System::Drawing::Size(450, 24);
+		this->cmbEJTemporades->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbEJTemporades_SelectedIndexChanged);
+
+		this->lblEJJornada->Text = L"Tria la Jornada a esborrar:";
+		this->lblEJJornada->AutoSize = true;
+		this->cmbEJJornades->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+		this->cmbEJJornades->Size = System::Drawing::Size(450, 24);
+
+		this->btnEJEsborrarFinal->Text = L"Esborrar Jornada";
+		this->btnEJEsborrarFinal->BackColor = System::Drawing::Color::Red;
+		this->btnEJEsborrarFinal->ForeColor = System::Drawing::Color::White;
+		this->btnEJEsborrarFinal->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.0F, System::Drawing::FontStyle::Bold);
+		this->btnEJEsborrarFinal->Click += gcnew System::EventHandler(this, &Form1::btnEJEsborrarFinal_Click);
+
+		this->Controls->Add(this->pnlEsborrarJornada);
 
 		// Panel detallat d'estadístiques d'equips
 		this->pnlEstadistiquesEquipDetail = gcnew System::Windows::Forms::Panel();

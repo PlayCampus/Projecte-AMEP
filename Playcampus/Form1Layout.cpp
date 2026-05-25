@@ -15,7 +15,7 @@ namespace CppCLRWinFormsProject {
 		if (this->ClientSize.Width == 0 || this->ClientSize.Height == 0) return;
 
 		// Prevenir problemas si el Resize se dispara antes de terminar InitializeComponent
-		if (this->lblEPTitle == nullptr || this->btnEPEsborrarFinal == nullptr) return;
+		if (this->lblEPTitle == nullptr || this->btnEPEsborrarFinal == nullptr || this->lblEJTitle == nullptr || this->btnEJEsborrarFinal == nullptr) return;
 
 		int cw = this->ClientSize.Width;
 		int ch = this->ClientSize.Height;
@@ -27,7 +27,7 @@ namespace CppCLRWinFormsProject {
 
 		if (this->btnGestionarConvocatoria != nullptr && pnlMain->Visible) {
 			// El posem al costat dels altres botons del capità. Ajusta el '600' i '80' si se superposen.
-         this->btnGestionarConvocatoria->Location = System::Drawing::Point(startBtnX + 750, 80);
+			this->btnGestionarConvocatoria->Location = System::Drawing::Point(startBtnX + 750, 80);
 			this->btnGestionarConvocatoria->Size = System::Drawing::Size(180, 40);
 		}
 
@@ -66,7 +66,7 @@ namespace CppCLRWinFormsProject {
 				(pnlMain->Height - pnlAvisJugador->Height) / 2
 			);
 		}
-	
+
 		// --- PANELS DE LOGIN/REGISTRE ---
 		this->picLogoInici->Location = System::Drawing::Point(centerX - this->picLogoInici->Width / 2, centerY - 250);
 		this->btnShowLogin->Location = System::Drawing::Point(centerX - this->btnShowLogin->Width / 2, centerY - 50);
@@ -107,25 +107,25 @@ namespace CppCLRWinFormsProject {
 		this->btnLogoutMainMenu->Location = System::Drawing::Point(20, 20);
 		this->btnLogoutMainMenu->BringToFront();
 
-       // Botons del menú principal: els centrem segons els que estiguin visibles (per tipus d'usuari)
+		// Botons del menú principal: els centrem segons els que estiguin visibles (per tipus d'usuari)
 		{
 			const int menuBtnY = 80;
 			const int menuBtnH = 40;
 			const int gap = 15;
 
-         System::Collections::Generic::List<System::Windows::Forms::Button^>^ btns =
+			System::Collections::Generic::List<System::Windows::Forms::Button^>^ btns =
 				gcnew System::Collections::Generic::List<System::Windows::Forms::Button^>();
 			cli::array<System::Windows::Forms::Button^>^ candidates = gcnew cli::array<System::Windows::Forms::Button^>(10) {
 				this->btnUnirEquipLliga,
-				this->btnEnregistrarEquip,
-				this->btnProgPartits,
-				this->btnEstatLligues,
-				this->btnEstadistiques,
-				this->btnConsultar,
-				this->btnMenuConsultarTelefons,
-				this->btnSeguirLligaMainMenu,
-				this->btnCrearLligaMainMenu,
-				this->btnGestionarConvocatoria
+					this->btnEnregistrarEquip,
+					this->btnProgPartits,
+					this->btnEstatLligues,
+					this->btnEstadistiques,
+					this->btnConsultar,
+					this->btnMenuConsultarTelefons,
+					this->btnSeguirLligaMainMenu,
+					this->btnCrearLligaMainMenu,
+					this->btnGestionarConvocatoria
 			};
 			for each (auto b in candidates) {
 				if (b != nullptr && b->Visible) btns->Add(b);
@@ -196,7 +196,7 @@ namespace CppCLRWinFormsProject {
 			}
 		}
 
-       int dashboardBottom = this->picImatge->Bottom;
+		int dashboardBottom = this->picImatge->Bottom;
 		if (this->pnlDashboardLliga != nullptr && this->pnlDashboardLliga->Visible) {
 			dashboardBottom = this->pnlDashboardLliga->Bottom;
 		}
@@ -205,10 +205,10 @@ namespace CppCLRWinFormsProject {
 		this->lstNoticies->Location = System::Drawing::Point(50, noticiesY + 25);
 		this->lstNoticies->Size = System::Drawing::Size(cw - 100, ch - (noticiesY + 25) - 20);
 
-      // --- PANEL CONSULTAR ---
+		// --- PANEL CONSULTAR ---
 		this->lblConsultarTitle->Location = System::Drawing::Point(centerX - this->lblConsultarTitle->Width / 2, 30);
 		this->btnTornarConsultar->Location = System::Drawing::Point(30, 30);
-        int quickY = centerY - 110;
+		int quickY = centerY - 110;
 		if (quickY < 80) quickY = 80;
 		if (this->lblAccesRapidCalendari != nullptr) {
 			this->lblAccesRapidCalendari->Location = System::Drawing::Point(centerX - 170, quickY);
@@ -280,7 +280,7 @@ namespace CppCLRWinFormsProject {
 		int btnGLH = this->btnGLAfegirPartit->Height;
 		int glTotalW = (btnGLW * 3) + (glSpacingX * 2);
 		int glStartX = centerX - (glTotalW / 2);
-		int glStartY = centerY - 70;
+		int glStartY = centerY - 110;
 		int glStepY = btnGLH + glSpacingY;
 
 		this->btnGLAfegirPartit->Location = System::Drawing::Point(glStartX, glStartY);
@@ -290,11 +290,14 @@ namespace CppCLRWinFormsProject {
 		this->btnGLCrearJornada->Location = System::Drawing::Point(glStartX + btnGLW + glSpacingX, glStartY + glStepY);
 		this->btnGLCrearTemporada->Location = System::Drawing::Point(glStartX + (btnGLW + glSpacingX) * 2, glStartY + glStepY);
 		this->btnGLEsborrarPartit->Location = System::Drawing::Point(glStartX, glStartY + glStepY * 2);
+		if (this->btnGLEsborrarJornada != nullptr) {
+			this->btnGLEsborrarJornada->Location = System::Drawing::Point(glStartX + btnGLW + glSpacingX, glStartY + glStepY * 2);
+		}
 		if (this->btnGLRetirarTemporada != nullptr) {
-			this->btnGLRetirarTemporada->Location = System::Drawing::Point(glStartX + btnGLW + glSpacingX, glStartY + glStepY * 2);
+			this->btnGLRetirarTemporada->Location = System::Drawing::Point(glStartX + (btnGLW + glSpacingX) * 2, glStartY + glStepY * 2);
 		}
 		if (this->btnGLConsultarTelefons != nullptr) {
-			this->btnGLConsultarTelefons->Location = System::Drawing::Point(glStartX + (btnGLW + glSpacingX) * 2, glStartY + glStepY * 2);
+			this->btnGLConsultarTelefons->Location = System::Drawing::Point(glStartX + btnGLW + glSpacingX, glStartY + glStepY * 3);
 		}
 
 		this->picLogoGL->Location = System::Drawing::Point(centerX - (this->picLogoGL->Width / 2), glStartY - this->picLogoGL->Height - 40);
@@ -381,6 +384,22 @@ namespace CppCLRWinFormsProject {
 
 		this->btnEPEsborrarFinal->Location = System::Drawing::Point(centerX - 100, epStartY + 180);
 		this->btnEPEsborrarFinal->Size = System::Drawing::Size(200, 40);
+
+		// --- PANEL ESBORRAR JORNADA ---
+		this->lblEJTitle->Location = System::Drawing::Point(centerX - this->lblEJTitle->Width / 2, 30);
+		this->btnEJTornar->Location = System::Drawing::Point(30, 30);
+
+		int ejStartX = centerX - 250;
+		int ejStartY = centerY - 80;
+
+		this->lblEJTemporada->Location = System::Drawing::Point(ejStartX, ejStartY);
+		this->cmbEJTemporades->Location = System::Drawing::Point(ejStartX + 170, ejStartY - 3);
+
+		this->lblEJJornada->Location = System::Drawing::Point(ejStartX, ejStartY + 50);
+		this->cmbEJJornades->Location = System::Drawing::Point(ejStartX + 170, ejStartY + 47);
+
+		this->btnEJEsborrarFinal->Location = System::Drawing::Point(centerX - 100, ejStartY + 130);
+		this->btnEJEsborrarFinal->Size = System::Drawing::Size(200, 40);
 
 		// --- PANEL AFEGIR JUGADOR ---
 		this->lblAJTitle->Location = System::Drawing::Point(centerX - this->lblAJTitle->Width / 2, 30);
@@ -508,12 +527,12 @@ namespace CppCLRWinFormsProject {
 			this->btnEstJugadors->Size = this->btnEstPartit->Size;
 			this->btnEstJugadors->Font = this->btnEstPartit->Font;
 		}
-		
+
 
 
 		// NOU: Posicionament del panell d'edició de partits
 
-		
+
 
 		if (this->pnlEditarPartit->Visible) {
 			int startX = 50;
@@ -648,7 +667,7 @@ namespace CppCLRWinFormsProject {
 		Form1_Resize(nullptr, nullptr);
 	}
 
-   void Form1::MostrarPantallaConsultarInicial() {
+	void Form1::MostrarPantallaConsultarInicial() {
 		MostrarPanelInicialTask162(this->pnlConsultar);
 		ActualitzarAccesRapidCalendariLligaSeguida();
 	}
@@ -708,11 +727,12 @@ namespace CppCLRWinFormsProject {
 		if (this->pnlAfegirJugador != nullptr) this->pnlAfegirJugador->Visible = false;
 		if (this->pnlUnirEquipLliga != nullptr) this->pnlUnirEquipLliga->Visible = false;
 		if (this->pnlEsborrarPartit != nullptr) this->pnlEsborrarPartit->Visible = false;
+		if (this->pnlEsborrarJornada != nullptr) this->pnlEsborrarJornada->Visible = false;
 		if (this->pnlEstadistiques != nullptr) this->pnlEstadistiques->Visible = false;
 		if (this->pnlEstadistiquesEquipDetail != nullptr) this->pnlEstadistiquesEquipDetail->Visible = false;
 		if (this->pnlEstadistiquesLligaDetail != nullptr) this->pnlEstadistiquesLligaDetail->Visible = false;
 		if (this->pnlConvocatoria != nullptr) this->pnlConvocatoria->Visible = false;
-		
+
 		if (this->pnlEstadistiquesPartitDetail != nullptr) this->pnlEstadistiquesPartitDetail->Visible = false;
 	}
 
