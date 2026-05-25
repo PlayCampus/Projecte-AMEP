@@ -292,6 +292,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="schemadadesEquipTemporada.sql" />
     <None Include="schemajugador.sql" />
     <None Include="schema_assignacio_jugador_partit.sql" />
     <None Include="schema_partit_estadistica_individual.sql" />
