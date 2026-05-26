@@ -155,14 +155,14 @@ TEST_F(FixtureControladors, AfegirJugadorCreaJugadorIVinculaEquip) {
 TEST_F(FixtureControladors, AfegirJugadorRebutjaDorsalDuplicat) {
     CtrlAfegirJugador^ ctrl = gcnew CtrlAfegirJugador();
 
-    EXPECT_MANAGED_EXCEPTION(ctrl->AfegirJugador(escenari->estudiant2Email, 10, "Porter", escenari->capitaEmail));
+    EXPECT_MANAGED_EXCEPTION(ctrl->AfegirJugador(escenari->estudiant2Email, 10, "Porter", escenari->capitaEmail, System::DateTime(2004, 1, 1)));
 }
 
 TEST_F(FixtureControladors, AfegirJugadorNouCorrecte) {
     String^ extra = RegistrarEstudiantExtra(escenari);
     CtrlAfegirJugador^ ctrl = gcnew CtrlAfegirJugador();
 
-    String^ missatge = ctrl->AfegirJugador(extra, 88, "Reserva", escenari->capitaEmail);
+    String^ missatge = ctrl->AfegirJugador(extra, 88, "Reserva", escenari->capitaEmail, System::DateTime(2004, 1, 1));
     int idExtra = IdUsuariPerCorreu(extra);
 
     EXPECT_EQ("Jugador afegit correctament!", ToStd(missatge));

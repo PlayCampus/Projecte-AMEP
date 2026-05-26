@@ -30,7 +30,6 @@
 #include "../Playcampus/Domini/CtrlEstadistiquesPartit.hxx"
 #include "../Playcampus/Domini/CtrlTancarSessio.hxx"
 
-// Això és un comentari de prova
 using namespace System;
 using namespace System::Data;
 using namespace System::Collections::Generic;
@@ -314,9 +313,9 @@ namespace PlayCampusTests {
             escenari->jornadaId = EscalarString("SELECT idJornada FROM Jornada WHERE idTemporada = '" + EscaparSql(escenari->temporadaId) + "' AND numero = 1 ORDER BY dataInici DESC LIMIT 1");
 
             CtrlAfegirJugador^ ctrlAfegir = gcnew CtrlAfegirJugador();
-            ctrlAfegir->AfegirJugador(escenari->estudiantEmail, 10, "Davanter", escenari->capitaEmail);
-            ctrlAfegir->AfegirJugador(escenari->estudiant2Email, 20, "Mig", escenari->capitaEmail);
-            ctrlAfegir->AfegirJugador(escenari->estudiantVisitantEmail, 30, "Defensa", escenari->capitaVisitantEmail);
+            ctrlAfegir->AfegirJugador(escenari->estudiantEmail, 10, "Davanter", escenari->capitaEmail, System::DateTime(2004, 1, 1));
+            ctrlAfegir->AfegirJugador(escenari->estudiant2Email, 20, "Mig", escenari->capitaEmail, System::DateTime(2004, 1, 1));
+            ctrlAfegir->AfegirJugador(escenari->estudiantVisitantEmail, 30, "Defensa", escenari->capitaVisitantEmail, System::DateTime(2004, 1, 1));
 
             escenari->jugadorId = Convert::ToString(IdUsuariPerCorreu(escenari->estudiantEmail));
             escenari->jugador2Id = Convert::ToString(IdUsuariPerCorreu(escenari->estudiant2Email));
