@@ -398,6 +398,7 @@ System::Void Form1::btnAJConfirmar_Click(System::Object^ sender, System::EventAr
 		String^ correuEstudiant = txtAJCorreu->Text;
 		String^ dorsalText = txtAJDorsal->Text;
 		String^ posicioText = txtAJPosicio->Text;
+		DateTime dataNaixement = dtpAJDataNaixement->Value;
 
 		if (String::IsNullOrWhiteSpace(correuEstudiant) || String::IsNullOrWhiteSpace(dorsalText)) {
 			MessageBox::Show(L"Si us plau, omple tots els camps.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
@@ -412,7 +413,7 @@ System::Void Form1::btnAJConfirmar_Click(System::Object^ sender, System::EventAr
 
 		try {
 			Playcampus::Domini::CtrlAfegirJugador^ ctrlAfegir = gcnew Playcampus::Domini::CtrlAfegirJugador();
-			String^ resultat = ctrlAfegir->AfegirJugador(correuEstudiant, dorsal, posicioText, currentUsuariCorreu);
+			String^ resultat = ctrlAfegir->AfegirJugador(correuEstudiant, dorsal, posicioText, currentUsuariCorreu, dataNaixement);
 
 			MessageBox::Show(resultat, L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
@@ -439,6 +440,7 @@ System::Void Form1::btnAJCancellar_Click(System::Object^ sender, System::EventAr
 		txtAJCorreu->Text = L"";
 		txtAJDorsal->Text = L"";
 		txtAJPosicio->Text = L"";
+		dtpAJDataNaixement->Value = System::DateTime::Now.AddYears(-20);
 	}
 
 System::Void Form1::btnEETornar_Click(System::Object^ sender, System::EventArgs^ e) {

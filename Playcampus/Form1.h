@@ -185,6 +185,8 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::TextBox^ txtAJDorsal;
 		System::Windows::Forms::Label^ lblAJPosicio;
 		System::Windows::Forms::TextBox^ txtAJPosicio;
+		System::Windows::Forms::Label^ lblAJDataNaixement;
+		System::Windows::Forms::DateTimePicker^ dtpAJDataNaixement;
 		System::Windows::Forms::Button^ btnAJConfirmar;
 		System::Windows::Forms::Button^ btnAJCancellar;
 		System::Windows::Forms::Panel^ pnlUnirEquipLliga;

@@ -948,6 +948,8 @@ namespace CppCLRWinFormsProject {
 		this->txtAJDorsal = gcnew System::Windows::Forms::TextBox();
 		this->lblAJPosicio = gcnew System::Windows::Forms::Label();
 		this->txtAJPosicio = gcnew System::Windows::Forms::TextBox();
+		this->lblAJDataNaixement = gcnew System::Windows::Forms::Label();
+		this->dtpAJDataNaixement = gcnew System::Windows::Forms::DateTimePicker();
 		this->btnAJConfirmar = gcnew System::Windows::Forms::Button();
 		this->btnAJCancellar = gcnew System::Windows::Forms::Button();
 
@@ -960,6 +962,8 @@ namespace CppCLRWinFormsProject {
 		this->pnlAfegirJugador->Controls->Add(this->txtAJDorsal);
 		this->pnlAfegirJugador->Controls->Add(this->lblAJPosicio);
 		this->pnlAfegirJugador->Controls->Add(this->txtAJPosicio);
+		this->pnlAfegirJugador->Controls->Add(this->lblAJDataNaixement);
+		this->pnlAfegirJugador->Controls->Add(this->dtpAJDataNaixement);
 		this->pnlAfegirJugador->Controls->Add(this->btnAJConfirmar);
 		this->pnlAfegirJugador->Controls->Add(this->btnAJCancellar);
 
@@ -981,6 +985,13 @@ namespace CppCLRWinFormsProject {
 		this->lblAJPosicio->Size = System::Drawing::Size(120, 20);
 
 		this->txtAJPosicio->Size = System::Drawing::Size(200, 20);
+
+		this->lblAJDataNaixement->Text = L"Data Naixement:";
+		this->lblAJDataNaixement->Size = System::Drawing::Size(120, 20);
+
+		this->dtpAJDataNaixement->Size = System::Drawing::Size(200, 20);
+		this->dtpAJDataNaixement->Format = System::Windows::Forms::DateTimePickerFormat::Short;
+		this->dtpAJDataNaixement->Value = System::DateTime::Now.AddYears(-20);
 
 		this->btnAJConfirmar->Text = L"Confirmar";
 		this->btnAJConfirmar->Size = System::Drawing::Size(100, 30);

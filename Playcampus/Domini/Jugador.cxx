@@ -3,12 +3,13 @@
 
 namespace Playcampus {
     namespace Domini {
-        Jugador::Jugador(String^ identificador, String^ nom, String^ contrasenya, DateTime data_registre, String^ correu_electronic, String^ posicio, int dorsal, int edat, DateTime antiguitat) 
+        Jugador::Jugador(String^ identificador, String^ nom, String^ contrasenya, DateTime data_registre, String^ correu_electronic, String^ posicio, int dorsal, int edat, DateTime antiguitat, DateTime dataNaixement) 
             : Usuari(identificador, nom, contrasenya, data_registre, correu_electronic) {
             this->posicio = posicio;
             this->dorsal = dorsal;
             this->edat = edat;
             this->antiguitat = antiguitat;
+            this->dataNaixement = dataNaixement;
             this->minutsJugats = 0;
             this->partitsJugats = 0;
             this->anotacions = 0;
@@ -28,6 +29,9 @@ namespace Playcampus {
 
         DateTime Jugador::GetAntiguitat() { return antiguitat; }
         void Jugador::SetAntiguitat(DateTime antiguitat) { this->antiguitat = antiguitat; }
+
+        DateTime Jugador::GetDataNaixement() { return dataNaixement; }
+        void Jugador::SetDataNaixement(DateTime dataNaixement) { this->dataNaixement = dataNaixement; }
 
         int Jugador::GetAnotacions() { return anotacions; }
         void Jugador::SetAnotacions(int anotacions) { this->anotacions = anotacions; }
@@ -60,6 +64,11 @@ namespace Playcampus {
         bool Jugador::ValidarAntiguitat() {
             // RIT10
             return antiguitat <= DateTime::Now;
+        }
+
+        bool Jugador::ValidarDataNaixement() {
+            // RIT29
+            return dataNaixement < DateTime::Now;
         }
     }
 }

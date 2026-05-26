@@ -411,10 +411,12 @@ namespace CppCLRWinFormsProject {
 		this->txtAJCorreu->Location = System::Drawing::Point(ajStartX + 140, ajStartY);
 		this->lblAJDorsal->Location = System::Drawing::Point(ajStartX, ajStartY + 40);
 		this->txtAJDorsal->Location = System::Drawing::Point(ajStartX + 140, ajStartY + 40);
-		this->lblAJPosicio->Location = System::Drawing::Point(ajStartX, ajStartY + 80);
-		this->txtAJPosicio->Location = System::Drawing::Point(ajStartX + 140, ajStartY + 80);
-		this->btnAJConfirmar->Location = System::Drawing::Point(ajStartX + 20, ajStartY + 130);
-		this->btnAJCancellar->Location = System::Drawing::Point(ajStartX + 150, ajStartY + 130);
+		this->lblAJDataNaixement->Location = System::Drawing::Point(ajStartX, ajStartY + 80);
+		this->dtpAJDataNaixement->Location = System::Drawing::Point(ajStartX + 140, ajStartY + 80);
+		this->lblAJPosicio->Location = System::Drawing::Point(ajStartX, ajStartY + 120);
+		this->txtAJPosicio->Location = System::Drawing::Point(ajStartX + 140, ajStartY + 120);
+		this->btnAJConfirmar->Location = System::Drawing::Point(ajStartX + 20, ajStartY + 170);
+		this->btnAJCancellar->Location = System::Drawing::Point(ajStartX + 150, ajStartY + 170);
 
 		// --- PANEL ENREGISTRAR EQUIP ---
 		this->lblEETitle->Location = System::Drawing::Point(centerX - this->lblEETitle->Width / 2, 30);
