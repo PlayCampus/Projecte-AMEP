@@ -104,11 +104,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\Downloads\PlayCampus_GoogleTest_controladors\TestSupport.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="TestSupport.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\Downloads\PlayCampus_GoogleTest_controladors\test_controladors_playcampus.cpp" />
     <ClCompile Include="..\Playcampus\Dades\CercadoraEquip.cxx" />
     <ClCompile Include="..\Playcampus\Dades\CercadoraJornada.cxx" />
     <ClCompile Include="..\Playcampus\Dades\CercadoraJugador.cxx" />
@@ -166,6 +165,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="GTestLinkFix.cpp" />
+    <ClCompile Include="test_controladors_playcampus.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
