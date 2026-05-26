@@ -138,5 +138,29 @@ namespace Playcampus {
             return dt;
         }
 
+        Dictionary<String^, String^>^ CercadoraTemporada::ObtenirTemporadaPerId(String^ idTemporada) {
+            Dictionary<String^, String^>^ temporada = nullptr;
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "SELECT idTemporada, dataInici, dataFi, estat FROM Temporada WHERE idTemporada = @idTemporada LIMIT 1";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idTemporada", idTemporada);
+                MySqlDataReader^ reader = cmd->ExecuteReader();
+                if (reader->Read()) {
+                    temporada = gcnew Dictionary<String^, String^>();
+                    temporada["idTemporada"] = reader["idTemporada"]->ToString();
+                    temporada["dataInici"] = Convert::ToDateTime(reader["dataInici"]).ToString("yyyy-MM-dd HH:mm:ss");
+                    temporada["dataFi"] = Convert::ToDateTime(reader["dataFi"]).ToString("yyyy-MM-dd HH:mm:ss");
+                    temporada["estat"] = reader["estat"]->ToString();
+                }
+                reader->Close();
+            }
+            finally {
+                if (conn != nullptr) { conn->Close(); delete conn; }
+            }
+            return temporada;
+        }
+
     }
 }

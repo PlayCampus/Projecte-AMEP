@@ -21,6 +21,7 @@ namespace Playcampus {
             DataTable^ ObtenirTemporadesLliga(String^ idLliga);
             String^ ObtenirIdTemporadaRellevant(String^ idLliga);
             DataTable^ ObtenirTemporadesLligaEstadistiques(String^ idLliga);
+            Dictionary<String^, String^>^ ObtenirTemporadaPerId(String^ idTemporada);
         };
     }
 }
