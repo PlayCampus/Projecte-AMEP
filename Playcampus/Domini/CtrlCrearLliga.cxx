@@ -16,6 +16,11 @@ namespace Playcampus {
         }
 
         void CtrlCrearLliga::CrearLliga(String^ idLliga, String^ nom, Disciplina disciplina, String^ descripcio, String^ contrasenya, String^ tipusUsuari, String^ correuUsuari) {
+            // RIT5: el nom d'una lliga no pot ser buit.
+            if (String::IsNullOrWhiteSpace(nom)) {
+                throw gcnew ArgumentException("El nom de la lliga no pot ser buit.");
+            }
+
             // Verificar que l'usuari Ã©s un administrador
             if (tipusUsuari->ToLower() != "administrador") {
                 throw gcnew UnauthorizedAccessException("Només els administradors poden crear una lliga.");

@@ -18,6 +18,11 @@ namespace Playcampus {
         }
 
         void CtrlCrearTemporada::CrearTemporada(DateTime dataInici, DateTime dataFi, String^ correuAdmin, String^ nomLliga) {
+            // RIT9: La dataInici ha de ser anterior a la dataFi
+            if (dataInici >= dataFi) {
+                throw gcnew ArgumentException("La data d'inici ha de ser anterior a la data final.");
+            }
+
             String^ idAdmin = nullptr;
 
             // 1. Busquem l'ID de l'administrador mitjançant el seu correu
@@ -43,6 +48,18 @@ namespace Playcampus {
 
             //  validar aquí si aquesta lliga pertany al administrador si ho desitges
             if (cercadoraLliga->ObtenirLligaActivaAdmin(idAdmin) != idLliga) { throw gcnew Exception("Aquesta Lliga pertany a un altre Administrador"); }
+
+            // RIT12: Dues temporades d'una mateixa lliga no es poden solapar en dates
+            List<Dictionary<String^, String^>^>^ temporadesExistents = ObtenirTemporadesPerLliga(nomLliga);
+            for each (Dictionary<String^, String^>^ t in temporadesExistents) {
+                DateTime tInici = Convert::ToDateTime(t["dataInici"]);
+                DateTime tFi = Convert::ToDateTime(t["dataFi"]);
+
+                // Si la nova temporada comença abans que acabi l'existent, i acaba després que comenci l'existent, hi ha solapament
+                if (dataInici <= tFi && dataFi >= tInici) {
+                    throw gcnew Exception("Les dates es solapen amb una temporada existent d'aquesta lliga.");
+                }
+            }
 
             // 3. Creem un identificador per la nova temporada
             String^ idTemporada = "T-" + Guid::NewGuid().ToString()->Substring(0, 8);
