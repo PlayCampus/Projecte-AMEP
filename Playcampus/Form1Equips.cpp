@@ -406,8 +406,8 @@ System::Void Form1::btnAJConfirmar_Click(System::Object^ sender, System::EventAr
 		}
 
 		int dorsal = 0;
-		if (!Int32::TryParse(dorsalText, dorsal) || dorsal < 0) {
-			MessageBox::Show(L"El dorsal ha de ser un número enter positiu.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		if (!Int32::TryParse(dorsalText, dorsal) || dorsal <= 0 || dorsal > 99) {
+			MessageBox::Show(L"El dorsal ha de ser més gran que 0 i menor o igual que 99.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 

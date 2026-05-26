@@ -64,6 +64,7 @@ namespace Playcampus {
                         bool ValidarEdat();
                         bool ValidarAntiguitat();
                         bool ValidarDataNaixement();
+                        bool ValidarEstadistiques();
                     };
                 }
             }

@@ -52,8 +52,8 @@ namespace Playcampus {
         void Jugador::SetPartitsJugats(int partitsJugats) { this->partitsJugats = partitsJugats; }
 
         bool Jugador::ValidarDorsal() {
-            // RIT8
-            return dorsal <= 99;
+            // RIT27: dorsal > 0 i dorsal <= 99
+            return dorsal > 0 && dorsal <= 99;
         }
 
         bool Jugador::ValidarEdat() {
@@ -67,8 +67,18 @@ namespace Playcampus {
         }
 
         bool Jugador::ValidarDataNaixement() {
-            // RIT29
+            // RIT29: dataNaixement ha de ser anterior a la data actual
             return dataNaixement < DateTime::Now;
+        }
+
+        bool Jugador::ValidarEstadistiques() {
+            // RIT30: partitsJugats, anotacions, assistencies, faltesLleus, faltesGreus i minutsJugats >= 0
+            return partitsJugats >= 0 && 
+                   anotacions >= 0 && 
+                   assistencies >= 0 && 
+                   faltesLleus >= 0 && 
+                   faltesGreus >= 0 && 
+                   minutsJugats >= 0;
         }
     }
 }
