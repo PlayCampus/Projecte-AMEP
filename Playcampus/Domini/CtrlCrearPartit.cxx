@@ -25,7 +25,7 @@ namespace Playcampus {
                 throw gcnew UnauthorizedAccessException("Només els administradors poden crear un partit.");
             }
 
-            if (nomEquipLocal->Equals(nomEquipVisitant, StringComparison::OrdinalIgnoreCase)) {
+            if (String::Equals(nomEquipLocal, nomEquipVisitant, StringComparison::Ordinal)) {
                 throw gcnew ArgumentException("Un equip no pot jugar contra ell mateix.");
             }
 

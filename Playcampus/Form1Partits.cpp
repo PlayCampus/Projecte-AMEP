@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "Form1Partits.h"
 
 namespace CppCLRWinFormsProject {
@@ -22,7 +22,7 @@ void Form1::ConfigurarLabelsEditarPartitSegonsEsport(System::String^ disciplina)
 	}
 
 	System::String^ Form1::ObtenirIdPartitEditarSeleccionat() {
-		// Pre: el combo de partits pot tenir o no una selecció activa.
+		// Pre: el combo de partits pot tenir o no una selecci\u00F3 activa.
 		// Post: retorna l'id del partit seleccionat o nullptr si no es pot determinar.
 		String^ idPartit = nullptr;
 
@@ -37,8 +37,8 @@ void Form1::ConfigurarLabelsEditarPartitSegonsEsport(System::String^ disciplina)
 	}
 
 	System::Boolean Form1::ValidarEnterNoNegatiuEditarPartit(System::String^ textValor, System::String^ etiquetaCamp, int% valorNumeric) {
-		// Pre: textValor és el text introduït en un camp numèric del formulari.
-		// Post: retorna true si el valor és un enter >= 0; en cas contrari mostra un missatge coherent amb l'etiqueta visible.
+		// Pre: textValor \u00E9s el text introdu\u00EFt en un camp num\u00E8ric del formulari.
+		// Post: retorna true si el valor \u00E9s un enter >= 0; en cas contrari mostra un missatge coherent amb l'etiqueta visible.
 		bool esValid = false;
 		valorNumeric = 0;
 		String^ etiquetaNeta = etiquetaCamp;
@@ -47,17 +47,17 @@ void Form1::ConfigurarLabelsEditarPartitSegonsEsport(System::String^ disciplina)
 			etiquetaNeta = etiquetaNeta->Replace(L":", L"")->Trim();
 		}
 		else {
-			etiquetaNeta = L"camp numèric";
+			etiquetaNeta = L"camp num\u00E8ric";
 		}
 
 		if (String::IsNullOrWhiteSpace(textValor)) {
-			MessageBox::Show(L"El camp '" + etiquetaNeta + L"' no pot estar buit.", L"Error de validació", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			MessageBox::Show(L"El camp '" + etiquetaNeta + L"' no pot estar buit.", L"Error de validaci\u00F3", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 		else if (!Int32::TryParse(textValor->Trim(), valorNumeric)) {
-			MessageBox::Show(L"El camp '" + etiquetaNeta + L"' ha de ser un número enter.", L"Error de validació", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			MessageBox::Show(L"El camp '" + etiquetaNeta + L"' ha de ser un n\u00FAmero enter.", L"Error de validaci\u00F3", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 		else if (valorNumeric < 0) {
-			MessageBox::Show(L"El camp '" + etiquetaNeta + L"' no pot ser negatiu.", L"Error de validació", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			MessageBox::Show(L"El camp '" + etiquetaNeta + L"' no pot ser negatiu.", L"Error de validaci\u00F3", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 		else {
 			esValid = true;
@@ -71,7 +71,7 @@ void Form1::ConfigurarLabelsEditarPartitSegonsEsport(System::String^ disciplina)
 
 		String^ idPartit = ObtenirIdPartitEditarSeleccionat();
 		if (String::IsNullOrWhiteSpace(idPartit)) {
-			MessageBox::Show(L"No s'ha pogut determinar el partit seleccionat.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show(L"No s'ha pogut determinar el partit seleccionat.", L"Av\u00EDs", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
@@ -136,14 +136,14 @@ void Form1::ConfigurarLabelsEditarPartitSegonsEsport(System::String^ disciplina)
 		bool dadesValides = true;
 
 		if (String::IsNullOrWhiteSpace(idPartit)) {
-			MessageBox::Show(L"Selecciona un partit abans de guardar els canvis.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show(L"Selecciona un partit abans de guardar els canvis.", L"Av\u00EDs", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			dadesValides = false;
 		}
 
 		String^ nouEstat = L"";
 		if (dadesValides) {
 			if (cmbEstatPartit->SelectedItem == nullptr || String::IsNullOrWhiteSpace(cmbEstatPartit->Text)) {
-				MessageBox::Show(L"Selecciona un estat del partit.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				MessageBox::Show(L"Selecciona un estat del partit.", L"Av\u00EDs", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				dadesValides = false;
 			}
 			else {
@@ -164,7 +164,7 @@ void Form1::ConfigurarLabelsEditarPartitSegonsEsport(System::String^ disciplina)
 		statsCsv->AppendLine("idJugador;NomJugador;equip;anotacions;assistencies;sancionsLleus;sancionsGreus");
 
 		if (dadesValides && dgvEstadistiquesJugadors->Columns->Count < 7) {
-			MessageBox::Show(L"Selecciona un partit vàlid perquè es carreguin les estadístiques abans de guardar.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show(L"Selecciona un partit v\u00E0lid perqu\u00E8 es carreguin les estad\u00EDstiques abans de guardar.", L"Av\u00EDs", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			dadesValides = false;
 		}
 
@@ -197,7 +197,7 @@ void Form1::ConfigurarLabelsEditarPartitSegonsEsport(System::String^ disciplina)
 		}
 
 		Nullable<DateTime> novaData = Nullable<DateTime>();
-		if (dadesValides && estadistiquesValides && nouEstat == "Aplaçat") {
+		if (dadesValides && estadistiquesValides && nouEstat == "Apla\u00E7at") {
 			novaData = dtpDataPartit->Value;
 			marcadorLocal = 0;
 			marcadorVisitant = 0;
@@ -207,7 +207,7 @@ void Form1::ConfigurarLabelsEditarPartitSegonsEsport(System::String^ disciplina)
 			try {
 				Playcampus::Domini::CtrlEditarPartit^ ctrl = gcnew Playcampus::Domini::CtrlEditarPartit();
 				ctrl->ActualitzarPartitIStats(idPartit, nouEstat, marcadorLocal, marcadorVisitant, statsCsv->ToString(), currentUsuariCorreu, novaData);
-				MessageBox::Show(L"Partit i estadístiques actualitzats correctament.", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				MessageBox::Show(L"Partit i estad\u00EDstiques actualitzats correctament.", L"\u00C8xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				btnTornarEditarPartit_Click(nullptr, nullptr);
 			}
 			catch (Exception^ ex) {
@@ -224,7 +224,7 @@ void Form1::ConfigurarLabelsEditarPartitSegonsEsport(System::String^ disciplina)
 	System::Void Form1::cmbEstatPartit_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 		bool esAplacat = false;
 		if (cmbEstatPartit->SelectedItem != nullptr) {
-			esAplacat = cmbEstatPartit->SelectedItem->ToString() == "Aplaçat";
+			esAplacat = cmbEstatPartit->SelectedItem->ToString() == "Apla\u00E7at";
 		}
 		lblDataPartit->Visible = esAplacat;
 		dtpDataPartit->Visible = esAplacat;
@@ -257,14 +257,14 @@ System::Void Form1::btnGLEditarPartit_Click(System::Object^ sender, System::Even
 System::Void Form1::btnCPValidarLliga_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ nomLliga = txtCPNomLliga->Text;
 		if (String::IsNullOrWhiteSpace(nomLliga)) {
-			MessageBox::Show(L"Introdueix el nom de la Lliga a validar", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show(L"Introdueix el nom de la Lliga a validar", L"Av\u00EDs", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
 		try {
 			Playcampus::Domini::CtrlCrearPartit^ ctrl = gcnew Playcampus::Domini::CtrlCrearPartit();
 
-			// 1. Validar que la liga existe y somos dueños
+			// 1. Validar que la liga existe y somos due\u00F1os
 			if (!ctrl->ValidarAdministradorLliga(nomLliga, currentUsuariCorreu)) {
 				MessageBox::Show(L"No ets administrador d'aquesta lliga o no existeix.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 				return;
@@ -282,7 +282,7 @@ System::Void Form1::btnCPValidarLliga_Click(System::Object^ sender, System::Even
 			}
 
 			// Els equips es carreguen quan es selecciona una temporada.
-			// Així evitem agafar l'id d'un equip antic amb el mateix nom.
+			// Aix\u00ED evitem agafar l'id d'un equip antic amb el mateix nom.
 			cmbCPEquipLocal->Items->Clear();
 			cmbCPEquipVisitant->Items->Clear();
 			cmbCPEquipLocal->Enabled = false;
@@ -330,10 +330,10 @@ System::Void Form1::cmbCPTemporada_SelectedIndexChanged(System::Object^ sender, 
 			cmbCPEquipVisitant->Enabled = cmbCPEquipVisitant->Items->Count > 0;
 
 			if (cmbCPJornada->Items->Count > 0) cmbCPJornada->SelectedIndex = 0;
-			else MessageBox::Show(L"Aquesta temporada no té jornades.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			else MessageBox::Show(L"Aquesta temporada no t\u00E9 jornades.", L"Av\u00EDs", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 
 			if (cmbCPEquipLocal->Items->Count == 0) {
-				MessageBox::Show(L"Aquesta temporada no té equips inscrits.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				MessageBox::Show(L"Aquesta temporada no t\u00E9 equips inscrits.", L"Av\u00EDs", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			}
 
 		}
@@ -369,7 +369,7 @@ System::Void Form1::btnCPConfirmar_Click(System::Object^ sender, System::EventAr
 			String^ equipLocal = cmbCPEquipLocal->SelectedItem->ToString();
 			String^ equipVisit = cmbCPEquipVisitant->SelectedItem->ToString();
 
-			if (equipLocal == equipVisit) {
+			if (String::Equals(equipLocal, equipVisit, StringComparison::Ordinal)) {
 				MessageBox::Show(L"L'equip local i visitant no poden ser el mateix.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				return;
 			}
@@ -378,7 +378,7 @@ System::Void Form1::btnCPConfirmar_Click(System::Object^ sender, System::EventAr
 			String^ ubicacioStr = txtCPUbicacio->Text;
 			String^ lligaStr = txtCPNomLliga->Text;
 
-			// Agafar la ID de la jornada que hem guardat prèviament al omplir el ComboBox
+			// Agafar la ID de la jornada que hem guardat pr\u00E8viament al omplir el ComboBox
 			int indexJornada = cmbCPJornada->SelectedIndex;
 			if (indexJornada < 0 || indexJornada >= cpJornadesIds->Count) {
 				MessageBox::Show(L"No s'ha pogut determinar la jornada seleccionada", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
@@ -389,10 +389,10 @@ System::Void Form1::btnCPConfirmar_Click(System::Object^ sender, System::EventAr
 			try {
 				Playcampus::Domini::CtrlCrearPartit^ ctrl = gcnew Playcampus::Domini::CtrlCrearPartit();
 
-				// Passem l'ID de la jornada (String) en el 5è paràmetre
+				// Passem l'ID de la jornada (String) en el 5\u00E8 par\u00E0metre
 				ctrl->CrearPartit(dataPartit, ubicacioStr, equipLocal, equipVisit, idJornada, currentUsuariTipus);
 
-				MessageBox::Show(L"Partit creat i desat a la base de dades correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				MessageBox::Show(L"Partit creat i desat a la base de dades correctament!", L"\u00C8xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				pnlCrearPartit->Visible = false;
 				pnlGestionarLliga->Visible = true;
 			}
@@ -494,31 +494,31 @@ System::Void Form1::cmbEPJornades_SelectedIndexChanged(System::Object^ sender, S
 
 System::Void Form1::btnEPEsborrarFinal_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (cmbEPPartits->SelectedIndex < 0) {
-			MessageBox::Show(L"Si us plau, selecciona una temporada, una jornada i finalment un partit per a esborrar.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show(L"Si us plau, selecciona una temporada, una jornada i finalment un partit per a esborrar.", L"Av\u00EDs", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
 		String^ idPartit = epPartitIds[cmbEPPartits->SelectedIndex];
 		String^ displayPartit = cmbEPPartits->SelectedItem->ToString();
-
-		System::Windows::Forms::DialogResult confirm = MessageBox::Show(
-			L"Estàs segur d'eliminar definitivament el partit: \n\n" + displayPartit + L"?",
-			L"Confirmació de Borrat",
-			MessageBoxButtons::YesNo,
-			MessageBoxIcon::Exclamation);
+			System::Windows::Forms::DialogResult confirm = MessageBox::Show(
+				L"Est\u00E0s segur d'eliminar definitivament el partit: \n\n" + displayPartit +
+				L"?\n\nTamb\u00E9 s'eliminaran les estad\u00EDstiques individuals del partit i es restaran de les estad\u00EDstiques acumulades dels equips i jugadors.",
+				L"Confirmaci\u00F3 de borrat",
+				MessageBoxButtons::YesNo,
+				MessageBoxIcon::Exclamation);
 
 		if (confirm == System::Windows::Forms::DialogResult::Yes) {
 			try {
 				Playcampus::Domini::CtrlEsborrarPartit^ ctrl = gcnew Playcampus::Domini::CtrlEsborrarPartit();
 				ctrl->EsborrarPartit(idPartit);
 
-				MessageBox::Show(L"Partit eliminat de la Base de Dades correctament.", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				MessageBox::Show(L"Partit eliminat correctament.", L"", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
 				// Refresquem el desplegable recarregant la jornada seleccionada en comptes de tancar 
 				cmbEPJornades_SelectedIndexChanged(nullptr, nullptr);
 			}
 			catch (Exception^ ex) {
-				MessageBox::Show(L"Hi ha hagut una fallada: " + ex->Message, L"Error Crític", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				MessageBox::Show(L"Hi ha hagut una fallada: " + ex->Message, L"Error Cr\u00EDtic", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
 		}
 	}
