@@ -47,6 +47,90 @@ namespace Playcampus {
                     idPartit = Guid::NewGuid().ToString();
                 }
 
+                // RIT33: equip local i visitant han de ser diferents
+                if (!String::IsNullOrEmpty(idEquipLocal) && idEquipLocal == idEquipVisitant) {
+                    throw gcnew ArgumentException("L'equip local i el visitant han de ser diferents.");
+                }
+
+                // RIT34: la dataHora ha d'estar dins l'interval de la jornada
+                {
+                    String^ qJornada = "SELECT dataInici, dataFi FROM Jornada WHERE idJornada = @idJornada LIMIT 1";
+                    MySqlCommand^ cmdJornada = gcnew MySqlCommand(qJornada, conn);
+                    cmdJornada->Parameters->AddWithValue("@idJornada", idJornada);
+                    MySqlDataReader^ rJornada = cmdJornada->ExecuteReader();
+                    DateTime dataInici;
+                    DateTime dataFi;
+                    bool trobada = false;
+                    if (rJornada->Read()) {
+                        trobada = true;
+                        dataInici = Convert::ToDateTime(rJornada["dataInici"]);
+                        dataFi = Convert::ToDateTime(rJornada["dataFi"]);
+                    }
+                    rJornada->Close();
+                    if (!trobada) {
+                        throw gcnew Exception("La jornada no existeix o no és vàlida.");
+                    }
+                    if (dataHora < dataInici || dataHora > dataFi) {
+                        throw gcnew ArgumentException("La data i hora del partit ha d'estar dins de les dates de la jornada.");
+                    }
+                }
+
+                // RIT35: els dos equips han de pertànyer a la temporada de la jornada
+                {
+                    String^ qEquipTemporada =
+                        "SELECT COUNT(*) "
+                        "FROM Jornada j "
+                        "INNER JOIN Equip e ON e.idTemporada = j.idTemporada "
+                        "WHERE j.idJornada = @idJornada AND e.idEquip = @idEquip";
+                    MySqlCommand^ cmdLocal = gcnew MySqlCommand(qEquipTemporada, conn);
+                    cmdLocal->Parameters->AddWithValue("@idJornada", idJornada);
+                    cmdLocal->Parameters->AddWithValue("@idEquip", idEquipLocal);
+                    int okLocal = Convert::ToInt32(cmdLocal->ExecuteScalar());
+                    if (okLocal <= 0) {
+                        throw gcnew ArgumentException("L'equip local no participa a la temporada d'aquesta jornada.");
+                    }
+
+                    MySqlCommand^ cmdVisitant = gcnew MySqlCommand(qEquipTemporada, conn);
+                    cmdVisitant->Parameters->AddWithValue("@idJornada", idJornada);
+                    cmdVisitant->Parameters->AddWithValue("@idEquip", idEquipVisitant);
+                    int okVisitant = Convert::ToInt32(cmdVisitant->ExecuteScalar());
+                    if (okVisitant <= 0) {
+                        throw gcnew ArgumentException("L'equip visitant no participa a la temporada d'aquesta jornada.");
+                    }
+                }
+
+                // RIT36: un equip no pot jugar dos partits diferents a la mateixa dataHora
+                {
+                    String^ qSolapament =
+                        "SELECT COUNT(*) FROM Partit "
+                        "WHERE dataHora = @dataHora AND "
+                        "(idEquipLocal = @eLocal OR idEquipVisitant = @eLocal OR idEquipLocal = @eVisitant OR idEquipVisitant = @eVisitant)";
+                    MySqlCommand^ cmdSolapament = gcnew MySqlCommand(qSolapament, conn);
+                    cmdSolapament->Parameters->AddWithValue("@dataHora", dataHora);
+                    cmdSolapament->Parameters->AddWithValue("@eLocal", idEquipLocal);
+                    cmdSolapament->Parameters->AddWithValue("@eVisitant", idEquipVisitant);
+                    int countSolapament = Convert::ToInt32(cmdSolapament->ExecuteScalar());
+                    if (countSolapament > 0) {
+                        throw gcnew ArgumentException("Un dels equips ja té un partit programat a la mateixa data i hora.");
+                    }
+                }
+
+                // RIT37: dins d'una mateixa jornada no es pot repetir el mateix enfrontament
+                {
+                    String^ qEnfrontament =
+                        "SELECT COUNT(*) FROM Partit "
+                        "WHERE idJornada = @idJornada AND "
+                        "((idEquipLocal = @eLocal AND idEquipVisitant = @eVisitant) OR (idEquipLocal = @eVisitant AND idEquipVisitant = @eLocal))";
+                    MySqlCommand^ cmdEnfrontament = gcnew MySqlCommand(qEnfrontament, conn);
+                    cmdEnfrontament->Parameters->AddWithValue("@idJornada", idJornada);
+                    cmdEnfrontament->Parameters->AddWithValue("@eLocal", idEquipLocal);
+                    cmdEnfrontament->Parameters->AddWithValue("@eVisitant", idEquipVisitant);
+                    int countEnfrontament = Convert::ToInt32(cmdEnfrontament->ExecuteScalar());
+                    if (countEnfrontament > 0) {
+                        throw gcnew ArgumentException("Dins d'aquesta jornada ja existeix un partit entre aquests dos equips.");
+                    }
+                }
+
                 String^ query = "INSERT INTO Partit (idPartit, dataHora, ubicacio, estat, golsLocal, golsVisitant, idJornada, idEquipLocal, idEquipVisitant) VALUES (@idPartit, @dataHora, @ubicacio, @estat, @golsLocal, @golsVisitant, @idJornada, @idEquipLocal, @idEquipVisitant)";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
 
