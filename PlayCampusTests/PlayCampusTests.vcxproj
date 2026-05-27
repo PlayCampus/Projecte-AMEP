@@ -130,6 +130,10 @@
     <ClCompile Include="..\Playcampus\Domini\CtrlAbandonarLliga.cxx" />
     <ClCompile Include="..\Playcampus\Domini\CtrlAfegirJugador.cxx" />
     <ClCompile Include="..\Playcampus\Domini\CtrlAssignarJugador.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlConsultaFitxatges.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlConsultaLligues.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlConsultaPartits.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlConsultaTelefons.cxx" />
     <ClCompile Include="..\Playcampus\Domini\CtrlConsultes.cxx" />
     <ClCompile Include="..\Playcampus\Domini\CtrlCrearJornada.cxx" />
     <ClCompile Include="..\Playcampus\Domini\CtrlCrearLliga.cxx" />

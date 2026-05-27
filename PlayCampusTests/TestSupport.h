@@ -29,6 +29,10 @@
 #include "../Playcampus/Domini/CtrlVeureEstadistiquesJugadors.hxx"
 #include "../Playcampus/Domini/CtrlEstadistiquesPartit.hxx"
 #include "../Playcampus/Domini/CtrlTancarSessio.hxx"
+#include "../Playcampus/Domini/CtrlConsultaFitxatges.hxx"
+#include "../Playcampus/Domini/CtrlConsultaLligues.hxx"
+#include "../Playcampus/Domini/CtrlConsultaPartits.hxx"
+#include "../Playcampus/Domini/CtrlConsultaTelefons.hxx"
 
 using namespace System;
 using namespace System::Data;

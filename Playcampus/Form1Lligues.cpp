@@ -30,7 +30,7 @@ System::Void Form1::btnGLTornar_Click(System::Object^ sender, System::EventArgs^
 
 System::Void Form1::btnGLMostrarEquips_Click(System::Object^ sender, System::EventArgs^ e) {
 		try {
-			Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
+			Playcampus::Domini::CtrlConsultaLligues^ ctrl = gcnew Playcampus::Domini::CtrlConsultaLligues();
 			String^ nomLliga = ctrl->ObtenirNomLligaAdministrador(currentUsuariCorreu);
 			if (String::IsNullOrWhiteSpace(nomLliga)) {
 				MessageBox::Show(L"No tens cap lliga activa associada.", L"Avis", MessageBoxButtons::OK, MessageBoxIcon::Warning);
@@ -46,7 +46,7 @@ System::Void Form1::btnGLMostrarEquips_Click(System::Object^ sender, System::Eve
 
 System::Void Form1::btnGLEsborrarEquip_Click(System::Object^ sender, System::EventArgs^ e) {
 		try {
-			Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
+			Playcampus::Domini::CtrlConsultaLligues^ ctrl = gcnew Playcampus::Domini::CtrlConsultaLligues();
 			DataTable^ equips = ctrl->ObtenirEquipsDeLaLligaAdministrador(currentUsuariCorreu);
 			if (equips == nullptr || equips->Rows->Count == 0) {
 				MessageBox::Show(L"No hi ha equips dins de la teva lliga activa.", L"Avis", MessageBoxButtons::OK, MessageBoxIcon::Information);
