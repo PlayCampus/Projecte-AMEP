@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <string>
 #include "PassarellaLliga.hxx"
 using namespace System;
@@ -20,6 +20,8 @@ namespace Playcampus {
             String^ ObtenirLligaActivaAdmin(String^ idAdmin);
             String^ ObtenirIdLligaPerNom(String^ nomLliga);
             DataTable^ ObtenirTotesLligues();
+            DataTable^ ObtenirTotesLliguesEstadistiques();
+            DataTable^ CercarLliguesPerNom(String^ textCerca);
             String^ ObtenirDisciplinaLliga(String^ idLliga);
             String^ ObtenirNomLligaPerId(String^ idLliga);
             String^ ObtenirContrasenyaLliga(String^ nomLliga);
@@ -29,6 +31,7 @@ namespace Playcampus {
             String^ ObtenirIdLligaCapita(String^ correu);
             DataTable^ ObtenirEquipsDeLaLligaAdministrador(String^ correuAdmin);
             DataTable^ ObtenirClassificacioLliga(String^ idLliga);
+            DataTable^ ObtenirClassificacioLligaTemporada(String^ idLliga, String^ idTemporada);
             DataTable^ ObtenirClassificacioLligaSeguida(String^ idLliga, String^ idTemporada);
             DataTable^ ObtenirEstatLligues();
             DataTable^ ObtenirEstadistiquesEquips();

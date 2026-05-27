@@ -1264,62 +1264,82 @@ namespace CppCLRWinFormsProject {
 		this->btnEstLliga->Click += gcnew System::EventHandler(this, &Form1::btnEstLliga_Click);
 		this->pnlEstadistiques->Controls->Add(this->btnEstLliga);
 
-		// 2. Panel de Detalle (el que se abre al pulsar el botón)
+		// 2. Panel de detalle de estadísticas de liga
 		this->pnlEstadistiquesLligaDetail = gcnew System::Windows::Forms::Panel();
 		this->pnlEstadistiquesLligaDetail->Dock = System::Windows::Forms::DockStyle::Fill;
 		this->pnlEstadistiquesLligaDetail->Visible = false;
 		this->pnlEstadistiquesLligaDetail->BackColor = System::Drawing::Color::White;
 
-		// 3. Elementos de Búsqueda (Estudiante)
+		this->estLligaIds = gcnew System::Collections::Generic::List<String^>();
+		this->estLligaTemporadaIds = gcnew System::Collections::Generic::List<String^>();
+
+		this->lblEstLligaInfo = gcnew System::Windows::Forms::Label();
+		this->lblEstLligaInfo->Visible = false;
+
 		this->lblEstLligaBuscar = gcnew System::Windows::Forms::Label();
-		this->lblEstLligaBuscar->Text = L"Escriu el nom de la Lliga:";
-		this->lblEstLligaBuscar->Location = System::Drawing::Point(50, 40);
+		this->lblEstLligaBuscar->Text = L"Cercar lliga:";
+		this->lblEstLligaBuscar->Location = System::Drawing::Point(50, 25);
 		this->lblEstLligaBuscar->AutoSize = true;
 
 		this->txtEstLligaBuscar = gcnew System::Windows::Forms::TextBox();
-		this->txtEstLligaBuscar->Location = System::Drawing::Point(200, 38);
-		this->txtEstLligaBuscar->Size = System::Drawing::Size(200, 20);
+		this->txtEstLligaBuscar->Location = System::Drawing::Point(170, 22);
+		this->txtEstLligaBuscar->Size = System::Drawing::Size(230, 20);
 
 		this->btnEstLligaExecutarCerca = gcnew System::Windows::Forms::Button();
 		this->btnEstLligaExecutarCerca->Text = L"Cercar";
-		this->btnEstLligaExecutarCerca->Location = System::Drawing::Point(410, 36);
+		this->btnEstLligaExecutarCerca->Location = System::Drawing::Point(415, 20);
+		this->btnEstLligaExecutarCerca->Size = System::Drawing::Size(90, 26);
 		this->btnEstLligaExecutarCerca->Click += gcnew System::EventHandler(this, &Form1::btnEstLligaExecutarCerca_Click);
 
-		// 4. Temporada y Tabla
+		this->lblEstLligaSeleccionar = gcnew System::Windows::Forms::Label();
+		this->lblEstLligaSeleccionar->Text = L"Selecciona una lliga:";
+		this->lblEstLligaSeleccionar->Location = System::Drawing::Point(50, 65);
+		this->lblEstLligaSeleccionar->AutoSize = true;
+
+		this->cmbEstLligaLligues = gcnew System::Windows::Forms::ComboBox();
+		this->cmbEstLligaLligues->Location = System::Drawing::Point(170, 62);
+		this->cmbEstLligaLligues->Size = System::Drawing::Size(335, 24);
+		this->cmbEstLligaLligues->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+		this->cmbEstLligaLligues->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbEstLligaLligues_SelectedIndexChanged);
+
 		this->lblEstLligaTemporada = gcnew System::Windows::Forms::Label();
 		this->lblEstLligaTemporada->Text = L"Temporada:";
-		this->lblEstLligaTemporada->Location = System::Drawing::Point(50, 80);
+		this->lblEstLligaTemporada->Location = System::Drawing::Point(50, 105);
+		this->lblEstLligaTemporada->AutoSize = true;
 		this->lblEstLligaTemporada->Visible = false;
 
 		this->cmbEstLligaTemporades = gcnew System::Windows::Forms::ComboBox();
-		this->cmbEstLligaTemporades->Location = System::Drawing::Point(150, 78);
+		this->cmbEstLligaTemporades->Location = System::Drawing::Point(170, 102);
+		this->cmbEstLligaTemporades->Size = System::Drawing::Size(335, 24);
 		this->cmbEstLligaTemporades->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 		this->cmbEstLligaTemporades->Visible = false;
+		this->cmbEstLligaTemporades->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbEstLligaTemporades_SelectedIndexChanged);
 
 		this->dgvEstLligaClassificacio = gcnew System::Windows::Forms::DataGridView();
-		this->dgvEstLligaClassificacio->Location = System::Drawing::Point(50, 120);
-		this->dgvEstLligaClassificacio->Size = System::Drawing::Size(700, 350);
+		this->dgvEstLligaClassificacio->Location = System::Drawing::Point(50, 145);
+		this->dgvEstLligaClassificacio->Size = System::Drawing::Size(760, 290);
 		this->dgvEstLligaClassificacio->Visible = false;
 		this->dgvEstLligaClassificacio->AllowUserToAddRows = false;
 		this->dgvEstLligaClassificacio->ReadOnly = true;
+		this->dgvEstLligaClassificacio->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
 		this->dgvEstLligaClassificacio->AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode::Fill;
 
-		// 5. Botón Volver
 		this->btnEstLligaTornar = gcnew System::Windows::Forms::Button();
 		this->btnEstLligaTornar->Text = L"<- Tornar";
-		this->btnEstLligaTornar->Location = System::Drawing::Point(50, 490);
+		this->btnEstLligaTornar->Location = System::Drawing::Point(50, 450);
+		this->btnEstLligaTornar->Size = System::Drawing::Size(100, 30);
 		this->btnEstLligaTornar->Click += gcnew System::EventHandler(this, &Form1::btnEstLligaTornar_Click);
 
-		// Agregar todo al panel de detalle
 		this->pnlEstadistiquesLligaDetail->Controls->Add(this->lblEstLligaBuscar);
 		this->pnlEstadistiquesLligaDetail->Controls->Add(this->txtEstLligaBuscar);
 		this->pnlEstadistiquesLligaDetail->Controls->Add(this->btnEstLligaExecutarCerca);
+		this->pnlEstadistiquesLligaDetail->Controls->Add(this->lblEstLligaSeleccionar);
+		this->pnlEstadistiquesLligaDetail->Controls->Add(this->cmbEstLligaLligues);
 		this->pnlEstadistiquesLligaDetail->Controls->Add(this->lblEstLligaTemporada);
 		this->pnlEstadistiquesLligaDetail->Controls->Add(this->cmbEstLligaTemporades);
 		this->pnlEstadistiquesLligaDetail->Controls->Add(this->dgvEstLligaClassificacio);
 		this->pnlEstadistiquesLligaDetail->Controls->Add(this->btnEstLligaTornar);
 
-		// Agregar el panel de detalle al formulario principal
 		this->Controls->Add(this->pnlEstadistiquesLligaDetail);
 		this->pnlEstadistiquesLligaDetail->BringToFront();
 		String^ logoPath = L"imatges\\logo.png";

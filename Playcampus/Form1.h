@@ -263,9 +263,12 @@ namespace CppCLRWinFormsProject {
 		// Nou panell per la cerca i la taula
 		System::Windows::Forms::Button^ btnEstLliga;
 		System::Windows::Forms::Panel^ pnlEstadistiquesLligaDetail;
+		System::Windows::Forms::Label^ lblEstLligaInfo;
 		System::Windows::Forms::Label^ lblEstLligaBuscar;
 		System::Windows::Forms::TextBox^ txtEstLligaBuscar;
 		System::Windows::Forms::Button^ btnEstLligaExecutarCerca;
+		System::Windows::Forms::Label^ lblEstLligaSeleccionar;
+		System::Windows::Forms::ComboBox^ cmbEstLligaLligues;
 		System::Windows::Forms::Label^ lblEstLligaTemporada;
 		System::Windows::Forms::ComboBox^ cmbEstLligaTemporades;
 		System::Windows::Forms::DataGridView^ dgvEstLligaClassificacio;
@@ -281,6 +284,8 @@ namespace CppCLRWinFormsProject {
 	private: System::String^ idPartitPendentConfirmar;
 		   String^ currentIdLligaEstadistiques;
 		   // Per guardar la ID de la lliga cercada
+		   System::Collections::Generic::List<String^>^ estLligaIds;
+		   System::Collections::Generic::List<String^>^ estLligaTemporadaIds;
 
 		   System::Windows::Forms::Panel^ pnlEstadistiquesEquipDetail;
 		   System::Windows::Forms::Label^ lblEstEquipTitle;
@@ -441,8 +446,15 @@ namespace CppCLRWinFormsProject {
 		System::Void btnEPTornar_Click(System::Object^ sender, System::EventArgs^ e);
 		void CarregarTemporadesEsborrar();
 		System::Void btnEstLliga_Click(System::Object^ sender, System::EventArgs^ e);
+		void ResetEstadistiquesLligaPanel();
+		void CarregarLliguesEstadistiques();
+		void OmplirComboLliguesEstadistiques(System::Data::DataTable^ lligues);
+		void CarregarTemporadesEstadistiquesLligaSeleccionada();
+		void CarregarClassificacioLligaSeleccionada();
 		void CarregarDadesLligaDirecte(Playcampus::Domini::CtrlVeureEstadistiquesLliga^ ctrl, String^ idLliga);
 		System::Void btnEstLligaExecutarCerca_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void cmbEstLligaLligues_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
+		System::Void cmbEstLligaTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void cmbEPTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnEstLligaTornar_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnEstJugadors_Click(System::Object^ sender, System::EventArgs^ e);
