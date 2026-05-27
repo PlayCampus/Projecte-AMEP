@@ -369,7 +369,7 @@ System::Void Form1::btnCPConfirmar_Click(System::Object^ sender, System::EventAr
 			String^ equipLocal = cmbCPEquipLocal->SelectedItem->ToString();
 			String^ equipVisit = cmbCPEquipVisitant->SelectedItem->ToString();
 
-			if (equipLocal == equipVisit) {
+			if (String::Equals(equipLocal, equipVisit, StringComparison::Ordinal)) {
 				MessageBox::Show(L"L'equip local i visitant no poden ser el mateix.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				return;
 			}
