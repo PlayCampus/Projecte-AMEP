@@ -235,7 +235,7 @@ void Form1::ConfigurarLabelsEditarPartitSegonsEsport(System::String^ disciplina)
 			pnlCrearPartit->Visible = true;
 
 			// Netejem tot 
-			txtCPNomLliga->Text = L"";
+			// txtCPNomLliga is no longer required
 			cmbCPTemporada->Items->Clear();
 			cmbCPJornada->Items->Clear();
 			cmbCPEquipLocal->Items->Clear();
@@ -243,11 +243,38 @@ void Form1::ConfigurarLabelsEditarPartitSegonsEsport(System::String^ disciplina)
 			txtCPUbicacio->Text = L"";
 			dtpCPData->Value = DateTime::Now;
 
-			// Deshabilitem combos fins que es validi la lliga
 			cmbCPTemporada->Enabled = false;
 			cmbCPJornada->Enabled = false;
 			cmbCPEquipLocal->Enabled = false;
 			cmbCPEquipVisitant->Enabled = false;
+
+			try {
+				Playcampus::Domini::CtrlCrearPartit^ ctrl = gcnew Playcampus::Domini::CtrlCrearPartit();
+				String^ nomLliga = ctrl->ObtenirNomLligaAdministrador(currentUsuariCorreu);
+
+				if (String::IsNullOrEmpty(nomLliga)) {
+					MessageBox::Show(L"No ets administrador de cap lliga.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+					return;
+				}
+
+				auto temporades = ctrl->ObtenirTemporadesLliga(nomLliga);
+				cmbCPTemporada->Items->Clear();
+				cpTemporadesIds->Clear();
+
+				for each(auto temp in temporades) {
+					String^ txt = temp["dataInici"] + L" a " + temp["dataFi"];
+					cmbCPTemporada->Items->Add(txt);
+					cpTemporadesIds->Add(temp["idTemporada"]);
+				}
+
+				cmbCPTemporada->Enabled = true;
+
+				if (cmbCPTemporada->Items->Count > 0) cmbCPTemporada->SelectedIndex = 0;
+
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show(L"Error al carregar les dades de la lliga: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
 		}
 
 System::Void Form1::btnGLEditarPartit_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -255,48 +282,7 @@ System::Void Form1::btnGLEditarPartit_Click(System::Object^ sender, System::Even
 	}
 
 System::Void Form1::btnCPValidarLliga_Click(System::Object^ sender, System::EventArgs^ e) {
-		String^ nomLliga = txtCPNomLliga->Text;
-		if (String::IsNullOrWhiteSpace(nomLliga)) {
-			MessageBox::Show(L"Introdueix el nom de la Lliga a validar", L"Av\u00EDs", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			return;
-		}
-
-		try {
-			Playcampus::Domini::CtrlCrearPartit^ ctrl = gcnew Playcampus::Domini::CtrlCrearPartit();
-
-			// 1. Validar que la liga existe y somos due\u00F1os
-			if (!ctrl->ValidarAdministradorLliga(nomLliga, currentUsuariCorreu)) {
-				MessageBox::Show(L"No ets administrador d'aquesta lliga o no existeix.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-				return;
-			}
-
-			// 2. Obtener Temporadas
-			auto temporades = ctrl->ObtenirTemporadesLliga(nomLliga);
-			cmbCPTemporada->Items->Clear();
-			cpTemporadesIds->Clear();
-
-			for each(auto temp in temporades) {
-				String^ txt = temp["dataInici"] + L" a " + temp["dataFi"];
-				cmbCPTemporada->Items->Add(txt);
-				cpTemporadesIds->Add(temp["idTemporada"]); // Guardar ID Oculto
-			}
-
-			// Els equips es carreguen quan es selecciona una temporada.
-			// Aix\u00ED evitem agafar l'id d'un equip antic amb el mateix nom.
-			cmbCPEquipLocal->Items->Clear();
-			cmbCPEquipVisitant->Items->Clear();
-			cmbCPEquipLocal->Enabled = false;
-			cmbCPEquipVisitant->Enabled = false;
-
-			cmbCPTemporada->Enabled = true;
-
-			if (cmbCPTemporada->Items->Count > 0) cmbCPTemporada->SelectedIndex = 0;
-
-			MessageBox::Show(L"Lliga carregada correctament. Selecciona temporada i equips.", L"Lliga Trobada", MessageBoxButtons::OK, MessageBoxIcon::Information);
-		}
-		catch (Exception^ ex) {
-			MessageBox::Show(L"Error al validar la lliga: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		}
+		// Aquest botó ja no fa res, l'obtenció és automàtica en obrir el panel
 	}
 
 System::Void Form1::cmbCPTemporada_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -361,7 +347,7 @@ System::Void Form1::btnCPCancellar_Click(System::Object^ sender, System::EventAr
 
 System::Void Form1::btnCPConfirmar_Click(System::Object^ sender, System::EventArgs^ e) {
 			// Validar dades
-			if (cmbCPJornada->SelectedIndex == -1 || cmbCPEquipLocal->SelectedIndex == -1 || cmbCPEquipVisitant->SelectedIndex == -1 || String::IsNullOrWhiteSpace(txtCPUbicacio->Text) || String::IsNullOrWhiteSpace(txtCPNomLliga->Text)) {
+			if (cmbCPJornada->SelectedIndex == -1 || cmbCPEquipLocal->SelectedIndex == -1 || cmbCPEquipVisitant->SelectedIndex == -1 || String::IsNullOrWhiteSpace(txtCPUbicacio->Text)) {
 				MessageBox::Show(L"Si us plau, valida la lliga i omple tots els camps.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				return;
 			}
@@ -376,9 +362,8 @@ System::Void Form1::btnCPConfirmar_Click(System::Object^ sender, System::EventAr
 
 			DateTime dataPartit = dtpCPData->Value;
 			String^ ubicacioStr = txtCPUbicacio->Text;
-			String^ lligaStr = txtCPNomLliga->Text;
 
-			// Agafar la ID de la jornada que hem guardat pr\u00E8viament al omplir el ComboBox
+			// Agafar la ID de la jornada que hem guardat prèviament al omplir el ComboBox
 			int indexJornada = cmbCPJornada->SelectedIndex;
 			if (indexJornada < 0 || indexJornada >= cpJornadesIds->Count) {
 				MessageBox::Show(L"No s'ha pogut determinar la jornada seleccionada", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);

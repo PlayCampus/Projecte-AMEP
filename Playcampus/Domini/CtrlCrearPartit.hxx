@@ -16,7 +16,7 @@ namespace Playcampus {
             CtrlCrearPartit();
             void CrearPartit(DateTime dataHora, String^ ubicacio, String^ nomEquipLocal, String^ nomEquipVisitant, String^ idJornada, String^ tipusUsuari);
 
-            bool ValidarAdministradorLliga(String^ nomLliga, String^ correuAdmin);
+            String^ ObtenirNomLligaAdministrador(String^ correuAdmin);
             List<Dictionary<String^, String^>^>^ ObtenirTemporadesLliga(String^ nomLliga);
             List<Dictionary<String^, String^>^>^ ObtenirJornadesTemporada(String^ idTemporada);
             List<String^>^ ObtenirNomsEquipsPerTemporada(String^ idTemporada);

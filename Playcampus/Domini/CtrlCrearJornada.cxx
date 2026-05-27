@@ -3,19 +3,18 @@
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/CercadoraTemporada.hxx"
 #include "../Dades/CercadoraJornada.hxx"
+#include "../Dades/CercadoraLliga.hxx"
 
 using namespace Playcampus::Domini;
 using namespace System;
 
 CtrlCrearJornada::CtrlCrearJornada() {}
 
-bool CtrlCrearJornada::ValidarAdministradorLliga(String^ nomLliga, String^ correuAdmin) {
+String^ CtrlCrearJornada::ObtenirNomLligaAdministrador(String^ correuAdmin) {
     String^ connStr = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
-    Playcampus::Dades::PassarellaLliga^ passLliga = gcnew Playcampus::Dades::PassarellaLliga(connStr);
-
-    return passLliga->EsAdministradorLliga(nomLliga, correuAdmin);
+    Playcampus::Dades::CercadoraLliga^ cercadora = gcnew Playcampus::Dades::CercadoraLliga(connStr);
+    return cercadora->ObtenirNomLligaAdministrador(correuAdmin);
 }
-
 
 
 void CtrlCrearJornada::CrearJornada(String^ idTemporada,int numero, DateTime dataInici, DateTime dataFi, String^ estat) {

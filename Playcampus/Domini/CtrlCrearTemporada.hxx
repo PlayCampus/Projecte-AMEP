@@ -12,8 +12,9 @@ namespace Playcampus {
             CtrlCrearTemporada();
 
             // Mètode principal per crear la temporada
-            void CrearTemporada(DateTime dataInici, DateTime dataFi, String^ correuAdmin, String^ nomLliga);
-
+            void CrearTemporada(DateTime dataInici, DateTime dataFi, String^ correuAdmin);
+            
+            String^ ObtenirNomLligaAdministrador(String^ correuAdmin);
 
             List<Dictionary<String^, String^>^>^ ObtenirTemporadesPerLliga(String^ nomLliga);
         };

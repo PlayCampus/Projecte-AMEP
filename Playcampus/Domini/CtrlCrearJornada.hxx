@@ -12,8 +12,7 @@ namespace Playcampus {
         public:
             CtrlCrearJornada();
 
-            // Verifica que el usuario sea el administrador de la liga
-            bool ValidarAdministradorLliga(String^ nomLliga, String^ correuAdmin);
+            String^ ObtenirNomLligaAdministrador(String^ correuAdmin);
 
             List<Dictionary<String^, String^>^>^ ObtenirTemporadesLliga(String^ nomLliga);
 

@@ -307,7 +307,7 @@ namespace PlayCampusTests {
             ctrlEquip->EnregistrarEquip(escenari->equipVisitantId, escenari->equipVisitantNom, DateTime::Now.AddYears(-1), "Futbol", "Capita", escenari->capitaVisitantEmail);
 
             CtrlCrearTemporada^ ctrlTemporada = gcnew CtrlCrearTemporada();
-            ctrlTemporada->CrearTemporada(DateTime::Now.AddDays(-2), DateTime::Now.AddDays(60), escenari->adminEmail, escenari->lligaNom);
+            ctrlTemporada->CrearTemporada(DateTime::Now.AddDays(-2), DateTime::Now.AddDays(60), escenari->adminEmail);
             escenari->temporadaId = EscalarString("SELECT idTemporada FROM Temporada WHERE idLliga = '" + EscaparSql(escenari->lligaId) + "' ORDER BY dataInici DESC LIMIT 1");
 
             ExecutarSql("UPDATE Equip SET idTemporada = '" + EscaparSql(escenari->temporadaId) + "' WHERE idEquip IN ('" + EscaparSql(escenari->equipLocalId) + "', '" + EscaparSql(escenari->equipVisitantId) + "')");

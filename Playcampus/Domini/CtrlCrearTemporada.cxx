@@ -17,13 +17,23 @@ namespace Playcampus {
             connectionString = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
         }
 
-        void CtrlCrearTemporada::CrearTemporada(DateTime dataInici, DateTime dataFi, String^ correuAdmin, String^ nomLliga) {
+        String^ CtrlCrearTemporada::ObtenirNomLligaAdministrador(String^ correuAdmin) {
+            Playcampus::Dades::CercadoraLliga^ cercadora = gcnew Playcampus::Dades::CercadoraLliga(connectionString);
+            return cercadora->ObtenirNomLligaAdministrador(correuAdmin);
+        }
+
+        void CtrlCrearTemporada::CrearTemporada(DateTime dataInici, DateTime dataFi, String^ correuAdmin) {
             // RIT9: La dataInici ha de ser anterior a la dataFi
             if (dataInici >= dataFi) {
                 throw gcnew ArgumentException("La data d'inici ha de ser anterior a la data final.");
             }
 
             String^ idAdmin = nullptr;
+            String^ nomLliga = ObtenirNomLligaAdministrador(correuAdmin);
+
+            if (String::IsNullOrEmpty(nomLliga)) {
+                throw gcnew Exception("L'usuari no \u00E9s administrador de cap lliga.");
+            }
 
             // 1. Busquem l'ID de l'administrador mitjançant el seu correu
             if (!String::IsNullOrEmpty(correuAdmin)) {

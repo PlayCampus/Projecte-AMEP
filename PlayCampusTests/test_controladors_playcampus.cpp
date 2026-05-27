@@ -105,7 +105,7 @@ TEST_F(FixtureControladors, CrearTemporadaAssociadaALliga) {
 TEST_F(FixtureControladors, CrearTemporadaRebutjaAdminIncorrecte) {
     CtrlCrearTemporada^ ctrl = gcnew CtrlCrearTemporada();
 
-    EXPECT_MANAGED_EXCEPTION(ctrl->CrearTemporada(DateTime::Now, DateTime::Now.AddDays(10), escenari->adminAltEmail, escenari->lligaNom));
+    EXPECT_MANAGED_EXCEPTION(ctrl->CrearTemporada(DateTime::Now, DateTime::Now.AddDays(10), escenari->adminAltEmail));
 }
 
 TEST_F(FixtureControladors, CrearJornadaAssociadaATemporada) {

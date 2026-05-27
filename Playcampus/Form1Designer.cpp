@@ -625,11 +625,14 @@ namespace CppCLRWinFormsProject {
 		// --- Propiedades NOU CAMPS Lliga i Temporada ---
 		this->lblCPNomLliga->Text = L"Nom Lliga:";
 		this->lblCPNomLliga->Size = System::Drawing::Size(100, 20);
+		this->lblCPNomLliga->Visible = false;
 		this->txtCPNomLliga->Size = System::Drawing::Size(100, 20);
+		this->txtCPNomLliga->Visible = false;
 
 		this->btnCPValidarLliga->Text = L"Validar Lliga";
 		this->btnCPValidarLliga->Size = System::Drawing::Size(100, 25);
 		this->btnCPValidarLliga->Click += gcnew System::EventHandler(this, &Form1::btnCPValidarLliga_Click);
+		this->btnCPValidarLliga->Visible = false;
 
 		this->lblCPTemporada->Text = L"Temporada:";
 		this->lblCPTemporada->Size = System::Drawing::Size(100, 20);
@@ -700,7 +703,9 @@ namespace CppCLRWinFormsProject {
 
 		this->lblCTNomLliga->Text = L"Nom de la Lliga:";
 		this->lblCTNomLliga->Size = System::Drawing::Size(100, 20);
+		this->lblCTNomLliga->Visible = false;
 		this->txtCTNomLliga->Size = System::Drawing::Size(150, 20);
+		this->txtCTNomLliga->Visible = false;
 
 
 		this->lblCTDataInici->Text = L"Data d'Inici:";
@@ -761,8 +766,11 @@ namespace CppCLRWinFormsProject {
 		this->lblCJTitle->AutoSize = true;
 
 		this->lblCJNomLliga->Text = L"Nom Lliga:";
+		this->lblCJNomLliga->Visible = false;
+		this->txtCJNomLliga->Visible = false;
 		this->btnCJBuscarTemporades->Text = L"Cercar Temporades";
 		this->btnCJBuscarTemporades->Click += gcnew System::EventHandler(this, &Form1::btnCJBuscarTemporades_Click);
+		this->btnCJBuscarTemporades->Visible = false;
 
 		this->lblCJTemporada->Text = L"Temporada:";
 		this->cmbCJTemporada->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
