@@ -59,12 +59,13 @@ namespace CppCLRWinFormsProject {
 		}
 
 		// 3. DISSENY DEL CARTELL DEL JUGADOR (Si està actiu)
-		if (this->pnlAvisJugador != nullptr && pnlMain->Controls->Contains(pnlAvisJugador)) {
-			// El centrem just al mig del panell principal
-			this->pnlAvisJugador->Location = System::Drawing::Point(
-				(pnlMain->Width - pnlAvisJugador->Width) / 2,
-				(pnlMain->Height - pnlAvisJugador->Height) / 2
-			);
+		if (this->pnlAvisJugador != nullptr && this->Controls->Contains(pnlAvisJugador)) {
+			// El centrem just al mig de la finestra
+			int ax = (this->ClientSize.Width - pnlAvisJugador->Width) / 2;
+			int ay = (this->ClientSize.Height - pnlAvisJugador->Height) / 2;
+			if (ax < 0) ax = 0;
+			if (ay < 0) ay = 0;
+			this->pnlAvisJugador->Location = System::Drawing::Point(ax, ay);
 		}
 	
 		// --- PANELS DE LOGIN/REGISTRE ---
