@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "PassarellaPartit.hxx"
 #include "CercadoraPartit.hxx"
 #include "../Domini/EtiquetesEditarPartit.hxx"
@@ -72,13 +72,173 @@ namespace Playcampus {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
-                String^ query = "DELETE FROM Partit WHERE idPartit = @idPartit";
-                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                cmd->Parameters->AddWithValue("@idPartit", idPartit);
-                cmd->ExecuteNonQuery();
+                String^ idEquipLocal = nullptr;
+                String^ idEquipVisitant = nullptr;
+                String^ estatPartit = nullptr;
+                int golsLocal = 0;
+                int golsVisitant = 0;
+                bool partitTrobat = false;
+
+                String^ queryDetallPartit =
+                    "SELECT idEquipLocal, idEquipVisitant, estat, golsLocal, golsVisitant "
+                    "FROM Partit "
+                    "WHERE idPartit = @idPartit "
+                    "LIMIT 1";
+                MySqlCommand^ cmdDetallPartit = gcnew MySqlCommand(queryDetallPartit, conn);
+                cmdDetallPartit->Parameters->AddWithValue("@idPartit", idPartit);
+                MySqlDataReader^ readerDetallPartit = cmdDetallPartit->ExecuteReader();
+                if (readerDetallPartit->Read()) {
+                    partitTrobat = true;
+                    if (!readerDetallPartit->IsDBNull(readerDetallPartit->GetOrdinal("idEquipLocal"))) {
+                        idEquipLocal = readerDetallPartit["idEquipLocal"]->ToString();
+                    }
+                    if (!readerDetallPartit->IsDBNull(readerDetallPartit->GetOrdinal("idEquipVisitant"))) {
+                        idEquipVisitant = readerDetallPartit["idEquipVisitant"]->ToString();
+                    }
+                    if (!readerDetallPartit->IsDBNull(readerDetallPartit->GetOrdinal("estat"))) {
+                        estatPartit = readerDetallPartit["estat"]->ToString();
+                    }
+                    if (!readerDetallPartit->IsDBNull(readerDetallPartit->GetOrdinal("golsLocal"))) {
+                        golsLocal = Convert::ToInt32(readerDetallPartit["golsLocal"]);
+                    }
+                    if (!readerDetallPartit->IsDBNull(readerDetallPartit->GetOrdinal("golsVisitant"))) {
+                        golsVisitant = Convert::ToInt32(readerDetallPartit["golsVisitant"]);
+                    }
+                }
+                readerDetallPartit->Close();
+
+                if (!partitTrobat) {
+                    throw gcnew Exception("No s'ha trobat el partit que es vol esborrar.");
+                }
+
+                bool partitFinalitzat = false;
+                if (estatPartit != nullptr) {
+                    partitFinalitzat = estatPartit->Equals("Finalitzat", StringComparison::OrdinalIgnoreCase);
+                }
+
+                if (idEquipLocal != nullptr && idEquipVisitant != nullptr) {
+                    int victoriaLocal = golsLocal > golsVisitant ? 1 : 0;
+                    int derrotaLocal = golsLocal < golsVisitant ? 1 : 0;
+                    int empatLocal = golsLocal == golsVisitant ? 1 : 0;
+                    int puntsLocal = (victoriaLocal * 3) + empatLocal;
+
+                    int victoriaVisitant = golsVisitant > golsLocal ? 1 : 0;
+                    int derrotaVisitant = golsVisitant < golsLocal ? 1 : 0;
+                    int empatVisitant = golsVisitant == golsLocal ? 1 : 0;
+                    int puntsVisitant = (victoriaVisitant * 3) + empatVisitant;
+
+                    String^ queryDesferEquipFinalitzat =
+                        "UPDATE Equip SET "
+                        "partitsJugats = GREATEST(partitsJugats - 1, 0), "
+                        "golsAFavor = GREATEST(golsAFavor - @golsA, 0), "
+                        "golsEnContra = GREATEST(golsEnContra - @golsC, 0), "
+                        "diferenciaGols = golsAFavor - golsEnContra, "
+                        "victories = GREATEST(victories - @victories, 0), "
+                        "derrotes = GREATEST(derrotes - @derrotes, 0), "
+                        "empats = GREATEST(empats - @empats, 0), "
+                        "punts = GREATEST(punts - @punts, 0) "
+                        "WHERE idEquip = @idEquip";
+
+                    String^ queryDesferEquipNoFinalitzat =
+                        "UPDATE Equip SET "
+                        "golsAFavor = GREATEST(golsAFavor - @golsA, 0), "
+                        "golsEnContra = GREATEST(golsEnContra - @golsC, 0), "
+                        "diferenciaGols = golsAFavor - golsEnContra "
+                        "WHERE idEquip = @idEquip";
+
+                    String^ queryEquip = partitFinalitzat ? queryDesferEquipFinalitzat : queryDesferEquipNoFinalitzat;
+
+                    MySqlCommand^ cmdEquipLocal = gcnew MySqlCommand(queryEquip, conn);
+                    cmdEquipLocal->Parameters->AddWithValue("@idEquip", idEquipLocal);
+                    cmdEquipLocal->Parameters->AddWithValue("@golsA", golsLocal);
+                    cmdEquipLocal->Parameters->AddWithValue("@golsC", golsVisitant);
+                    if (partitFinalitzat) {
+                        cmdEquipLocal->Parameters->AddWithValue("@victories", victoriaLocal);
+                        cmdEquipLocal->Parameters->AddWithValue("@derrotes", derrotaLocal);
+                        cmdEquipLocal->Parameters->AddWithValue("@empats", empatLocal);
+                        cmdEquipLocal->Parameters->AddWithValue("@punts", puntsLocal);
+                    }
+                    cmdEquipLocal->ExecuteNonQuery();
+
+                    MySqlCommand^ cmdEquipVisitant = gcnew MySqlCommand(queryEquip, conn);
+                    cmdEquipVisitant->Parameters->AddWithValue("@idEquip", idEquipVisitant);
+                    cmdEquipVisitant->Parameters->AddWithValue("@golsA", golsVisitant);
+                    cmdEquipVisitant->Parameters->AddWithValue("@golsC", golsLocal);
+                    if (partitFinalitzat) {
+                        cmdEquipVisitant->Parameters->AddWithValue("@victories", victoriaVisitant);
+                        cmdEquipVisitant->Parameters->AddWithValue("@derrotes", derrotaVisitant);
+                        cmdEquipVisitant->Parameters->AddWithValue("@empats", empatVisitant);
+                        cmdEquipVisitant->Parameters->AddWithValue("@punts", puntsVisitant);
+                    }
+                    cmdEquipVisitant->ExecuteNonQuery();
+                }
+
+                List<Dictionary<String^, int>^>^ estadistiquesJugadors = gcnew List<Dictionary<String^, int>^>();
+                String^ queryEstadistiquesJugadors =
+                    "SELECT idJugador, "
+                    "IFNULL(golsmarcat, 0) AS golsmarcat, "
+                    "IFNULL(asistencies, 0) AS asistencies, "
+                    "IFNULL(targetesgrogues, 0) AS targetesgrogues, "
+                    "IFNULL(targetesvermelles, 0) AS targetesvermelles "
+                    "FROM PartitEstadisticaIndividual "
+                    "WHERE idPartit = @idPartit";
+                MySqlCommand^ cmdEstadistiquesJugadors = gcnew MySqlCommand(queryEstadistiquesJugadors, conn);
+                cmdEstadistiquesJugadors->Parameters->AddWithValue("@idPartit", idPartit);
+                MySqlDataReader^ readerEstadistiques = cmdEstadistiquesJugadors->ExecuteReader();
+                while (readerEstadistiques->Read()) {
+                    Dictionary<String^, int>^ fila = gcnew Dictionary<String^, int>();
+                    fila["idJugador"] = Convert::ToInt32(readerEstadistiques["idJugador"]);
+                    fila["golsmarcat"] = Convert::ToInt32(readerEstadistiques["golsmarcat"]);
+                    fila["asistencies"] = Convert::ToInt32(readerEstadistiques["asistencies"]);
+                    fila["targetesgrogues"] = Convert::ToInt32(readerEstadistiques["targetesgrogues"]);
+                    fila["targetesvermelles"] = Convert::ToInt32(readerEstadistiques["targetesvermelles"]);
+                    estadistiquesJugadors->Add(fila);
+                }
+                readerEstadistiques->Close();
+
+                if (partitFinalitzat) {
+                    for each (Dictionary<String^, int>^ fila in estadistiquesJugadors) {
+                        String^ queryDesferJugador =
+                            "UPDATE Jugador SET "
+                            "partitsJugats = GREATEST(partitsJugats - 1, 0), "
+                            "anotacions = GREATEST(anotacions - @gols, 0), "
+                            "assistencies = GREATEST(assistencies - @assistencies, 0), "
+                            "faltesLleus = GREATEST(faltesLleus - @targetesGrogues, 0), "
+                            "faltesGreus = GREATEST(faltesGreus - @targetesVermelles, 0) "
+                            "WHERE idJugador = @idJugador";
+                        MySqlCommand^ cmdDesferJugador = gcnew MySqlCommand(queryDesferJugador, conn);
+                        cmdDesferJugador->Parameters->AddWithValue("@idJugador", fila["idJugador"]);
+                        cmdDesferJugador->Parameters->AddWithValue("@gols", fila["golsmarcat"]);
+                        cmdDesferJugador->Parameters->AddWithValue("@assistencies", fila["asistencies"]);
+                        cmdDesferJugador->Parameters->AddWithValue("@targetesGrogues", fila["targetesgrogues"]);
+                        cmdDesferJugador->Parameters->AddWithValue("@targetesVermelles", fila["targetesvermelles"]);
+                        cmdDesferJugador->ExecuteNonQuery();
+                    }
+                }
+
+                String^ queryDeleteEstadistiques = "DELETE FROM PartitEstadisticaIndividual WHERE idPartit = @idPartit";
+                MySqlCommand^ cmdDeleteEstadistiques = gcnew MySqlCommand(queryDeleteEstadistiques, conn);
+                cmdDeleteEstadistiques->Parameters->AddWithValue("@idPartit", idPartit);
+                cmdDeleteEstadistiques->ExecuteNonQuery();
+
+                String^ queryDeleteConvocatoria = "DELETE FROM ConvocatoriaPartit WHERE idPartit = @idPartit";
+                MySqlCommand^ cmdDeleteConvocatoria = gcnew MySqlCommand(queryDeleteConvocatoria, conn);
+                cmdDeleteConvocatoria->Parameters->AddWithValue("@idPartit", idPartit);
+                cmdDeleteConvocatoria->ExecuteNonQuery();
+
+                String^ queryDeletePartit = "DELETE FROM Partit WHERE idPartit = @idPartit";
+                MySqlCommand^ cmdDeletePartit = gcnew MySqlCommand(queryDeletePartit, conn);
+                cmdDeletePartit->Parameters->AddWithValue("@idPartit", idPartit);
+                cmdDeletePartit->ExecuteNonQuery();
+
+            }
+            catch (Exception^) {
+                throw;
             }
             finally {
-                conn->Close();
+                if (conn != nullptr) {
+                    conn->Close();
+                }
             }
         }
 
