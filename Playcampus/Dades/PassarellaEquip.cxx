@@ -19,14 +19,6 @@ namespace Playcampus {
             this->esport = esport;
         }
 
-        PassarellaEquip::PassarellaEquip(String^ connStr, String^ idEquip, String^ nom, DateTime dataFundacio, String^ esport) {
-            connectionString = connStr;
-            this->idEquip = idEquip;
-            this->nom = nom;
-            this->dataFundacio = dataFundacio;
-            this->esport = esport;
-        }
-
         String^ PassarellaEquip::GetIdEquip() { return idEquip; }
         String^ PassarellaEquip::GetNom() { return nom; }
         DateTime PassarellaEquip::GetDataFundacio() { return dataFundacio; }

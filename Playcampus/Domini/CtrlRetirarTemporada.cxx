@@ -54,16 +54,18 @@ namespace Playcampus {
             Playcampus::Dades::PassarellaTemporada^ passTemp = gcnew Playcampus::Dades::PassarellaTemporada(connectionString);
             passTemp->RetirarTemporada(idLliga);
 
-            // 5. Obtenir tots els equips de la temporada retirada
+            /* con la nueva implementación de EquipTemporada no hace falta hacer esto
+             5. Obtenir tots els equips de la temporada retirada
             Playcampus::Dades::CercadoraEquip^ cercEquip = gcnew Playcampus::Dades::CercadoraEquip(connectionString);
             List<String^>^ idsEquips = cercEquip->ObtenirIdsEquipsPerTemporada(idTemporada);
 
            
-            // 6. Per a cada equip, desassignar el capità
+             6. Per a cada equip, desassignar el capità
             Playcampus::Dades::PassarellaCapita^ passCapita = gcnew Playcampus::Dades::PassarellaCapita(connectionString);
             for each (String ^ idEquip in idsEquips) {
                 passCapita->DesassignarEquip(idEquip);
             }
+            */
 
             // 7. Retirar totes les jornades de la temporada
             Playcampus::Dades::PassarellaJornada^ passJornada =  gcnew Playcampus::Dades::PassarellaJornada(connectionString);

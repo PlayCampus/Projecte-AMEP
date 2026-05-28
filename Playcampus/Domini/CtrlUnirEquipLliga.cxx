@@ -5,6 +5,7 @@
 #include "../Dades/CercadoraEquip.hxx"
 #include "../Dades/PassarellaTemporada.hxx"
 #include "../Dades/PassarellaEquip.hxx"
+#include "../Dades/PassarellaEquipTemporada.hxx"
 #include <stdexcept>
 
 using namespace System;
@@ -53,10 +54,21 @@ namespace Playcampus {
                 throw gcnew Exception("Equip no trobat a la base de dades. (" + idEquipRecuperat + ")");
             }
 
-            equipDB->SetIdTemporada(idTemporadaMesRecent);
+            //  Usar Llegeix (u otra función en Cercadora) para ver si la vinculación ya existe
+            PassarellaEquipTemporada^ vinculacioExistent = PassarellaEquipTemporada::Llegeix(connectionString, idEquipRecuperat, idTemporadaMesRecent);
+            if (vinculacioExistent != nullptr) {
+                throw gcnew Exception("Aquest equip ja està vinculat a la temporada més recent d'aquesta lliga.");
+            }
+
+
+            PassarellaEquipTemporada^ equipTempDB = gcnew PassarellaEquipTemporada(connectionString);
+            equipTempDB->SetIdTemporada(idTemporadaMesRecent);
             equipDB->Modifica();
 
-            PassarellaEquip^ equipComprovat = PassarellaEquip::Llegeix(connectionString, idEquipRecuperat);
+       
+
+            // Comprobar
+            PassarellaEquipTemporada^ equipComprovat = PassarellaEquipTemporada::Llegeix(connectionString, idEquipRecuperat, idTemporadaMesRecent);
             if (equipComprovat == nullptr || String::IsNullOrEmpty(equipComprovat->GetIdTemporada()) || !equipComprovat->GetIdTemporada()->Equals(idTemporadaMesRecent, StringComparison::OrdinalIgnoreCase)) {
                 throw gcnew Exception("La base de dades no ha confirmat la vinculacio de l'equip amb la temporada.");
             }

@@ -33,6 +33,27 @@ namespace Playcampus {
             return idsEquips;
         }
 
+        String^ CercadoraEquipTemporada::ObtenirIdTemporadaPerEquip(String^ idEquip) {
+            String^ idTemporada = nullptr;
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "SELECT idTemporada FROM EquipTemporada WHERE idEquip = @idEquip LIMIT 1";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idEquip", idEquip);
+                MySqlDataReader^ reader = cmd->ExecuteReader();
+
+                if (reader->Read()) {
+                    idTemporada = reader["idTemporada"]->ToString();
+                }
+                reader->Close();
+            }
+            finally {
+                if (conn != nullptr) { conn->Close(); delete conn; }
+            }
+            return idTemporada;
+        }
+
         List<String^>^ CercadoraEquipTemporada::ObtenirNomsEquipsPerTemporada(String^ idTemporada) {
             List<String^>^ nomsEquips = gcnew List<String^>();
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);

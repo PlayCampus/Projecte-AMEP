@@ -16,6 +16,7 @@ namespace Playcampus {
             CercadoraEquipTemporada(String^ connStr);
 
             List<String^>^ ObtenirIdsEquipsPerTemporada(String^ idTemporada);
+            String^ ObtenirIdTemporadaPerEquip(String^ idEquip);
             List<String^>^ ObtenirNomsEquipsPerTemporada(String^ idTemporada);
             String^ ObtenirIdEquipPerNomITemporada(String^ nomEquip, String^ idTemporada);
 

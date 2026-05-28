@@ -9,6 +9,7 @@
 #include "../Dades/CercadoraJornada.hxx"
 #include "../Dades/PassarellaJornada.hxx"
 #include "../Dades/CercadoraEquip.hxx"
+#include "../Dades/CercadoraEquipTemporada.hxx"
 #include "../Dades/CercadoraLliga.hxx"
 #include <stdexcept>
 
@@ -79,8 +80,8 @@ namespace Playcampus {
         }
 
         String^ CtrlCrearPartit::ObtenirIdEquip(String^ nomEquip, String^ idTemporada) {
-            Playcampus::Dades::CercadoraEquip^ cercadoraEquip = gcnew Playcampus::Dades::CercadoraEquip(connectionString);
-            return cercadoraEquip->ObtenirIdEquipPerNomITemporada(nomEquip, idTemporada);
+            Playcampus::Dades::CercadoraEquipTemporada^ cercadoraEquipTemporada = gcnew Playcampus::Dades::CercadoraEquipTemporada(connectionString);
+            return cercadoraEquipTemporada->ObtenirIdEquipPerNomITemporada(nomEquip, idTemporada);
         }
 
         List<Dictionary<String^, String^>^>^ CtrlCrearPartit::ObtenirTemporadesLliga(String^ nomLliga) {
@@ -103,8 +104,8 @@ namespace Playcampus {
         }
 
         List<String^>^ CtrlCrearPartit::ObtenirNomsEquipsPerTemporada(String^ idTemporada) {
-            Playcampus::Dades::CercadoraEquip^ cercadoraEquip = gcnew Playcampus::Dades::CercadoraEquip(connectionString);
-            return cercadoraEquip->ObtenirNomsEquipsPerTemporada(idTemporada);
+            Playcampus::Dades::CercadoraEquipTemporada^ cercadoraEquipTemporada = gcnew Playcampus::Dades::CercadoraEquipTemporada(connectionString);
+            return cercadoraEquipTemporada->ObtenirNomsEquipsPerTemporada(idTemporada);
         }
     }
 }
