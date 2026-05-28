@@ -7,19 +7,22 @@ using namespace System::Data;
 namespace Playcampus {
     namespace Domini {
         public ref class CtrlVeureEstadistiquesLliga {
-        private: 
+        private:
             String^ connectionString;
         public:
             CtrlVeureEstadistiquesLliga();
 
-            // Mètodes per obtenir la ID de la lliga segons el rol i les dades
-            String^ ObtenirIdLligaPerNom(String^ nomLliga); // Per a Estudiants (Cercador)
-            String^ ObtenirIdLligaAdmin(String^ telefon);    
-            String^ ObtenirIdLligaCapita(String^ telefon);  
+            // Metodes per obtenir la ID de la lliga segons el rol i les dades.
+            String^ ObtenirIdLligaPerNom(String^ nomLliga);
+            String^ ObtenirIdLligaAdmin(String^ correu);
+            String^ ObtenirIdLligaCapita(String^ correu);
 
-            // Mètodes per obtenir les dades a mostrar
+            // Metodes per obtenir les dades a mostrar.
+            DataTable^ ObtenirTotesLligues();
+            DataTable^ CercarLliguesPerNom(String^ textCerca);
             DataTable^ ObtenirTemporadesLliga(String^ idLliga);
             DataTable^ ObtenirClassificacioLliga(String^ idLliga);
+            DataTable^ ObtenirClassificacioLligaTemporada(String^ idLliga, String^ idTemporada);
         };
     }
 }

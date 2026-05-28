@@ -17,7 +17,12 @@
 #include "Domini/CtrlVeurePlantilla.hxx"
 #include "Domini/CtrlEliminarJugador.hxx"
 #include "Domini/CtrlConsultes.hxx"
+#include "Domini/CtrlConsultaPartits.hxx"
+#include "Domini/CtrlConsultaLligues.hxx"
+#include "Domini/CtrlConsultaFitxatges.hxx"
+#include "Domini/CtrlConsultaTelefons.hxx"
 #include "Domini/CtrlEsborrarPartit.hxx"
+#include "Domini/CtrlEsborrarJornada.hxx"
 #include "Domini/CtrlVeureEstadistiquesLliga.hxx"
 #include "Domini/CtrlVeureEstadistiquesEquip.hxx"
 #include "Domini/CtrlVeureEstadistiquesJugadors.hxx"
@@ -184,6 +189,8 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::TextBox^ txtAJDorsal;
 		System::Windows::Forms::Label^ lblAJPosicio;
 		System::Windows::Forms::TextBox^ txtAJPosicio;
+		System::Windows::Forms::Label^ lblAJDataNaixement;
+		System::Windows::Forms::DateTimePicker^ dtpAJDataNaixement;
 		System::Windows::Forms::Button^ btnAJConfirmar;
 		System::Windows::Forms::Button^ btnAJCancellar;
 		System::Windows::Forms::Panel^ pnlUnirEquipLliga;
@@ -246,12 +253,26 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::ComboBox^ cmbEPPartits;
 		System::Collections::Generic::List<String^>^ epPartitIds;
 		System::Windows::Forms::Button^ btnEPEsborrarFinal;
+		System::Windows::Forms::Button^ btnGLEsborrarJornada;
+		System::Windows::Forms::Panel^ pnlEsborrarJornada;
+		System::Windows::Forms::Label^ lblEJTitle;
+		System::Windows::Forms::Button^ btnEJTornar;
+		System::Windows::Forms::Label^ lblEJTemporada;
+		System::Windows::Forms::ComboBox^ cmbEJTemporades;
+		System::Collections::Generic::List<String^>^ ejTemporadaIds;
+		System::Windows::Forms::Label^ lblEJJornada;
+		System::Windows::Forms::ComboBox^ cmbEJJornades;
+		System::Collections::Generic::List<String^>^ ejJornadaIds;
+		System::Windows::Forms::Button^ btnEJEsborrarFinal;
 		// Nou panell per la cerca i la taula
 		System::Windows::Forms::Button^ btnEstLliga;
 		System::Windows::Forms::Panel^ pnlEstadistiquesLligaDetail;
+		System::Windows::Forms::Label^ lblEstLligaInfo;
 		System::Windows::Forms::Label^ lblEstLligaBuscar;
 		System::Windows::Forms::TextBox^ txtEstLligaBuscar;
 		System::Windows::Forms::Button^ btnEstLligaExecutarCerca;
+		System::Windows::Forms::Label^ lblEstLligaSeleccionar;
+		System::Windows::Forms::ComboBox^ cmbEstLligaLligues;
 		System::Windows::Forms::Label^ lblEstLligaTemporada;
 		System::Windows::Forms::ComboBox^ cmbEstLligaTemporades;
 		System::Windows::Forms::DataGridView^ dgvEstLligaClassificacio;
@@ -267,6 +288,8 @@ namespace CppCLRWinFormsProject {
 	private: System::String^ idPartitPendentConfirmar;
 		   String^ currentIdLligaEstadistiques;
 		   // Per guardar la ID de la lliga cercada
+		   System::Collections::Generic::List<String^>^ estLligaIds;
+		   System::Collections::Generic::List<String^>^ estLligaTemporadaIds;
 
 		   System::Windows::Forms::Panel^ pnlEstadistiquesEquipDetail;
 		   System::Windows::Forms::Label^ lblEstEquipTitle;
@@ -427,13 +450,26 @@ namespace CppCLRWinFormsProject {
 		System::Void btnEPTornar_Click(System::Object^ sender, System::EventArgs^ e);
 		void CarregarTemporadesEsborrar();
 		System::Void btnEstLliga_Click(System::Object^ sender, System::EventArgs^ e);
+		void ResetEstadistiquesLligaPanel();
+		void CarregarLliguesEstadistiques();
+		void OmplirComboLliguesEstadistiques(System::Data::DataTable^ lligues);
+		void CarregarTemporadesEstadistiquesLligaSeleccionada();
+		void CarregarClassificacioLligaSeleccionada();
 		void CarregarDadesLligaDirecte(Playcampus::Domini::CtrlVeureEstadistiquesLliga^ ctrl, String^ idLliga);
 		System::Void btnEstLligaExecutarCerca_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void cmbEstLligaLligues_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
+		System::Void cmbEstLligaTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void cmbEPTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnEstLligaTornar_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnEstJugadors_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void cmbEPJornades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnEPEsborrarFinal_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnGLEsborrarJornada_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnEJTornar_Click(System::Object^ sender, System::EventArgs^ e);
+		void CarregarTemporadesEsborrarJornada();
+		System::Void cmbEJTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnEJEsborrarFinal_Click(System::Object^ sender, System::EventArgs^ e);
+		bool ConfirmarEsborrarJornadaPermanent();
 		System::Void btnGestionarConvocatoria_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnTornarConvocatoria_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void CarregarPartitsConvocatoria();

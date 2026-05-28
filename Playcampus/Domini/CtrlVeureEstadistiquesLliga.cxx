@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CtrlVeureEstadistiquesLliga.hxx"
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/CercadoraLliga.hxx"
@@ -30,6 +30,17 @@ namespace Playcampus {
             return cercadoraLliga->ObtenirIdLligaCapita(correu);
         }
 
+
+        DataTable^ CtrlVeureEstadistiquesLliga::ObtenirTotesLligues() {
+            CercadoraLliga^ cercadoraLliga = gcnew CercadoraLliga(connectionString);
+            return cercadoraLliga->ObtenirTotesLliguesEstadistiques();
+        }
+
+        DataTable^ CtrlVeureEstadistiquesLliga::CercarLliguesPerNom(String^ textCerca) {
+            CercadoraLliga^ cercadoraLliga = gcnew CercadoraLliga(connectionString);
+            return cercadoraLliga->CercarLliguesPerNom(textCerca);
+        }
+
         DataTable^ CtrlVeureEstadistiquesLliga::ObtenirTemporadesLliga(String^ idLliga) {
             CercadoraTemporada^ cercadoraTemporada = gcnew CercadoraTemporada(connectionString);
             return cercadoraTemporada->ObtenirTemporadesLligaEstadistiques(idLliga);
@@ -38,6 +49,11 @@ namespace Playcampus {
         DataTable^ CtrlVeureEstadistiquesLliga::ObtenirClassificacioLliga(String^ idLliga) {
             CercadoraLliga^ cercadoraLliga = gcnew CercadoraLliga(connectionString);
             return cercadoraLliga->ObtenirClassificacioLliga(idLliga);
+        }
+
+        DataTable^ CtrlVeureEstadistiquesLliga::ObtenirClassificacioLligaTemporada(String^ idLliga, String^ idTemporada) {
+            CercadoraLliga^ cercadoraLliga = gcnew CercadoraLliga(connectionString);
+            return cercadoraLliga->ObtenirClassificacioLligaTemporada(idLliga, idTemporada);
         }
     }
 }

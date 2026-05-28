@@ -9,6 +9,7 @@
 #include "../Dades/CercadoraJornada.hxx"
 #include "../Dades/PassarellaJornada.hxx"
 #include "../Dades/CercadoraEquip.hxx"
+#include "../Dades/CercadoraLliga.hxx"
 #include <stdexcept>
 
 using namespace System;
@@ -19,13 +20,18 @@ namespace Playcampus {
             connectionString = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
         }
 
+        String^ CtrlCrearPartit::ObtenirNomLligaAdministrador(String^ correuAdmin) {
+            Playcampus::Dades::CercadoraLliga^ cercadoraLliga = gcnew Playcampus::Dades::CercadoraLliga(connectionString);
+            return cercadoraLliga->ObtenirNomLligaAdministrador(correuAdmin);
+        }
+
         void CtrlCrearPartit::CrearPartit(DateTime dataHora, String^ ubicacio, String^ nomEquipLocal, String^ nomEquipVisitant, String^ idJornada, String^ tipusUsuari) {
 
             if (String::IsNullOrEmpty(tipusUsuari) || tipusUsuari->ToLower() != "administrador") {
                 throw gcnew UnauthorizedAccessException("Només els administradors poden crear un partit.");
             }
 
-            if (nomEquipLocal->Equals(nomEquipVisitant, StringComparison::OrdinalIgnoreCase)) {
+            if (String::Equals(nomEquipLocal, nomEquipVisitant, StringComparison::Ordinal)) {
                 throw gcnew ArgumentException("Un equip no pot jugar contra ell mateix.");
             }
 
@@ -75,14 +81,6 @@ namespace Playcampus {
         String^ CtrlCrearPartit::ObtenirIdEquip(String^ nomEquip, String^ idTemporada) {
             Playcampus::Dades::CercadoraEquip^ cercadoraEquip = gcnew Playcampus::Dades::CercadoraEquip(connectionString);
             return cercadoraEquip->ObtenirIdEquipPerNomITemporada(nomEquip, idTemporada);
-        }
-
-        bool CtrlCrearPartit::ValidarAdministradorLliga(String^ nomLliga, String^ correuAdmin) {
-            Playcampus::Dades::PassarellaUsuari^ usuari = (gcnew Playcampus::Dades::CercadoraUsuari(connectionString))->LlegeixPerCorreu(correuAdmin);
-            if (usuari == nullptr) return false;
-
-            Playcampus::Dades::PassarellaLliga^ passLliga = gcnew Playcampus::Dades::PassarellaLliga(connectionString);
-            return passLliga->EsAdministradorLliga(nomLliga, correuAdmin);
         }
 
         List<Dictionary<String^, String^>^>^ CtrlCrearPartit::ObtenirTemporadesLliga(String^ nomLliga) {

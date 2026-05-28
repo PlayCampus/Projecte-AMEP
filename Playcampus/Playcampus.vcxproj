@@ -151,6 +151,10 @@
     <ClInclude Include="Domini\CtrlAfegirJugador.hxx" />
     <ClInclude Include="Domini\CtrlAssignarJugador.hxx" />
     <ClInclude Include="Domini\CtrlConsultes.hxx" />
+    <ClInclude Include="Domini\CtrlConsultaFitxatges.hxx" />
+    <ClInclude Include="Domini\CtrlConsultaLligues.hxx" />
+    <ClInclude Include="Domini\CtrlConsultaPartits.hxx" />
+    <ClInclude Include="Domini\CtrlConsultaTelefons.hxx" />
     <ClInclude Include="Domini\CtrlCrearJornada.hxx" />
     <ClInclude Include="Domini\CtrlCrearLliga.hxx" />
     <ClInclude Include="Domini\CtrlCrearPartit.hxx" />
@@ -162,6 +166,7 @@
     <ClInclude Include="Domini\CtrlEnregistrarEquip.hxx" />
     <ClInclude Include="Domini\CtrlEsborrarEquip.hxx" />
     <ClInclude Include="Domini\CtrlEsborrarPartit.hxx" />
+    <ClInclude Include="Domini\CtrlEsborrarJornada.hxx" />
     <ClInclude Include="Domini\CtrlEstadistiquesPartit.hxx" />
     <ClInclude Include="Domini\CtrlIniciSessio.hxx" />
     <ClInclude Include="Domini\CtrlRegistrarUsuari.hxx" />
@@ -226,6 +231,10 @@
     <ClCompile Include="Domini\CtrlAfegirJugador.cxx" />
     <ClCompile Include="Domini\CtrlAssignarJugador.cxx" />
     <ClCompile Include="Domini\CtrlConsultes.cxx" />
+    <ClCompile Include="Domini\CtrlConsultaFitxatges.cxx" />
+    <ClCompile Include="Domini\CtrlConsultaLligues.cxx" />
+    <ClCompile Include="Domini\CtrlConsultaPartits.cxx" />
+    <ClCompile Include="Domini\CtrlConsultaTelefons.cxx" />
     <ClCompile Include="Domini\CtrlCrearJornada.cxx" />
     <ClCompile Include="Domini\CtrlCrearLliga.cxx" />
     <ClCompile Include="Domini\CtrlCrearPartit.cxx" />
@@ -237,6 +246,7 @@
     <ClCompile Include="Domini\CtrlEnregistrarEquip.cxx" />
     <ClCompile Include="Domini\CtrlEsborrarEquip.cxx" />
     <ClCompile Include="Domini\CtrlEsborrarPartit.cxx" />
+    <ClCompile Include="Domini\CtrlEsborrarJornada.cxx" />
     <ClCompile Include="Domini\CtrlEstadistiquesPartit.cxx" />
     <ClCompile Include="Domini\CtrlIniciSessio.cxx" />
     <ClCompile Include="Domini\CtrlRegistrarUsuari.cxx" />

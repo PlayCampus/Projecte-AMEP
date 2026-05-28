@@ -15,7 +15,7 @@ namespace CppCLRWinFormsProject {
 		if (this->ClientSize.Width == 0 || this->ClientSize.Height == 0) return;
 
 		// Prevenir problemas si el Resize se dispara antes de terminar InitializeComponent
-		if (this->lblEPTitle == nullptr || this->btnEPEsborrarFinal == nullptr) return;
+		if (this->lblEPTitle == nullptr || this->btnEPEsborrarFinal == nullptr || this->lblEJTitle == nullptr || this->btnEJEsborrarFinal == nullptr) return;
 
 		int cw = this->ClientSize.Width;
 		int ch = this->ClientSize.Height;
@@ -59,12 +59,13 @@ namespace CppCLRWinFormsProject {
 		}
 
 		// 3. DISSENY DEL CARTELL DEL JUGADOR (Si està actiu)
-		if (this->pnlAvisJugador != nullptr && pnlMain->Controls->Contains(pnlAvisJugador)) {
-			// El centrem just al mig del panell principal
-			this->pnlAvisJugador->Location = System::Drawing::Point(
-				(pnlMain->Width - pnlAvisJugador->Width) / 2,
-				(pnlMain->Height - pnlAvisJugador->Height) / 2
-			);
+		if (this->pnlAvisJugador != nullptr && this->Controls->Contains(pnlAvisJugador)) {
+			// El centrem just al mig de la finestra
+			int ax = (this->ClientSize.Width - pnlAvisJugador->Width) / 2;
+			int ay = (this->ClientSize.Height - pnlAvisJugador->Height) / 2;
+			if (ax < 0) ax = 0;
+			if (ay < 0) ay = 0;
+			this->pnlAvisJugador->Location = System::Drawing::Point(ax, ay);
 		}
 	
 		// --- PANELS DE LOGIN/REGISTRE ---
@@ -280,7 +281,7 @@ namespace CppCLRWinFormsProject {
 		int btnGLH = this->btnGLAfegirPartit->Height;
 		int glTotalW = (btnGLW * 3) + (glSpacingX * 2);
 		int glStartX = centerX - (glTotalW / 2);
-		int glStartY = centerY - 70;
+		int glStartY = centerY - 110;
 		int glStepY = btnGLH + glSpacingY;
 
 		this->btnGLAfegirPartit->Location = System::Drawing::Point(glStartX, glStartY);
@@ -290,11 +291,14 @@ namespace CppCLRWinFormsProject {
 		this->btnGLCrearJornada->Location = System::Drawing::Point(glStartX + btnGLW + glSpacingX, glStartY + glStepY);
 		this->btnGLCrearTemporada->Location = System::Drawing::Point(glStartX + (btnGLW + glSpacingX) * 2, glStartY + glStepY);
 		this->btnGLEsborrarPartit->Location = System::Drawing::Point(glStartX, glStartY + glStepY * 2);
+		if (this->btnGLEsborrarJornada != nullptr) {
+			this->btnGLEsborrarJornada->Location = System::Drawing::Point(glStartX + btnGLW + glSpacingX, glStartY + glStepY * 2);
+		}
 		if (this->btnGLRetirarTemporada != nullptr) {
-			this->btnGLRetirarTemporada->Location = System::Drawing::Point(glStartX + btnGLW + glSpacingX, glStartY + glStepY * 2);
+			this->btnGLRetirarTemporada->Location = System::Drawing::Point(glStartX + (btnGLW + glSpacingX) * 2, glStartY + glStepY * 2);
 		}
 		if (this->btnGLConsultarTelefons != nullptr) {
-			this->btnGLConsultarTelefons->Location = System::Drawing::Point(glStartX + (btnGLW + glSpacingX) * 2, glStartY + glStepY * 2);
+			this->btnGLConsultarTelefons->Location = System::Drawing::Point(glStartX + btnGLW + glSpacingX, glStartY + glStepY * 3);
 		}
 
 		this->picLogoGL->Location = System::Drawing::Point(centerX - (this->picLogoGL->Width / 2), glStartY - this->picLogoGL->Height - 40);
@@ -382,6 +386,22 @@ namespace CppCLRWinFormsProject {
 		this->btnEPEsborrarFinal->Location = System::Drawing::Point(centerX - 100, epStartY + 180);
 		this->btnEPEsborrarFinal->Size = System::Drawing::Size(200, 40);
 
+		// --- PANEL ESBORRAR JORNADA ---
+		this->lblEJTitle->Location = System::Drawing::Point(centerX - this->lblEJTitle->Width / 2, 30);
+		this->btnEJTornar->Location = System::Drawing::Point(30, 30);
+
+		int ejStartX = centerX - 250;
+		int ejStartY = centerY - 80;
+
+		this->lblEJTemporada->Location = System::Drawing::Point(ejStartX, ejStartY);
+		this->cmbEJTemporades->Location = System::Drawing::Point(ejStartX + 170, ejStartY - 3);
+
+		this->lblEJJornada->Location = System::Drawing::Point(ejStartX, ejStartY + 50);
+		this->cmbEJJornades->Location = System::Drawing::Point(ejStartX + 170, ejStartY + 47);
+
+		this->btnEJEsborrarFinal->Location = System::Drawing::Point(centerX - 100, ejStartY + 130);
+		this->btnEJEsborrarFinal->Size = System::Drawing::Size(200, 40);
+
 		// --- PANEL AFEGIR JUGADOR ---
 		this->lblAJTitle->Location = System::Drawing::Point(centerX - this->lblAJTitle->Width / 2, 30);
 		this->btnAJCancellar->Location = System::Drawing::Point(30, 30);
@@ -392,10 +412,12 @@ namespace CppCLRWinFormsProject {
 		this->txtAJCorreu->Location = System::Drawing::Point(ajStartX + 140, ajStartY);
 		this->lblAJDorsal->Location = System::Drawing::Point(ajStartX, ajStartY + 40);
 		this->txtAJDorsal->Location = System::Drawing::Point(ajStartX + 140, ajStartY + 40);
-		this->lblAJPosicio->Location = System::Drawing::Point(ajStartX, ajStartY + 80);
-		this->txtAJPosicio->Location = System::Drawing::Point(ajStartX + 140, ajStartY + 80);
-		this->btnAJConfirmar->Location = System::Drawing::Point(ajStartX + 20, ajStartY + 130);
-		this->btnAJCancellar->Location = System::Drawing::Point(ajStartX + 150, ajStartY + 130);
+		this->lblAJDataNaixement->Location = System::Drawing::Point(ajStartX, ajStartY + 80);
+		this->dtpAJDataNaixement->Location = System::Drawing::Point(ajStartX + 140, ajStartY + 80);
+		this->lblAJPosicio->Location = System::Drawing::Point(ajStartX, ajStartY + 120);
+		this->txtAJPosicio->Location = System::Drawing::Point(ajStartX + 140, ajStartY + 120);
+		this->btnAJConfirmar->Location = System::Drawing::Point(ajStartX + 20, ajStartY + 170);
+		this->btnAJCancellar->Location = System::Drawing::Point(ajStartX + 150, ajStartY + 170);
 
 		// --- PANEL ENREGISTRAR EQUIP ---
 		this->lblEETitle->Location = System::Drawing::Point(centerX - this->lblEETitle->Width / 2, 30);
@@ -708,6 +730,7 @@ namespace CppCLRWinFormsProject {
 		if (this->pnlAfegirJugador != nullptr) this->pnlAfegirJugador->Visible = false;
 		if (this->pnlUnirEquipLliga != nullptr) this->pnlUnirEquipLliga->Visible = false;
 		if (this->pnlEsborrarPartit != nullptr) this->pnlEsborrarPartit->Visible = false;
+		if (this->pnlEsborrarJornada != nullptr) this->pnlEsborrarJornada->Visible = false;
 		if (this->pnlEstadistiques != nullptr) this->pnlEstadistiques->Visible = false;
 		if (this->pnlEstadistiquesEquipDetail != nullptr) this->pnlEstadistiquesEquipDetail->Visible = false;
 		if (this->pnlEstadistiquesLligaDetail != nullptr) this->pnlEstadistiquesLligaDetail->Visible = false;

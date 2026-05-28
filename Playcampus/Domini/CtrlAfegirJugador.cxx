@@ -16,8 +16,18 @@ namespace Playcampus {
         CtrlAfegirJugador::CtrlAfegirJugador() {
         }
 
-        String^ CtrlAfegirJugador::AfegirJugador(String^ correuEstudiant, int dorsal, String^ posicio, String^ correuCapita) {
+        String^ CtrlAfegirJugador::AfegirJugador(String^ correuEstudiant, int dorsal, String^ posicio, String^ correuCapita, DateTime dataNaixement) {
             String^ connStr = ConnexioBD::ObtenirConnectionString();
+
+            // RIT27: Validar que dorsal > 0 i dorsal <= 99
+            if (dorsal <= 0 || dorsal > 99) {
+                throw gcnew Exception("El dorsal ha de ser més gran que 0 i menor o igual que 99.");
+            }
+
+            // RIT29: Validar que la dataNaixement sigui anterior a la data actual
+            if (dataNaixement >= DateTime::Now) {
+                throw gcnew Exception("La data de naixement ha de ser anterior a la data actual.");
+            }
 
             CercadoraUsuari^ cercadora = gcnew CercadoraUsuari(connStr);
             PassarellaUsuari^ usuariEstudiant = cercadora->LlegeixPerCorreu(correuEstudiant);
@@ -56,7 +66,7 @@ namespace Playcampus {
                 throw gcnew Exception("El dorsal " + dorsal.ToString() + " ja existeix en aquest equip.");
             }
 
-            PassarellaJugador^ jugador = gcnew PassarellaJugador(connStr, dorsal, posicio, DateTime::Now);
+            PassarellaJugador^ jugador = gcnew PassarellaJugador(connStr, dorsal, posicio, dataNaixement);
             jugador->SetIdEquip(idEquip);
             jugador->Insereix(usuariEstudiant->GetIdentificador());
 

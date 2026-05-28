@@ -180,82 +180,196 @@ namespace CppCLRWinFormsProject {
 		pnlEstadistiquesLligaDetail->Visible = true;
 		pnlEstadistiquesLligaDetail->BringToFront();
 
-		Playcampus::Domini::CtrlVeureEstadistiquesLliga^ ctrl = gcnew Playcampus::Domini::CtrlVeureEstadistiquesLliga();
-		String^ idLligaFound = nullptr;
+		ResetEstadistiquesLligaPanel();
 
-		// 1. Comprovem si és un Administrador fent servir la teva variable de sessió
-		if (currentUsuariTipus != nullptr && currentUsuariTipus == "Administrador") {
-			lblEstLligaBuscar->Visible = false;
-			txtEstLligaBuscar->Visible = false;
-			btnEstLligaExecutarCerca->Visible = false;
 
-			// Passem el correu (o el que tinguis guardat) per buscar la seva lliga
-			idLligaFound = ctrl->ObtenirIdLligaAdmin(currentUsuariCorreu);
+		CarregarLliguesEstadistiques();
+		Form1_Resize(nullptr, nullptr);
+	}
+
+	void Form1::ResetEstadistiquesLligaPanel() {
+		currentIdLligaEstadistiques = nullptr;
+		txtEstLligaBuscar->Text = L"";
+
+		estLligaIds->Clear();
+		estLligaTemporadaIds->Clear();
+		cmbEstLligaLligues->Items->Clear();
+		cmbEstLligaTemporades->Items->Clear();
+
+		lblEstLligaBuscar->Visible = true;
+		txtEstLligaBuscar->Visible = true;
+		btnEstLligaExecutarCerca->Visible = true;
+		lblEstLligaSeleccionar->Visible = true;
+		cmbEstLligaLligues->Visible = true;
+
+		lblEstLligaTemporada->Visible = false;
+		cmbEstLligaTemporades->Visible = false;
+		dgvEstLligaClassificacio->DataSource = nullptr;
+		dgvEstLligaClassificacio->Visible = false;
+	}
+
+	void Form1::CarregarLliguesEstadistiques() {
+		try {
+			Playcampus::Domini::CtrlVeureEstadistiquesLliga^ ctrl = gcnew Playcampus::Domini::CtrlVeureEstadistiquesLliga();
+			DataTable^ lligues = ctrl->ObtenirTotesLligues();
+			OmplirComboLliguesEstadistiques(lligues);
+
+			if (cmbEstLligaLligues->Items->Count == 0) {
+				MessageBox::Show(L"No hi ha cap lliga registrada a la base de dades.", L"Sense lligues", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			}
 		}
-		// 2. Comprovem si és un Capità
-		else if (currentUsuariTipus != nullptr && currentUsuariTipus == "Capita") {
-			lblEstLligaBuscar->Visible = false;
-			txtEstLligaBuscar->Visible = false;
-			btnEstLligaExecutarCerca->Visible = false;
-
-			// Passem el correu per buscar la lliga del seu equip
-			idLligaFound = ctrl->ObtenirIdLligaCapita(currentUsuariCorreu);
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error carregant les lligues: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
-		// 3. Si és Estudiant (o no hi ha sessió)
-		else {
-			lblEstLligaBuscar->Visible = true;
-			txtEstLligaBuscar->Visible = true;
-			btnEstLligaExecutarCerca->Visible = true;
+	}
 
-			lblEstLligaTemporada->Visible = false;
-			cmbEstLligaTemporades->Visible = false;
-			dgvEstLligaClassificacio->Visible = false;
+	void Form1::OmplirComboLliguesEstadistiques(DataTable^ lligues) {
+		estLligaIds->Clear();
+		estLligaTemporadaIds->Clear();
+		cmbEstLligaLligues->Items->Clear();
+		cmbEstLligaTemporades->Items->Clear();
+		lblEstLligaTemporada->Visible = false;
+		cmbEstLligaTemporades->Visible = false;
+		dgvEstLligaClassificacio->DataSource = nullptr;
+		dgvEstLligaClassificacio->Visible = false;
 
-			return; // Parem aquí perquè l'estudiant ha de teclejar i buscar manualment
+		if (lligues != nullptr) {
+			for (int i = 0; i < lligues->Rows->Count; i++) {
+				DataRow^ row = lligues->Rows[i];
+				String^ idLliga = row["IdLliga"]->ToString();
+				String^ nomLliga = row["NomLliga"]->ToString();
+				String^ esport = row["Esport"]->ToString();
+				String^ administrador = row["Administrador"]->ToString();
+				String^ numTemporades = row["Temporades"]->ToString();
+
+				String^ textCombo = nomLliga + L" (" + esport + L")";
+				if (!String::IsNullOrWhiteSpace(administrador)) {
+					textCombo += L" - Admin: " + administrador;
+				}
+				textCombo += L" - Temporades: " + numTemporades;
+
+				estLligaIds->Add(idLliga);
+				cmbEstLligaLligues->Items->Add(textCombo);
+			}
 		}
 
-		// Si hem arribat aquí (sent Admin o Capità), carreguem la taula automàticament
-		if (idLligaFound != nullptr) {
-			currentIdLligaEstadistiques = idLligaFound;
-			CarregarDadesLligaDirecte(ctrl, idLligaFound);
+		if (cmbEstLligaLligues->Items->Count > 0) {
+			cmbEstLligaLligues->SelectedIndex = 0;
 		}
-		else {
-			MessageBox::Show(L"No s'ha trobat cap lliga vinculada al teu compte.", L"Info", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	}
+
+	void Form1::CarregarTemporadesEstadistiquesLligaSeleccionada() {
+		estLligaTemporadaIds->Clear();
+		cmbEstLligaTemporades->Items->Clear();
+		lblEstLligaTemporada->Visible = false;
+		cmbEstLligaTemporades->Visible = false;
+		dgvEstLligaClassificacio->DataSource = nullptr;
+		dgvEstLligaClassificacio->Visible = false;
+		currentIdLligaEstadistiques = nullptr;
+
+		if (cmbEstLligaLligues->SelectedIndex >= 0 && cmbEstLligaLligues->SelectedIndex < estLligaIds->Count) {
+			try {
+				currentIdLligaEstadistiques = estLligaIds[cmbEstLligaLligues->SelectedIndex];
+				Playcampus::Domini::CtrlVeureEstadistiquesLliga^ ctrl = gcnew Playcampus::Domini::CtrlVeureEstadistiquesLliga();
+				DataTable^ temporades = ctrl->ObtenirTemporadesLliga(currentIdLligaEstadistiques);
+
+				for (int i = 0; i < temporades->Rows->Count; i++) {
+					DataRow^ row = temporades->Rows[i];
+					estLligaTemporadaIds->Add(row["idTemporada"]->ToString());
+					cmbEstLligaTemporades->Items->Add(row["NomTemporada"]->ToString());
+				}
+
+				if (cmbEstLligaTemporades->Items->Count > 0) {
+					lblEstLligaTemporada->Visible = true;
+					cmbEstLligaTemporades->Visible = true;
+					cmbEstLligaTemporades->SelectedIndex = 0;
+				}
+				else {
+					MessageBox::Show(L"La lliga seleccionada no te cap temporada creada.", L"Sense temporades", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				}
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show(L"Error carregant les temporades de la lliga: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
+		}
+	}
+
+	void Form1::CarregarClassificacioLligaSeleccionada() {
+		dgvEstLligaClassificacio->DataSource = nullptr;
+		dgvEstLligaClassificacio->Visible = false;
+
+		if (cmbEstLligaTemporades->SelectedIndex >= 0 && cmbEstLligaTemporades->SelectedIndex < estLligaTemporadaIds->Count && currentIdLligaEstadistiques != nullptr) {
+			try {
+				String^ idTemporada = estLligaTemporadaIds[cmbEstLligaTemporades->SelectedIndex];
+				Playcampus::Domini::CtrlVeureEstadistiquesLliga^ ctrl = gcnew Playcampus::Domini::CtrlVeureEstadistiquesLliga();
+				DataTable^ classificacio = ctrl->ObtenirClassificacioLligaTemporada(currentIdLligaEstadistiques, idTemporada);
+
+				if (classificacio->Rows->Count == 0) {
+					MessageBox::Show(L"No hi ha equips ni estadistiques per a aquesta lliga i temporada.", L"Sense dades", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				}
+				else {
+					dgvEstLligaClassificacio->DataSource = classificacio;
+					dgvEstLligaClassificacio->Visible = true;
+				}
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show(L"Error carregant la classificacio de la lliga: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
 		}
 	}
 
 	void Form1::CarregarDadesLligaDirecte(Playcampus::Domini::CtrlVeureEstadistiquesLliga^ ctrl, String^ idLliga) {
-		DataTable^ dtTemp = ctrl->ObtenirTemporadesLliga(idLliga);
+		currentIdLligaEstadistiques = idLliga;
+		estLligaTemporadaIds->Clear();
 		cmbEstLligaTemporades->Items->Clear();
+		dgvEstLligaClassificacio->DataSource = nullptr;
+		dgvEstLligaClassificacio->Visible = false;
+
+		DataTable^ dtTemp = ctrl->ObtenirTemporadesLliga(idLliga);
 		for (int i = 0; i < dtTemp->Rows->Count; i++) {
 			DataRow^ row = dtTemp->Rows[i];
+			estLligaTemporadaIds->Add(row["idTemporada"]->ToString());
 			cmbEstLligaTemporades->Items->Add(row["NomTemporada"]->ToString());
 		}
 
 		if (cmbEstLligaTemporades->Items->Count > 0) {
-			cmbEstLligaTemporades->SelectedIndex = 0;
-			cmbEstLligaTemporades->Visible = true;
 			lblEstLligaTemporada->Visible = true;
+			cmbEstLligaTemporades->Visible = true;
+			cmbEstLligaTemporades->SelectedIndex = 0;
 		}
-
-		dgvEstLligaClassificacio->DataSource = ctrl->ObtenirClassificacioLliga(idLliga);
-		dgvEstLligaClassificacio->Visible = true;
 	}
 
 	System::Void Form1::btnEstLligaExecutarCerca_Click(System::Object^ sender, System::EventArgs^ e) {
-		String^ nom = txtEstLligaBuscar->Text->Trim();
-		if (nom == "") return;
+		String^ textCerca = txtEstLligaBuscar->Text->Trim();
 
-		Playcampus::Domini::CtrlVeureEstadistiquesLliga^ ctrl = gcnew Playcampus::Domini::CtrlVeureEstadistiquesLliga();
-		String^ id = ctrl->ObtenirIdLligaPerNom(nom);
+		try {
+			Playcampus::Domini::CtrlVeureEstadistiquesLliga^ ctrl = gcnew Playcampus::Domini::CtrlVeureEstadistiquesLliga();
+			DataTable^ lligues = nullptr;
 
-		if (id != nullptr) {
-			currentIdLligaEstadistiques = id;
-			CarregarDadesLligaDirecte(ctrl, id);
+			if (String::IsNullOrWhiteSpace(textCerca)) {
+				lligues = ctrl->ObtenirTotesLligues();
+			}
+			else {
+				lligues = ctrl->CercarLliguesPerNom(textCerca);
+			}
+
+			OmplirComboLliguesEstadistiques(lligues);
+
+			if (cmbEstLligaLligues->Items->Count == 0) {
+				MessageBox::Show(L"No s'ha trobat cap lliga amb aquest nom.", L"Lliga no trobada", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			}
 		}
-		else {
-			MessageBox::Show(L"Lliga no trobada.");
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error cercant la lliga: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
+	}
+
+	System::Void Form1::cmbEstLligaLligues_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		CarregarTemporadesEstadistiquesLligaSeleccionada();
+	}
+
+	System::Void Form1::cmbEstLligaTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		CarregarClassificacioLligaSeleccionada();
 	}
 
 	System::Void Form1::btnEstLligaTornar_Click(System::Object^ sender, System::EventArgs^ e) {

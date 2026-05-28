@@ -16,7 +16,7 @@ namespace CppCLRWinFormsProject {
 
 		this->lstNoticies->Items->Clear();
 		try {
-			Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
+			Playcampus::Domini::CtrlConsultaFitxatges^ ctrl = gcnew Playcampus::Domini::CtrlConsultaFitxatges();
 			DataTable^ dt = ctrl->ObtenirUltimsFitxatges(10);
 			if (dt == nullptr || dt->Rows->Count == 0) {
 				this->lstNoticies->Items->Add(L"No hi ha fitxatges recents.");
@@ -89,7 +89,7 @@ System::Void Form1::btnTornarConsultar_Click(System::Object^ sender, System::Eve
 			}
 
 			String^ nom = ctrlSeguir->ObtenirNomLligaPerId(idLliga);
-			Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
+			Playcampus::Domini::CtrlConsultaPartits^ ctrl = gcnew Playcampus::Domini::CtrlConsultaPartits();
 			MostrarConsultaGeneral(L"Calendari - " + (String::IsNullOrEmpty(nom) ? idLliga : nom), ctrl->ObtenirCalendariCompletLligaPerId(idLliga));
 		}
 		catch (Exception^ ex) {
@@ -108,7 +108,7 @@ System::Void Form1::btnComprovarLliga_Click(System::Object^ sender, System::Even
 				MessageBox::Show(L"Aquesta lliga no existeix", L"Calendari", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				return;
 			}
-			Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
+			Playcampus::Domini::CtrlConsultaPartits^ ctrl = gcnew Playcampus::Domini::CtrlConsultaPartits();
 			MostrarConsultaGeneral(L"Calendari - " + nom, ctrl->ObtenirCalendariCompletLligaPerId(idLliga));
 		}
 		catch (Exception^ ex) {
@@ -162,7 +162,7 @@ System::Void Form1::MostrarTelefonsContacteUsuariActual() {
         }
         else {
             try {
-                Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
+                Playcampus::Domini::CtrlConsultaTelefons^ ctrl = gcnew Playcampus::Domini::CtrlConsultaTelefons();
                 DataTable^ dades = ctrl->ObtenirTelefonsContacte(currentUsuariCorreu);
                 MostrarConsultaGeneral(L"Telèfons de contacte", dades);
             }
@@ -178,7 +178,7 @@ System::Void Form1::btnConsultarTelefons_Click(System::Object^ sender, System::E
 
 System::Void Form1::btnProgPartits_Click(System::Object^ sender, System::EventArgs^ e) {
 		try {
-			Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
+			Playcampus::Domini::CtrlConsultaPartits^ ctrl = gcnew Playcampus::Domini::CtrlConsultaPartits();
 			MostrarConsultaGeneral(L"Programació de partits", ctrl->ObtenirProgramacioPartits());
 		}
 		catch (Exception^ ex) {
@@ -188,7 +188,7 @@ System::Void Form1::btnProgPartits_Click(System::Object^ sender, System::EventAr
 
 System::Void Form1::btnEstatLligues_Click(System::Object^ sender, System::EventArgs^ e) {
 		try {
-			Playcampus::Domini::CtrlConsultes^ ctrl = gcnew Playcampus::Domini::CtrlConsultes();
+			Playcampus::Domini::CtrlConsultaLligues^ ctrl = gcnew Playcampus::Domini::CtrlConsultaLligues();
 			MostrarConsultaGeneral(L"Estat de les lligues", ctrl->ObtenirEstatLligues());
 		}
 		catch (Exception^ ex) {

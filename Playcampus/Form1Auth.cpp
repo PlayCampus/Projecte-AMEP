@@ -136,6 +136,9 @@ namespace CppCLRWinFormsProject {
 				if (this->btnGLConsultarTelefons != nullptr) {
 					this->btnGLConsultarTelefons->Visible = (tipusNormalitzat == "administrador");
 				}
+				if (this->btnGLEsborrarJornada != nullptr) {
+					this->btnGLEsborrarJornada->Visible = (tipusNormalitzat == "administrador");
+				}
 
 				if (this->btnSeguirLligaMainMenu != nullptr) {
 					this->btnSeguirLligaMainMenu->Visible = true;

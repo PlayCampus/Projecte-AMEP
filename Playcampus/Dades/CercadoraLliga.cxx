@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CercadoraLliga.hxx"
 
 using namespace System;
@@ -63,6 +63,60 @@ namespace Playcampus {
             }
             finally {
                 if (conn != nullptr) { conn->Close(); delete conn; }
+            }
+            return dt;
+        }
+
+
+        DataTable^ CercadoraLliga::ObtenirTotesLliguesEstadistiques() {
+            DataTable^ dt = gcnew DataTable();
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query =
+                    "SELECT L.idLliga AS IdLliga, L.nom AS NomLliga, L.disciplina AS Esport, "
+                    "IFNULL(U.nom, '') AS Administrador, COUNT(DISTINCT T.idTemporada) AS Temporades "
+                    "FROM Lliga L "
+                    "LEFT JOIN Administrador A ON A.identificador = L.idAdministrador "
+                    "LEFT JOIN Usuari U ON U.identificador = A.identificador "
+                    "LEFT JOIN Temporada T ON T.idLliga = L.idLliga "
+                    "GROUP BY L.idLliga, L.nom, L.disciplina, U.nom "
+                    "ORDER BY L.nom ASC";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
+                adapter->Fill(dt);
+            }
+            finally {
+                conn->Close();
+            }
+            return dt;
+        }
+
+        DataTable^ CercadoraLliga::CercarLliguesPerNom(String^ textCerca) {
+            DataTable^ dt = gcnew DataTable();
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query =
+                    "SELECT L.idLliga AS IdLliga, L.nom AS NomLliga, L.disciplina AS Esport, "
+                    "IFNULL(U.nom, '') AS Administrador, COUNT(DISTINCT T.idTemporada) AS Temporades "
+                    "FROM Lliga L "
+                    "LEFT JOIN Administrador A ON A.identificador = L.idAdministrador "
+                    "LEFT JOIN Usuari U ON U.identificador = A.identificador "
+                    "LEFT JOIN Temporada T ON T.idLliga = L.idLliga "
+                    "WHERE L.nom LIKE @textCerca "
+                    "GROUP BY L.idLliga, L.nom, L.disciplina, U.nom "
+                    "ORDER BY L.nom ASC";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                String^ patroCerca = gcnew String(L"%");
+                patroCerca += textCerca;
+                patroCerca += gcnew String(L"%");
+                cmd->Parameters->AddWithValue("@textCerca", patroCerca);
+                MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
+                adapter->Fill(dt);
+            }
+            finally {
+                conn->Close();
             }
             return dt;
         }
@@ -249,6 +303,40 @@ namespace Playcampus {
             }
             return dt;
         }
+
+        DataTable^ CercadoraLliga::ObtenirClassificacioLligaTemporada(String^ idLliga, String^ idTemporada) {
+            DataTable^ dt = gcnew DataTable();
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+
+                String^ disciplina = ObtenirDisciplinaLliga(idLliga);
+                bool esFutbol = !String::IsNullOrEmpty(disciplina) && disciplina->Equals("Futbol", StringComparison::OrdinalIgnoreCase);
+                String^ labelFavor = esFutbol ? "GF" : "PF";
+                String^ labelContra = esFutbol ? "GC" : "PC";
+                String^ labelDif = esFutbol ? "DG" : "DP";
+
+                String^ query =
+                    "SELECT E.nom AS Equip, E.partitsJugats AS PJ, E.victories AS V, E.empats AS E, "
+                    "E.derrotes AS D, E.golsAFavor AS " + labelFavor + ", E.golsEnContra AS " + labelContra + ", "
+                    "E.diferenciaGols AS " + labelDif + ", E.punts AS Punts "
+                    "FROM Equip E "
+                    "INNER JOIN Temporada T ON E.idTemporada = T.idTemporada "
+                    "WHERE T.idLliga = @idLliga AND T.idTemporada = @idTemporada "
+                    "ORDER BY E.punts DESC, E.diferenciaGols DESC, E.nom ASC";
+
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idLliga", idLliga);
+                cmd->Parameters->AddWithValue("@idTemporada", idTemporada);
+                MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
+                adapter->Fill(dt);
+            }
+            finally {
+                conn->Close();
+            }
+            return dt;
+        }
+
 
         DataTable^ CercadoraLliga::ObtenirClassificacioLligaSeguida(String^ idLliga, String^ idTemporada) {
             DataTable^ dt = gcnew DataTable();

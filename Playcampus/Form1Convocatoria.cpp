@@ -110,13 +110,20 @@ namespace CppCLRWinFormsProject {
 	}
 
 	System::Void Form1::MostrarAvisJugador(String^ missatge, String^ tipus) {
-		if (pnlAvisJugador != nullptr) pnlMain->Controls->Remove(pnlAvisJugador);
+		// El cartell s'ha de mostrar per sobre de qualsevol element del menú principal
+		// (p.ex. el dashboard de la lliga seguida). Per això el pengem directament del
+		// Form en lloc de pnlMain.
+		if (pnlAvisJugador != nullptr) this->Controls->Remove(pnlAvisJugador);
 
 		pnlAvisJugador = gcnew System::Windows::Forms::Panel();
 		pnlAvisJugador->Size = System::Drawing::Size(500, 220);
 		pnlAvisJugador->BackColor = System::Drawing::Color::LightYellow;
 		pnlAvisJugador->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-		pnlAvisJugador->Location = System::Drawing::Point(20, 20);
+		int x = (this->ClientSize.Width - pnlAvisJugador->Width) / 2;
+		int y = (this->ClientSize.Height - pnlAvisJugador->Height) / 2;
+		if (x < 0) x = 0;
+		if (y < 0) y = 0;
+		pnlAvisJugador->Location = System::Drawing::Point(x, y);
 
 		System::Windows::Forms::Label^ lblMissatge = gcnew System::Windows::Forms::Label();
 		lblMissatge->Text = missatge;
@@ -159,7 +166,7 @@ namespace CppCLRWinFormsProject {
 			pnlAvisJugador->Controls->Add(btnNo);
 		}
 
-		pnlMain->Controls->Add(pnlAvisJugador);
+		this->Controls->Add(pnlAvisJugador);
 		pnlAvisJugador->BringToFront();
 	}
 
@@ -180,7 +187,7 @@ namespace CppCLRWinFormsProject {
 			ctrl->ConfirmarAssistencia(idPartitPendentConfirmar, idJugador, assisteix);
 
 			MessageBox::Show(L"S'ha guardat la teva resposta correctament.");
-			pnlMain->Controls->Remove(pnlAvisJugador);
+			this->Controls->Remove(pnlAvisJugador);
 		}
 		catch (Exception^ ex) {
 			MessageBox::Show(L"Error al confirmar: " + ex->Message);
