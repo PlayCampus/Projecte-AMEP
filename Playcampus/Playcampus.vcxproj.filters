@@ -74,6 +74,8 @@
     <ClCompile Include="Form1Estadistiques.cpp" />
     <ClCompile Include="Form1Convocatoria.cpp" />
     <ClCompile Include="Domini\CtrlSeguirLliga.cxx" />
+    <ClCompile Include="Domini\CtrlAbandonarLliga.cxx" />
+    <ClCompile Include="Dades\PassarellaEquipTemporada.cxx" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dades\CercadoraEquip.hxx" />
@@ -149,6 +151,8 @@
     <ClInclude Include="Form1Estadistiques.h" />
     <ClInclude Include="Form1Convocatoria.h" />
     <ClInclude Include="Domini\CtrlSeguirLliga.hxx" />
+    <ClInclude Include="Domini\CtrlAbandonarLliga.hxx" />
+    <ClInclude Include="Dades\PassarellaEquipTemporada.hxx" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
@@ -161,6 +165,7 @@
     <None Include="schema_assignacio_jugador_partit.sql" />
     <None Include="schema_partit_estadistica_individual.sql" />
     <None Include="schema_seguir_lliga.sql" />
+    <None Include="schemadadesEquipTemporada.sql" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Dades\SQL_UsuariSegueixLliga_README.txt" />

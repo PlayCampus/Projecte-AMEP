@@ -139,6 +139,7 @@
     <ClInclude Include="Dades\CercadoraUsuari.hxx" />
     <ClInclude Include="Dades\PassarellaCapita.hxx" />
     <ClInclude Include="Dades\PassarellaEquip.hxx" />
+    <ClInclude Include="Dades\PassarellaEquipTemporada.hxx" />
     <ClInclude Include="Dades\PassarellaJornada.hxx" />
     <ClInclude Include="Dades\PassarellaJugador.hxx" />
     <ClInclude Include="Dades\PassarellaLliga.hxx" />
@@ -219,6 +220,7 @@
     <ClCompile Include="Dades\CercadoraUsuari.cxx" />
     <ClCompile Include="Dades\PassarellaCapita.cxx" />
     <ClCompile Include="Dades\PassarellaEquip.cxx" />
+    <ClCompile Include="Dades\PassarellaEquipTemporada.cxx" />
     <ClCompile Include="Dades\PassarellaJornada.cxx" />
     <ClCompile Include="Dades\PassarellaJugador.cxx" />
     <ClCompile Include="Dades\PassarellaLliga.cxx" />
