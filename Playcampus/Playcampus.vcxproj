@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dades\CercadoraEquip.hxx" />
+    <ClInclude Include="Dades\CercadoraEquipTemporada.hxx" />
     <ClInclude Include="Dades\CercadoraJornada.hxx" />
     <ClInclude Include="Dades\CercadoraJugador.hxx" />
     <ClInclude Include="Dades\CercadoraLliga.hxx" />
@@ -212,6 +213,7 @@
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="CppCLR_WinFormsProject.cpp" />
     <ClCompile Include="Dades\CercadoraEquip.cxx" />
+    <ClCompile Include="Dades\CercadoraEquipTemporada.cxx" />
     <ClCompile Include="Dades\CercadoraJornada.cxx" />
     <ClCompile Include="Dades\CercadoraJugador.cxx" />
     <ClCompile Include="Dades\CercadoraLliga.cxx" />
