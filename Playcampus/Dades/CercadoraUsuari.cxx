@@ -145,7 +145,9 @@ namespace Playcampus {
                     "SELECT COUNT(*) FROM Capita C "
                     "INNER JOIN Usuari U ON C.identificador = U.identificador "
                     "INNER JOIN Equip E ON C.idEquip = E.idEquip "
-                    "WHERE U.correu_electronic = @correu AND E.idTemporada IS NOT NULL AND E.idTemporada <> ''";
+                    "INNER JOIN EquipTemporada ET ON E.idEquip = ET.idEquip "
+                    "WHERE U.correu_electronic = @correu";
+
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@correu", correu);
                 estaEnLliga = Convert::ToInt32(cmd->ExecuteScalar()) > 0;

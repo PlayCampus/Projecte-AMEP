@@ -369,7 +369,6 @@ namespace Playcampus {
             }
             return dt;
         }
-
         DataTable^ CercadoraLliga::ObtenirEstatLligues() {
             DataTable^ dt = gcnew DataTable();
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
@@ -377,10 +376,11 @@ namespace Playcampus {
                 conn->Open();
                 String^ query =
                     "SELECT L.nom AS Lliga, L.disciplina AS Esport, "
-                    "IFNULL(U.nom, '') AS Administrador, COUNT(DISTINCT E.idEquip) AS NumEquips "
+                    "IFNULL(U.nom, '') AS Administrador, COUNT(DISTINCT ET.idEquip) AS NumEquips "
                     "FROM Lliga L "
                     "LEFT JOIN Temporada T ON T.idLliga = L.idLliga "
-                    "LEFT JOIN Equip E ON E.idTemporada = T.idTemporada "
+                    "LEFT JOIN EquipTemporada ET ON ET.idTemporada = T.idTemporada "
+                    "LEFT JOIN Equip E ON E.idEquip = ET.idEquip "
                     "LEFT JOIN Usuari U ON L.idAdministrador = U.identificador "
                     "GROUP BY L.idLliga, L.nom, L.disciplina, U.nom "
                     "ORDER BY L.nom ASC";
@@ -432,7 +432,8 @@ namespace Playcampus {
                     "FROM Usuari UC "
                     "INNER JOIN Capita C ON C.identificador = UC.identificador "
                     "INNER JOIN Equip E ON E.idEquip = C.idEquip "
-                    "INNER JOIN Temporada T ON T.idTemporada = E.idTemporada "
+                    "INNER JOIN EquipTemporada ET ON ET.idEquip = E.idEquip "
+                    "INNER JOIN Temporada T ON T.idTemporada = ET.idTemporada "
                     "INNER JOIN Lliga L ON L.idLliga = T.idLliga "
                     "INNER JOIN Administrador A ON A.identificador = L.idAdministrador "
                     "INNER JOIN Usuari UA ON UA.identificador = A.identificador "
@@ -462,7 +463,8 @@ namespace Playcampus {
                     "INNER JOIN Equip E ON E.idEquip = J.idEquip "
                     "INNER JOIN Capita C ON C.idEquip = E.idEquip "
                     "INNER JOIN Usuari UC ON UC.identificador = C.identificador "
-                    "INNER JOIN Temporada T ON T.idTemporada = E.idTemporada "
+                    "INNER JOIN EquipTemporada ET ON ET.idEquip = E.idEquip "
+                    "INNER JOIN Temporada T ON T.idTemporada = ET.idTemporada "
                     "INNER JOIN Lliga L ON L.idLliga = T.idLliga "
                     "WHERE UJ.correu_electronic = @correu "
                     "AND C.telefonContacte IS NOT NULL AND C.telefonContacte <> '' "
@@ -472,7 +474,8 @@ namespace Playcampus {
                     "FROM Usuari UJ "
                     "INNER JOIN Jugador J ON J.idJugador = UJ.identificador "
                     "INNER JOIN Equip E ON E.idEquip = J.idEquip "
-                    "INNER JOIN Temporada T ON T.idTemporada = E.idTemporada "
+                    "INNER JOIN EquipTemporada ET ON ET.idEquip = E.idEquip "
+                    "INNER JOIN Temporada T ON T.idTemporada = ET.idTemporada "
                     "INNER JOIN Lliga L ON L.idLliga = T.idLliga "
                     "INNER JOIN Administrador A ON A.identificador = L.idAdministrador "
                     "INNER JOIN Usuari UA ON UA.identificador = A.identificador "
@@ -501,7 +504,8 @@ namespace Playcampus {
                     "INNER JOIN Administrador A ON A.identificador = UA.identificador "
                     "INNER JOIN Lliga L ON L.idAdministrador = A.identificador "
                     "INNER JOIN Temporada T ON T.idLliga = L.idLliga "
-                    "INNER JOIN Equip E ON E.idTemporada = T.idTemporada "
+                    "INNER JOIN EquipTemporada ET ON T.idTemporada = ET.idTemporada "
+                    "INNER JOIN Equip E ON ET.idEquip = E.idEquip "
                     "INNER JOIN Capita C ON C.idEquip = E.idEquip "
                     "INNER JOIN Usuari UC ON UC.identificador = C.identificador "
                     "WHERE UA.correu_electronic = @correu "
