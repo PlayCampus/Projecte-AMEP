@@ -113,11 +113,33 @@ namespace Playcampus {
 
         PassarellaTemporada^ PassarellaTemporada::Llegeix(System::String^ connectionString, System::String^ idTemporada)
         {
-            //  busca la temporada por ID y devuelve el objeto correspondiente
             PassarellaTemporada^ temporada = nullptr;
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
 
-            // buscar la temporada en la base de datos usando connectionString e idTemporada
-            // Si se encuentra, inicializa y devuelve el objeto; si no, devuelve nullptr
+            try
+            {
+                conn->Open();
+                String^ query = "SELECT idTemporada, idLliga, dataInici, dataFi, estat FROM Temporada WHERE idTemporada = @idTemporada";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idTemporada", idTemporada);
+
+                MySqlDataReader^ reader = cmd->ExecuteReader();
+                if (reader->Read())
+                {
+                    String^ idTemp = reader["idTemporada"]->ToString();
+                    String^ idLlig = reader["idLliga"]->ToString();
+                    DateTime dInici = Convert::ToDateTime(reader["dataInici"]);
+                    DateTime dFi = Convert::ToDateTime(reader["dataFi"]);
+                    String^ est = reader["estat"]->ToString();
+
+                    temporada = gcnew PassarellaTemporada(connectionString, idTemp, idLlig, dInici, dFi, est);
+                }
+                reader->Close();
+            }
+            finally
+            {
+                conn->Close();
+            }
 
             return temporada;
         }
