@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include "CercadoraLliga.hxx"
+#include "PassarellaTemporada.hxx"
 
 using namespace System;
 using namespace System::Data;
@@ -230,18 +231,20 @@ namespace Playcampus {
         }
 
         String^ CercadoraLliga::ObtenirIdLligaCapita(String^ correu) {
+            PassarellaTemporada::ActualitzarEstats(connectionString);
             String^ idLliga = nullptr;
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
                 String^ query =
-                    "SELECT T.idLliga FROM Temporada T "
-                    "INNER JOIN EquipTemporada ET ON T.idTemporada = ET.idTemporada "
-                    "INNER JOIN Equip E ON ET.idEquip = E.idEquip "
+                    "SELECT T.idLliga FROM EquipTemporada ET "
+                    "INNER JOIN Equip E ON E.idEquip = ET.idEquip "
+                    "INNER JOIN Temporada T ON T.idTemporada = ET.idTemporada "
                     "INNER JOIN Capita C ON E.idEquip = C.idEquip "
                     "INNER JOIN Usuari U ON C.identificador = U.identificador "
                     "WHERE U.correu_electronic = @correu "
-                    "ORDER BY T.dataInici DESC LIMIT 1";
+                    "ORDER BY CASE WHEN T.estat = 'EnCurs' THEN 0 WHEN T.estat <> 'Finalitzat' THEN 1 ELSE 2 END, T.dataInici DESC "
+                    "LIMIT 1";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@correu", correu);
                 Object^ result = cmd->ExecuteScalar();
@@ -257,6 +260,7 @@ namespace Playcampus {
 
 
         DataTable^ CercadoraLliga::ObtenirEquipsDeLaLligaAdministrador(String^ correuAdmin) {
+            PassarellaTemporada::ActualitzarEstats(connectionString);
             DataTable^ dt = gcnew DataTable();
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
@@ -268,6 +272,12 @@ namespace Playcampus {
                     "FROM Lliga L "
                     "INNER JOIN Usuari U ON L.idAdministrador = U.identificador "
                     "INNER JOIN Temporada T ON T.idLliga = L.idLliga "
+                    "AND T.idTemporada = ("
+                    "    SELECT T2.idTemporada FROM Temporada T2 "
+                    "    WHERE T2.idLliga = L.idLliga "
+                    "    ORDER BY CASE WHEN T2.estat = 'EnCurs' THEN 0 WHEN T2.estat <> 'Finalitzat' THEN 1 ELSE 2 END, T2.dataInici DESC, T2.dataFi DESC "
+                    "    LIMIT 1"
+                    ") "
                     "INNER JOIN EquipTemporada ET ON ET.idTemporada = T.idTemporada "
                     "INNER JOIN Equip E ON E.idEquip = ET.idEquip "
                     "WHERE U.correu_electronic = @correuAdmin "
@@ -285,6 +295,7 @@ namespace Playcampus {
 
 
         DataTable^ CercadoraLliga::ObtenirClassificacioLliga(String^ idLliga) {
+            PassarellaTemporada::ActualitzarEstats(connectionString);
             DataTable^ dt = gcnew DataTable();
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
@@ -297,7 +308,13 @@ namespace Playcampus {
                     "INNER JOIN Equip E ON ET.idEquip = E.idEquip "
                     "INNER JOIN Temporada T ON ET.idTemporada = T.idTemporada "
                     "WHERE T.idLliga = @idLliga "
-                    "ORDER BY ET.punts DESC, ET.diferenciaGols DESC";
+                    "AND T.idTemporada = ("
+                    "    SELECT T2.idTemporada FROM Temporada T2 "
+                    "    WHERE T2.idLliga = @idLliga "
+                    "    ORDER BY CASE WHEN T2.estat = 'EnCurs' THEN 0 WHEN T2.estat <> 'Finalitzat' THEN 1 ELSE 2 END, T2.dataInici DESC, T2.dataFi DESC "
+                    "    LIMIT 1"
+                    ") "
+                    "ORDER BY ET.punts DESC, ET.diferenciaGols DESC, E.nom ASC";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idLliga", idLliga);
                 MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
@@ -310,6 +327,7 @@ namespace Playcampus {
         }
 
         DataTable^ CercadoraLliga::ObtenirClassificacioLligaTemporada(String^ idLliga, String^ idTemporada) {
+            PassarellaTemporada::ActualitzarEstats(connectionString);
             DataTable^ dt = gcnew DataTable();
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
@@ -345,6 +363,7 @@ namespace Playcampus {
 
 
         DataTable^ CercadoraLliga::ObtenirClassificacioLligaSeguida(String^ idLliga, String^ idTemporada) {
+            PassarellaTemporada::ActualitzarEstats(connectionString);
             DataTable^ dt = gcnew DataTable();
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
@@ -363,11 +382,12 @@ namespace Playcampus {
                     "FROM EquipTemporada ET "
                     "INNER JOIN Equip E ON ET.idEquip = E.idEquip "
                     "INNER JOIN Temporada T ON ET.idTemporada = T.idTemporada "
-                    "WHERE T.idLliga = @idLliga "
-                    "ORDER BY ET.punts DESC, ET.diferenciaGols DESC";
+                    "WHERE T.idLliga = @idLliga AND T.idTemporada = @idTemporada "
+                    "ORDER BY ET.punts DESC, ET.diferenciaGols DESC, E.nom ASC";
 
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idLliga", idLliga);
+                cmd->Parameters->AddWithValue("@idTemporada", idTemporada);
                 MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
                 adapter->Fill(dt);
             }
@@ -377,7 +397,9 @@ namespace Playcampus {
             return dt;
         }
 
+
         DataTable^ CercadoraLliga::ObtenirEstatLligues() {
+            PassarellaTemporada::ActualitzarEstats(connectionString);
             DataTable^ dt = gcnew DataTable();
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
@@ -387,6 +409,12 @@ namespace Playcampus {
                     "IFNULL(U.nom, '') AS Administrador, COUNT(DISTINCT ET.idEquip) AS NumEquips "
                     "FROM Lliga L "
                     "LEFT JOIN Temporada T ON T.idLliga = L.idLliga "
+                    "AND T.idTemporada = ("
+                    "    SELECT T2.idTemporada FROM Temporada T2 "
+                    "    WHERE T2.idLliga = L.idLliga "
+                    "    ORDER BY CASE WHEN T2.estat = 'EnCurs' THEN 0 WHEN T2.estat <> 'Finalitzat' THEN 1 ELSE 2 END, T2.dataInici DESC, T2.dataFi DESC "
+                    "    LIMIT 1"
+                    ") "
                     "LEFT JOIN EquipTemporada ET ON ET.idTemporada = T.idTemporada "
                     "LEFT JOIN Equip E ON E.idEquip = ET.idEquip "
                     "LEFT JOIN Usuari U ON L.idAdministrador = U.identificador "
@@ -404,6 +432,7 @@ namespace Playcampus {
 
 
         DataTable^ CercadoraLliga::ObtenirEstadistiquesEquips() {
+            PassarellaTemporada::ActualitzarEstats(connectionString);
             DataTable^ dt = gcnew DataTable();
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
@@ -418,6 +447,12 @@ namespace Playcampus {
                     "LEFT JOIN EquipTemporada ET ON E.idEquip = ET.idEquip "
                     "LEFT JOIN Temporada T ON ET.idTemporada = T.idTemporada "
                     "LEFT JOIN Lliga L ON T.idLliga = L.idLliga "
+                    "WHERE T.idTemporada IS NULL OR T.idTemporada = ("
+                    "    SELECT T2.idTemporada FROM Temporada T2 "
+                    "    WHERE T2.idLliga = T.idLliga "
+                    "    ORDER BY CASE WHEN T2.estat = 'EnCurs' THEN 0 WHEN T2.estat <> 'Finalitzat' THEN 1 ELSE 2 END, T2.dataInici DESC, T2.dataFi DESC "
+                    "    LIMIT 1"
+                    ") "
                     "ORDER BY IFNULL(L.nom, ''), ET.posicioClassificacio ASC, ET.punts DESC, E.nom ASC";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);

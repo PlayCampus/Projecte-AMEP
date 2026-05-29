@@ -56,28 +56,25 @@ namespace Playcampus {
                 throw gcnew Exception("No s'ha trobat cap lliga amb aquest nom.");
             }
 
+            Playcampus::Dades::PassarellaTemporada::ActualitzarEstats(connectionString);
+
             //  validar aquí si aquesta lliga pertany al administrador si ho desitges
             if (cercadoraLliga->ObtenirLligaActivaAdmin(idAdmin) != idLliga) { throw gcnew Exception("Aquesta Lliga pertany a un altre Administrador"); }
 
             // RIT12: Dues temporades d'una mateixa lliga no es poden solapar en dates
             List<Dictionary<String^, String^>^>^ temporadesExistents = ObtenirTemporadesPerLliga(nomLliga);
             for each(Dictionary<String^, String^> ^ t in temporadesExistents) {
-                String^ estatTemporada = (t->ContainsKey("estat") && t["estat"] != nullptr) ? t["estat"]->Trim() : String::Empty;
-
-                // Les temporades finalitzades o retirades no han de bloquejar la creació d'una nova temporada,
-                // especialment quan s'han retirat prematurament i les seves dates encara se solapen.
-                if (estatTemporada->Equals("Finalitzat", StringComparison::OrdinalIgnoreCase) ||
-                    estatTemporada->Equals("Finalitzada", StringComparison::OrdinalIgnoreCase) ||
-                    estatTemporada->Equals("Retirada", StringComparison::OrdinalIgnoreCase) ||
-                    estatTemporada->Equals("Retirat", StringComparison::OrdinalIgnoreCase)) {
-                    continue;
-                }
-
                 DateTime tInici = Convert::ToDateTime(t["dataInici"]);
                 DateTime tFi = Convert::ToDateTime(t["dataFi"]);
+                String^ estatTemporada = t->ContainsKey("estat") ? t["estat"] : nullptr;
+                bool temporadaTancada = estatTemporada != nullptr &&
+                    (estatTemporada->Equals("Finalitzat", StringComparison::OrdinalIgnoreCase) ||
+                        estatTemporada->Equals("Finalitzada", StringComparison::OrdinalIgnoreCase) ||
+                        estatTemporada->Equals("Retirat", StringComparison::OrdinalIgnoreCase) ||
+                        estatTemporada->Equals("Retirada", StringComparison::OrdinalIgnoreCase));
 
-                // Si la nova temporada comença abans que acabi l'existent, i acaba després que comenci l'existent, hi ha solapament
-                if (dataInici <= tFi && dataFi >= tInici) {
+                // Les temporades tancades o retirades es mantenen com a historial i no bloquegen una nova temporada.
+                if (!temporadaTancada && dataInici <= tFi && dataFi >= tInici) {
                     throw gcnew Exception("Les dates es solapen amb una temporada existent d'aquesta lliga.");
                 }
             }
@@ -97,6 +94,7 @@ namespace Playcampus {
             );
 
             pTemporada->Insereix();
+            pTemporada->InicialitzarEquipsNovaTemporada(idLliga, idTemporada);
         }
         List<Dictionary<String^, String^>^>^ CtrlCrearTemporada::ObtenirTemporadesPerLliga(String^ nomLliga) {
             String^ connStr = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();

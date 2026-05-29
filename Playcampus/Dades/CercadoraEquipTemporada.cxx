@@ -38,7 +38,16 @@ namespace Playcampus {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
-                String^ query = "SELECT idTemporada FROM EquipTemporada WHERE idEquip = @idEquip LIMIT 1";
+                String^ query =
+                    "SELECT ET.idTemporada "
+                    "FROM EquipTemporada ET "
+                    "INNER JOIN Temporada T ON T.idTemporada = ET.idTemporada "
+                    "WHERE ET.idEquip = @idEquip "
+                    "ORDER BY CASE "
+                    "WHEN T.estat = 'EnCurs' THEN 0 "
+                    "WHEN T.estat <> 'Finalitzat' THEN 1 "
+                    "ELSE 2 END, T.dataInici DESC, T.dataFi DESC "
+                    "LIMIT 1";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idEquip", idEquip);
                 MySqlDataReader^ reader = cmd->ExecuteReader();
