@@ -236,10 +236,12 @@ namespace Playcampus {
                 conn->Open();
                 String^ query =
                     "SELECT T.idLliga FROM Temporada T "
-                    "INNER JOIN Equip E ON T.idTemporada = E.idTemporada "
+                    "INNER JOIN EquipTemporada ET ON T.idTemporada = ET.idTemporada "
+                    "INNER JOIN Equip E ON ET.idEquip = E.idEquip "
                     "INNER JOIN Capita C ON E.idEquip = C.idEquip "
                     "INNER JOIN Usuari U ON C.identificador = U.identificador "
-                    "WHERE U.correu_electronic = @correu LIMIT 1";
+                    "WHERE U.correu_electronic = @correu "
+                    "ORDER BY T.dataInici DESC LIMIT 1";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@correu", correu);
                 Object^ result = cmd->ExecuteScalar();
@@ -281,7 +283,7 @@ namespace Playcampus {
             return dt;
         }
 
-        
+
         DataTable^ CercadoraLliga::ObtenirClassificacioLliga(String^ idLliga) {
             DataTable^ dt = gcnew DataTable();
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
@@ -400,7 +402,7 @@ namespace Playcampus {
             return dt;
         }
 
-        
+
         DataTable^ CercadoraLliga::ObtenirEstadistiquesEquips() {
             DataTable^ dt = gcnew DataTable();
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
@@ -427,7 +429,7 @@ namespace Playcampus {
             return dt;
         }
 
-        
+
         DataTable^ CercadoraLliga::ObtenirTelefonsAdministradorPerCapita(String^ correuUsuari) {
             DataTable^ dt = gcnew DataTable();
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);

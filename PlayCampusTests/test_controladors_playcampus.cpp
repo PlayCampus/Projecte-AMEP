@@ -138,13 +138,13 @@ TEST_F(FixtureControladors, CrearPartitRebutjaNoAdministrador) {
 
 TEST_F(FixtureControladors, UnirEquipLligaValidaContrasenyaIVinculaEquip) {
     CtrlUnirEquipLliga^ ctrl = gcnew CtrlUnirEquipLliga();
-    ExecutarSql("UPDATE Equip SET idTemporada = NULL WHERE idEquip = '" + EscaparSql(escenari->equipLocalId) + "'");
+    ExecutarSql("DELETE FROM EquipTemporada WHERE idEquip = '" + EscaparSql(escenari->equipLocalId) + "' AND idTemporada = '" + EscaparSql(escenari->temporadaId) + "'");
 
     EXPECT_TRUE(ctrl->ValidarContrasenyaLliga(escenari->lligaNom, "secret"));
     String^ resposta = ctrl->VincularEquip(escenari->capitaEmail, escenari->lligaNom);
 
     EXPECT_TRUE(resposta->Contains("ha sigut enregistrat"));
-    EXPECT_EQ(ToStd(escenari->temporadaId), ToStd(EscalarString("SELECT idTemporada FROM Equip WHERE idEquip = '" + EscaparSql(escenari->equipLocalId) + "'")));
+    EXPECT_EQ(ToStd(escenari->temporadaId), ToStd(EscalarString("SELECT idTemporada FROM EquipTemporada WHERE idEquip = '" + EscaparSql(escenari->equipLocalId) + "' AND idTemporada = '" + EscaparSql(escenari->temporadaId) + "'")));
 }
 
 TEST_F(FixtureControladors, AfegirJugadorCreaJugadorIVinculaEquip) {
@@ -326,8 +326,8 @@ TEST_F(FixtureControladors, EditarPartitActualitzaResultatIEstadistiquesEquip) {
 
     EXPECT_EQ("Finalitzat", ToStd(EscalarString("SELECT estat FROM Partit WHERE idPartit = '" + EscaparSql(escenari->partitId) + "'")));
     EXPECT_EQ(2, EscalarInt("SELECT golsLocal FROM Partit WHERE idPartit = '" + EscaparSql(escenari->partitId) + "'"));
-    EXPECT_EQ(1, EscalarInt("SELECT victories FROM Equip WHERE idEquip = '" + EscaparSql(escenari->equipLocalId) + "'"));
-    EXPECT_EQ(3, EscalarInt("SELECT punts FROM Equip WHERE idEquip = '" + EscaparSql(escenari->equipLocalId) + "'"));
+    EXPECT_EQ(1, EscalarInt("SELECT victories FROM EquipTemporada WHERE idEquip = '" + EscaparSql(escenari->equipLocalId) + "' AND idTemporada = '" + EscaparSql(escenari->temporadaId) + "'"));
+    EXPECT_EQ(3, EscalarInt("SELECT punts FROM EquipTemporada WHERE idEquip = '" + EscaparSql(escenari->equipLocalId) + "' AND idTemporada = '" + EscaparSql(escenari->temporadaId) + "'"));
 }
 
 TEST_F(FixtureControladors, EditarPartitRebutjaResultatNegatiu) {

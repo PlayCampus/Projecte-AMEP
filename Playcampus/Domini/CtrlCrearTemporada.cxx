@@ -37,7 +37,7 @@ namespace Playcampus {
 
             // 1. Busquem l'ID de l'administrador mitjançant el seu correu
             if (!String::IsNullOrEmpty(correuAdmin)) {
-                Playcampus::Dades::PassarellaUsuari^ adminUser = (gcnew Playcampus::Dades::CercadoraUsuari(connectionString))->LlegeixPerCorreu( correuAdmin);
+                Playcampus::Dades::PassarellaUsuari^ adminUser = (gcnew Playcampus::Dades::CercadoraUsuari(connectionString))->LlegeixPerCorreu(correuAdmin);
                 if (adminUser != nullptr && adminUser->GetIdentificador() != nullptr) {
                     idAdmin = adminUser->GetIdentificador()->Trim();
                 }
@@ -61,7 +61,18 @@ namespace Playcampus {
 
             // RIT12: Dues temporades d'una mateixa lliga no es poden solapar en dates
             List<Dictionary<String^, String^>^>^ temporadesExistents = ObtenirTemporadesPerLliga(nomLliga);
-            for each (Dictionary<String^, String^>^ t in temporadesExistents) {
+            for each(Dictionary<String^, String^> ^ t in temporadesExistents) {
+                String^ estatTemporada = (t->ContainsKey("estat") && t["estat"] != nullptr) ? t["estat"]->Trim() : String::Empty;
+
+                // Les temporades finalitzades o retirades no han de bloquejar la creació d'una nova temporada,
+                // especialment quan s'han retirat prematurament i les seves dates encara se solapen.
+                if (estatTemporada->Equals("Finalitzat", StringComparison::OrdinalIgnoreCase) ||
+                    estatTemporada->Equals("Finalitzada", StringComparison::OrdinalIgnoreCase) ||
+                    estatTemporada->Equals("Retirada", StringComparison::OrdinalIgnoreCase) ||
+                    estatTemporada->Equals("Retirat", StringComparison::OrdinalIgnoreCase)) {
+                    continue;
+                }
+
                 DateTime tInici = Convert::ToDateTime(t["dataInici"]);
                 DateTime tFi = Convert::ToDateTime(t["dataFi"]);
 
@@ -91,7 +102,7 @@ namespace Playcampus {
             String^ connStr = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
             Playcampus::Dades::PassarellaTemporada^ passTemp = gcnew Playcampus::Dades::PassarellaTemporada(connStr);
 
-            
+
             return passTemp->ObtenirDictTemporadesPerLliga(nomLliga);
         }
     }

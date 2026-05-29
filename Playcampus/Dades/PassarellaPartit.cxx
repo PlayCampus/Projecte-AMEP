@@ -80,8 +80,8 @@ namespace Playcampus {
                     String^ qEquipTemporada =
                         "SELECT COUNT(*) "
                         "FROM Jornada j "
-                        "INNER JOIN Equip e ON e.idTemporada = j.idTemporada "
-                        "WHERE j.idJornada = @idJornada AND e.idEquip = @idEquip";
+                        "INNER JOIN EquipTemporada et ON et.idTemporada = j.idTemporada "
+                        "WHERE j.idJornada = @idJornada AND et.idEquip = @idEquip";
                     MySqlCommand^ cmdLocal = gcnew MySqlCommand(qEquipTemporada, conn);
                     cmdLocal->Parameters->AddWithValue("@idJornada", idJornada);
                     cmdLocal->Parameters->AddWithValue("@idEquip", idEquipLocal);
@@ -158,15 +158,17 @@ namespace Playcampus {
                 conn->Open();
                 String^ idEquipLocal = nullptr;
                 String^ idEquipVisitant = nullptr;
+                String^ idTemporada = nullptr;
                 String^ estatPartit = nullptr;
                 int golsLocal = 0;
                 int golsVisitant = 0;
                 bool partitTrobat = false;
 
                 String^ queryDetallPartit =
-                    "SELECT idEquipLocal, idEquipVisitant, estat, golsLocal, golsVisitant "
-                    "FROM Partit "
-                    "WHERE idPartit = @idPartit "
+                    "SELECT p.idEquipLocal, p.idEquipVisitant, p.estat, p.golsLocal, p.golsVisitant, j.idTemporada "
+                    "FROM Partit p "
+                    "INNER JOIN Jornada j ON p.idJornada = j.idJornada "
+                    "WHERE p.idPartit = @idPartit "
                     "LIMIT 1";
                 MySqlCommand^ cmdDetallPartit = gcnew MySqlCommand(queryDetallPartit, conn);
                 cmdDetallPartit->Parameters->AddWithValue("@idPartit", idPartit);
@@ -178,6 +180,9 @@ namespace Playcampus {
                     }
                     if (!readerDetallPartit->IsDBNull(readerDetallPartit->GetOrdinal("idEquipVisitant"))) {
                         idEquipVisitant = readerDetallPartit["idEquipVisitant"]->ToString();
+                    }
+                    if (!readerDetallPartit->IsDBNull(readerDetallPartit->GetOrdinal("idTemporada"))) {
+                        idTemporada = readerDetallPartit["idTemporada"]->ToString();
                     }
                     if (!readerDetallPartit->IsDBNull(readerDetallPartit->GetOrdinal("estat"))) {
                         estatPartit = readerDetallPartit["estat"]->ToString();
@@ -200,7 +205,7 @@ namespace Playcampus {
                     partitFinalitzat = estatPartit->Equals("Finalitzat", StringComparison::OrdinalIgnoreCase);
                 }
 
-                if (idEquipLocal != nullptr && idEquipVisitant != nullptr) {
+                if (idEquipLocal != nullptr && idEquipVisitant != nullptr && idTemporada != nullptr) {
                     int victoriaLocal = golsLocal > golsVisitant ? 1 : 0;
                     int derrotaLocal = golsLocal < golsVisitant ? 1 : 0;
                     int empatLocal = golsLocal == golsVisitant ? 1 : 0;
@@ -212,28 +217,29 @@ namespace Playcampus {
                     int puntsVisitant = (victoriaVisitant * 3) + empatVisitant;
 
                     String^ queryDesferEquipFinalitzat =
-                        "UPDATE Equip SET "
-                        "partitsJugats = GREATEST(partitsJugats - 1, 0), "
-                        "golsAFavor = GREATEST(golsAFavor - @golsA, 0), "
-                        "golsEnContra = GREATEST(golsEnContra - @golsC, 0), "
+                        "UPDATE EquipTemporada SET "
+                        "partitsJugats = GREATEST(IFNULL(partitsJugats, 0) - 1, 0), "
+                        "golsAFavor = GREATEST(IFNULL(golsAFavor, 0) - @golsA, 0), "
+                        "golsEnContra = GREATEST(IFNULL(golsEnContra, 0) - @golsC, 0), "
                         "diferenciaGols = golsAFavor - golsEnContra, "
-                        "victories = GREATEST(victories - @victories, 0), "
-                        "derrotes = GREATEST(derrotes - @derrotes, 0), "
-                        "empats = GREATEST(empats - @empats, 0), "
-                        "punts = GREATEST(punts - @punts, 0) "
-                        "WHERE idEquip = @idEquip";
+                        "victories = GREATEST(IFNULL(victories, 0) - @victories, 0), "
+                        "derrotes = GREATEST(IFNULL(derrotes, 0) - @derrotes, 0), "
+                        "empats = GREATEST(IFNULL(empats, 0) - @empats, 0), "
+                        "punts = GREATEST(IFNULL(punts, 0) - @punts, 0) "
+                        "WHERE idEquip = @idEquip AND idTemporada = @idTemporada";
 
                     String^ queryDesferEquipNoFinalitzat =
-                        "UPDATE Equip SET "
-                        "golsAFavor = GREATEST(golsAFavor - @golsA, 0), "
-                        "golsEnContra = GREATEST(golsEnContra - @golsC, 0), "
+                        "UPDATE EquipTemporada SET "
+                        "golsAFavor = GREATEST(IFNULL(golsAFavor, 0) - @golsA, 0), "
+                        "golsEnContra = GREATEST(IFNULL(golsEnContra, 0) - @golsC, 0), "
                         "diferenciaGols = golsAFavor - golsEnContra "
-                        "WHERE idEquip = @idEquip";
+                        "WHERE idEquip = @idEquip AND idTemporada = @idTemporada";
 
                     String^ queryEquip = partitFinalitzat ? queryDesferEquipFinalitzat : queryDesferEquipNoFinalitzat;
 
                     MySqlCommand^ cmdEquipLocal = gcnew MySqlCommand(queryEquip, conn);
                     cmdEquipLocal->Parameters->AddWithValue("@idEquip", idEquipLocal);
+                    cmdEquipLocal->Parameters->AddWithValue("@idTemporada", idTemporada);
                     cmdEquipLocal->Parameters->AddWithValue("@golsA", golsLocal);
                     cmdEquipLocal->Parameters->AddWithValue("@golsC", golsVisitant);
                     if (partitFinalitzat) {
@@ -246,6 +252,7 @@ namespace Playcampus {
 
                     MySqlCommand^ cmdEquipVisitant = gcnew MySqlCommand(queryEquip, conn);
                     cmdEquipVisitant->Parameters->AddWithValue("@idEquip", idEquipVisitant);
+                    cmdEquipVisitant->Parameters->AddWithValue("@idTemporada", idTemporada);
                     cmdEquipVisitant->Parameters->AddWithValue("@golsA", golsVisitant);
                     cmdEquipVisitant->Parameters->AddWithValue("@golsC", golsLocal);
                     if (partitFinalitzat) {
@@ -281,7 +288,7 @@ namespace Playcampus {
                 readerEstadistiques->Close();
 
                 if (partitFinalitzat) {
-                    for each (Dictionary<String^, int>^ fila in estadistiquesJugadors) {
+                    for each(Dictionary<String^, int> ^ fila in estadistiquesJugadors) {
                         String^ queryDesferJugador =
                             "UPDATE Jugador SET "
                             "partitsJugats = GREATEST(partitsJugats - 1, 0), "
@@ -421,16 +428,22 @@ namespace Playcampus {
             try {
                 conn->Open();
 
-                // Obtenir idEquipLocal i idEquipVisitant per actualitzar stats de Equip
-                String^ queryEquips = "SELECT idEquipLocal, idEquipVisitant FROM Partit WHERE idPartit = @idPartit LIMIT 1";
+                // Obtenir idEquipLocal, idEquipVisitant i idTemporada per actualitzar stats de EquipTemporada
+                String^ queryEquips =
+                    "SELECT p.idEquipLocal, p.idEquipVisitant, j.idTemporada "
+                    "FROM Partit p "
+                    "INNER JOIN Jornada j ON p.idJornada = j.idJornada "
+                    "WHERE p.idPartit = @idPartit LIMIT 1";
                 MySqlCommand^ cmdEquips = gcnew MySqlCommand(queryEquips, conn);
                 cmdEquips->Parameters->AddWithValue("@idPartit", idPartit);
                 String^ idEquipLocal = nullptr;
                 String^ idEquipVisitant = nullptr;
+                String^ idTemporada = nullptr;
                 MySqlDataReader^ readerEquips = cmdEquips->ExecuteReader();
                 if (readerEquips->Read()) {
-                    idEquipLocal = readerEquips["idEquipLocal"]->ToString();
-                    idEquipVisitant = readerEquips["idEquipVisitant"]->ToString();
+                    idEquipLocal = readerEquips["idEquipLocal"] == DBNull::Value ? nullptr : readerEquips["idEquipLocal"]->ToString();
+                    idEquipVisitant = readerEquips["idEquipVisitant"] == DBNull::Value ? nullptr : readerEquips["idEquipVisitant"]->ToString();
+                    idTemporada = readerEquips["idTemporada"] == DBNull::Value ? nullptr : readerEquips["idTemporada"]->ToString();
                 }
                 readerEquips->Close();
 
@@ -455,25 +468,26 @@ namespace Playcampus {
                 // estadístiques individuals es guarden per jugador en format normalitzat
 
                 // Actualitzar Estadístiques Equip (només si l'estat és Finalitzat)
-                if (nouEstat == "Finalitzat" && estatAnterior != "Finalitzat" && idEquipLocal != nullptr && idEquipVisitant != nullptr) {
+                if (nouEstat == "Finalitzat" && estatAnterior != "Finalitzat" && idEquipLocal != nullptr && idEquipVisitant != nullptr && idTemporada != nullptr) {
 
                     int diffGolsLocal = resultatLocal - golsLocalAnterior;
                     int diffGolsVisitant = resultatVisitant - golsVisitantAnterior;
 
-                    String^ queryUpdateEquipLocal = 
-                        "UPDATE Equip SET "
-                        "partitsJugats = partitsJugats + 1, "
-                        "golsAFavor = golsAFavor + @golsA, "
-                        "golsEnContra = golsEnContra + @golsC, "
-                        "diferenciaGols = (golsAFavor + @golsA) - (golsEnContra + @golsC), "
-                        "victories = victories + @victories, "
-                        "derrotes = derrotes + @derrotes, "
-                        "empats = empats + @empats, "
-                        "punts = punts + @punts "
-                        "WHERE idEquip = @idEquip";
+                    String^ queryUpdateEquipLocal =
+                        "UPDATE EquipTemporada SET "
+                        "partitsJugats = IFNULL(partitsJugats, 0) + 1, "
+                        "golsAFavor = GREATEST(IFNULL(golsAFavor, 0) + @golsA, 0), "
+                        "golsEnContra = GREATEST(IFNULL(golsEnContra, 0) + @golsC, 0), "
+                        "diferenciaGols = golsAFavor - golsEnContra, "
+                        "victories = IFNULL(victories, 0) + @victories, "
+                        "derrotes = IFNULL(derrotes, 0) + @derrotes, "
+                        "empats = IFNULL(empats, 0) + @empats, "
+                        "punts = IFNULL(punts, 0) + @punts "
+                        "WHERE idEquip = @idEquip AND idTemporada = @idTemporada";
 
                     MySqlCommand^ cmdUpdateLocal = gcnew MySqlCommand(queryUpdateEquipLocal, conn);
                     cmdUpdateLocal->Parameters->AddWithValue("@idEquip", idEquipLocal);
+                    cmdUpdateLocal->Parameters->AddWithValue("@idTemporada", idTemporada);
                     cmdUpdateLocal->Parameters->AddWithValue("@golsA", diffGolsLocal);
                     cmdUpdateLocal->Parameters->AddWithValue("@golsC", diffGolsVisitant);
 
@@ -489,20 +503,21 @@ namespace Playcampus {
 
                     cmdUpdateLocal->ExecuteNonQuery();
 
-                    String^ queryUpdateEquipVisitant = 
-                        "UPDATE Equip SET "
-                        "partitsJugats = partitsJugats + 1, "
-                        "golsAFavor = golsAFavor + @golsA, "
-                        "golsEnContra = golsEnContra + @golsC, "
-                        "diferenciaGols = (golsAFavor + @golsA) - (golsEnContra + @golsC), "
-                        "victories = victories + @victories, "
-                        "derrotes = derrotes + @derrotes, "
-                        "empats = empats + @empats, "
-                        "punts = punts + @punts "
-                        "WHERE idEquip = @idEquip";
+                    String^ queryUpdateEquipVisitant =
+                        "UPDATE EquipTemporada SET "
+                        "partitsJugats = IFNULL(partitsJugats, 0) + 1, "
+                        "golsAFavor = GREATEST(IFNULL(golsAFavor, 0) + @golsA, 0), "
+                        "golsEnContra = GREATEST(IFNULL(golsEnContra, 0) + @golsC, 0), "
+                        "diferenciaGols = golsAFavor - golsEnContra, "
+                        "victories = IFNULL(victories, 0) + @victories, "
+                        "derrotes = IFNULL(derrotes, 0) + @derrotes, "
+                        "empats = IFNULL(empats, 0) + @empats, "
+                        "punts = IFNULL(punts, 0) + @punts "
+                        "WHERE idEquip = @idEquip AND idTemporada = @idTemporada";
 
                     MySqlCommand^ cmdUpdateVisitant = gcnew MySqlCommand(queryUpdateEquipVisitant, conn);
                     cmdUpdateVisitant->Parameters->AddWithValue("@idEquip", idEquipVisitant);
+                    cmdUpdateVisitant->Parameters->AddWithValue("@idTemporada", idTemporada);
                     cmdUpdateVisitant->Parameters->AddWithValue("@golsA", diffGolsVisitant);
                     cmdUpdateVisitant->Parameters->AddWithValue("@golsC", diffGolsLocal);
 
@@ -583,27 +598,31 @@ namespace Playcampus {
                             }
                         }
                     }
-                } else if (nouEstat == "Pendent" || nouEstat == "En curs" || nouEstat == "En joc") {
+                }
+                else if ((nouEstat == "Pendent" || nouEstat == "En curs" || nouEstat == "En joc") && idEquipLocal != nullptr && idEquipVisitant != nullptr && idTemporada != nullptr) {
                     // Update per canvis de gols mentres el partit encara NO s'ha finalitzat i s'afegeixen gols
                     int addGolsLocal = resultatLocal - golsLocalAnterior;
                     int addGolsVisitant = resultatVisitant - golsVisitantAnterior;
 
-                    if(addGolsLocal != 0 || addGolsVisitant != 0) {
-                        String^ queryUpdateGolsLocal = "UPDATE Equip SET golsAFavor = golsAFavor + @golsA, golsEnContra = golsEnContra + @golsC, diferenciaGols = (golsAFavor + @golsA) - (golsEnContra + @golsC) WHERE idEquip = @idEquip";
+                    if (addGolsLocal != 0 || addGolsVisitant != 0) {
+                        String^ queryUpdateGolsLocal = "UPDATE EquipTemporada SET golsAFavor = GREATEST(IFNULL(golsAFavor, 0) + @golsA, 0), golsEnContra = GREATEST(IFNULL(golsEnContra, 0) + @golsC, 0), diferenciaGols = golsAFavor - golsEnContra WHERE idEquip = @idEquip AND idTemporada = @idTemporada";
                         MySqlCommand^ cmdUpdateGolsL = gcnew MySqlCommand(queryUpdateGolsLocal, conn);
                         cmdUpdateGolsL->Parameters->AddWithValue("@idEquip", idEquipLocal);
+                        cmdUpdateGolsL->Parameters->AddWithValue("@idTemporada", idTemporada);
                         cmdUpdateGolsL->Parameters->AddWithValue("@golsA", addGolsLocal);
                         cmdUpdateGolsL->Parameters->AddWithValue("@golsC", addGolsVisitant);
                         cmdUpdateGolsL->ExecuteNonQuery();
 
-                        String^ queryUpdateGolsVisitant = "UPDATE Equip SET golsAFavor = golsAFavor + @golsA, golsEnContra = golsEnContra + @golsC, diferenciaGols = (golsAFavor + @golsA) - (golsEnContra + @golsC) WHERE idEquip = @idEquip";
+                        String^ queryUpdateGolsVisitant = "UPDATE EquipTemporada SET golsAFavor = GREATEST(IFNULL(golsAFavor, 0) + @golsA, 0), golsEnContra = GREATEST(IFNULL(golsEnContra, 0) + @golsC, 0), diferenciaGols = golsAFavor - golsEnContra WHERE idEquip = @idEquip AND idTemporada = @idTemporada";
                         MySqlCommand^ cmdUpdateGolsV = gcnew MySqlCommand(queryUpdateGolsVisitant, conn);
                         cmdUpdateGolsV->Parameters->AddWithValue("@idEquip", idEquipVisitant);
+                        cmdUpdateGolsV->Parameters->AddWithValue("@idTemporada", idTemporada);
                         cmdUpdateGolsV->Parameters->AddWithValue("@golsA", addGolsVisitant);
                         cmdUpdateGolsV->Parameters->AddWithValue("@golsC", addGolsLocal);
                         cmdUpdateGolsV->ExecuteNonQuery();
                     }
-                } else if (estatAnterior == "Finalitzat" && nouEstat == "Finalitzat" && (resultatLocal != golsLocalAnterior || resultatVisitant != golsVisitantAnterior)) {
+                }
+                else if (estatAnterior == "Finalitzat" && nouEstat == "Finalitzat" && (resultatLocal != golsLocalAnterior || resultatVisitant != golsVisitantAnterior) && idEquipLocal != nullptr && idEquipVisitant != nullptr && idTemporada != nullptr) {
                     // Update per canvis de gols mentres el partit s'ha finalitzat prèviament. Aquí a part dels gols també s'han de canviar els partits
                     // ja que l'acumulació de gols general ja es va fer.
 
@@ -611,64 +630,68 @@ namespace Playcampus {
                     int addGolsLocal = resultatLocal - golsLocalAnterior;
                     int addGolsVisitant = resultatVisitant - golsVisitantAnterior;
 
-                    if(addGolsLocal != 0 || addGolsVisitant != 0) {
-                        String^ queryUpdateGolsLocal = "UPDATE Equip SET golsAFavor = golsAFavor + @golsA, golsEnContra = golsEnContra + @golsC, diferenciaGols = (golsAFavor + @golsA) - (golsEnContra + @golsC) WHERE idEquip = @idEquip";
+                    if (addGolsLocal != 0 || addGolsVisitant != 0) {
+                        String^ queryUpdateGolsLocal = "UPDATE EquipTemporada SET golsAFavor = GREATEST(IFNULL(golsAFavor, 0) + @golsA, 0), golsEnContra = GREATEST(IFNULL(golsEnContra, 0) + @golsC, 0), diferenciaGols = golsAFavor - golsEnContra WHERE idEquip = @idEquip AND idTemporada = @idTemporada";
                         MySqlCommand^ cmdUpdateGolsL = gcnew MySqlCommand(queryUpdateGolsLocal, conn);
                         cmdUpdateGolsL->Parameters->AddWithValue("@idEquip", idEquipLocal);
+                        cmdUpdateGolsL->Parameters->AddWithValue("@idTemporada", idTemporada);
                         cmdUpdateGolsL->Parameters->AddWithValue("@golsA", addGolsLocal);
                         cmdUpdateGolsL->Parameters->AddWithValue("@golsC", addGolsVisitant);
                         cmdUpdateGolsL->ExecuteNonQuery();
 
-                        String^ queryUpdateGolsVisitant = "UPDATE Equip SET golsAFavor = golsAFavor + @golsA, golsEnContra = golsEnContra + @golsC, diferenciaGols = (golsAFavor + @golsA) - (golsEnContra + @golsC) WHERE idEquip = @idEquip";
+                        String^ queryUpdateGolsVisitant = "UPDATE EquipTemporada SET golsAFavor = GREATEST(IFNULL(golsAFavor, 0) + @golsA, 0), golsEnContra = GREATEST(IFNULL(golsEnContra, 0) + @golsC, 0), diferenciaGols = golsAFavor - golsEnContra WHERE idEquip = @idEquip AND idTemporada = @idTemporada";
                         MySqlCommand^ cmdUpdateGolsV = gcnew MySqlCommand(queryUpdateGolsVisitant, conn);
                         cmdUpdateGolsV->Parameters->AddWithValue("@idEquip", idEquipVisitant);
+                        cmdUpdateGolsV->Parameters->AddWithValue("@idTemporada", idTemporada);
                         cmdUpdateGolsV->Parameters->AddWithValue("@golsA", addGolsVisitant);
                         cmdUpdateGolsV->Parameters->AddWithValue("@golsC", addGolsLocal);
                         cmdUpdateGolsV->ExecuteNonQuery();
                     }
-                        // Undo previous finish and re-do with new results
+                    // Undo previous finish and re-do with new results
 
-                        // Undo old results
-                        int vicL_old = golsLocalAnterior > golsVisitantAnterior ? 1 : 0;
-                        int derL_old = golsLocalAnterior < golsVisitantAnterior ? 1 : 0;
-                        int empL_old = golsLocalAnterior == golsVisitantAnterior ? 1 : 0;
-                        int puntsL_old = (vicL_old * 3) + (empL_old * 1);
+                    // Undo old results
+                    int vicL_old = golsLocalAnterior > golsVisitantAnterior ? 1 : 0;
+                    int derL_old = golsLocalAnterior < golsVisitantAnterior ? 1 : 0;
+                    int empL_old = golsLocalAnterior == golsVisitantAnterior ? 1 : 0;
+                    int puntsL_old = (vicL_old * 3) + (empL_old * 1);
 
-                        int vicV_old = golsVisitantAnterior > golsLocalAnterior ? 1 : 0;
-                        int derV_old = golsVisitantAnterior < golsLocalAnterior ? 1 : 0;
-                        int empV_old = golsVisitantAnterior == golsLocalAnterior ? 1 : 0;
-                        int puntsV_old = (vicV_old * 3) + (empV_old * 1);
+                    int vicV_old = golsVisitantAnterior > golsLocalAnterior ? 1 : 0;
+                    int derV_old = golsVisitantAnterior < golsLocalAnterior ? 1 : 0;
+                    int empV_old = golsVisitantAnterior == golsLocalAnterior ? 1 : 0;
+                    int puntsV_old = (vicV_old * 3) + (empV_old * 1);
 
-                        // Calculate new results
-                        int vicL_new = resultatLocal > resultatVisitant ? 1 : 0;
-                        int derL_new = resultatLocal < resultatVisitant ? 1 : 0;
-                        int empL_new = resultatLocal == resultatVisitant ? 1 : 0;
-                        int puntsL_new = (vicL_new * 3) + (empL_new * 1);
+                    // Calculate new results
+                    int vicL_new = resultatLocal > resultatVisitant ? 1 : 0;
+                    int derL_new = resultatLocal < resultatVisitant ? 1 : 0;
+                    int empL_new = resultatLocal == resultatVisitant ? 1 : 0;
+                    int puntsL_new = (vicL_new * 3) + (empL_new * 1);
 
-                        int vicV_new = resultatVisitant > resultatLocal ? 1 : 0;
-                        int derV_new = resultatVisitant < resultatLocal ? 1 : 0;
-                        int empV_new = resultatVisitant == resultatLocal ? 1 : 0;
-                        int puntsV_new = (vicV_new * 3) + (empV_new * 1);
+                    int vicV_new = resultatVisitant > resultatLocal ? 1 : 0;
+                    int derV_new = resultatVisitant < resultatLocal ? 1 : 0;
+                    int empV_new = resultatVisitant == resultatLocal ? 1 : 0;
+                    int puntsV_new = (vicV_new * 3) + (empV_new * 1);
 
-                        // Update local team
-                        String^ qUndoUpdateL = "UPDATE Equip SET victories = victories - @vicO + @vicN, derrotes = derrotes - @derO + @derN, empats = empats - @empO + @empN, punts = punts - @ptsO + @ptsN WHERE idEquip = @idEquip";
-                        MySqlCommand^ cmdUndoL = gcnew MySqlCommand(qUndoUpdateL, conn);
-                        cmdUndoL->Parameters->AddWithValue("@idEquip", idEquipLocal);
-                        cmdUndoL->Parameters->AddWithValue("@vicO", vicL_old); cmdUndoL->Parameters->AddWithValue("@vicN", vicL_new);
-                        cmdUndoL->Parameters->AddWithValue("@derO", derL_old); cmdUndoL->Parameters->AddWithValue("@derN", derL_new);
-                        cmdUndoL->Parameters->AddWithValue("@empO", empL_old); cmdUndoL->Parameters->AddWithValue("@empN", empL_new);
-                        cmdUndoL->Parameters->AddWithValue("@ptsO", puntsL_old); cmdUndoL->Parameters->AddWithValue("@ptsN", puntsL_new);
-                        cmdUndoL->ExecuteNonQuery();
+                    // Update local team
+                    String^ qUndoUpdateL = "UPDATE EquipTemporada SET victories = GREATEST(IFNULL(victories, 0) - @vicO + @vicN, 0), derrotes = GREATEST(IFNULL(derrotes, 0) - @derO + @derN, 0), empats = GREATEST(IFNULL(empats, 0) - @empO + @empN, 0), punts = GREATEST(IFNULL(punts, 0) - @ptsO + @ptsN, 0) WHERE idEquip = @idEquip AND idTemporada = @idTemporada";
+                    MySqlCommand^ cmdUndoL = gcnew MySqlCommand(qUndoUpdateL, conn);
+                    cmdUndoL->Parameters->AddWithValue("@idEquip", idEquipLocal);
+                    cmdUndoL->Parameters->AddWithValue("@idTemporada", idTemporada);
+                    cmdUndoL->Parameters->AddWithValue("@vicO", vicL_old); cmdUndoL->Parameters->AddWithValue("@vicN", vicL_new);
+                    cmdUndoL->Parameters->AddWithValue("@derO", derL_old); cmdUndoL->Parameters->AddWithValue("@derN", derL_new);
+                    cmdUndoL->Parameters->AddWithValue("@empO", empL_old); cmdUndoL->Parameters->AddWithValue("@empN", empL_new);
+                    cmdUndoL->Parameters->AddWithValue("@ptsO", puntsL_old); cmdUndoL->Parameters->AddWithValue("@ptsN", puntsL_new);
+                    cmdUndoL->ExecuteNonQuery();
 
-                        // Update visitant team
-                        String^ qUndoUpdateV = "UPDATE Equip SET victories = victories - @vicO + @vicN, derrotes = derrotes - @derO + @derN, empats = empats - @empO + @empN, punts = punts - @ptsO + @ptsN WHERE idEquip = @idEquip";
-                        MySqlCommand^ cmdUndoV = gcnew MySqlCommand(qUndoUpdateV, conn);
-                        cmdUndoV->Parameters->AddWithValue("@idEquip", idEquipVisitant);
-                        cmdUndoV->Parameters->AddWithValue("@vicO", vicV_old); cmdUndoV->Parameters->AddWithValue("@vicN", vicV_new);
-                        cmdUndoV->Parameters->AddWithValue("@derO", derV_old); cmdUndoV->Parameters->AddWithValue("@derN", derV_new);
-                        cmdUndoV->Parameters->AddWithValue("@empO", empV_old); cmdUndoV->Parameters->AddWithValue("@empN", empV_new);
-                        cmdUndoV->Parameters->AddWithValue("@ptsO", puntsV_old); cmdUndoV->Parameters->AddWithValue("@ptsN", puntsV_new);
-                        cmdUndoV->ExecuteNonQuery();
+                    // Update visitant team
+                    String^ qUndoUpdateV = "UPDATE EquipTemporada SET victories = GREATEST(IFNULL(victories, 0) - @vicO + @vicN, 0), derrotes = GREATEST(IFNULL(derrotes, 0) - @derO + @derN, 0), empats = GREATEST(IFNULL(empats, 0) - @empO + @empN, 0), punts = GREATEST(IFNULL(punts, 0) - @ptsO + @ptsN, 0) WHERE idEquip = @idEquip AND idTemporada = @idTemporada";
+                    MySqlCommand^ cmdUndoV = gcnew MySqlCommand(qUndoUpdateV, conn);
+                    cmdUndoV->Parameters->AddWithValue("@idEquip", idEquipVisitant);
+                    cmdUndoV->Parameters->AddWithValue("@idTemporada", idTemporada);
+                    cmdUndoV->Parameters->AddWithValue("@vicO", vicV_old); cmdUndoV->Parameters->AddWithValue("@vicN", vicV_new);
+                    cmdUndoV->Parameters->AddWithValue("@derO", derV_old); cmdUndoV->Parameters->AddWithValue("@derN", derV_new);
+                    cmdUndoV->Parameters->AddWithValue("@empO", empV_old); cmdUndoV->Parameters->AddWithValue("@empN", empV_new);
+                    cmdUndoV->Parameters->AddWithValue("@ptsO", puntsV_old); cmdUndoV->Parameters->AddWithValue("@ptsN", puntsV_new);
+                    cmdUndoV->ExecuteNonQuery();
                 }
 
                 if (!(nouEstat == "Finalitzat" && estatAnterior != "Finalitzat") && !String::IsNullOrWhiteSpace(statsJson)) {
@@ -774,7 +797,7 @@ namespace Playcampus {
                 }
             }
             finally {
-                if(conn != nullptr) {
+                if (conn != nullptr) {
                     conn->Close();
                     delete conn;
                 }

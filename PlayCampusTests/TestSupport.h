@@ -310,7 +310,8 @@ namespace PlayCampusTests {
             ctrlTemporada->CrearTemporada(DateTime::Now.AddDays(-2), DateTime::Now.AddDays(60), escenari->adminEmail);
             escenari->temporadaId = EscalarString("SELECT idTemporada FROM Temporada WHERE idLliga = '" + EscaparSql(escenari->lligaId) + "' ORDER BY dataInici DESC LIMIT 1");
 
-            ExecutarSql("UPDATE Equip SET idTemporada = '" + EscaparSql(escenari->temporadaId) + "' WHERE idEquip IN ('" + EscaparSql(escenari->equipLocalId) + "', '" + EscaparSql(escenari->equipVisitantId) + "')");
+            ExecutarSql("INSERT INTO EquipTemporada (idEquip, idTemporada) VALUES ('" + EscaparSql(escenari->equipLocalId) + "', '" + EscaparSql(escenari->temporadaId) + "') ON DUPLICATE KEY UPDATE idEquip = idEquip");
+            ExecutarSql("INSERT INTO EquipTemporada (idEquip, idTemporada) VALUES ('" + EscaparSql(escenari->equipVisitantId) + "', '" + EscaparSql(escenari->temporadaId) + "') ON DUPLICATE KEY UPDATE idEquip = idEquip");
 
             CtrlCrearJornada^ ctrlJornada = gcnew CtrlCrearJornada();
             ctrlJornada->CrearJornada(escenari->temporadaId, 1, DateTime::Now.AddDays(-1), DateTime::Now.AddDays(30), "Proxim");
