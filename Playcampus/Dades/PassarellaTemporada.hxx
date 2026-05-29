@@ -28,6 +28,14 @@ namespace Playcampus {
             // Mètode per guardar a la BD
             void Insereix();
 
+            //Getters
+			String^ GetIdTemporada();
+			String^ GetIdLliga();
+			DateTime GetDataInici();
+			DateTime GetDataFi();
+			String^ GetEstat();
+
+
             static void ActualitzarEstats(String^ connString);
 
             System::Collections::Generic::List<
@@ -38,6 +46,8 @@ namespace Playcampus {
 
             void RetirarTemporada(System::String^ idLliga);
             
+            static PassarellaTemporada^ Llegeix(System::String^ connectionString, System::String^ idTemporada);
+ 
 
         };
     }

@@ -33,7 +33,7 @@ namespace Playcampus {
             }
 
             String^ nomEquip = equipDB->GetNom();
-
+            /*
             equipDBTemporada->SetIdTemporada(nullptr);
             equipDBTemporada->SetPartitsJugats(0);
             equipDBTemporada->SetVictories(0);
@@ -48,13 +48,22 @@ namespace Playcampus {
 
  
 
-            PassarellaEquipTemporada^ equipComprovat = PassarellaEquipTemporada::Llegeix(connectionString, idEquipRecuperat, idTemporada);
-            if (equipComprovat == nullptr || equipComprovat->GetIdTemporada() != nullptr) {
-                throw gcnew Exception("La base de dades no ha confirmat l'abandó de la lliga.");
+            if (equipDB == nullptr) {
+                throw gcnew Exception("Equip no trobat a la base de dades. (" + idEquipRecuperat + ")");
             }
+            if (equipDBTemporada == nullptr) {
+                throw gcnew Exception("L'equip no esta vinculat a cap lliga o temporada actualment.");
+            }
+            */
+          
 
-            if (equipComprovat->GetPunts() != 0 || equipComprovat->GetVictories() != 0) {
-                throw gcnew Exception("La base de dades no ha confirmat la reinicialitzacio de les estadistiques.");
+            // Eliminamos la vinculación (la tabla intermedia EquipTemporada)
+            equipDBTemporada->Esborra();
+
+            // Comprobamos que el borrado ha surtido efecto intentando leer de nuevo.
+            PassarellaEquipTemporada^ equipComprovat = PassarellaEquipTemporada::Llegeix(connectionString, idEquipRecuperat, idTemporada);
+            if (equipComprovat != nullptr) {
+                throw gcnew Exception("La base de dades no ha confirmat l'abandó de la lliga.");
             }
 
             return "L'equip " + nomEquip + " ha abandonat la lliga. Les estadistiques han sigut reiniciades.";

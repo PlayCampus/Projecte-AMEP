@@ -253,6 +253,7 @@ namespace Playcampus {
             return idLliga;
         }
 
+
         DataTable^ CercadoraLliga::ObtenirEquipsDeLaLligaAdministrador(String^ correuAdmin) {
             DataTable^ dt = gcnew DataTable();
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
@@ -260,12 +261,13 @@ namespace Playcampus {
                 conn->Open();
                 String^ query =
                     "SELECT E.idEquip AS IdEquip, E.nom AS Equip, E.esport AS Esport, "
-                    "E.partitsJugats AS PartitsJugats, E.victories AS Victories, E.empats AS Empats, "
-                    "E.derrotes AS Derrotes, E.punts AS Punts "
+                    "ET.partitsJugats AS PartitsJugats, ET.victories AS Victories, ET.empats AS Empats, "
+                    "ET.derrotes AS Derrotes, ET.punts AS Punts "
                     "FROM Lliga L "
                     "INNER JOIN Usuari U ON L.idAdministrador = U.identificador "
                     "INNER JOIN Temporada T ON T.idLliga = L.idLliga "
-                    "INNER JOIN Equip E ON E.idTemporada = T.idTemporada "
+                    "INNER JOIN EquipTemporada ET ON ET.idTemporada = T.idTemporada "
+                    "INNER JOIN Equip E ON E.idEquip = ET.idEquip "
                     "WHERE U.correu_electronic = @correuAdmin "
                     "ORDER BY E.nom ASC";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
@@ -286,13 +288,14 @@ namespace Playcampus {
             try {
                 conn->Open();
                 String^ query =
-                    "SELECT E.nom AS Equip, E.partitsJugats AS PJ, E.victories AS V, E.empats AS E, "
-                    "E.derrotes AS D, E.golsAFavor AS GF, E.golsEnContra AS GC, "
-                    "E.diferenciaGols AS DG, E.punts AS Punts "
-                    "FROM Equip E "
-                    "INNER JOIN Temporada T ON E.idTemporada = T.idTemporada "
+                    "SELECT E.nom AS Equip, ET.partitsJugats AS PJ, ET.victories AS V, ET.empats AS E, "
+                    "ET.derrotes AS D, ET.golsAFavor AS GF, ET.golsEnContra AS GC, "
+                    "ET.diferenciaGols AS DG, ET.punts AS Punts "
+                    "FROM EquipTemporada ET "
+                    "INNER JOIN Equip E ON ET.idEquip = E.idEquip "
+                    "INNER JOIN Temporada T ON ET.idTemporada = T.idTemporada "
                     "WHERE T.idLliga = @idLliga "
-                    "ORDER BY E.punts DESC, E.diferenciaGols DESC";
+                    "ORDER BY ET.punts DESC, ET.diferenciaGols DESC";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idLliga", idLliga);
                 MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
@@ -317,13 +320,14 @@ namespace Playcampus {
                 String^ labelDif = esFutbol ? "DG" : "DP";
 
                 String^ query =
-                    "SELECT E.nom AS Equip, E.partitsJugats AS PJ, E.victories AS V, E.empats AS E, "
-                    "E.derrotes AS D, E.golsAFavor AS " + labelFavor + ", E.golsEnContra AS " + labelContra + ", "
-                    "E.diferenciaGols AS " + labelDif + ", E.punts AS Punts "
-                    "FROM Equip E "
-                    "INNER JOIN Temporada T ON E.idTemporada = T.idTemporada "
+                    "SELECT E.nom AS Equip, ET.partitsJugats AS PJ, ET.victories AS V, ET.empats AS E, "
+                    "ET.derrotes AS D, ET.golsAFavor AS " + labelFavor + ", ET.golsEnContra AS " + labelContra + ", "
+                    "ET.diferenciaGols AS " + labelDif + ", ET.punts AS Punts "
+                    "FROM EquipTemporada ET "
+                    "INNER JOIN Equip E ON ET.idEquip = E.idEquip "
+                    "INNER JOIN Temporada T ON ET.idTemporada = T.idTemporada "
                     "WHERE T.idLliga = @idLliga AND T.idTemporada = @idTemporada "
-                    "ORDER BY E.punts DESC, E.diferenciaGols DESC, E.nom ASC";
+                    "ORDER BY ET.punts DESC, ET.diferenciaGols DESC, E.nom ASC";
 
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idLliga", idLliga);
@@ -351,13 +355,14 @@ namespace Playcampus {
                 String^ labelDif = esFutbol ? "DG" : "DP";
 
                 String^ query =
-                    "SELECT E.nom AS Equip, E.partitsJugats AS PJ, E.victories AS V, E.empats AS E, "
-                    "E.derrotes AS D, E.golsAFavor AS " + labelFavor + ", E.golsEnContra AS " + labelContra + ", "
-                    "E.diferenciaGols AS " + labelDif + ", E.punts AS Punts "
-                    "FROM Equip E "
-                    "INNER JOIN Temporada T ON E.idTemporada = T.idTemporada "
+                    "SELECT E.nom AS Equip, ET.partitsJugats AS PJ, ET.victories AS V, ET.empats AS E, "
+                    "ET.derrotes AS D, ET.golsAFavor AS " + labelFavor + ", ET.golsEnContra AS " + labelContra + ", "
+                    "ET.diferenciaGols AS " + labelDif + ", ET.punts AS Punts "
+                    "FROM EquipTemporada ET "
+                    "INNER JOIN Equip E ON ET.idEquip = E.idEquip "
+                    "INNER JOIN Temporada T ON ET.idTemporada = T.idTemporada "
                     "WHERE T.idLliga = @idLliga "
-                    "ORDER BY E.punts DESC, E.diferenciaGols DESC";
+                    "ORDER BY ET.punts DESC, ET.diferenciaGols DESC";
 
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idLliga", idLliga);
@@ -369,6 +374,7 @@ namespace Playcampus {
             }
             return dt;
         }
+
         DataTable^ CercadoraLliga::ObtenirEstatLligues() {
             DataTable^ dt = gcnew DataTable();
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
@@ -402,14 +408,15 @@ namespace Playcampus {
                 conn->Open();
                 String^ query =
                     "SELECT IFNULL(L.nom, 'Sense lliga') AS Lliga, E.nom AS Equip, E.esport AS Esport, "
-                    "E.partitsJugats AS PartitsJugats, E.victories AS Victories, E.empats AS Empats, "
-                    "E.derrotes AS Derrotes, E.punts AS Punts, E.golsAFavor AS GolsAFavor, "
-                    "E.golsEnContra AS GolsEnContra, E.diferenciaGols AS DiferenciaGols, "
-                    "E.posicioClassificacio AS PosicioClassificacio "
+                    "ET.partitsJugats AS PartitsJugats, ET.victories AS Victories, ET.empats AS Empats, "
+                    "ET.derrotes AS Derrotes, ET.punts AS Punts, ET.golsAFavor AS GolsAFavor, "
+                    "ET.golsEnContra AS GolsEnContra, ET.diferenciaGols AS DiferenciaGols, "
+                    "ET.posicioClassificacio AS PosicioClassificacio "
                     "FROM Equip E "
-                    "LEFT JOIN Temporada T ON E.idTemporada = T.idTemporada "
+                    "LEFT JOIN EquipTemporada ET ON E.idEquip = ET.idEquip "
+                    "LEFT JOIN Temporada T ON ET.idTemporada = T.idTemporada "
                     "LEFT JOIN Lliga L ON T.idLliga = L.idLliga "
-                    "ORDER BY IFNULL(L.nom, ''), E.posicioClassificacio ASC, E.punts DESC, E.nom ASC";
+                    "ORDER BY IFNULL(L.nom, ''), ET.posicioClassificacio ASC, ET.punts DESC, E.nom ASC";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
                 adapter->Fill(dt);

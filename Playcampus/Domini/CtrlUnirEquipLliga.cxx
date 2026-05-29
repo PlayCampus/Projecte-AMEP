@@ -49,21 +49,30 @@ namespace Playcampus {
                 throw gcnew Exception("La lliga no te cap temporada associada. Primer cal crear una temporada.");
             }
 
+            // Comprobar que la temporada obtenida está "EnCurs"
+            PassarellaTemporada^ dbTemporadaMesRecent = PassarellaTemporada::Llegeix(connectionString, idTemporadaMesRecent);
+            if (dbTemporadaMesRecent == nullptr || dbTemporadaMesRecent->GetEstat() == "Finalitzat") {
+                throw gcnew Exception("La temporada més recent està finalitzada o ha estat retirada. Cal obrir una nova temporada.");
+            }
+
             PassarellaEquip^ equipDB = PassarellaEquip::Llegeix(connectionString, idEquipRecuperat);
             if (equipDB == nullptr) {
                 throw gcnew Exception("Equip no trobat a la base de dades. (" + idEquipRecuperat + ")");
             }
 
-            //  Usar Llegeix (u otra función en Cercadora) para ver si la vinculación ya existe
+
+
+            // Usar Llegeix  para ver si la vinculación ya existe
             PassarellaEquipTemporada^ vinculacioExistent = PassarellaEquipTemporada::Llegeix(connectionString, idEquipRecuperat, idTemporadaMesRecent);
             if (vinculacioExistent != nullptr) {
                 throw gcnew Exception("Aquest equip ja està vinculat a la temporada més recent d'aquesta lliga.");
             }
 
+            // Crear la asocación con el segundo constructor y guardarla con Insereix()
+            PassarellaEquipTemporada^ equipTempDB = gcnew PassarellaEquipTemporada(connectionString, idEquipRecuperat, idTemporadaMesRecent);
+            equipTempDB->Insereix();
 
-            PassarellaEquipTemporada^ equipTempDB = gcnew PassarellaEquipTemporada(connectionString);
-            equipTempDB->SetIdTemporada(idTemporadaMesRecent);
-            equipDB->Modifica();
+      
 
        
 

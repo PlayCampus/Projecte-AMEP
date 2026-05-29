@@ -23,6 +23,14 @@ namespace Playcampus {
             estat = est;
         }
 
+        //Getters
+		String^ PassarellaTemporada::GetIdTemporada() { return idTemporada; }
+		String^ PassarellaTemporada::GetIdLliga() { return idLliga; }
+		DateTime PassarellaTemporada::GetDataInici() { return dataInici; }
+		DateTime PassarellaTemporada::GetDataFi() { return dataFi; }
+		String^ PassarellaTemporada::GetEstat() { return estat; }
+
+
         void PassarellaTemporada::Insereix() {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
@@ -101,6 +109,17 @@ namespace Playcampus {
             }
 
             return temporades;
+        }
+
+        PassarellaTemporada^ PassarellaTemporada::Llegeix(System::String^ connectionString, System::String^ idTemporada)
+        {
+            //  busca la temporada por ID y devuelve el objeto correspondiente
+            PassarellaTemporada^ temporada = nullptr;
+
+            // buscar la temporada en la base de datos usando connectionString e idTemporada
+            // Si se encuentra, inicializa y devuelve el objeto; si no, devuelve nullptr
+
+            return temporada;
         }
 
         String^ PassarellaTemporada::ObtenirIdTemporadaMesRecent(String^ idLliga)
