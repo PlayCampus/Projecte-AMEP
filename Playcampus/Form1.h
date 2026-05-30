@@ -377,6 +377,8 @@ namespace CppCLRWinFormsProject {
 		System::Void btnShowRegister_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnShowRegisterFromLogin_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void cmbRegTipus_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
+		System::Void txtRegTelefon_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e);
+		System::Void txtRegTelefon_TextChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnBack_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnLoginAct_Click(System::Object^ sender, System::EventArgs^ e);
       System::Void btnSeguirLligaMainMenu_Click(System::Object^ sender, System::EventArgs^ e);

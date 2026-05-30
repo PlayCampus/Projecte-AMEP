@@ -9,6 +9,7 @@ namespace CppCLRWinFormsProject {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Text;
 
 	System::Void Form1::btnShowLogin_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlInici->Visible = false;
@@ -34,6 +35,31 @@ namespace CppCLRWinFormsProject {
 		else {
 			lblRegTelefon->Visible = false;
 			txtRegTelefon->Visible = false;
+		}
+	}
+
+	System::Void Form1::txtRegTelefon_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+		// Permet només dígits i tecles de control (backspace, suprimir, etc.)
+		if (!Char::IsControl(e->KeyChar) && !Char::IsDigit(e->KeyChar)) {
+			e->Handled = true;
+		}
+	}
+
+	System::Void Form1::txtRegTelefon_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		// Evita que es puguin enganxar/carregar caràcters no numèrics
+		String^ t = txtRegTelefon->Text;
+		if (String::IsNullOrEmpty(t)) return;
+
+		System::Text::StringBuilder^ sb = gcnew System::Text::StringBuilder(t->Length);
+		for each (wchar_t c in t) {
+			if (Char::IsDigit(c)) sb->Append(c);
+		}
+
+		String^ filtrat = sb->ToString();
+		if (!String::Equals(t, filtrat)) {
+			int sel = txtRegTelefon->SelectionStart;
+			txtRegTelefon->Text = filtrat;
+			txtRegTelefon->SelectionStart = Math::Min(sel - 1, filtrat->Length);
 		}
 	}
 

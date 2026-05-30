@@ -187,6 +187,8 @@ namespace CppCLRWinFormsProject {
 		this->txtRegTelefon->Location = System::Drawing::Point(150, 190);
 		this->txtRegTelefon->Size = System::Drawing::Size(150, 20);
 		this->txtRegTelefon->Visible = false;
+		this->txtRegTelefon->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Form1::txtRegTelefon_KeyPress);
+		this->txtRegTelefon->TextChanged += gcnew System::EventHandler(this, &Form1::txtRegTelefon_TextChanged);
 
 		this->btnRegAct->Text = L"Registrar";
 		this->btnRegAct->Location = System::Drawing::Point(50, 230);
