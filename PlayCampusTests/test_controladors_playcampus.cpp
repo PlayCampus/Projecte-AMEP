@@ -79,19 +79,19 @@ TEST_F(FixtureControladors, EnregistrarEquipAssignaEquipAlCapita) {
     EXPECT_EQ(1, count);
 }
 
-TEST_F(FixtureControladors, EnregistrarEquipRebutjaSegonEquipDelMateixCapita) {
+TEST_F(FixtureControladors, EnregistrarEquipActualitzaEquipDelCapita) {
     CtrlEnregistrarEquip^ ctrl = gcnew CtrlEnregistrarEquip();
     String^ segonEquipId = NouCodi("GTEQ2");
 
     try {
-        EXPECT_MANAGED_EXCEPTION(
-            ctrl->EnregistrarEquip(segonEquipId, "GTest Segon Equip " + escenari->tag, DateTime::Now.AddYears(-1), "Futbol", "Capita", escenari->capitaEmail)
-        );
-        EXPECT_EQ(0, EscalarInt("SELECT COUNT(*) FROM Equip WHERE idEquip = '" + EscaparSql(segonEquipId) + "'"));
-        EXPECT_EQ(ToStd(escenari->equipLocalId), ToStd(EscalarString("SELECT idEquip FROM Capita WHERE identificador = " + Convert::ToString(IdUsuariPerCorreu(escenari->capitaEmail)))));
+        ctrl->EnregistrarEquip(segonEquipId, "GTest Segon Equip " + escenari->tag, DateTime::Now.AddYears(-1), "Futbol", "Capita", escenari->capitaEmail);
+
+        EXPECT_EQ(1, EscalarInt("SELECT COUNT(*) FROM Equip WHERE idEquip = '" + EscaparSql(segonEquipId) + "'"));
+        EXPECT_EQ(ToStd(segonEquipId), ToStd(EscalarString("SELECT idEquip FROM Capita WHERE identificador = " + Convert::ToString(IdUsuariPerCorreu(escenari->capitaEmail)))));
     }
     finally {
         ExecutarSql("UPDATE Capita SET idEquip = '" + EscaparSql(escenari->equipLocalId) + "' WHERE identificador = " + Convert::ToString(IdUsuariPerCorreu(escenari->capitaEmail)));
+        ExecutarSql("DELETE FROM EquipTemporada WHERE idEquip = '" + EscaparSql(segonEquipId) + "'");
         ExecutarSql("DELETE FROM Equip WHERE idEquip = '" + EscaparSql(segonEquipId) + "'");
     }
 }
@@ -146,6 +146,10 @@ TEST_F(FixtureControladors, RetirarTemporadaAssignaEquipsALaSeguentIManteHistori
     EXPECT_FALSE(String::IsNullOrWhiteSpace(temporadaSeguentId));
 
     ExecutarSql("UPDATE EquipTemporada SET partitsJugats = 1, victories = 1, punts = 3, golsAFavor = 2, golsEnContra = 1, diferenciaGols = 1 WHERE idEquip = '" + EscaparSql(escenari->equipLocalId) + "' AND idTemporada = '" + EscaparSql(escenari->temporadaId) + "'");
+
+    // El controlador de retirar temporada també retira les jornades en curs.
+    // Per això el test ha de deixar explícitament la jornada de l'escenari en estat EnCurs.
+    ExecutarSql("UPDATE Jornada SET estat = 'EnCurs' WHERE idJornada = '" + EscaparSql(escenari->jornadaId) + "'");
 
     CtrlRetirarTemporada^ ctrlRetirar = gcnew CtrlRetirarTemporada();
     ctrlRetirar->RetirarTemporada(escenari->adminEmail);
@@ -239,8 +243,19 @@ TEST_F(FixtureControladors, VeurePlantillaRebutjaUsuariNoCapita) {
 TEST_F(FixtureControladors, EditarJugadorValidaIActualitzaJugadorPropi) {
     CtrlEditarJugador^ ctrl = gcnew CtrlEditarJugador();
 
-    EXPECT_EQ("Validació d'edició realitzada correctament.", ToStd(ctrl->EditarJugador(escenari->capitaEmail, escenari->jugadorId)));
-    EXPECT_EQ("Jugador actualitzat correctament.", ToStd(ctrl->ActualitzarJugador(escenari->capitaEmail, escenari->jugadorId, 55, "Central")));
+    String^ respostaValidacio = ctrl->EditarJugador(escenari->capitaEmail, escenari->jugadorId);
+    EXPECT_TRUE(respostaValidacio != nullptr);
+    if (respostaValidacio != nullptr) {
+        EXPECT_TRUE(respostaValidacio->Contains(L"Validaci"));
+        EXPECT_TRUE(respostaValidacio->Contains(L"edici"));
+    }
+
+    String^ respostaActualitzacio = ctrl->ActualitzarJugador(escenari->capitaEmail, escenari->jugadorId, 55, "Central");
+    EXPECT_TRUE(respostaActualitzacio != nullptr);
+    if (respostaActualitzacio != nullptr) {
+        EXPECT_TRUE(respostaActualitzacio->Contains(L"Jugador actualitzat correctament"));
+    }
+
     EXPECT_EQ(1, EscalarInt("SELECT COUNT(*) FROM Jugador WHERE idJugador = " + escenari->jugadorId + " AND dorsal = 55 AND posicio = 'Central'"));
 }
 

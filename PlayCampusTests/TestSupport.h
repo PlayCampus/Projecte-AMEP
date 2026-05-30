@@ -261,12 +261,11 @@ namespace PlayCampusTests {
                     ExecutarSql("DELETE FROM Equip WHERE idEquip = '" + EscaparSql(equipVisitantId) + "'");
                 }
 
-                if (!String::IsNullOrWhiteSpace(temporadaId)) {
-                    ExecutarSql("DELETE FROM Temporada WHERE idTemporada = '" + EscaparSql(temporadaId) + "'");
-                }
                 if (!String::IsNullOrWhiteSpace(lligaId)) {
-                    ExecutarSql("DELETE FROM UsuariSegueixLliga WHERE idLliga = '" + EscaparSql(lligaId) + "'");
-                    ExecutarSql("DELETE FROM Lliga WHERE idLliga = '" + EscaparSql(lligaId) + "'");
+                    String^ idLligaSql = EscaparSql(lligaId);
+                    ExecutarSql("DELETE FROM Temporada WHERE idLliga = '" + idLligaSql + "'");
+                    ExecutarSql("DELETE FROM UsuariSegueixLliga WHERE idLliga = '" + idLligaSql + "'");
+                    ExecutarSql("DELETE FROM Lliga WHERE idLliga = '" + idLligaSql + "'");
                 }
 
                 NetejarUsuariPerCorreu(extraEmail);
