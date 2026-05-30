@@ -13,7 +13,6 @@
 #include "Dades/ConnexioBD.hxx"
 #include "Domini/CtrlEsborrarEquip.hxx"
 #include "Domini/CtrlAfegirJugador.hxx"
-#include "Domini/CtrlAssignarJugador.hxx"
 #include "Domini/CtrlVeurePlantilla.hxx"
 #include "Domini/CtrlEliminarJugador.hxx"
 #include "Domini/CtrlConsultes.hxx"
@@ -177,7 +176,7 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Button^ btnGEEsborrarEquip;
 		System::Windows::Forms::Button^ btnGEAfegirJugador;
 		System::Windows::Forms::Button^ btnGEEliminarJugador;
-		System::Windows::Forms::Button^ btnGEAssignarJugador;
+		System::Windows::Forms::Button^ btnGEConvocarJugador;
 		System::Windows::Forms::Button^ btnGEEditarJugador;
 		System::Windows::Forms::Button^ btnGEConsultarTelefons;
 		System::Windows::Forms::Button^ btnGETornar;
@@ -281,11 +280,13 @@ namespace CppCLRWinFormsProject {
 	private: System::Windows::Forms::Button^ btnGestionarConvocatoria;
 	private: System::Windows::Forms::Button^ btnTornarConvocatoria;
 	private: System::Windows::Forms::ComboBox^ cbPartitsConvocatoria;
+	private: System::Windows::Forms::Label^ lblConvocatoriaInfo;
 	private: System::Windows::Forms::DataGridView^ dgvConvocatoria;
 	private: System::Collections::Generic::List<System::String^>^ convocatoriaPartitIds;
 		   // Variables pel cartell del jugador
 	private: System::Windows::Forms::Panel^ pnlAvisJugador;
 	private: System::String^ idPartitPendentConfirmar;
+	private: bool convocatoriaObertaDesDeGestionarEquip;
 		   String^ currentIdLligaEstadistiques;
 		   // Per guardar la ID de la lliga cercada
 		   System::Collections::Generic::List<String^>^ estLligaIds;
@@ -360,7 +361,7 @@ namespace CppCLRWinFormsProject {
 		void MostrarPantallaEnregistrarEquipInicial();
 		void MostrarPantallaGestionarEquipInicial();
 		void MostrarPantallaAfegirJugadorInicial();
-		void MostrarPantallaAssignarJugadorPartitInicial();
+		void MostrarPantallaConvocarJugadorInicial();
 		void MostrarPantallaUnirEquipLligaInicial();
 		void MostrarPantallaEstadistiquesInicial();
 		void MostrarPantallaEstadistiquesLligaInicial();
@@ -440,7 +441,7 @@ namespace CppCLRWinFormsProject {
 		System::Void btnGETornar_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGEEsborrarEquip_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGLRetirarTemporada_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnGEAssignarJugador_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnGEConvocarJugador_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGEAfegirJugador_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGEEliminarJugador_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGEEditarJugador_Click(System::Object^ sender, System::EventArgs^ e);

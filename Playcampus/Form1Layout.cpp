@@ -41,7 +41,7 @@ namespace CppCLRWinFormsProject {
 			// Botó Tornar
 			if (this->btnTornarConvocatoria != nullptr) {
 				this->btnTornarConvocatoria->Location = System::Drawing::Point(20, 10);
-				this->btnTornarConvocatoria->Size = System::Drawing::Size(120, 30);
+				this->btnTornarConvocatoria->Size = System::Drawing::Size(190, 30);
 			}
 
 			// Desplegable de partits
@@ -50,10 +50,16 @@ namespace CppCLRWinFormsProject {
 				this->cbPartitsConvocatoria->Size = System::Drawing::Size(400, 30);
 			}
 
+			// Text informatiu de la convocatòria
+			if (this->lblConvocatoriaInfo != nullptr) {
+				this->lblConvocatoriaInfo->Location = System::Drawing::Point(20, 82);
+				this->lblConvocatoriaInfo->Size = System::Drawing::Size(this->pnlConvocatoria->Width - 40, 35);
+			}
+
 			// Taula de jugadors
 			if (this->dgvConvocatoria != nullptr) {
-				this->dgvConvocatoria->Location = System::Drawing::Point(20, 90);
-				this->dgvConvocatoria->Size = System::Drawing::Size(this->pnlConvocatoria->Width - 40, this->pnlConvocatoria->Height - 120);
+				this->dgvConvocatoria->Location = System::Drawing::Point(20, 125);
+				this->dgvConvocatoria->Size = System::Drawing::Size(this->pnlConvocatoria->Width - 40, this->pnlConvocatoria->Height - 155);
 				this->dgvConvocatoria->BackgroundColor = System::Drawing::Color::White;
 			}
 		}
@@ -361,7 +367,7 @@ namespace CppCLRWinFormsProject {
 		this->btnGEEsborrarEquip->Location = System::Drawing::Point(geLeftX, geStartY);
 		this->btnGEAfegirJugador->Location = System::Drawing::Point(geRightX, geStartY);
 		this->btnGEEliminarJugador->Location = System::Drawing::Point(geLeftX, geStartY + geStepY);
-		this->btnGEAssignarJugador->Location = System::Drawing::Point(geRightX, geStartY + geStepY);
+		this->btnGEConvocarJugador->Location = System::Drawing::Point(geRightX, geStartY + geStepY);
 		this->btnGEEditarJugador->Location = System::Drawing::Point(geLeftX, geStartY + geStepY * 2);
 		if (this->btnGEConsultarTelefons != nullptr) {
 			this->btnGEConsultarTelefons->Location = System::Drawing::Point(geRightX, geStartY + geStepY * 2);
@@ -695,7 +701,7 @@ namespace CppCLRWinFormsProject {
 
 	void Form1::MostrarPantallaAfegirJugadorInicial() { MostrarPanelInicialTask162(this->pnlAfegirJugador); }
 
-	void Form1::MostrarPantallaAssignarJugadorPartitInicial() { MostrarPanelInicialTask162(this->pnlGestionarEquip); }
+	void Form1::MostrarPantallaConvocarJugadorInicial() { MostrarPanelInicialTask162(this->pnlGestionarEquip); }
 
 	void Form1::MostrarPantallaUnirEquipLligaInicial() { MostrarPanelInicialTask162(this->pnlUnirEquipLliga); }
 

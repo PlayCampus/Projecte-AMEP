@@ -355,8 +355,28 @@ namespace Playcampus {
                 }
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idP", idPartit);
-                cmd->Parameters->AddWithValue("@idJ", idJugador);
+                cmd->Parameters->AddWithValue("@idJ", Convert::ToInt32(idJugador));
                 cmd->ExecuteNonQuery();
+
+                if (convocat.HasValue && convocat.Value == true) {
+                    String^ queryAssignacio =
+                        "INSERT INTO AssignacioJugadorPartit (idPartit, idJugador, dataAssignacio) "
+                        "VALUES (@idPartit, @idJugador, NOW()) "
+                        "ON DUPLICATE KEY UPDATE dataAssignacio = dataAssignacio";
+                    MySqlCommand^ cmdAssignacio = gcnew MySqlCommand(queryAssignacio, conn);
+                    cmdAssignacio->Parameters->AddWithValue("@idPartit", idPartit);
+                    cmdAssignacio->Parameters->AddWithValue("@idJugador", Convert::ToInt32(idJugador));
+                    cmdAssignacio->ExecuteNonQuery();
+                }
+                else {
+                    String^ queryEliminarAssignacio =
+                        "DELETE FROM AssignacioJugadorPartit "
+                        "WHERE idPartit = @idPartit AND idJugador = @idJugador";
+                    MySqlCommand^ cmdEliminarAssignacio = gcnew MySqlCommand(queryEliminarAssignacio, conn);
+                    cmdEliminarAssignacio->Parameters->AddWithValue("@idPartit", idPartit);
+                    cmdEliminarAssignacio->Parameters->AddWithValue("@idJugador", Convert::ToInt32(idJugador));
+                    cmdEliminarAssignacio->ExecuteNonQuery();
+                }
             }
             finally {
                 conn->Close();
@@ -370,7 +390,7 @@ namespace Playcampus {
                 String^ query = "UPDATE ConvocatoriaPartit SET confirmat = @conf WHERE idPartit = @idP AND idJugador = @idJ";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idP", idPartit);
-                cmd->Parameters->AddWithValue("@idJ", idJugador);
+                cmd->Parameters->AddWithValue("@idJ", Convert::ToInt32(idJugador));
                 cmd->Parameters->AddWithValue("@conf", assisteix ? 1 : 0);
                 cmd->ExecuteNonQuery();
             }
@@ -383,7 +403,25 @@ namespace Playcampus {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
-                String^ query = "INSERT INTO AssignacioJugadorPartit (idPartit, idJugador, dataAssignacio) VALUES (@idPartit, @idJugador, NOW())";
+                String^ query =
+                    "INSERT INTO AssignacioJugadorPartit (idPartit, idJugador, dataAssignacio) "
+                    "VALUES (@idPartit, @idJugador, NOW()) "
+                    "ON DUPLICATE KEY UPDATE dataAssignacio = dataAssignacio";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idPartit", idPartit);
+                cmd->Parameters->AddWithValue("@idJugador", Convert::ToInt32(idJugador));
+                cmd->ExecuteNonQuery();
+            }
+            finally {
+                conn->Close();
+            }
+        }
+
+        void PassarellaPartit::EliminarAssignacioJugadorAPartit(String^ idPartit, String^ idJugador) {
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "DELETE FROM AssignacioJugadorPartit WHERE idPartit = @idPartit AND idJugador = @idJugador";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idPartit", idPartit);
                 cmd->Parameters->AddWithValue("@idJugador", Convert::ToInt32(idJugador));

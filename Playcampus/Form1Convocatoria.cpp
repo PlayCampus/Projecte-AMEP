@@ -11,6 +11,8 @@ namespace CppCLRWinFormsProject {
 	using namespace System::Drawing;
 
 	System::Void Form1::btnGestionarConvocatoria_Click(System::Object^ sender, System::EventArgs^ e) {
+		convocatoriaObertaDesDeGestionarEquip = false;
+		btnTornarConvocatoria->Text = L"Tornar al Menú";
 		pnlMain->Visible = false;
 		pnlConvocatoria->Visible = true;
 		pnlConvocatoria->BringToFront();
@@ -20,7 +22,16 @@ namespace CppCLRWinFormsProject {
 
 	System::Void Form1::btnTornarConvocatoria_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlConvocatoria->Visible = false;
-		pnlMain->Visible = true;
+		if (convocatoriaObertaDesDeGestionarEquip) {
+			pnlGestionarEquip->Visible = true;
+			pnlGestionarEquip->BringToFront();
+		}
+		else {
+			pnlMain->Visible = true;
+			pnlMain->BringToFront();
+		}
+		convocatoriaObertaDesDeGestionarEquip = false;
+		Form1_Resize(nullptr, nullptr);
 	}
 
 	System::Void Form1::CarregarPartitsConvocatoria() {
@@ -37,6 +48,11 @@ namespace CppCLRWinFormsProject {
 					convocatoriaPartitIds->Add(p["id_partit"]);
 				}
 				cbPartitsConvocatoria->SelectedIndex = 0;
+			}
+			else {
+				dgvConvocatoria->Columns->Clear();
+				dgvConvocatoria->Rows->Clear();
+				MessageBox::Show(L"No hi ha partits pendents per gestionar convocatòries.", L"Convocatòries", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
 		}
 		catch (Exception^ ex) {

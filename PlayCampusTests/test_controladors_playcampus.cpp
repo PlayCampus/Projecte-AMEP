@@ -312,11 +312,12 @@ TEST_F(FixtureControladors, AssignarJugadorRebutjaJugadorAltreEquip) {
     EXPECT_MANAGED_EXCEPTION(ctrl->AssignarJugador(escenari->capitaEmail, escenari->partitId, escenari->jugadorVisitantId));
 }
 
-TEST_F(FixtureControladors, ConvocarJugadorIConfirmarAssistencia) {
+TEST_F(FixtureControladors, ConvocarJugadorAssignaJugadorIConfirmarAssistencia) {
     CtlrConvocarJugadors^ ctrl = gcnew CtlrConvocarJugadors();
 
     ctrl->ActualitzarConvocatoria(escenari->partitId, escenari->jugadorId, Nullable<bool>(true));
     EXPECT_EQ(1, EscalarInt("SELECT COUNT(*) FROM ConvocatoriaPartit WHERE idPartit = '" + EscaparSql(escenari->partitId) + "' AND idJugador = " + escenari->jugadorId + " AND convocat = 1 AND confirmat IS NULL"));
+    EXPECT_EQ(1, EscalarInt("SELECT COUNT(*) FROM AssignacioJugadorPartit WHERE idPartit = '" + EscaparSql(escenari->partitId) + "' AND idJugador = " + escenari->jugadorId));
 
     Dictionary<String^, String^>^ avis = ctrl->ObtenirAvisPendent(escenari->estudiantEmail);
     bool avisNoNull = avis != nullptr;
@@ -327,6 +328,17 @@ TEST_F(FixtureControladors, ConvocarJugadorIConfirmarAssistencia) {
 
     ctrl->ConfirmarAssistencia(escenari->partitId, escenari->jugadorId, true);
     EXPECT_EQ(1, EscalarInt("SELECT COUNT(*) FROM ConvocatoriaPartit WHERE idPartit = '" + EscaparSql(escenari->partitId) + "' AND idJugador = " + escenari->jugadorId + " AND confirmat = 1"));
+}
+
+TEST_F(FixtureControladors, DesconvocarJugadorEliminaAssignacioDelPartit) {
+    CtlrConvocarJugadors^ ctrl = gcnew CtlrConvocarJugadors();
+
+    ctrl->ActualitzarConvocatoria(escenari->partitId, escenari->jugadorId, Nullable<bool>(true));
+    EXPECT_EQ(1, EscalarInt("SELECT COUNT(*) FROM AssignacioJugadorPartit WHERE idPartit = '" + EscaparSql(escenari->partitId) + "' AND idJugador = " + escenari->jugadorId));
+
+    ctrl->ActualitzarConvocatoria(escenari->partitId, escenari->jugadorId, Nullable<bool>(false));
+    EXPECT_EQ(1, EscalarInt("SELECT COUNT(*) FROM ConvocatoriaPartit WHERE idPartit = '" + EscaparSql(escenari->partitId) + "' AND idJugador = " + escenari->jugadorId + " AND convocat = 0 AND confirmat IS NULL"));
+    EXPECT_EQ(0, EscalarInt("SELECT COUNT(*) FROM AssignacioJugadorPartit WHERE idPartit = '" + EscaparSql(escenari->partitId) + "' AND idJugador = " + escenari->jugadorId));
 }
 
 TEST_F(FixtureControladors, ConvocarJugadorCarregaEstatConvocatoria) {

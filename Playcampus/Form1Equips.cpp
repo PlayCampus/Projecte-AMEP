@@ -141,12 +141,6 @@ System::Void Form1::btnEnregistrarEquip_Click(System::Object^ sender, System::Ev
 System::Void Form1::btnGETornar_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlGestionarEquip->Visible = false;
 		pnlMain->Visible = true;
-		try {
-			CarregarUltimsFitxatges();
-		}
-		catch (Exception^) {
-			// Ignorem; no ha de bloquejar la navegació.
-		}
 	}
 
 System::Void Form1::btnGEEsborrarEquip_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -166,104 +160,24 @@ System::Void Form1::btnGEEsborrarEquip_Click(System::Object^ sender, System::Eve
 		}
 	}
 
-System::Void Form1::btnGEAssignarJugador_Click(System::Object^ sender, System::EventArgs^ e) {
+System::Void Form1::btnGEConvocarJugador_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (currentUsuariTipus == nullptr || currentUsuariTipus->ToLower() != L"capita") {
 			MessageBox::Show(L"Només els capitans poden accedir a aquesta funcionalitat.", L"Accés denegat", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			return;
 		}
-
-		try {
-			Playcampus::Domini::CtrlAssignarJugador^ ctrlAssignar = gcnew Playcampus::Domini::CtrlAssignarJugador();
-			auto partits = ctrlAssignar->ObtenirPartitsDisponibles(currentUsuariCorreu);
-			if (partits->Count == 0) {
-				MessageBox::Show(L"No hi ha partits no finalitzats disponibles per al teu equip.", L"Informació", MessageBoxButtons::OK, MessageBoxIcon::Information);
-				return;
+		else {
+			try {
+				convocatoriaObertaDesDeGestionarEquip = true;
+				btnTornarConvocatoria->Text = L"Tornar a Gestionar Equip";
+				pnlGestionarEquip->Visible = false;
+				pnlMain->Visible = false;
+				pnlConvocatoria->Visible = true;
+				pnlConvocatoria->BringToFront();
+				CarregarPartitsConvocatoria();
+				Form1_Resize(nullptr, nullptr);
 			}
-
-			auto jugadors = ctrlAssignar->ObtenirJugadorsEquip(currentUsuariCorreu);
-			if (jugadors->Count == 0) {
-				MessageBox::Show(L"El teu equip no té jugadors disponibles.", L"Informació", MessageBoxButtons::OK, MessageBoxIcon::Information);
-				return;
+			catch (Exception^ ex) {
+				MessageBox::Show(L"Error en obrir la gestió de convocatòria: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
-
-			Form^ frmAssignar = gcnew Form();
-			frmAssignar->Text = L"Assignar jugador a partit";
-			frmAssignar->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
-			frmAssignar->StartPosition = FormStartPosition::CenterParent;
-			frmAssignar->ClientSize = System::Drawing::Size(720, 220);
-			frmAssignar->MinimizeBox = false;
-			frmAssignar->MaximizeBox = false;
-
-			Label^ lblPartit = gcnew Label();
-			lblPartit->Text = L"Selecciona el partit:";
-			lblPartit->Location = System::Drawing::Point(20, 22);
-			lblPartit->AutoSize = true;
-
-			ComboBox^ cmbPartits = gcnew ComboBox();
-			cmbPartits->DropDownStyle = ComboBoxStyle::DropDownList;
-			cmbPartits->Location = System::Drawing::Point(20, 48);
-			cmbPartits->Size = System::Drawing::Size(680, 24);
-
-			for each (auto p in partits) {
-				String^ ubicacio = String::IsNullOrWhiteSpace(p["ubicacio"]) ? L"" : L" - " + p["ubicacio"];
-				String^ display = p["dataHora"] + L" - " + p["equipLocal"] + L" vs " + p["equipVisitant"] + L" [" + p["estat"] + L"]" + ubicacio;
-				cmbPartits->Items->Add(display);
-			}
-			cmbPartits->SelectedIndex = 0;
-
-			Label^ lblJugador = gcnew Label();
-			lblJugador->Text = L"Selecciona el jugador:";
-			lblJugador->Location = System::Drawing::Point(20, 92);
-			lblJugador->AutoSize = true;
-
-			ComboBox^ cmbJugadors = gcnew ComboBox();
-			cmbJugadors->DropDownStyle = ComboBoxStyle::DropDownList;
-			cmbJugadors->Location = System::Drawing::Point(20, 118);
-			cmbJugadors->Size = System::Drawing::Size(680, 24);
-
-			for each (auto j in jugadors) {
-				String^ dorsal = String::IsNullOrWhiteSpace(j["dorsal"]) ? L"S/D" : j["dorsal"];
-				String^ posicio = String::IsNullOrWhiteSpace(j["posicio"]) ? L"" : L" - " + j["posicio"];
-				String^ display = L"#" + dorsal + L" " + j["nom"] + posicio;
-				cmbJugadors->Items->Add(display);
-			}
-			cmbJugadors->SelectedIndex = 0;
-
-			Button^ btnConfirmar = gcnew Button();
-			btnConfirmar->Text = L"Assignar";
-			btnConfirmar->DialogResult = System::Windows::Forms::DialogResult::OK;
-			btnConfirmar->Location = System::Drawing::Point(520, 170);
-			btnConfirmar->Size = System::Drawing::Size(85, 30);
-
-			Button^ btnCancelar = gcnew Button();
-			btnCancelar->Text = L"Cancel·lar";
-			btnCancelar->DialogResult = System::Windows::Forms::DialogResult::Cancel;
-			btnCancelar->Location = System::Drawing::Point(615, 170);
-			btnCancelar->Size = System::Drawing::Size(85, 30);
-
-			frmAssignar->Controls->Add(lblPartit);
-			frmAssignar->Controls->Add(cmbPartits);
-			frmAssignar->Controls->Add(lblJugador);
-			frmAssignar->Controls->Add(cmbJugadors);
-			frmAssignar->Controls->Add(btnConfirmar);
-			frmAssignar->Controls->Add(btnCancelar);
-			frmAssignar->AcceptButton = btnConfirmar;
-			frmAssignar->CancelButton = btnCancelar;
-
-			if (frmAssignar->ShowDialog(this) == System::Windows::Forms::DialogResult::OK) {
-				if (cmbPartits->SelectedIndex < 0 || cmbJugadors->SelectedIndex < 0) {
-					MessageBox::Show(L"Cal seleccionar un partit i un jugador.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-				}
-				else {
-					String^ idPartit = partits[cmbPartits->SelectedIndex]->default["idPartit"];
-					String^ idJugador = jugadors[cmbJugadors->SelectedIndex]->default["idJugador"];
-					String^ resultat = ctrlAssignar->AssignarJugador(currentUsuariCorreu, idPartit, idJugador);
-					MessageBox::Show(resultat, L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
-				}
-			}
-		}
-		catch (Exception^ ex) {
-			MessageBox::Show(L"Error en assignar jugador: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
 
@@ -452,12 +366,6 @@ System::Void Form1::btnAJCancellar_Click(System::Object^ sender, System::EventAr
 System::Void Form1::btnEETornar_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlEnregistrarEquip->Visible = false;
 		pnlMain->Visible = true;
-		try {
-			CarregarUltimsFitxatges();
-		}
-		catch (Exception^) {
-			// Ignorem; no ha de bloquejar la navegació.
-		}
 	}
 
 System::Void Form1::btnEEEnregistrar_Click(System::Object^ sender, System::EventArgs^ e) {

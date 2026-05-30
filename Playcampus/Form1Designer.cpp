@@ -857,7 +857,7 @@ namespace CppCLRWinFormsProject {
 		this->btnGEEsborrarEquip = gcnew System::Windows::Forms::Button();
 		this->btnGEAfegirJugador = gcnew System::Windows::Forms::Button();
 		this->btnGEEliminarJugador = gcnew System::Windows::Forms::Button();
-		this->btnGEAssignarJugador = gcnew System::Windows::Forms::Button();
+		this->btnGEConvocarJugador = gcnew System::Windows::Forms::Button();
 		this->btnGETornar = gcnew System::Windows::Forms::Button();
 			// pnlGestionarEquip
 			this->pnlGestionarEquip = gcnew System::Windows::Forms::Panel();
@@ -866,7 +866,7 @@ namespace CppCLRWinFormsProject {
 			this->btnGEEsborrarEquip = gcnew System::Windows::Forms::Button();
 			this->btnGEAfegirJugador = gcnew System::Windows::Forms::Button();
 			this->btnGEEliminarJugador = gcnew System::Windows::Forms::Button();
-			this->btnGEAssignarJugador = gcnew System::Windows::Forms::Button();
+			this->btnGEConvocarJugador = gcnew System::Windows::Forms::Button();
 			this->btnGEEditarJugador = gcnew System::Windows::Forms::Button();
 			this->btnGEConsultarTelefons = gcnew System::Windows::Forms::Button();
 			this->btnGETornar = gcnew System::Windows::Forms::Button();
@@ -878,7 +878,7 @@ namespace CppCLRWinFormsProject {
 		this->pnlGestionarEquip->Controls->Add(this->btnGEEsborrarEquip);
 		this->pnlGestionarEquip->Controls->Add(this->btnGEAfegirJugador);
 		this->pnlGestionarEquip->Controls->Add(this->btnGEEliminarJugador);
-		this->pnlGestionarEquip->Controls->Add(this->btnGEAssignarJugador);
+		this->pnlGestionarEquip->Controls->Add(this->btnGEConvocarJugador);
 		this->pnlGestionarEquip->Controls->Add(this->btnGETornar);
 			this->pnlGestionarEquip->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->pnlGestionarEquip->Visible = false;
@@ -887,7 +887,7 @@ namespace CppCLRWinFormsProject {
 			this->pnlGestionarEquip->Controls->Add(this->btnGEEsborrarEquip);
 			this->pnlGestionarEquip->Controls->Add(this->btnGEAfegirJugador);
 		 this->pnlGestionarEquip->Controls->Add(this->btnGEEliminarJugador);
-			this->pnlGestionarEquip->Controls->Add(this->btnGEAssignarJugador);
+			this->pnlGestionarEquip->Controls->Add(this->btnGEConvocarJugador);
 			this->pnlGestionarEquip->Controls->Add(this->btnGEEditarJugador);
 			this->pnlGestionarEquip->Controls->Add(this->btnGEConsultarTelefons);
 			this->pnlGestionarEquip->Controls->Add(this->btnGETornar);
@@ -924,11 +924,11 @@ namespace CppCLRWinFormsProject {
 		this->btnGEEliminarJugador->Cursor = System::Windows::Forms::Cursors::Hand;
 		this->btnGEEliminarJugador->Click += gcnew System::EventHandler(this, &Form1::btnGEEliminarJugador_Click);
 
-		this->btnGEAssignarJugador->Text = L"Assignar jugador a partit";
-		this->btnGEAssignarJugador->Size = System::Drawing::Size(220, 60);
-		this->btnGEAssignarJugador->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
-		this->btnGEAssignarJugador->Cursor = System::Windows::Forms::Cursors::Hand;
-		this->btnGEAssignarJugador->Click += gcnew System::EventHandler(this, &Form1::btnGEAssignarJugador_Click);
+		this->btnGEConvocarJugador->Text = L"Convocar jugador";
+		this->btnGEConvocarJugador->Size = System::Drawing::Size(220, 60);
+		this->btnGEConvocarJugador->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
+		this->btnGEConvocarJugador->Cursor = System::Windows::Forms::Cursors::Hand;
+		this->btnGEConvocarJugador->Click += gcnew System::EventHandler(this, &Form1::btnGEConvocarJugador_Click);
 
 			this->btnGEEditarJugador->Text = L"Editar Jugador";
 			this->btnGEEditarJugador->Size = System::Drawing::Size(220, 60);

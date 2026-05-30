@@ -38,6 +38,7 @@ namespace Playcampus {
             void ActualitzarConvocatoria(String^ idPartit, String^ idJugador, Nullable<bool> convocat);
             void ConfirmarAssistencia(String^ idPartit, String^ idJugador, bool assisteix);
             void AssignarJugadorAPartit(String^ idPartit, String^ idJugador);
+            void EliminarAssignacioJugadorAPartit(String^ idPartit, String^ idJugador);
             void ActualitzarPartitIStats(String^ idPartit, String^ nouEstat, int resultatLocal, int resultatVisitant, String^ statsJson, String^ correuAdmin, Nullable<DateTime> novaDataPartit);
         };
     }

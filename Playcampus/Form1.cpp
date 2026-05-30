@@ -18,22 +18,29 @@ Form1::Form1(void) {
 			this->btnGestionarConvocatoria = gcnew System::Windows::Forms::Button();
 			this->btnTornarConvocatoria = gcnew System::Windows::Forms::Button();
 			this->cbPartitsConvocatoria = gcnew System::Windows::Forms::ComboBox();
+			this->lblConvocatoriaInfo = gcnew System::Windows::Forms::Label();
 			this->dgvConvocatoria = gcnew System::Windows::Forms::DataGridView();
 			this->convocatoriaPartitIds = gcnew System::Collections::Generic::List<System::String^>();
+			this->convocatoriaObertaDesDeGestionarEquip = false;
 
 			// 2. Propietats i Events
 			this->btnGestionarConvocatoria->Text = L"Gestionar Convocatòries";
 			this->btnGestionarConvocatoria->Click += gcnew System::EventHandler(this, &Form1::btnGestionarConvocatoria_Click);
 
-			this->btnTornarConvocatoria->Text = L"Tornar al Menú";
+			this->btnTornarConvocatoria->Text = L"Tornar";
 			this->btnTornarConvocatoria->Click += gcnew System::EventHandler(this, &Form1::btnTornarConvocatoria_Click);
 
 			this->cbPartitsConvocatoria->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 			this->cbPartitsConvocatoria->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cbPartitsConvocatoria_SelectedIndexChanged);
 
+			this->lblConvocatoriaInfo->Text = L"Selecciona un partit i fes clic a un jugador per canviar-ne l'estat.";
+			this->lblConvocatoriaInfo->AutoSize = false;
+			this->lblConvocatoriaInfo->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+
 			this->dgvConvocatoria->AllowUserToAddRows = false;
 			this->dgvConvocatoria->ReadOnly = true;
 			this->dgvConvocatoria->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
+			this->dgvConvocatoria->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
 			this->dgvConvocatoria->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &Form1::dgvConvocatoria_CellClick);
 
 			// 3. Jerarquia (Afegir-los a la pantalla)
@@ -41,6 +48,7 @@ Form1::Form1(void) {
 			this->Controls->Add(this->pnlConvocatoria);
 			this->pnlConvocatoria->Controls->Add(this->btnTornarConvocatoria);
 			this->pnlConvocatoria->Controls->Add(this->cbPartitsConvocatoria);
+			this->pnlConvocatoria->Controls->Add(this->lblConvocatoriaInfo);
 			this->pnlConvocatoria->Controls->Add(this->dgvConvocatoria);
 
 			// 4. Estat Inicial
