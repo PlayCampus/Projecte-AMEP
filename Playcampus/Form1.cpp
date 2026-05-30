@@ -44,7 +44,7 @@ Form1::Form1(void) {
 			this->dgvConvocatoria->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &Form1::dgvConvocatoria_CellClick);
 
 			// 3. Jerarquia (Afegir-los a la pantalla)
-			this->pnlMain->Controls->Add(this->btnGestionarConvocatoria);
+			// La gestió de convocatòries només s'obre des de Gestionar Equip.
 			this->Controls->Add(this->pnlConvocatoria);
 			this->pnlConvocatoria->Controls->Add(this->btnTornarConvocatoria);
 			this->pnlConvocatoria->Controls->Add(this->cbPartitsConvocatoria);

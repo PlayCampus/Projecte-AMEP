@@ -22,16 +22,7 @@ namespace CppCLRWinFormsProject {
 		int centerX = cw / 2;
 		int centerY = ch / 2;
 
-		// 1. DISSENY DEL MENÚ PRINCIPAL (Botó del Capità)
-		int startBtnX = (this->ClientSize.Width - 800) / 2; // Punt de partida centrat
-
-		if (this->btnGestionarConvocatoria != nullptr && pnlMain->Visible) {
-			// El posem al costat dels altres botons del capità. Ajusta el '600' i '80' si se superposen.
-         this->btnGestionarConvocatoria->Location = System::Drawing::Point(startBtnX + 750, 80);
-			this->btnGestionarConvocatoria->Size = System::Drawing::Size(180, 40);
-		}
-
-		// 2. DISSENY DEL PANELL DE CONVOCATÒRIES
+		// 1. DISSENY DEL PANELL DE CONVOCATÒRIES
 		if (this->pnlConvocatoria != nullptr && this->pnlConvocatoria->Visible) {
 			// Ocupa gairebé tota la pantalla
 			this->pnlConvocatoria->Location = System::Drawing::Point(0, 140);
@@ -122,7 +113,7 @@ namespace CppCLRWinFormsProject {
 
          System::Collections::Generic::List<System::Windows::Forms::Button^>^ btns =
 				gcnew System::Collections::Generic::List<System::Windows::Forms::Button^>();
-			cli::array<System::Windows::Forms::Button^>^ candidates = gcnew cli::array<System::Windows::Forms::Button^>(10) {
+			cli::array<System::Windows::Forms::Button^>^ candidates = gcnew cli::array<System::Windows::Forms::Button^>(9) {
 				this->btnUnirEquipLliga,
 				this->btnEnregistrarEquip,
 				this->btnProgPartits,
@@ -131,8 +122,7 @@ namespace CppCLRWinFormsProject {
 				this->btnConsultar,
 				this->btnMenuConsultarTelefons,
 				this->btnSeguirLligaMainMenu,
-				this->btnCrearLligaMainMenu,
-				this->btnGestionarConvocatoria
+				this->btnCrearLligaMainMenu
 			};
 			for each (auto b in candidates) {
 				if (b != nullptr && b->Visible) btns->Add(b);

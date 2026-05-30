@@ -110,10 +110,9 @@ namespace CppCLRWinFormsProject {
 					btnEnregistrarEquip->Visible = true;
 					btnUnirEquipLliga->Visible = true;
 
-					// NOU: Mostrem el botó de gestionar convocatòries
+					// La convocatòria es gestiona des de Gestionar Equip, no des del menú principal.
 					if (btnGestionarConvocatoria != nullptr) {
-						btnGestionarConvocatoria->Visible = true;
-						btnGestionarConvocatoria->BringToFront();
+						btnGestionarConvocatoria->Visible = false;
 					}
 
 					if (ctrlInici->CapitaTeEquip(currentUsuariCorreu)) {
