@@ -73,7 +73,7 @@ namespace CppCLRWinFormsProject {
 		this->txtDorsal->Text = jugadorDorsal.ToString();
 
 		// lblPosicio
-		this->lblPosicio->Text = L"Posició:";
+		this->lblPosicio->Text = L"Posici\u00F3:";
 		this->lblPosicio->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.0F);
 		this->lblPosicio->AutoSize = true;
 		this->lblPosicio->Location = System::Drawing::Point(30, 180);
@@ -93,7 +93,7 @@ namespace CppCLRWinFormsProject {
 		this->btnGuardar->Click += gcnew System::EventHandler(this, &EditarJugadorForm::btnGuardar_Click);
 
 		// btnCancelar
-		this->btnCancelar->Text = L"Cancelar";
+		this->btnCancelar->Text = L"Cancel\u00B7lar";
 		this->btnCancelar->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.0F);
 		this->btnCancelar->Size = System::Drawing::Size(150, 35);
 		this->btnCancelar->Location = System::Drawing::Point(210, 240);
@@ -126,18 +126,18 @@ namespace CppCLRWinFormsProject {
 		// Validar que el dorsal sea un número válido
 		int dorsal = 0;
 		if (String::IsNullOrWhiteSpace(dorsalText)) {
-			MessageBox::Show(L"El dorsal no puede estar vacío.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show(L"El dorsal no puede estar vac\u00EDo.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
 		if (!Int32::TryParse(dorsalText, dorsal) || dorsal < 0) {
-			MessageBox::Show(L"El dorsal ha de ser un número enter positiu.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show(L"El dorsal ha de ser un n\u00FAmero enter positiu.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
 		// Validar que la posició no estigui buida
 		if (String::IsNullOrWhiteSpace(this->txtPosicio->Text)) {
-			MessageBox::Show(L"La posció no pot estar buida.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show(L"La posici\u00F3 no pot estar buida.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
@@ -153,7 +153,7 @@ namespace CppCLRWinFormsProject {
 			jugadorDorsal = dorsal;
 			jugadorPosicio = posicio;
 
-			MessageBox::Show(L"Jugador actualitzat correctament.", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			MessageBox::Show(L"Jugador actualitzat correctament.", L"\u00C8xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
 			// Cerrar el formulario con resultado OK
 			this->DialogResult = System::Windows::Forms::DialogResult::OK;

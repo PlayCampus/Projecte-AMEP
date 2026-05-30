@@ -32,7 +32,7 @@ namespace CppCLRWinFormsProject {
 		this->SuspendLayout();
 
 		// Configuración general del formulario
-		this->Text = L"Estadístiques dels Jugadors";
+		this->Text = L"Estad\u00EDstiques dels Jugadors";
 		this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
 		this->StartPosition = FormStartPosition::CenterParent;
 		this->ClientSize = System::Drawing::Size(1000, 600);
@@ -42,7 +42,7 @@ namespace CppCLRWinFormsProject {
 		this->ControlBox = false;
 
 		// lblTitle
-		this->lblTitle->Text = L"Estadístiques dels Jugadors";
+		this->lblTitle->Text = L"Estad\u00EDstiques dels Jugadors";
 		this->lblTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.0F, System::Drawing::FontStyle::Bold);
 		this->lblTitle->AutoSize = true;
 		this->lblTitle->Location = System::Drawing::Point(30, 20);
@@ -123,7 +123,7 @@ namespace CppCLRWinFormsProject {
 
 				// Si la tabla está vacía, mostrar mensaje informativo
 				if (dt->Rows->Count == 0) {
-					MessageBox::Show(L"No s'han trobat estadístiques de jugadors.", L"Informació", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					MessageBox::Show(L"No s'han trobat estad\u00EDstiques de jugadors.", L"Informaci\u00F3", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				}
 			}
 			finally {
@@ -134,7 +134,7 @@ namespace CppCLRWinFormsProject {
 			}
 		}
 		catch (Exception^ ex) {
-			MessageBox::Show(L"Error al cargar las estadísticas: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			MessageBox::Show(L"Error carregant les estad\u00EDstiques: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
 

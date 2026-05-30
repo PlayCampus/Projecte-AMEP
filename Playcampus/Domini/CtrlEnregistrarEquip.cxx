@@ -17,8 +17,8 @@ namespace Playcampus {
         }
 
         void CtrlEnregistrarEquip::EnregistrarEquip(String^ idEquip, String^ nom, DateTime dataFundacio, String^ esport, String^ tipusUsuari, String^ correuUsuari) {
-            if (tipusUsuari->ToLower() != "capita" && tipusUsuari->ToLower() != "capità") {
-                throw gcnew UnauthorizedAccessException("Només els capitans poden enregistrar un equip.");
+            if (tipusUsuari->ToLower() != "capita" && tipusUsuari->ToLower() != L"capit\u00E0") {
+                throw gcnew UnauthorizedAccessException(L"Nom\u00E9s els capitans poden enregistrar un equip.");
             }
 
             String^ idCapita = nullptr;

@@ -20,7 +20,7 @@ String^ CtrlCrearJornada::ObtenirNomLligaAdministrador(String^ correuAdmin) {
 void CtrlCrearJornada::CrearJornada(String^ idTemporada,int numero, DateTime dataInici, DateTime dataFi, String^ estat) {
             // RIT14 (j : Jornada): el número d’una jornada ha de ser més gran que 0.
             if (numero <= 0) {
-                throw gcnew ArgumentException("El número de jornada ha de ser més gran que 0.");
+                throw gcnew ArgumentException(L"El n\u00FAmero de jornada ha de ser m\u00E9s gran que 0.");
             }
 
             // RIT15 (j : Jornada): la dataInici d’una jornada ha de ser anterior a la dataFi.
@@ -49,7 +49,7 @@ void CtrlCrearJornada::CrearJornada(String^ idTemporada,int numero, DateTime dat
             for each(Dictionary<String^, String^>^ j in jornades) {
                 // RIT17 (j1, j2 : Jornada, t : Temporada): dins d’una mateixa temporada no poden existir dues jornades amb el mateix número.
                 if (Convert::ToInt32(j["numero"]) == numero) {
-                    throw gcnew ArgumentException("Ja existeix una jornada amb aquest número en la temporada.");
+                    throw gcnew ArgumentException(L"Ja existeix una jornada amb aquest n\u00FAmero en la temporada.");
                 }
                 
                 // RIT18 (j1, j2 : Jornada, t : Temporada): dues jornades d’una mateixa temporada no es poden solapar en dates.

@@ -75,7 +75,7 @@ namespace CppCLRWinFormsProject {
 
 			DataTable^ lligues = ctrl->ObtenirLliguesEquip(nomEquip);
 			if (lligues->Rows->Count == 0) {
-				MessageBox::Show(L"L'equip existeix, però no té cap lliga associada.", L"Sense lligues", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				MessageBox::Show(L"L'equip existeix, per\u00F2 no t\u00E9 cap lliga associada.", L"Sense lligues", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				return;
 			}
 
@@ -157,7 +157,7 @@ namespace CppCLRWinFormsProject {
 			DataTable^ estadistiques = ctrl->ObtenirEstadistiquesEquip(nomEquip, idLliga, idTemporada);
 
 			if (estadistiques->Rows->Count == 0) {
-				MessageBox::Show(L"No hi ha estadístiques per aquest equip en la lliga i temporada seleccionades.", L"Sense dades", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				MessageBox::Show(L"No hi ha estad\u00EDstiques per aquest equip en la lliga i temporada seleccionades.", L"Sense dades", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				return;
 			}
 
@@ -165,7 +165,7 @@ namespace CppCLRWinFormsProject {
 			dgvEstEquipStats->Visible = true;
 		}
 		catch (Exception^ ex) {
-			MessageBox::Show(L"Error carregant les estadístiques de l'equip: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			MessageBox::Show(L"Error carregant les estad\u00EDstiques de l'equip: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
 
@@ -285,7 +285,7 @@ namespace CppCLRWinFormsProject {
 					cmbEstLligaTemporades->SelectedIndex = 0;
 				}
 				else {
-					MessageBox::Show(L"La lliga seleccionada no te cap temporada creada.", L"Sense temporades", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					MessageBox::Show(L"La lliga seleccionada no t\u00E9 cap temporada creada.", L"Sense temporades", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				}
 			}
 			catch (Exception^ ex) {
@@ -305,7 +305,7 @@ namespace CppCLRWinFormsProject {
 				DataTable^ classificacio = ctrl->ObtenirClassificacioLligaTemporada(currentIdLligaEstadistiques, idTemporada);
 
 				if (classificacio->Rows->Count == 0) {
-					MessageBox::Show(L"No hi ha equips ni estadistiques per a aquesta lliga i temporada.", L"Sense dades", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					MessageBox::Show(L"No hi ha equips ni estad\u00EDstiques per a aquesta lliga i temporada.", L"Sense dades", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				}
 				else {
 					dgvEstLligaClassificacio->DataSource = classificacio;
@@ -313,7 +313,7 @@ namespace CppCLRWinFormsProject {
 				}
 			}
 			catch (Exception^ ex) {
-				MessageBox::Show(L"Error carregant la classificacio de la lliga: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				MessageBox::Show(L"Error carregant la classificaci\u00F3 de la lliga: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
 		}
 	}
@@ -514,7 +514,7 @@ namespace CppCLRWinFormsProject {
 			estadistiquesForm->ShowDialog(this);
 		}
 		catch (Exception^ ex) {
-			MessageBox::Show(L"Error obrint las estadístiques dels jugadors: " + ex->Message, 
+			MessageBox::Show(L"Error obrint les estad\u00EDstiques dels jugadors: " + ex->Message, 
 						   L"Error", 
 						   MessageBoxButtons::OK, 
 						   MessageBoxIcon::Error);

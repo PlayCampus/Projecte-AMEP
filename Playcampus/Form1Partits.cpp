@@ -197,7 +197,7 @@ void Form1::ConfigurarLabelsEditarPartitSegonsEsport(System::String^ disciplina)
 		}
 
 		Nullable<DateTime> novaData = Nullable<DateTime>();
-		if (dadesValides && estadistiquesValides && nouEstat == "Apla\u00E7at") {
+		if (dadesValides && estadistiquesValides && nouEstat == L"Apla\u00E7at") {
 			novaData = dtpDataPartit->Value;
 			marcadorLocal = 0;
 			marcadorVisitant = 0;
@@ -224,7 +224,7 @@ void Form1::ConfigurarLabelsEditarPartitSegonsEsport(System::String^ disciplina)
 	System::Void Form1::cmbEstatPartit_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 		bool esAplacat = false;
 		if (cmbEstatPartit->SelectedItem != nullptr) {
-			esAplacat = cmbEstatPartit->SelectedItem->ToString() == "Apla\u00E7at";
+			esAplacat = cmbEstatPartit->SelectedItem->ToString() == L"Apla\u00E7at";
 		}
 		lblDataPartit->Visible = esAplacat;
 		dtpDataPartit->Visible = esAplacat;

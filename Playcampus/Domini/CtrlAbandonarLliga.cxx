@@ -20,7 +20,7 @@ namespace Playcampus {
             String^ idEquipRecuperat = cercadoraEquip->ObtenirIdEquipCapita(correuCapita);
 
             if (String::IsNullOrWhiteSpace(idEquipRecuperat)) {
-                throw gcnew Exception("Aquest capita no te un equip actiu.");
+                throw gcnew Exception(L"Aquest capit\u00E0 no t\u00E9 un equip actiu.");
             }
 
             CercadoraEquipTemporada^ cercadoraEquipTemp = gcnew CercadoraEquipTemporada(connectionString);
@@ -63,10 +63,10 @@ namespace Playcampus {
             // Comprobamos que el borrado ha surtido efecto intentando leer de nuevo.
             PassarellaEquipTemporada^ equipComprovat = PassarellaEquipTemporada::Llegeix(connectionString, idEquipRecuperat, idTemporada);
             if (equipComprovat != nullptr) {
-                throw gcnew Exception("La base de dades no ha confirmat l'abandó de la lliga.");
+                throw gcnew Exception(L"La base de dades no ha confirmat l'aband\u00F3 de la lliga.");
             }
 
-            return "L'equip " + nomEquip + " ha abandonat la lliga. Les estadistiques han sigut reiniciades.";
+            return L"L'equip " + nomEquip + L" ha abandonat la lliga. Les estad\u00EDstiques han sigut reiniciades.";
         }
     }
 }

@@ -28,7 +28,7 @@ namespace CppCLRWinFormsProject {
 
 	System::Void Form1::cmbRegTipus_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 		String^ tipus = cmbRegTipus->Text;
-		if (tipus == L"Capita" || tipus == L"Capità" || tipus == L"Administrador") {
+		if (tipus == L"Capita" || tipus == L"Capit\u00E0" || tipus == L"Administrador") {
 			lblRegTelefon->Visible = true;
 			txtRegTelefon->Visible = true;
 		}
@@ -183,7 +183,7 @@ namespace CppCLRWinFormsProject {
 			}
 		}
 		catch (Exception^ ex) {
-			MessageBox::Show(L"Error en iniciar sessió: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			MessageBox::Show(L"Error en iniciar sessi\u00F3: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
 
@@ -198,15 +198,16 @@ namespace CppCLRWinFormsProject {
 			MessageBox::Show(L"Omple tots els camps.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
-		if ((tipus == L"Capita" || tipus == L"Administrador") && String::IsNullOrEmpty(telefon)) {
-			MessageBox::Show(L"Cal introduir el telèfon per al capità i administrador.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		if ((tipus == L"Capita" || tipus == L"Capit\u00E0" || tipus == L"Administrador") && String::IsNullOrEmpty(telefon)) {
+			MessageBox::Show(L"Cal introduir el tel\u00E8fon per al capit\u00E0 i administrador.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
 		try {
 			Playcampus::Domini::CtrlRegistrarUsuari^ ctrlReg = gcnew Playcampus::Domini::CtrlRegistrarUsuari();
-			ctrlReg->CrearUsuari(nom, pass, DateTime::Now, correu, tipus, telefon);
-			MessageBox::Show(L"Usuari registrat correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			String^ tipusGuardar = (tipus == L"Capit\u00E0") ? L"Capita" : tipus;
+			ctrlReg->CrearUsuari(nom, pass, DateTime::Now, correu, tipusGuardar, telefon);
+			MessageBox::Show(L"Usuari registrat correctament!", L"\u00C8xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
 			pnlRegister->Visible = false;
 			pnlInici->Visible = true;
@@ -277,7 +278,7 @@ namespace CppCLRWinFormsProject {
 		ok->Size = System::Drawing::Size(80, 30);
 
 		Button^ cancel = gcnew Button();
-		cancel->Text = L"Cancel·lar";
+		cancel->Text = L"Cancel\u00B7lar";
 		cancel->DialogResult = System::Windows::Forms::DialogResult::Cancel;
 		cancel->Location = System::Drawing::Point(325, 95);
 		cancel->Size = System::Drawing::Size(80, 30);
@@ -349,7 +350,7 @@ namespace CppCLRWinFormsProject {
 			String^ idActual = ctrl->ObtenirIdLligaSeguida(currentUsuariCorreu);
 
 			if (!String::IsNullOrEmpty(idActual)) {
-				auto r = MessageBox::Show(L"Estàs segur que vols deixar de seguir la lliga?", L"Confirmació", MessageBoxButtons::YesNo, MessageBoxIcon::Question);
+				auto r = MessageBox::Show(L"Est\u00E0s segur que vols deixar de seguir la lliga?", L"Confirmaci\u00F3", MessageBoxButtons::YesNo, MessageBoxIcon::Question);
 				if (r == System::Windows::Forms::DialogResult::Yes) {
 					ctrl->DeixarDeSeguir(currentUsuariCorreu);
 					ActualitzarEstatSeguirLliga();

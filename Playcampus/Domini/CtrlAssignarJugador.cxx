@@ -24,11 +24,11 @@ namespace Playcampus {
             PassarellaUsuari^ usuariCapita = cercadoraUsuari->LlegeixPerCorreu(correuCapita);
 
             if (usuariCapita == nullptr) {
-                throw gcnew Exception("L'usuari capità no existeix.");
+                throw gcnew Exception(L"L'usuari capit\u00E0 no existeix.");
             }
 
-            if (usuariCapita->GetTipus() != "Capita") {
-                throw gcnew Exception("Només els capitans poden assignar jugadors a partits.");
+            if (usuariCapita->GetTipus() != "Capita" && usuariCapita->GetTipus() != L"Capit\u00E0") {
+                throw gcnew Exception(L"Nom\u00E9s els capitans poden assignar jugadors a partits.");
             }
         }
 
@@ -39,7 +39,7 @@ namespace Playcampus {
             String^ idEquip = cercadoraEquip->ObtenirIdEquipCapita(correuCapita);
 
             if (String::IsNullOrWhiteSpace(idEquip)) {
-                throw gcnew Exception("El capità no té cap equip registrat.");
+                throw gcnew Exception(L"El capit\u00E0 no t\u00E9 cap equip registrat.");
             }
 
             return idEquip;
@@ -72,15 +72,15 @@ namespace Playcampus {
             CercadoraJugador^ cercadoraJugador = gcnew CercadoraJugador(connectionString);
 
             if (!cercadoraPartit->PartitDisponiblePerEquip(idPartit, idEquip)) {
-                throw gcnew Exception("El partit seleccionat no està disponible per a l'equip del capità o ja està finalitzat.");
+                throw gcnew Exception(L"El partit seleccionat no est\u00E0 disponible per a l'equip del capit\u00E0 o ja est\u00E0 finalitzat.");
             }
 
             if (!cercadoraJugador->JugadorPertanyAEquip(idJugador, idEquip)) {
-                throw gcnew Exception("El jugador seleccionat no pertany a l'equip del capità.");
+                throw gcnew Exception(L"El jugador seleccionat no pertany a l'equip del capit\u00E0.");
             }
 
             if (cercadoraPartit->AssignacioJugadorPartitExisteix(idPartit, idJugador)) {
-                throw gcnew Exception("Aquest jugador ja està assignat a aquest partit.");
+                throw gcnew Exception(L"Aquest jugador ja est\u00E0 assignat a aquest partit.");
             }
 
             PassarellaPartit^ passarellaPartit = gcnew PassarellaPartit(connectionString);

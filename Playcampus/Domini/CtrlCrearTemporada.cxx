@@ -32,7 +32,7 @@ namespace Playcampus {
             String^ nomLliga = ObtenirNomLligaAdministrador(correuAdmin);
 
             if (String::IsNullOrEmpty(nomLliga)) {
-                throw gcnew Exception("L'usuari no \u00E9s administrador de cap lliga.");
+                throw gcnew Exception(L"L'usuari no \u00E9s administrador de cap lliga.");
             }
 
             // 1. Busquem l'ID de l'administrador mitjançant el seu correu
@@ -81,7 +81,7 @@ namespace Playcampus {
 
             // 3. Creem un identificador per la nova temporada
             String^ idTemporada = "T-" + Guid::NewGuid().ToString()->Substring(0, 8);
-            String^ estat = "Pròxim"; // Estat per defecte
+            String^ estat = L"Pr\u00F2xim"; // Estat per defecte
 
             // 4. Utilitzem la PassarellaTemporada per insertar el registre a la base de dades
             Playcampus::Dades::PassarellaTemporada^ pTemporada = gcnew Playcampus::Dades::PassarellaTemporada(

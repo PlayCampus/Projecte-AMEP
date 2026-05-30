@@ -34,7 +34,7 @@ namespace Playcampus {
             String^ idEquipRecuperat = cercadoraEquip->ObtenirIdEquipCapita(correuCapita);
 
             if (String::IsNullOrWhiteSpace(idEquipRecuperat)) {
-                throw gcnew Exception("Aquest capita no te un equip actiu. Primer enregistra't un.");
+                throw gcnew Exception(L"Aquest capit\u00E0 no t\u00E9 un equip actiu. Primer enregistra't un.");
             }
 
             String^ idLligaEncontrado = ComprovarSiLligaExisteix(nomLliga);
@@ -46,13 +46,13 @@ namespace Playcampus {
             String^ idTemporadaMesRecent = passTemporada->ObtenirIdTemporadaMesRecent(idLligaEncontrado);
 
             if (idTemporadaMesRecent == nullptr || String::IsNullOrWhiteSpace(idTemporadaMesRecent)) {
-                throw gcnew Exception("La lliga no te cap temporada associada. Primer cal crear una temporada.");
+                throw gcnew Exception(L"La lliga no t\u00E9 cap temporada associada. Primer cal crear una temporada.");
             }
 
-            // Comprobar que la temporada obtenida está "EnCurs"
+            // Comprobar que la temporada obtenida estï¿½ "EnCurs"
             PassarellaTemporada^ dbTemporadaMesRecent = PassarellaTemporada::Llegeix(connectionString, idTemporadaMesRecent);
             if (dbTemporadaMesRecent == nullptr || dbTemporadaMesRecent->GetEstat() == "Finalitzat") {
-                throw gcnew Exception("La temporada més recent està finalitzada o ha estat retirada. Cal obrir una nova temporada.");
+                throw gcnew Exception(L"La temporada m\u00E9s recent est\u00E0 finalitzada o ha estat retirada. Cal obrir una nova temporada.");
             }
 
             PassarellaEquip^ equipDB = PassarellaEquip::Llegeix(connectionString, idEquipRecuperat);
@@ -62,13 +62,13 @@ namespace Playcampus {
 
 
 
-            // Usar Llegeix  para ver si la vinculación ya existe
+            // Usar Llegeix  para ver si la vinculaciï¿½n ya existe
             PassarellaEquipTemporada^ vinculacioExistent = PassarellaEquipTemporada::Llegeix(connectionString, idEquipRecuperat, idTemporadaMesRecent);
             if (vinculacioExistent != nullptr) {
-                throw gcnew Exception("Aquest equip ja està vinculat a la temporada més recent d'aquesta lliga.");
+                throw gcnew Exception(L"Aquest equip ja est\u00E0 vinculat a la temporada m\u00E9s recent d'aquesta lliga.");
             }
 
-            // Crear la asocación con el segundo constructor y guardarla con Insereix()
+            // Crear la asocaciï¿½n con el segundo constructor y guardarla con Insereix()
             PassarellaEquipTemporada^ equipTempDB = gcnew PassarellaEquipTemporada(connectionString, idEquipRecuperat, idTemporadaMesRecent);
             equipTempDB->Insereix();
 

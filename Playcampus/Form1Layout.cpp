@@ -615,7 +615,7 @@ namespace CppCLRWinFormsProject {
 			Playcampus::Domini::CtrlEditarPartit^ ctrl = gcnew Playcampus::Domini::CtrlEditarPartit();
 			String^ nomLliga = ctrl->ObtenirNomLligaAdmin(currentUsuariCorreu);
 			if (String::IsNullOrEmpty(nomLliga)) {
-				MessageBox::Show(L"No s'ha trobat cap lliga per a aquest administrador.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				MessageBox::Show(L"No s'ha trobat cap lliga per a aquest administrador.", L"Av\u00EDs", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				return;
 			}
 
@@ -633,7 +633,7 @@ namespace CppCLRWinFormsProject {
 				cmbPartitsAEditar->SelectedIndex = 0;
 			}
 			else {
-				MessageBox::Show(L"No s'han trobat partits per editar en aquesta lliga.", L"Informació", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				MessageBox::Show(L"No s'han trobat partits per editar en aquesta lliga.", L"Informaci\u00F3", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
 		}
 		catch (Exception^ ex) {

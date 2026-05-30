@@ -22,18 +22,18 @@ namespace Playcampus {
             PassarellaUsuari^ usuariCapita = cercadoraUsuari->LlegeixPerCorreu(correuCapita);
 
             if (usuariCapita == nullptr || usuariCapita->GetTipus() != "Capita") {
-                throw gcnew Exception("Només els capitans poden eliminar jugadors.");
+                throw gcnew Exception(L"Nom\u00E9s els capitans poden eliminar jugadors.");
             }
 
             CercadoraEquip^ cercadoraEquip = gcnew CercadoraEquip(connectionString);
             String^ idEquip = cercadoraEquip->ObtenirIdEquipCapita(correuCapita);
             if (String::IsNullOrWhiteSpace(idEquip)) {
-                throw gcnew Exception("El capità no té equip assignat.");
+                throw gcnew Exception(L"El capit\u00E0 no t\u00E9 equip assignat.");
             }
 
             CercadoraJugador^ cercadoraJugador = gcnew CercadoraJugador(connectionString);
             if (!cercadoraJugador->JugadorPertanyAEquip(idJugador, idEquip)) {
-                throw gcnew Exception("El jugador no pertany a l'equip del capità.");
+                throw gcnew Exception(L"El jugador no pertany a l'equip del capit\u00E0.");
             }
 
             PassarellaJugador^ passJugador = gcnew PassarellaJugador(connectionString);

@@ -29,7 +29,7 @@ namespace Playcampus {
         void CtrlCrearPartit::CrearPartit(DateTime dataHora, String^ ubicacio, String^ nomEquipLocal, String^ nomEquipVisitant, String^ idJornada, String^ tipusUsuari) {
 
             if (String::IsNullOrEmpty(tipusUsuari) || tipusUsuari->ToLower() != "administrador") {
-                throw gcnew UnauthorizedAccessException("Només els administradors poden crear un partit.");
+                throw gcnew UnauthorizedAccessException(L"Nom\u00E9s els administradors poden crear un partit.");
             }
 
             if (String::Equals(nomEquipLocal, nomEquipVisitant, StringComparison::Ordinal)) {
@@ -38,7 +38,7 @@ namespace Playcampus {
 
             try {
                 if (String::IsNullOrEmpty(idJornada)) {
-                    throw gcnew Exception("La jornada no s'ha trobat o no és vàlida.");
+                    throw gcnew Exception(L"La jornada no s'ha trobat o no \u00E9s v\u00E0lida.");
                 }
 
                 Playcampus::Dades::CercadoraJornada^ cercadoraJornada = gcnew Playcampus::Dades::CercadoraJornada(connectionString);

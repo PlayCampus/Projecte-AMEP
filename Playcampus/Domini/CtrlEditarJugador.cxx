@@ -33,14 +33,14 @@ namespace Playcampus {
             }
 
             if (String::IsNullOrWhiteSpace(usuariCapita->GetTipus()) || usuariCapita->GetTipus()->ToLower() != "capita") {
-                throw gcnew UnauthorizedAccessException("Només els capitans poden eliminar jugadors.");
+                throw gcnew UnauthorizedAccessException(L"Nom\u00E9s els capitans poden eliminar jugadors.");
             }
 
             CercadoraEquip^ cercadoraEquip = gcnew CercadoraEquip(connectionString);
             String^ idEquip = cercadoraEquip->ObtenirIdEquipCapita(correuCapita);
 
             if (String::IsNullOrWhiteSpace(idEquip)) {
-                throw gcnew Exception("El capità no té cap equip registrat.");
+                throw gcnew Exception(L"El capit\u00E0 no t\u00E9 cap equip registrat.");
             }
 
             CercadoraJugador^ cercadoraJugador = gcnew CercadoraJugador(connectionString);
@@ -48,7 +48,7 @@ namespace Playcampus {
                 throw gcnew Exception("El jugador seleccionat no pertany al teu equip.");
             }
 
-            return "Validació d'edició realitzada correctament.";
+            return L"Validaci\u00F3 d'edici\u00F3 realitzada correctament.";
         }
 
         String^ CtrlEditarJugador::ActualitzarJugador(String^ correuCapita, String^ idJugador, int dorsal, String^ posicio) {
@@ -68,14 +68,14 @@ namespace Playcampus {
             }
 
             if (String::IsNullOrWhiteSpace(usuariCapita->GetTipus()) || usuariCapita->GetTipus()->ToLower() != "capita") {
-                throw gcnew UnauthorizedAccessException("Només els capitans poden editar jugadors.");
+                throw gcnew UnauthorizedAccessException(L"Nom\u00E9s els capitans poden editar jugadors.");
             }
 
             CercadoraEquip^ cercadoraEquip = gcnew CercadoraEquip(connectionString);
             String^ idEquip = cercadoraEquip->ObtenirIdEquipCapita(correuCapita);
 
             if (String::IsNullOrWhiteSpace(idEquip)) {
-                throw gcnew Exception("El capità no té cap equip registrat.");
+                throw gcnew Exception(L"El capit\u00E0 no t\u00E9 cap equip registrat.");
             }
 
             CercadoraJugador^ cercadoraJugador = gcnew CercadoraJugador(connectionString);

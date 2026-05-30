@@ -45,7 +45,7 @@ namespace Playcampus {
                 throw gcnew Exception("No s'ha trobat el tipus de l'usuari actual.");
             }
 
-            if (tipus->Equals("Capita", StringComparison::OrdinalIgnoreCase)) {
+            if (tipus->Equals("Capita", StringComparison::OrdinalIgnoreCase) || tipus->Equals(L"Capit\u00E0", StringComparison::OrdinalIgnoreCase)) {
                 return ObtenirTelefonsPerCapita(correuUsuari);
             }
 
@@ -57,7 +57,7 @@ namespace Playcampus {
                 return ObtenirTelefonsPerAdministrador(correuUsuari);
             }
 
-            throw gcnew UnauthorizedAccessException("Aquest usuari no te permisos per consultar telefons de contacte.");
+            throw gcnew UnauthorizedAccessException(L"Aquest usuari no t\u00E9 permisos per consultar tel\u00E8fons de contacte.");
         }
     }
 }

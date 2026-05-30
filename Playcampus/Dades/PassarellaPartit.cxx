@@ -68,7 +68,7 @@ namespace Playcampus {
                     }
                     rJornada->Close();
                     if (!trobada) {
-                        throw gcnew Exception("La jornada no existeix o no és vàlida.");
+                        throw gcnew Exception(L"La jornada no existeix o no \u00E9s v\u00E0lida.");
                     }
                     if (dataHora < dataInici || dataHora > dataFi) {
                         throw gcnew ArgumentException("La data i hora del partit ha d'estar dins de les dates de la jornada.");
@@ -111,7 +111,7 @@ namespace Playcampus {
                     cmdSolapament->Parameters->AddWithValue("@eVisitant", idEquipVisitant);
                     int countSolapament = Convert::ToInt32(cmdSolapament->ExecuteScalar());
                     if (countSolapament > 0) {
-                        throw gcnew ArgumentException("Un dels equips ja té un partit programat a la mateixa data i hora.");
+                        throw gcnew ArgumentException(L"Un dels equips ja t\u00E9 un partit programat a la mateixa data i hora.");
                     }
                 }
 
@@ -440,7 +440,7 @@ namespace Playcampus {
             String^ estatAnterior = detall["estat"];
 
             if (String::IsNullOrWhiteSpace(nouEstat)) {
-                throw gcnew ArgumentException("L'estat del partit és obligatori.");
+                throw gcnew ArgumentException(L"L'estat del partit \u00E9s obligatori.");
             }
 
             Dictionary<String^, String^>^ etiquetes = Playcampus::Domini::EtiquetesEditarPartit::ObtenirEtiquetesEditarPartit(disciplina);
@@ -486,7 +486,7 @@ namespace Playcampus {
                 readerEquips->Close();
 
                 String^ queryUpdatePartit;
-                if (nouEstat == "Aplaçat" && novaDataPartit.HasValue) {
+                if (nouEstat == L"Apla\u00E7at" && novaDataPartit.HasValue) {
                     queryUpdatePartit = "UPDATE Partit SET estat = @estat, golsLocal = @golsLocal, golsVisitant = @golsVisitant, dataHora = @dataHora WHERE idPartit = @idPartit";
                 }
                 else {
@@ -498,7 +498,7 @@ namespace Playcampus {
                 cmdPartit->Parameters->AddWithValue("@golsLocal", resultatLocal);
                 cmdPartit->Parameters->AddWithValue("@golsVisitant", resultatVisitant);
                 cmdPartit->Parameters->AddWithValue("@idPartit", idPartit);
-                if (nouEstat == "Aplaçat" && novaDataPartit.HasValue) {
+                if (nouEstat == L"Apla\u00E7at" && novaDataPartit.HasValue) {
                     cmdPartit->Parameters->AddWithValue("@dataHora", novaDataPartit.Value);
                 }
                 cmdPartit->ExecuteNonQuery();

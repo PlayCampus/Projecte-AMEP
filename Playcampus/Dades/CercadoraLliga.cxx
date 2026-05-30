@@ -466,7 +466,6 @@ namespace Playcampus {
 
 
         DataTable^ CercadoraLliga::ObtenirTelefonsAdministradorPerCapita(String^ correuUsuari) {
-            PassarellaTemporada::ActualitzarEstats(connectionString);
             DataTable^ dt = gcnew DataTable();
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
@@ -483,12 +482,6 @@ namespace Playcampus {
                     "INNER JOIN Administrador A ON A.identificador = L.idAdministrador "
                     "INNER JOIN Usuari UA ON UA.identificador = A.identificador "
                     "WHERE UC.correu_electronic = @correu "
-                    "AND T.idTemporada = ("
-                    "    SELECT T2.idTemporada FROM Temporada T2 "
-                    "    WHERE T2.idLliga = L.idLliga "
-                    "    ORDER BY CASE WHEN T2.estat = 'EnCurs' THEN 0 WHEN T2.estat <> 'Finalitzat' THEN 1 ELSE 2 END, T2.dataInici DESC, T2.dataFi DESC "
-                    "    LIMIT 1"
-                    ") "
                     "AND A.telefonContacte IS NOT NULL AND A.telefonContacte <> ''";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@correu", correuUsuari);
@@ -502,30 +495,36 @@ namespace Playcampus {
         }
 
         DataTable^ CercadoraLliga::ObtenirTelefonsContactePerJugador(String^ correuUsuari) {
-            PassarellaTemporada::ActualitzarEstats(connectionString);
             DataTable^ dt = gcnew DataTable();
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
                 String^ query =
-                    "SELECT 'Capita' AS Rol, UC.nom AS Nom, UC.correu_electronic AS Correu, "
-                    "C.telefonContacte AS Telefon, E.nom AS Equip, L.nom AS Lliga "
-                    "FROM Usuari UJ "
-                    "INNER JOIN Jugador J ON J.idJugador = UJ.identificador "
-                    "INNER JOIN Equip E ON E.idEquip = J.idEquip "
-                    "INNER JOIN Capita C ON C.idEquip = E.idEquip "
-                    "INNER JOIN Usuari UC ON UC.identificador = C.identificador "
-                    "INNER JOIN EquipTemporada ET ON ET.idEquip = E.idEquip "
-                    "INNER JOIN Temporada T ON T.idTemporada = ET.idTemporada "
-                    "INNER JOIN Lliga L ON L.idLliga = T.idLliga "
-                    "WHERE UJ.correu_electronic = @correu "
-                    "AND T.idTemporada = ("
-                    "    SELECT T2.idTemporada FROM Temporada T2 "
-                    "    WHERE T2.idLliga = L.idLliga "
-                    "    ORDER BY CASE WHEN T2.estat = 'EnCurs' THEN 0 WHEN T2.estat <> 'Finalitzat' THEN 1 ELSE 2 END, T2.dataInici DESC, T2.dataFi DESC "
-                    "    LIMIT 1"
-                    ") "
-                    "AND C.telefonContacte IS NOT NULL AND C.telefonContacte <> ''";
+                    L"SELECT 'Capit\u00E0' AS Rol, UC.nom AS Nom, UC.correu_electronic AS Correu, "
+                    L"C.telefonContacte AS Telefon, E.nom AS Equip, L.nom AS Lliga "
+                    L"FROM Usuari UJ "
+                    L"INNER JOIN Jugador J ON J.idJugador = UJ.identificador "
+                    L"INNER JOIN Equip E ON E.idEquip = J.idEquip "
+                    L"INNER JOIN Capita C ON C.idEquip = E.idEquip "
+                    L"INNER JOIN Usuari UC ON UC.identificador = C.identificador "
+                    L"INNER JOIN EquipTemporada ET ON ET.idEquip = E.idEquip "
+                    L"INNER JOIN Temporada T ON T.idTemporada = ET.idTemporada "
+                    L"INNER JOIN Lliga L ON L.idLliga = T.idLliga "
+                    L"WHERE UJ.correu_electronic = @correu "
+                    L"AND C.telefonContacte IS NOT NULL AND C.telefonContacte <> '' "
+                    L"UNION "
+                    L"SELECT 'Administrador' AS Rol, UA.nom AS Nom, UA.correu_electronic AS Correu, "
+                    L"A.telefonContacte AS Telefon, E.nom AS Equip, L.nom AS Lliga "
+                    L"FROM Usuari UJ "
+                    L"INNER JOIN Jugador J ON J.idJugador = UJ.identificador "
+                    L"INNER JOIN Equip E ON E.idEquip = J.idEquip "
+                    L"INNER JOIN EquipTemporada ET ON ET.idEquip = E.idEquip "
+                    L"INNER JOIN Temporada T ON T.idTemporada = ET.idTemporada "
+                    L"INNER JOIN Lliga L ON L.idLliga = T.idLliga "
+                    L"INNER JOIN Administrador A ON A.identificador = L.idAdministrador "
+                    L"INNER JOIN Usuari UA ON UA.identificador = A.identificador "
+                    L"WHERE UJ.correu_electronic = @correu "
+                    L"AND A.telefonContacte IS NOT NULL AND A.telefonContacte <> ''";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@correu", correuUsuari);
                 MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
@@ -538,31 +537,24 @@ namespace Playcampus {
         }
 
         DataTable^ CercadoraLliga::ObtenirTelefonsCapitansPerAdministrador(String^ correuUsuari) {
-            PassarellaTemporada::ActualitzarEstats(connectionString);
             DataTable^ dt = gcnew DataTable();
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
                 String^ query =
-                    "SELECT 'Capita' AS Rol, UC.nom AS Nom, UC.correu_electronic AS Correu, "
-                    "C.telefonContacte AS Telefon, E.nom AS Equip, L.nom AS Lliga "
-                    "FROM Usuari UA "
-                    "INNER JOIN Administrador A ON A.identificador = UA.identificador "
-                    "INNER JOIN Lliga L ON L.idAdministrador = A.identificador "
-                    "INNER JOIN Temporada T ON T.idLliga = L.idLliga "
-                    "INNER JOIN EquipTemporada ET ON T.idTemporada = ET.idTemporada "
-                    "INNER JOIN Equip E ON ET.idEquip = E.idEquip "
-                    "INNER JOIN Capita C ON C.idEquip = E.idEquip "
-                    "INNER JOIN Usuari UC ON UC.identificador = C.identificador "
-                    "WHERE UA.correu_electronic = @correu "
-                    "AND T.idTemporada = ("
-                    "    SELECT T2.idTemporada FROM Temporada T2 "
-                    "    WHERE T2.idLliga = L.idLliga "
-                    "    ORDER BY CASE WHEN T2.estat = 'EnCurs' THEN 0 WHEN T2.estat <> 'Finalitzat' THEN 1 ELSE 2 END, T2.dataInici DESC, T2.dataFi DESC "
-                    "    LIMIT 1"
-                    ") "
-                    "AND C.telefonContacte IS NOT NULL AND C.telefonContacte <> '' "
-                    "ORDER BY L.nom, E.nom, UC.nom";
+                    L"SELECT 'Capit\u00E0' AS Rol, UC.nom AS Nom, UC.correu_electronic AS Correu, "
+                    L"C.telefonContacte AS Telefon, E.nom AS Equip, L.nom AS Lliga "
+                    L"FROM Usuari UA "
+                    L"INNER JOIN Administrador A ON A.identificador = UA.identificador "
+                    L"INNER JOIN Lliga L ON L.idAdministrador = A.identificador "
+                    L"INNER JOIN Temporada T ON T.idLliga = L.idLliga "
+                    L"INNER JOIN EquipTemporada ET ON T.idTemporada = ET.idTemporada "
+                    L"INNER JOIN Equip E ON ET.idEquip = E.idEquip "
+                    L"INNER JOIN Capita C ON C.idEquip = E.idEquip "
+                    L"INNER JOIN Usuari UC ON UC.identificador = C.identificador "
+                    L"WHERE UA.correu_electronic = @correu "
+                    L"AND C.telefonContacte IS NOT NULL AND C.telefonContacte <> '' "
+                    L"ORDER BY L.nom, E.nom, UC.nom";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@correu", correuUsuari);
                 MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);

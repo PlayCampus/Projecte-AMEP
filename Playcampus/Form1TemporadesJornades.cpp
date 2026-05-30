@@ -41,7 +41,7 @@ System::Void Form1::btnGLCrearJornada_Click(System::Object^ sender, System::Even
 				if (cmbCJTemporada->Items->Count > 0) {
 					cmbCJTemporada->SelectedIndex = 0;
 				} else {
-					MessageBox::Show(L"No s'han trobat temporades per a aquesta lliga.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					MessageBox::Show(L"No s'han trobat temporades per a aquesta lliga.", L"Av\u00EDs", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				}
 
 			}
@@ -61,13 +61,13 @@ System::Void Form1::btnCJBuscarTemporades_Click(System::Object^ sender, System::
 
 System::Void Form1::btnCJConfirmar_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (cmbCJTemporada->SelectedIndex == -1) {
-			MessageBox::Show(L"Si us plau, cerca i selecciona una Temporada.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show(L"Si us plau, cerca i selecciona una Temporada.", L"Av\u00EDs", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
 		int numJornada = 0; 
 		if (!Int32::TryParse(txtCJNumero->Text, numJornada)) {
-			MessageBox::Show(L"Introdueix un número de jornada vàlid.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show(L"Introdueix un n\u00FAmero de jornada v\u00E0lid.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
@@ -87,7 +87,7 @@ System::Void Form1::btnCJConfirmar_Click(System::Object^ sender, System::EventAr
 
 			ctrl->CrearJornada(idTemporadaSelecionada, numJornada, dataInici, dataFi, estat);
 			
-			MessageBox::Show(L"Jornada creada correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			MessageBox::Show(L"Jornada creada correctament!", L"\u00C8xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			pnlCrearJornada->Visible = false;
 			pnlGestionarLliga->Visible = true;
 		}
@@ -122,7 +122,7 @@ System::Void Form1::btnCTConfirmar_Click(System::Object^ sender, System::EventAr
 			Playcampus::Domini::CtrlCrearTemporada^ ctrl = gcnew Playcampus::Domini::CtrlCrearTemporada();
 			ctrl->CrearTemporada(dataInici, dataFi, currentUsuariCorreu);
 
-			MessageBox::Show(L"Temporada creada correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			MessageBox::Show(L"Temporada creada correctament!", L"\u00C8xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			pnlCrearTemporada->Visible = false;
 			pnlGestionarLliga->Visible = true;
 		}
@@ -134,7 +134,7 @@ System::Void Form1::btnCTConfirmar_Click(System::Object^ sender, System::EventAr
 
 System::Void Form1::btnGLEsborrarJornada_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (currentUsuariTipus == nullptr || currentUsuariTipus->ToLower() != L"administrador") {
-			MessageBox::Show(L"Només els administradors poden esborrar jornades.", L"Accés denegat", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			MessageBox::Show(L"Nom\u00E9s els administradors poden esborrar jornades.", L"Acc\u00E9s denegat", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			return;
 		}
 
@@ -161,7 +161,7 @@ void Form1::CarregarTemporadesEsborrarJornada() {
 			auto temporades = ctrl->ObtenirTemporadesAdmin(currentUsuariCorreu);
 
 			if (temporades == nullptr || temporades->Count == 0) {
-				MessageBox::Show(L"Aquest administrador no té cap lliga associada o no hi ha temporades disponibles per a la seva lliga.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				MessageBox::Show(L"Aquest administrador no t\u00E9 cap lliga associada o no hi ha temporades disponibles per a la seva lliga.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 				return;
 			}
 
@@ -190,7 +190,7 @@ System::Void Form1::cmbEJTemporades_SelectedIndexChanged(System::Object^ sender,
 				auto jornades = ctrl->ObtenirJornadesPerTemporada(idTemporadaStr);
 
 				if (jornades == nullptr || jornades->Count == 0) {
-					MessageBox::Show(L"No hi ha jornades associades a aquesta temporada.", L"Informació", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					MessageBox::Show(L"No hi ha jornades associades a aquesta temporada.", L"Informaci\u00F3", MessageBoxButtons::OK, MessageBoxIcon::Information);
 					return;
 				}
 
@@ -210,7 +210,7 @@ System::Void Form1::cmbEJTemporades_SelectedIndexChanged(System::Object^ sender,
 
 bool Form1::ConfirmarEsborrarJornadaPermanent() {
 		Form^ dialeg = gcnew Form();
-		dialeg->Text = L"Confirmació";
+		dialeg->Text = L"Confirmaci\u00F3";
 		dialeg->StartPosition = FormStartPosition::CenterParent;
 		dialeg->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
 		dialeg->MaximizeBox = false;
@@ -219,13 +219,13 @@ bool Form1::ConfirmarEsborrarJornadaPermanent() {
 		dialeg->ClientSize = System::Drawing::Size(520, 165);
 
 		Label^ lblMissatge = gcnew Label();
-		lblMissatge->Text = L"Vols esborrar aquesta jornada de forma permanent? No podras desfer els canvis.";
+		lblMissatge->Text = L"Vols esborrar aquesta jornada de forma permanent? No podr\u00E0s desfer els canvis.";
 		lblMissatge->AutoSize = false;
 		lblMissatge->Location = System::Drawing::Point(20, 25);
 		lblMissatge->Size = System::Drawing::Size(480, 55);
 
 		Button^ btnCancelar = gcnew Button();
-		btnCancelar->Text = L"cancel·lar";
+		btnCancelar->Text = L"Cancel\u00B7lar";
 		btnCancelar->Size = System::Drawing::Size(130, 35);
 		btnCancelar->Location = System::Drawing::Point(210, 105);
 		btnCancelar->DialogResult = System::Windows::Forms::DialogResult::Cancel;
@@ -249,7 +249,7 @@ bool Form1::ConfirmarEsborrarJornadaPermanent() {
 
 System::Void Form1::btnEJEsborrarFinal_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (cmbEJTemporades->SelectedIndex < 0 || cmbEJJornades->SelectedIndex < 0) {
-			MessageBox::Show(L"Si us plau, selecciona una temporada i una jornada per a esborrar.", L"Avís", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show(L"Si us plau, selecciona una temporada i una jornada per a esborrar.", L"Av\u00EDs", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
@@ -263,7 +263,7 @@ System::Void Form1::btnEJEsborrarFinal_Click(System::Object^ sender, System::Eve
 			Playcampus::Domini::CtrlEsborrarJornada^ ctrl = gcnew Playcampus::Domini::CtrlEsborrarJornada();
 			ctrl->EsborrarJornada(idJornada);
 
-			MessageBox::Show(L"Jornada esborrada correctament.", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			MessageBox::Show(L"Jornada esborrada correctament.", L"\u00C8xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			cmbEJTemporades_SelectedIndexChanged(nullptr, nullptr);
 		}
 		catch (Exception^ ex) {

@@ -124,11 +124,11 @@ namespace Playcampus {
             try {
                 conn->Open();
                 String^ query =
-                    "SELECT j.idJugador AS IdJugador, u.nom AS Nom, j.dorsal AS Dorsal, j.posicio AS `Posició` "
-                    "FROM Jugador j "
-                    "INNER JOIN Usuari u ON j.idJugador = u.identificador "
-                    "WHERE j.idEquip = @idEquip "
-                    "ORDER BY j.dorsal ASC";
+                    L"SELECT j.idJugador AS IdJugador, u.nom AS Nom, j.dorsal AS Dorsal, j.posicio AS `Posici\u00F3` "
+                    L"FROM Jugador j "
+                    L"INNER JOIN Usuari u ON j.idJugador = u.identificador "
+                    L"WHERE j.idEquip = @idEquip "
+                    L"ORDER BY j.dorsal ASC";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idEquip", idEquip);
                 MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);

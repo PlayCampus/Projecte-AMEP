@@ -23,7 +23,7 @@ namespace Playcampus {
 
             // Verificar que l'usuari Ã©s un administrador
             if (tipusUsuari->ToLower() != "administrador") {
-                throw gcnew UnauthorizedAccessException("Només els administradors poden crear una lliga.");
+                throw gcnew UnauthorizedAccessException(L"Nom\u00E9s els administradors poden crear una lliga.");
             }
 
             // AquÃ­ es crearia la Lliga. Actualment es crea l'objecte de domini.
@@ -44,7 +44,7 @@ namespace Playcampus {
             }
             catch (Exception^ ex) {
                 // Afegim l'idAdmin a l'excepciÃ³ per veure exactament quin s'estÃ  enviant a MySql 
-                String^ errorPrefix = "L'ID de l'admin enviat és: '" + (idAdmin == nullptr ? "NULL" : idAdmin) + "'. ";
+                String^ errorPrefix = L"L'ID de l'admin enviat \u00E9s: '" + (idAdmin == nullptr ? L"NULL" : idAdmin) + L"'. ";
                 throw gcnew Exception(errorPrefix + ex->Message);
             }
         }

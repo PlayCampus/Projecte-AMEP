@@ -11,7 +11,7 @@ namespace CppCLRWinFormsProject {
 	using namespace System::Drawing;
 
 	void Form1::CarregarUltimsFitxatges() {
-		if (this->lblNoticies != nullptr) this->lblNoticies->Text = L"Últims fitxatges";
+		if (this->lblNoticies != nullptr) this->lblNoticies->Text = L"\u00DAltims fitxatges";
 		if (this->lstNoticies == nullptr) return;
 
 		this->lstNoticies->Items->Clear();
@@ -84,7 +84,7 @@ System::Void Form1::btnTornarConsultar_Click(System::Object^ sender, System::Eve
 			Playcampus::Domini::CtrlSeguirLliga^ ctrlSeguir = gcnew Playcampus::Domini::CtrlSeguirLliga();
 			String^ idLliga = ctrlSeguir->ObtenirIdLligaSeguida(currentUsuariCorreu);
 			if (String::IsNullOrEmpty(idLliga)) {
-				MessageBox::Show(L"No estàs seguint cap lliga.", L"Calendari", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				MessageBox::Show(L"No est\u00E0s seguint cap lliga.", L"Calendari", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				return;
 			}
 
@@ -158,16 +158,16 @@ System::Void Form1::MostrarConsultaGeneral(System::String^ titol, System::Data::
 
 System::Void Form1::MostrarTelefonsContacteUsuariActual() {
         if (String::IsNullOrWhiteSpace(currentUsuariCorreu)) {
-            MessageBox::Show(L"No s'ha pogut identificar l'usuari actual.", L"Consultar telèfons", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+            MessageBox::Show(L"No s'ha pogut identificar l'usuari actual.", L"Consultar tel\u00E8fons", MessageBoxButtons::OK, MessageBoxIcon::Warning);
         }
         else {
             try {
                 Playcampus::Domini::CtrlConsultaTelefons^ ctrl = gcnew Playcampus::Domini::CtrlConsultaTelefons();
                 DataTable^ dades = ctrl->ObtenirTelefonsContacte(currentUsuariCorreu);
-                MostrarConsultaGeneral(L"Telèfons de contacte", dades);
+                MostrarConsultaGeneral(L"Tel\u00E8fons de contacte", dades);
             }
             catch (Exception^ ex) {
-                MessageBox::Show(L"Error carregant els telèfons de contacte: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+                MessageBox::Show(L"Error carregant els tel\u00E8fons de contacte: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
             }
         }
 }
@@ -179,10 +179,10 @@ System::Void Form1::btnConsultarTelefons_Click(System::Object^ sender, System::E
 System::Void Form1::btnProgPartits_Click(System::Object^ sender, System::EventArgs^ e) {
 		try {
 			Playcampus::Domini::CtrlConsultaPartits^ ctrl = gcnew Playcampus::Domini::CtrlConsultaPartits();
-			MostrarConsultaGeneral(L"Programació de partits", ctrl->ObtenirProgramacioPartits());
+			MostrarConsultaGeneral(L"Programaci\u00F3 de partits", ctrl->ObtenirProgramacioPartits());
 		}
 		catch (Exception^ ex) {
-			MessageBox::Show(L"Error carregant la programacio de partits: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			MessageBox::Show(L"Error carregant la programaci\u00F3 de partits: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
 

@@ -33,7 +33,7 @@ System::Void Form1::btnGLMostrarEquips_Click(System::Object^ sender, System::Eve
 			Playcampus::Domini::CtrlConsultaLligues^ ctrl = gcnew Playcampus::Domini::CtrlConsultaLligues();
 			String^ nomLliga = ctrl->ObtenirNomLligaAdministrador(currentUsuariCorreu);
 			if (String::IsNullOrWhiteSpace(nomLliga)) {
-				MessageBox::Show(L"No tens cap lliga activa associada.", L"Avis", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				MessageBox::Show(L"No tens cap lliga activa associada.", L"Av\u00EDs", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			}
 			else {
 				MostrarConsultaGeneral(L"Equips de " + nomLliga, ctrl->ObtenirEquipsDeLaLligaAdministrador(currentUsuariCorreu));
@@ -49,7 +49,7 @@ System::Void Form1::btnGLEsborrarEquip_Click(System::Object^ sender, System::Eve
 			Playcampus::Domini::CtrlConsultaLligues^ ctrl = gcnew Playcampus::Domini::CtrlConsultaLligues();
 			DataTable^ equips = ctrl->ObtenirEquipsDeLaLligaAdministrador(currentUsuariCorreu);
 			if (equips == nullptr || equips->Rows->Count == 0) {
-				MessageBox::Show(L"No hi ha equips dins de la teva lliga activa.", L"Avis", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				MessageBox::Show(L"No hi ha equips dins de la teva lliga activa.", L"Av\u00EDs", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
 			else {
 				Form^ finestra = gcnew Form();
@@ -82,7 +82,7 @@ System::Void Form1::btnGLEsborrarEquip_Click(System::Object^ sender, System::Eve
 				btnConfirmar->Size = System::Drawing::Size(90, 30);
 
 				Button^ btnCancelar = gcnew Button();
-				btnCancelar->Text = L"Cancelar";
+				btnCancelar->Text = L"Cancel\u00B7lar";
 				btnCancelar->DialogResult = System::Windows::Forms::DialogResult::Cancel;
 				btnCancelar->Location = System::Drawing::Point(320, 100);
 				btnCancelar->Size = System::Drawing::Size(90, 30);
@@ -101,13 +101,13 @@ System::Void Form1::btnGLEsborrarEquip_Click(System::Object^ sender, System::Eve
 
 					System::Windows::Forms::DialogResult confirmacio = MessageBox::Show(
 						L"Vols treure l'equip '" + nomEquip + L"' de la lliga?",
-						L"Confirmació",
+						L"Confirmaci\u00F3",
 						MessageBoxButtons::YesNo,
 						MessageBoxIcon::Warning);
 
 					if (confirmacio == System::Windows::Forms::DialogResult::Yes) {
 						ctrl->TreureEquipDeLaLliga(idEquip, currentUsuariCorreu);
-						MessageBox::Show(L"Equip tret de la lliga correctament.", L"Exit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+						MessageBox::Show(L"Equip tret de la lliga correctament.", L"\u00C8xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 					}
 				}
 			}
@@ -138,8 +138,8 @@ System::Void Form1::btnCLGuarda_Click(System::Object^ sender, System::EventArgs^
 
 		Playcampus::Domini::Disciplina disc;
 		if (esport == L"Futbol") disc = Playcampus::Domini::Disciplina::Futbol;
-		else if (esport == L"Basquet") disc = Playcampus::Domini::Disciplina::Basquet;
-		else if (esport == L"Voley") disc = Playcampus::Domini::Disciplina::Voley;
+		else if (esport == L"Basquet" || esport == L"B\u00E0squet") disc = Playcampus::Domini::Disciplina::Basquet;
+		else if (esport == L"Voley" || esport == L"V\u00F2lei") disc = Playcampus::Domini::Disciplina::Voley;
 		else disc = Playcampus::Domini::Disciplina::Futbol;
 
 		try {
@@ -149,7 +149,7 @@ System::Void Form1::btnCLGuarda_Click(System::Object^ sender, System::EventArgs^
 			String^ idLliga = "L-" + Guid::NewGuid().ToString()->Substring(0, 8);
 
 			ctrlCrear->CrearLliga(idLliga, nom, disc, L"Nova Lliga " + nom, pass, currentUsuariTipus, currentUsuariCorreu);
-			MessageBox::Show(L"Lliga creada correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			MessageBox::Show(L"Lliga creada correctament!", L"\u00C8xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			
 			btnCrearLligaMainMenu->Text = L"Gestionar Lliga";
 
@@ -163,8 +163,8 @@ System::Void Form1::btnCLGuarda_Click(System::Object^ sender, System::EventArgs^
 
 System::Void Form1::btnGLRetirarTemporada_Click(System::Object^ sender, System::EventArgs^ e) {
 				System::Windows::Forms::DialogResult confirmacio = MessageBox::Show(
-					L"Estàs segur que vols retirar la temporada activa respecte a la teva Lliga?",
-					L"Confirmació",
+					L"Est\u00E0s segur que vols retirar la temporada activa respecte a la teva Lliga?",
+					L"Confirmaci\u00F3",
 					MessageBoxButtons::YesNo,
 					MessageBoxIcon::Warning
 				);
@@ -177,7 +177,7 @@ System::Void Form1::btnGLRetirarTemporada_Click(System::Object^ sender, System::
 						// Assumint que el mètode accepti el correu de l'administrador per saber-ne la lliga activa:
 						ctrl->RetirarTemporada(currentUsuariCorreu); // *Nota: Si la funció d'aquest controlador es diu diferent o prent un altre paràmetre, adapta aquest mètode aquí pel que posa a "CtrlRetirarTemporada.hxx".
 
-						MessageBox::Show(L"La temporada i les seves jornades han estat retirades correctament!", L"Èxit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+						MessageBox::Show(L"La temporada i les seves jornades han estat retirades correctament!", L"\u00C8xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 					}
 					catch (Exception^ ex) {
 						MessageBox::Show(L"Error al retirar la temporada: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);

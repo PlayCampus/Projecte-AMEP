@@ -51,7 +51,7 @@ namespace Playcampus {
                 cmd->Parameters->AddWithValue("@idCapita", idCapita);
                 int filesAfectades = cmd->ExecuteNonQuery();
                 if (filesAfectades != 1) {
-                    throw gcnew Exception("No s'ha pogut actualitzar el capita amb l'equip creat.");
+                    throw gcnew Exception(L"No s'ha pogut actualitzar el capit\u00E0 amb l'equip creat.");
                 }
 
                 String^ queryVerificacio = "SELECT COUNT(*) FROM Capita WHERE identificador = @idCapita AND idEquip = @idEquip";
@@ -60,7 +60,7 @@ namespace Playcampus {
                 cmdVerificacio->Parameters->AddWithValue("@idEquip", idEquip);
                 int filesVerificades = Convert::ToInt32(cmdVerificacio->ExecuteScalar());
                 if (filesVerificades != 1) {
-                    throw gcnew Exception("La base de dades no ha confirmat l'assignacio de l'equip al capita.");
+                    throw gcnew Exception(L"La base de dades no ha confirmat l'assignaci\u00F3 de l'equip al capit\u00E0.");
                 }
             }
             finally {

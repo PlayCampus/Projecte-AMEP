@@ -20,7 +20,7 @@ namespace Playcampus {
             String^ idEquipRecuperat = cercadoraEquip->ObtenirIdEquipCapita(correuCapita);
 
             if (String::IsNullOrWhiteSpace(idEquipRecuperat)) {
-                throw gcnew Exception("Aquest capita no te un equip actiu per esborrar.");
+                throw gcnew Exception(L"Aquest capit\u00E0 no t\u00E9 un equip actiu per esborrar.");
             }
 
             PassarellaEquip^ equipDB = PassarellaEquip::Llegeix(connectionString, idEquipRecuperat);

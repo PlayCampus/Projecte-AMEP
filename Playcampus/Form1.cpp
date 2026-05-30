@@ -24,7 +24,7 @@ Form1::Form1(void) {
 			this->convocatoriaObertaDesDeGestionarEquip = false;
 
 			// 2. Propietats i Events
-			this->btnGestionarConvocatoria->Text = L"Gestionar Convocatòries";
+			this->btnGestionarConvocatoria->Text = L"Gestionar Convocat\u00F2ries";
 			this->btnGestionarConvocatoria->Click += gcnew System::EventHandler(this, &Form1::btnGestionarConvocatoria_Click);
 
 			this->btnTornarConvocatoria->Text = L"Tornar";
@@ -74,12 +74,12 @@ Form1::Form1(void) {
 			this->estPartitTemporadaIds = gcnew System::Collections::Generic::List<String^>();
 			this->estPartitIds = gcnew System::Collections::Generic::List<String^>();
 
-			this->btnEstPartit->Text = L"Estadístiques Partit";
+			this->btnEstPartit->Text = L"Estad\u00EDstiques Partit";
 			this->btnEstPartit->Click += gcnew System::EventHandler(this, &Form1::btnEstPartit_Click);
 			this->btnEstPartitTornar->Text = L"Tornar";
 			this->btnEstPartitTornar->Click += gcnew System::EventHandler(this, &Form1::btnEstPartitTornar_Click);
 
-			this->lblEstPartitTitle->Text = L"ESTADÍSTIQUES DE PARTIT";
+			this->lblEstPartitTitle->Text = L"ESTAD\u00CDSTIQUES DE PARTIT";
 			this->lblEstPartitTitle->Font = gcnew System::Drawing::Font(L"Segoe UI", 16, System::Drawing::FontStyle::Bold);
 			this->lblEstPartitTitle->AutoSize = true;
 
@@ -108,7 +108,7 @@ Form1::Form1(void) {
 			this->dgvEstPartitDetalls->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::AllCells;
 
 			// Configuración del botón Estadístiques Jugadors
-			this->btnEstJugadors->Text = L"Estadístiques Jugadors";
+			this->btnEstJugadors->Text = L"Estad\u00EDstiques Jugadors";
 			this->btnEstJugadors->Click += gcnew System::EventHandler(this, &Form1::btnEstJugadors_Click);
 
 			// Jerarquia
@@ -151,7 +151,7 @@ Form1::Form1(void) {
 			this->pnlDashboardLliga->Controls->Add(this->lblDashboardLliga);
 
 			this->lblDashboardClassificacio = gcnew System::Windows::Forms::Label();
-			this->lblDashboardClassificacio->Text = L"Classificació";
+			this->lblDashboardClassificacio->Text = L"Classificaci\u00F3";
 			this->lblDashboardClassificacio->AutoSize = true;
 			this->pnlDashboardLliga->Controls->Add(this->lblDashboardClassificacio);
 
@@ -163,7 +163,7 @@ Form1::Form1(void) {
 			this->pnlDashboardLliga->Controls->Add(this->dgvDashboardClassificacio);
 
 			this->lblDashboardProximsPartits = gcnew System::Windows::Forms::Label();
-			this->lblDashboardProximsPartits->Text = L"Pròxims partits";
+			this->lblDashboardProximsPartits->Text = L"Pr\u00F2xims partits";
 			this->lblDashboardProximsPartits->AutoSize = true;
 			this->pnlDashboardLliga->Controls->Add(this->lblDashboardProximsPartits);
 
@@ -175,7 +175,7 @@ Form1::Form1(void) {
 			this->pnlDashboardLliga->Controls->Add(this->dgvDashboardProximsPartits);
 
 			this->lblDashboardUltimsResultats = gcnew System::Windows::Forms::Label();
-			this->lblDashboardUltimsResultats->Text = L"Últims resultats";
+			this->lblDashboardUltimsResultats->Text = L"\u00DAltims resultats";
 			this->lblDashboardUltimsResultats->AutoSize = true;
 			this->pnlDashboardLliga->Controls->Add(this->lblDashboardUltimsResultats);
 
