@@ -141,6 +141,12 @@ System::Void Form1::btnEnregistrarEquip_Click(System::Object^ sender, System::Ev
 System::Void Form1::btnGETornar_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlGestionarEquip->Visible = false;
 		pnlMain->Visible = true;
+		try {
+			CarregarUltimsFitxatges();
+		}
+		catch (Exception^) {
+			// Ignorem; no ha de bloquejar la navegació.
+		}
 	}
 
 System::Void Form1::btnGEEsborrarEquip_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -446,6 +452,12 @@ System::Void Form1::btnAJCancellar_Click(System::Object^ sender, System::EventAr
 System::Void Form1::btnEETornar_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlEnregistrarEquip->Visible = false;
 		pnlMain->Visible = true;
+		try {
+			CarregarUltimsFitxatges();
+		}
+		catch (Exception^) {
+			// Ignorem; no ha de bloquejar la navegació.
+		}
 	}
 
 System::Void Form1::btnEEEnregistrar_Click(System::Object^ sender, System::EventArgs^ e) {

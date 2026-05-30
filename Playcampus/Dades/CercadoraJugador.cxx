@@ -210,7 +210,7 @@ namespace Playcampus {
             try {
                 conn->Open();
                 String^ query =
-                    "SELECT DATE_FORMAT(J.data_naixement, '%d/%m/%Y') AS Data, "
+                    "SELECT DATE_FORMAT(U.data_registre, '%d/%m/%Y') AS Data, "
                     "U.nom AS Jugador, "
                     "COALESCE(E.nom, '(Sense equip)') AS Equip, "
                     "COALESCE(E.esport, '') AS Esport "
@@ -218,9 +218,10 @@ namespace Playcampus {
                     "INNER JOIN Usuari U ON J.idJugador = U.identificador "
                     "LEFT JOIN Equip E ON J.idEquip = E.idEquip "
                     "WHERE J.idEquip IS NOT NULL "
-                    "ORDER BY J.data_naixement DESC, J.idJugador DESC "
-                    "LIMIT " + limit.ToString();
+                    "ORDER BY U.data_registre DESC, U.identificador DESC "
+                    "LIMIT @limit";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@limit", limit);
                 MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
                 adapter->Fill(dt);
             }
