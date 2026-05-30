@@ -29,6 +29,7 @@
 #include "../Playcampus/Domini/CtrlVeureEstadistiquesJugadors.hxx"
 #include "../Playcampus/Domini/CtrlEstadistiquesPartit.hxx"
 #include "../Playcampus/Domini/CtrlTancarSessio.hxx"
+#include "../Playcampus/Domini/CtrlRetirarTemporada.hxx"
 #include "../Playcampus/Domini/CtrlConsultaFitxatges.hxx"
 #include "../Playcampus/Domini/CtrlConsultaLligues.hxx"
 #include "../Playcampus/Domini/CtrlConsultaPartits.hxx"
@@ -252,9 +253,11 @@ namespace PlayCampusTests {
                 }
 
                 if (!String::IsNullOrWhiteSpace(equipLocalId)) {
+                    ExecutarSql("DELETE FROM EquipTemporada WHERE idEquip = '" + EscaparSql(equipLocalId) + "'");
                     ExecutarSql("DELETE FROM Equip WHERE idEquip = '" + EscaparSql(equipLocalId) + "'");
                 }
                 if (!String::IsNullOrWhiteSpace(equipVisitantId)) {
+                    ExecutarSql("DELETE FROM EquipTemporada WHERE idEquip = '" + EscaparSql(equipVisitantId) + "'");
                     ExecutarSql("DELETE FROM Equip WHERE idEquip = '" + EscaparSql(equipVisitantId) + "'");
                 }
 

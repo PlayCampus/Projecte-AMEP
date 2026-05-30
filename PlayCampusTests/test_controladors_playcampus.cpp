@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "TestSupport.h"
 
-// Això és un comentari de prova
 using namespace PlayCampusTests;
 using namespace System;
 using namespace System::Data;
@@ -80,6 +79,23 @@ TEST_F(FixtureControladors, EnregistrarEquipAssignaEquipAlCapita) {
     EXPECT_EQ(1, count);
 }
 
+TEST_F(FixtureControladors, EnregistrarEquipRebutjaSegonEquipDelMateixCapita) {
+    CtrlEnregistrarEquip^ ctrl = gcnew CtrlEnregistrarEquip();
+    String^ segonEquipId = NouCodi("GTEQ2");
+
+    try {
+        EXPECT_MANAGED_EXCEPTION(
+            ctrl->EnregistrarEquip(segonEquipId, "GTest Segon Equip " + escenari->tag, DateTime::Now.AddYears(-1), "Futbol", "Capita", escenari->capitaEmail)
+        );
+        EXPECT_EQ(0, EscalarInt("SELECT COUNT(*) FROM Equip WHERE idEquip = '" + EscaparSql(segonEquipId) + "'"));
+        EXPECT_EQ(ToStd(escenari->equipLocalId), ToStd(EscalarString("SELECT idEquip FROM Capita WHERE identificador = " + Convert::ToString(IdUsuariPerCorreu(escenari->capitaEmail)))));
+    }
+    finally {
+        ExecutarSql("UPDATE Capita SET idEquip = '" + EscaparSql(escenari->equipLocalId) + "' WHERE identificador = " + Convert::ToString(IdUsuariPerCorreu(escenari->capitaEmail)));
+        ExecutarSql("DELETE FROM Equip WHERE idEquip = '" + EscaparSql(segonEquipId) + "'");
+    }
+}
+
 TEST_F(FixtureControladors, CrearLligaAdministradorCorrecte) {
     CtrlCrearLliga^ ctrl = gcnew CtrlCrearLliga();
 
@@ -106,6 +122,39 @@ TEST_F(FixtureControladors, CrearTemporadaRebutjaAdminIncorrecte) {
     CtrlCrearTemporada^ ctrl = gcnew CtrlCrearTemporada();
 
     EXPECT_MANAGED_EXCEPTION(ctrl->CrearTemporada(DateTime::Now, DateTime::Now.AddDays(10), escenari->adminAltEmail));
+}
+
+TEST_F(FixtureControladors, CrearTemporadaSolapadaAmbTemporadaFinalitzadaCopiaEquips) {
+    CtrlCrearTemporada^ ctrl = gcnew CtrlCrearTemporada();
+    ExecutarSql("UPDATE EquipTemporada SET victories = 4, punts = 12, golsAFavor = 15, golsEnContra = 4, diferenciaGols = 11 WHERE idEquip = '" + EscaparSql(escenari->equipLocalId) + "' AND idTemporada = '" + EscaparSql(escenari->temporadaId) + "'");
+    ExecutarSql("UPDATE Temporada SET estat = 'Finalitzat' WHERE idTemporada = '" + EscaparSql(escenari->temporadaId) + "'");
+
+    ctrl->CrearTemporada(DateTime::Now.AddDays(-1), DateTime::Now.AddDays(45), escenari->adminEmail);
+    String^ novaTemporadaId = EscalarString("SELECT idTemporada FROM Temporada WHERE idLliga = '" + EscaparSql(escenari->lligaId) + "' AND idTemporada <> '" + EscaparSql(escenari->temporadaId) + "' ORDER BY dataInici DESC LIMIT 1");
+
+    EXPECT_FALSE(String::IsNullOrWhiteSpace(novaTemporadaId));
+    EXPECT_EQ(1, EscalarInt("SELECT COUNT(*) FROM EquipTemporada WHERE idEquip = '" + EscaparSql(escenari->equipLocalId) + "' AND idTemporada = '" + EscaparSql(novaTemporadaId) + "'"));
+    EXPECT_EQ(1, EscalarInt("SELECT COUNT(*) FROM EquipTemporada WHERE idEquip = '" + EscaparSql(escenari->equipVisitantId) + "' AND idTemporada = '" + EscaparSql(novaTemporadaId) + "'"));
+    EXPECT_EQ(0, EscalarInt("SELECT punts FROM EquipTemporada WHERE idEquip = '" + EscaparSql(escenari->equipLocalId) + "' AND idTemporada = '" + EscaparSql(novaTemporadaId) + "'"));
+    EXPECT_EQ(12, EscalarInt("SELECT punts FROM EquipTemporada WHERE idEquip = '" + EscaparSql(escenari->equipLocalId) + "' AND idTemporada = '" + EscaparSql(escenari->temporadaId) + "'"));
+}
+
+TEST_F(FixtureControladors, RetirarTemporadaAssignaEquipsALaSeguentIManteHistorial) {
+    CtrlCrearTemporada^ ctrlCrear = gcnew CtrlCrearTemporada();
+    ctrlCrear->CrearTemporada(DateTime::Now.AddDays(70), DateTime::Now.AddDays(130), escenari->adminEmail);
+    String^ temporadaSeguentId = EscalarString("SELECT idTemporada FROM Temporada WHERE idLliga = '" + EscaparSql(escenari->lligaId) + "' AND idTemporada <> '" + EscaparSql(escenari->temporadaId) + "' ORDER BY dataInici ASC LIMIT 1");
+    EXPECT_FALSE(String::IsNullOrWhiteSpace(temporadaSeguentId));
+
+    ExecutarSql("UPDATE EquipTemporada SET partitsJugats = 1, victories = 1, punts = 3, golsAFavor = 2, golsEnContra = 1, diferenciaGols = 1 WHERE idEquip = '" + EscaparSql(escenari->equipLocalId) + "' AND idTemporada = '" + EscaparSql(escenari->temporadaId) + "'");
+
+    CtrlRetirarTemporada^ ctrlRetirar = gcnew CtrlRetirarTemporada();
+    ctrlRetirar->RetirarTemporada(escenari->adminEmail);
+
+    EXPECT_EQ("Finalitzat", ToStd(EscalarString("SELECT estat FROM Temporada WHERE idTemporada = '" + EscaparSql(escenari->temporadaId) + "'")));
+    EXPECT_EQ(1, EscalarInt("SELECT COUNT(*) FROM EquipTemporada WHERE idEquip = '" + EscaparSql(escenari->equipLocalId) + "' AND idTemporada = '" + EscaparSql(escenari->temporadaId) + "'"));
+    EXPECT_EQ(1, EscalarInt("SELECT COUNT(*) FROM EquipTemporada WHERE idEquip = '" + EscaparSql(escenari->equipLocalId) + "' AND idTemporada = '" + EscaparSql(temporadaSeguentId) + "'"));
+    EXPECT_EQ(0, EscalarInt("SELECT punts FROM EquipTemporada WHERE idEquip = '" + EscaparSql(escenari->equipLocalId) + "' AND idTemporada = '" + EscaparSql(temporadaSeguentId) + "'"));
+    EXPECT_EQ(3, EscalarInt("SELECT punts FROM EquipTemporada WHERE idEquip = '" + EscaparSql(escenari->equipLocalId) + "' AND idTemporada = '" + EscaparSql(escenari->temporadaId) + "'"));
 }
 
 TEST_F(FixtureControladors, CrearJornadaAssociadaATemporada) {
@@ -376,18 +425,26 @@ TEST_F(FixtureControladors, ConsultesRebutgenUsuariBuitPerTelefons) {
     EXPECT_MANAGED_EXCEPTION_TYPE(ctrl->ObtenirTelefonsContacte(""), ArgumentException);
 }
 
-TEST_F(FixtureControladors, EstadistiquesLligaRetornenClassificacio) {
+TEST_F(FixtureControladors, EstadistiquesLligaRetornenClassificacioDesDEquipTemporada) {
     CtrlVeureEstadistiquesLliga^ ctrl = gcnew CtrlVeureEstadistiquesLliga();
+    ExecutarSql("UPDATE EquipTemporada SET partitsJugats = 1, victories = 1, punts = 3, golsAFavor = 2, golsEnContra = 1, diferenciaGols = 1 WHERE idEquip = '" + EscaparSql(escenari->equipLocalId) + "' AND idTemporada = '" + EscaparSql(escenari->temporadaId) + "'");
 
     EXPECT_EQ(ToStd(escenari->lligaId), ToStd(ctrl->ObtenirIdLligaPerNom(escenari->lligaNom)));
-    DataTable^ classificacio = ctrl->ObtenirClassificacioLliga(escenari->lligaId);
+    DataTable^ classificacio = ctrl->ObtenirClassificacioLligaTemporada(escenari->lligaId, escenari->temporadaId);
 
     bool classificacioNoNull = classificacio != nullptr;
     EXPECT_TRUE(classificacioNoNull);
+    if (classificacioNoNull) {
+        EXPECT_TRUE(classificacio->Columns->Contains("Equip"));
+        EXPECT_TRUE(classificacio->Columns->Contains("Punts"));
+        EXPECT_GE(classificacio->Rows->Count, 2);
+        EXPECT_EQ(3, Convert::ToInt32(classificacio->Rows[0]["Punts"]));
+    }
 }
 
 TEST_F(FixtureControladors, EstadistiquesEquipRetornenEquipTemporadaIEstadistiques) {
     CtrlVeureEstadistiquesEquip^ ctrl = gcnew CtrlVeureEstadistiquesEquip();
+    ExecutarSql("UPDATE EquipTemporada SET partitsJugats = 2, victories = 1, empats = 1, punts = 4, golsAFavor = 5, golsEnContra = 3, diferenciaGols = 2 WHERE idEquip = '" + EscaparSql(escenari->equipLocalId) + "' AND idTemporada = '" + EscaparSql(escenari->temporadaId) + "'");
 
     EXPECT_TRUE(ctrl->ExisteixEquip(escenari->equipLocalNom));
     DataTable^ lligues = ctrl->ObtenirLliguesEquip(escenari->equipLocalNom);
@@ -400,6 +457,11 @@ TEST_F(FixtureControladors, EstadistiquesEquipRetornenEquipTemporadaIEstadistiqu
     EXPECT_TRUE(lliguesNoNull);
     EXPECT_TRUE(temporadesNoNull);
     EXPECT_TRUE(estadistiquesNoNull);
+    if (estadistiquesNoNull) {
+        EXPECT_TRUE(estadistiques->Columns->Contains("Punts"));
+        EXPECT_GE(estadistiques->Rows->Count, 1);
+        EXPECT_EQ(4, Convert::ToInt32(estadistiques->Rows[0]["Punts"]));
+    }
 }
 
 TEST_F(FixtureControladors, EstadistiquesJugadorRetornenJugador) {
