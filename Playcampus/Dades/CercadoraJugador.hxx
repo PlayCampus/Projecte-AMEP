@@ -22,6 +22,8 @@ namespace Playcampus {
             bool JugadorPertanyAEquip(String^ idJugador, String^ idEquip);
             bool JugadorPertanyAEquipDelCapita(String^ correuCapita, String^ idJugador);
             DataTable^ ObtenirEstadistiquesJugador(String^ idJugador);
+            DataTable^ ObtenirTotesEstadistiquesJugadors();
+            DataTable^ CercarEstadistiquesJugadors(String^ textCerca);
             DataTable^ ObtenirUltimsFitxatges(int limit);
         };
     }

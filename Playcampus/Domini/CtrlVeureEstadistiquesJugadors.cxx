@@ -20,6 +20,23 @@ namespace Playcampus {
             return cercadoraJugador->ObtenirEstadistiquesJugador(idJugador);
         }
 
+        DataTable^ CtrlVeureEstadistiquesJugadors::ObtenirTotesEstadistiquesJugadors() {
+            CercadoraJugador^ cercadoraJugador = gcnew CercadoraJugador(connectionString);
+            return cercadoraJugador->ObtenirTotesEstadistiquesJugadors();
+        }
+
+        DataTable^ CtrlVeureEstadistiquesJugadors::CercarEstadistiquesJugadors(String^ textCerca) {
+            CercadoraJugador^ cercadoraJugador = gcnew CercadoraJugador(connectionString);
+            DataTable^ resultat = nullptr;
+            if (String::IsNullOrWhiteSpace(textCerca)) {
+                resultat = cercadoraJugador->ObtenirTotesEstadistiquesJugadors();
+            }
+            else {
+                resultat = cercadoraJugador->CercarEstadistiquesJugadors(textCerca->Trim());
+            }
+            return resultat;
+        }
+
         DataTable^ CtrlVeureEstadistiquesJugadors::ObtenirDetallsPartit(String^ idPartit) {
             CercadoraPartit^ cercadoraPartit = gcnew CercadoraPartit(connectionString);
             return cercadoraPartit->ObtenirDetallsPartitEstadistiques(idPartit);
