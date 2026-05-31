@@ -171,16 +171,24 @@ namespace CppCLRWinFormsProject {
 		this->btnLogoutMainMenu->Location = System::Drawing::Point(20, 20);
 		this->btnLogoutMainMenu->BringToFront();
 
-       // Botons del menú principal: els centrem segons els que estiguin visibles (per tipus d'usuari)
+       // Botons del menú principal: els disposem en files centrades.
+		// Mantenim sempre un màxim de 3 botons per fila perquè el menú no entri sota el logo
+		// en ordinadors amb escalat/DPI diferent. Això deixa l'aspecte centrat com al disseny bo.
 		bool menuDuesFiles = false;
 		int visibleMenuButtons = 0;
 		{
 			const int menuBtnY = 80;
 			const int menuBtnH = 42;
-			const int gap = 14;
+			const int gapX = 16;
+			const int gapY = 12;
 
-         System::Collections::Generic::List<System::Windows::Forms::Button^>^ btns =
+			int menuBtnW = 250;
+			if (cw < 1250) menuBtnW = 220;
+			if (cw < 1000) menuBtnW = 190;
+
+			System::Collections::Generic::List<System::Windows::Forms::Button^>^ btns =
 				gcnew System::Collections::Generic::List<System::Windows::Forms::Button^>();
+
 			cli::array<System::Windows::Forms::Button^>^ candidates = gcnew cli::array<System::Windows::Forms::Button^>(9) {
 				this->btnUnirEquipLliga,
 				this->btnEnregistrarEquip,
@@ -192,55 +200,48 @@ namespace CppCLRWinFormsProject {
 				this->btnSeguirLligaMainMenu,
 				this->btnCrearLligaMainMenu
 			};
+
 			for (int i = 0; i < candidates->Length; i++) {
 				System::Windows::Forms::Button^ b = candidates[i];
 				if (b != nullptr && b->Visible) {
 					visibleMenuButtons++;
-					b->Height = menuBtnH;
-					if (b->Text != nullptr && b->Text->Length > 23 && b->Width < 245) b->Width = 245;
-					else if (b->Text != nullptr && b->Text->Length > 18 && b->Width < 215) b->Width = 215;
-					else if (b->Width < 180) b->Width = 180;
+					b->Size = System::Drawing::Size(menuBtnW, menuBtnH);
+					b->BringToFront();
 					btns->Add(b);
 				}
 			}
 
-			int totalW = 0;
-			for (int i = 0; i < btns->Count; i++) {
-				System::Windows::Forms::Button^ b = btns[i];
-				totalW += b->Width;
-				if (i < btns->Count - 1) totalW += gap;
-			}
+			int maxPerFila = 3;
+			if (cw < 950) maxPerFila = 2;
+			int files = (btns->Count + maxPerFila - 1) / maxPerFila;
+			if (files > 1) menuDuesFiles = true;
 
-			int ampleDisponible = cw - 80;
-			if (totalW <= ampleDisponible) {
-				int x = System::Math::Max(20, (cw - totalW) / 2);
-				for (int i = 0; i < btns->Count; i++) {
-					System::Windows::Forms::Button^ b = btns[i];
-					b->Location = System::Drawing::Point(x, menuBtnY);
-					x += b->Width + gap;
+			int index = 0;
+			for (int fila = 0; fila < files; fila++) {
+				int restants = btns->Count - index;
+				int nFila = restants;
+				if (nFila > maxPerFila) nFila = maxPerFila;
+
+				int filaW = nFila * menuBtnW + (nFila - 1) * gapX;
+				int x = centerX - filaW / 2;
+				if (x < 40) x = 40;
+
+				// Només desplacem a l'esquerra si realment entraria sota el logo.
+				// En resolucions normals es manté centrat respecte la finestra.
+				if (this->picLogoMain != nullptr && this->picLogoMain->Visible) {
+					int limitDreta = this->picLogoMain->Left - 25;
+					if (x + filaW > limitDreta && limitDreta > 0) {
+						x = limitDreta - filaW;
+						if (x < 40) x = 40;
+					}
 				}
-			}
-			else {
-				menuDuesFiles = true;
-				int primeraFila = (btns->Count + 1) / 2;
-				int filaY = menuBtnY;
-				int iniciIndex = 0;
-				for (int fila = 0; fila < 2; fila++) {
-					int finalIndex = (fila == 0) ? primeraFila : btns->Count;
-					int filaW = 0;
-					for (int i = iniciIndex; i < finalIndex; i++) {
-						System::Windows::Forms::Button^ b = btns[i];
-						filaW += b->Width;
-						if (i < finalIndex - 1) filaW += gap;
-					}
-					int x = System::Math::Max(20, (cw - filaW) / 2);
-					for (int i = iniciIndex; i < finalIndex; i++) {
-						System::Windows::Forms::Button^ b = btns[i];
-						b->Location = System::Drawing::Point(x, filaY);
-						x += b->Width + gap;
-					}
-					iniciIndex = finalIndex;
-					filaY += menuBtnH + 10;
+
+				int y = menuBtnY + fila * (menuBtnH + gapY);
+				for (int i = 0; i < nFila; i++) {
+					System::Windows::Forms::Button^ b = btns[index];
+					b->Location = System::Drawing::Point(x, y);
+					x += menuBtnW + gapX;
+					index++;
 				}
 			}
 		}
