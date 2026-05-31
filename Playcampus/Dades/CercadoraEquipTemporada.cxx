@@ -137,6 +137,44 @@ namespace Playcampus {
             return equips;
         }
 
+        bool CercadoraEquipTemporada::ExisteixNomEquipEnTemporada(String^ nomEquip, String^ idTemporada, String^ idEquipExcloure) {
+            bool existeix = false;
+
+            if (!String::IsNullOrWhiteSpace(nomEquip) && !String::IsNullOrWhiteSpace(idTemporada)) {
+                MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+                try {
+                    conn->Open();
+                    String^ query =
+                        "SELECT COUNT(*) "
+                        "FROM Equip E "
+                        "INNER JOIN EquipTemporada ET ON E.idEquip = ET.idEquip "
+                        "WHERE ET.idTemporada = @idTemporada "
+                        "AND LOWER(TRIM(E.nom)) = LOWER(TRIM(@nomEquip)) "
+                        "AND (@idEquipExcloure IS NULL OR E.idEquip <> @idEquipExcloure)";
+
+                    MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                    cmd->Parameters->AddWithValue("@idTemporada", idTemporada);
+                    cmd->Parameters->AddWithValue("@nomEquip", nomEquip);
+
+                    Object^ idExcloureParam = DBNull::Value;
+                    if (!String::IsNullOrWhiteSpace(idEquipExcloure)) {
+                        idExcloureParam = idEquipExcloure;
+                    }
+                    cmd->Parameters->AddWithValue("@idEquipExcloure", idExcloureParam);
+
+                    Object^ resultat = cmd->ExecuteScalar();
+                    if (resultat != nullptr && resultat != DBNull::Value) {
+                        existeix = Convert::ToInt32(resultat) > 0;
+                    }
+                }
+                finally {
+                    conn->Close();
+                }
+            }
+
+            return existeix;
+        }
+
         DataTable^ CercadoraEquipTemporada::ObtenirLliguesEquip(String^ nomEquip) {
             DataTable^ dt = gcnew DataTable();
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);

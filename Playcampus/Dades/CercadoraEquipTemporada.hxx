@@ -21,6 +21,7 @@ namespace Playcampus {
             String^ ObtenirIdEquipPerNomITemporada(String^ nomEquip, String^ idTemporada);
 
             List<String^>^ ObtenirNomsEquipsPerLliga(String^ nomLliga);
+            bool ExisteixNomEquipEnTemporada(String^ nomEquip, String^ idTemporada, String^ idEquipExcloure);
             DataTable^ ObtenirLliguesEquip(String^ nomEquip);
             DataTable^ ObtenirTemporadesEquipLliga(String^ nomEquip, String^ idLliga);
             DataTable^ ObtenirEstadistiquesEquip(String^ nomEquip, String^ idLliga, String^ idTemporada);

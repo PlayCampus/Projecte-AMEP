@@ -8,6 +8,23 @@ using namespace MySql::Data::MySqlClient;
 namespace Playcampus {
     namespace Dades {
 
+        static void ValidarCoherenciaEquipTemporadaLocal(unsigned int partitsJugats, unsigned int victories, unsigned int derrotes, unsigned int empats, unsigned int golsAFavor, unsigned int golsEnContra, int diferenciaGols) {
+            // RIT23: els comptadors no poden ser negatius. Els camps principals son unsigned int,
+            // i per tant ja no admeten valors negatius des del codi.
+
+            // RIT24: partitsJugats = victories + derrotes + empats.
+            unsigned int sumaResultats = victories + derrotes + empats;
+            if (partitsJugats != sumaResultats) {
+                throw gcnew ArgumentException("Les estadistiques de l'equip no son coherents: partitsJugats ha de ser igual a victories + derrotes + empats.");
+            }
+
+            // RIT25: diferenciaGols = golsAFavor - golsEnContra.
+            int diferenciaCalculada = Convert::ToInt32(golsAFavor) - Convert::ToInt32(golsEnContra);
+            if (diferenciaGols != diferenciaCalculada) {
+                throw gcnew ArgumentException("Les estadistiques de l'equip no son coherents: diferenciaGols ha de ser golsAFavor - golsEnContra.");
+            }
+        }
+
         // Constructor 1
         PassarellaEquipTemporada::PassarellaEquipTemporada(String^ connStr) {
             this->connectionString = connStr;
@@ -84,6 +101,8 @@ namespace Playcampus {
         // ------------------ OPERACIONES BD ------------------
 
         void PassarellaEquipTemporada::Insereix() {
+            ValidarCoherenciaEquipTemporadaLocal(partitsJugats, victories, derrotes, empats, golsAFavor, golsEnContra, diferenciaGols);
+
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
@@ -111,6 +130,8 @@ namespace Playcampus {
         }
 
         void PassarellaEquipTemporada::Modifica() {
+            ValidarCoherenciaEquipTemporadaLocal(partitsJugats, victories, derrotes, empats, golsAFavor, golsEnContra, diferenciaGols);
+
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
@@ -143,7 +164,7 @@ namespace Playcampus {
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
             try {
                 conn->Open();
-                // Eliminem usant la clau prim‡ria composta (Equipo + Temporada)
+                // Eliminem usant la clau prim√†ria composta (Equipo + Temporada)
                 String^ query = "DELETE FROM EquipTemporada WHERE idEquip = @idEquip AND idTemporada = @idTemporada";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 

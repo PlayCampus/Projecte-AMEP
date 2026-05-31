@@ -1,8 +1,9 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CtrlUnirEquipLliga.hxx"
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/CercadoraLliga.hxx"
 #include "../Dades/CercadoraEquip.hxx"
+#include "../Dades/CercadoraEquipTemporada.hxx"
 #include "../Dades/PassarellaTemporada.hxx"
 #include "../Dades/PassarellaEquip.hxx"
 #include "../Dades/PassarellaEquipTemporada.hxx"
@@ -10,6 +11,26 @@
 
 using namespace System;
 using namespace Playcampus::Dades;
+
+static String^ NormalitzarDisciplinaVinculacioLocal(String^ disciplina) {
+    String^ resultat = nullptr;
+
+    if (!String::IsNullOrWhiteSpace(disciplina)) {
+        String^ disciplinaNeta = disciplina->Trim()->ToLower();
+
+        if (disciplinaNeta == "futbol") {
+            resultat = "Futbol";
+        }
+        else if (disciplinaNeta == "basquet" || disciplinaNeta == L"bàsquet") {
+            resultat = "Basquet";
+        }
+        else if (disciplinaNeta == "voley" || disciplinaNeta == "volei" || disciplinaNeta == L"vòlei") {
+            resultat = "Voley";
+        }
+    }
+
+    return resultat;
+}
 
 namespace Playcampus {
     namespace Domini {
@@ -60,15 +81,29 @@ namespace Playcampus {
                 throw gcnew Exception("Equip no trobat a la base de dades. (" + idEquipRecuperat + ")");
             }
 
+            // RIT22: l'esport de l'equip ha de coincidir amb la disciplina de la lliga de la temporada.
+            String^ disciplinaLliga = (gcnew CercadoraLliga(connectionString))->ObtenirDisciplinaLliga(idLligaEncontrado);
+            String^ esportEquip = equipDB->GetEsport();
+            String^ disciplinaNormalitzada = NormalitzarDisciplinaVinculacioLocal(disciplinaLliga);
+            String^ esportNormalitzat = NormalitzarDisciplinaVinculacioLocal(esportEquip);
 
-
-            // Usar Llegeix  para ver si la vinculaci�n ya existe
-            PassarellaEquipTemporada^ vinculacioExistent = PassarellaEquipTemporada::Llegeix(connectionString, idEquipRecuperat, idTemporadaMesRecent);
-            if (vinculacioExistent != nullptr) {
-                throw gcnew Exception(L"Aquest equip ja est\u00E0 vinculat a la temporada m\u00E9s recent d'aquesta lliga.");
+            if (String::IsNullOrWhiteSpace(disciplinaNormalitzada) || String::IsNullOrWhiteSpace(esportNormalitzat) || disciplinaNormalitzada != esportNormalitzat) {
+                throw gcnew Exception("L'equip no es pot vincular a aquesta lliga perque l'esport de l'equip no coincideix amb la disciplina de la lliga.");
             }
 
-            // Crear la asocaci�n con el segundo constructor y guardarla con Insereix()
+            // Usar Llegeix para veure si la vinculacio ja existeix.
+            PassarellaEquipTemporada^ vinculacioExistent = PassarellaEquipTemporada::Llegeix(connectionString, idEquipRecuperat, idTemporadaMesRecent);
+            if (vinculacioExistent != nullptr) {
+                throw gcnew Exception(L"Aquest equip ja esta vinculat a la temporada mes recent d'aquesta lliga.");
+            }
+
+            // RIT26: dins d'una mateixa temporada no poden existir dos equips amb el mateix nom.
+            CercadoraEquipTemporada^ cercadoraEquipTemporada = gcnew CercadoraEquipTemporada(connectionString);
+            if (cercadoraEquipTemporada->ExisteixNomEquipEnTemporada(equipDB->GetNom(), idTemporadaMesRecent, idEquipRecuperat)) {
+                throw gcnew Exception("Ja existeix un equip amb aquest nom dins d'aquesta temporada.");
+            }
+
+            // Crear la associacio amb el segon constructor i guardar-la amb Insereix().
             PassarellaEquipTemporada^ equipTempDB = gcnew PassarellaEquipTemporada(connectionString, idEquipRecuperat, idTemporadaMesRecent);
             equipTempDB->Insereix();
 
