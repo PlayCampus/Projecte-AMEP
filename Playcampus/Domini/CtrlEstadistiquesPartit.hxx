@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <string>
 
 using namespace System;
@@ -15,6 +15,7 @@ namespace Playcampus {
 			DataTable^ ObtenirTemporadesLliga(String^ idLliga);
 			DataTable^ ObtenirPartitsFinalitzats(String^ idTemporada);
 			DataTable^ CercarPartitsFinalitzats(String^ idTemporada, String^ textCerca);
+			DataTable^ CercarPartitsFinalitzatsGlobal(String^ textCerca);
 
 			// Mètodes de dades del partit cridant a les Cercadores
 			DataTable^ ObtenirDetallsPartit(String^ idPartit);

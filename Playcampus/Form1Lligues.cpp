@@ -26,6 +26,8 @@ System::Void Form1::btnCrearLligaMainMenu_Click(System::Object^ sender, System::
 System::Void Form1::btnGLTornar_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlGestionarLliga->Visible = false;
 		pnlMain->Visible = true;
+		ActualitzarEstatSeguirLliga();
+		Form1_Resize(nullptr, nullptr);
 	}
 
 System::Void Form1::btnGLMostrarEquips_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -124,6 +126,8 @@ System::Void Form1::btnGL_EnDesenvolupament_Click(System::Object^ sender, System
 System::Void Form1::btnCLTornar_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlCrearLliga->Visible = false;
 		pnlMain->Visible = true;
+		ActualitzarEstatSeguirLliga();
+		Form1_Resize(nullptr, nullptr);
 	}
 
 System::Void Form1::btnCLGuarda_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -155,6 +159,8 @@ System::Void Form1::btnCLGuarda_Click(System::Object^ sender, System::EventArgs^
 
 			pnlCrearLliga->Visible = false;
 			pnlMain->Visible = true;
+		ActualitzarEstatSeguirLliga();
+		Form1_Resize(nullptr, nullptr);
 		}
 		catch (Exception^ ex) {
 			MessageBox::Show(L"Error al crear lliga: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);

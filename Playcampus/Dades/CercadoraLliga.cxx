@@ -482,6 +482,7 @@ namespace Playcampus {
                     "INNER JOIN Administrador A ON A.identificador = L.idAdministrador "
                     "INNER JOIN Usuari UA ON UA.identificador = A.identificador "
                     "WHERE UC.correu_electronic = @correu "
+                    "AND LOWER(T.estat) = 'encurs' "
                     "AND A.telefonContacte IS NOT NULL AND A.telefonContacte <> ''";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@correu", correuUsuari);
@@ -511,6 +512,7 @@ namespace Playcampus {
                     L"INNER JOIN Temporada T ON T.idTemporada = ET.idTemporada "
                     L"INNER JOIN Lliga L ON L.idLliga = T.idLliga "
                     L"WHERE UJ.correu_electronic = @correu "
+                    L"AND LOWER(T.estat) = 'encurs' "
                     L"AND C.telefonContacte IS NOT NULL AND C.telefonContacte <> '' "
                     L"UNION "
                     L"SELECT 'Administrador' AS Rol, UA.nom AS Nom, UA.correu_electronic AS Correu, "
@@ -524,6 +526,7 @@ namespace Playcampus {
                     L"INNER JOIN Administrador A ON A.identificador = L.idAdministrador "
                     L"INNER JOIN Usuari UA ON UA.identificador = A.identificador "
                     L"WHERE UJ.correu_electronic = @correu "
+                    L"AND LOWER(T.estat) = 'encurs' "
                     L"AND A.telefonContacte IS NOT NULL AND A.telefonContacte <> ''";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@correu", correuUsuari);
@@ -553,6 +556,7 @@ namespace Playcampus {
                     L"INNER JOIN Capita C ON C.idEquip = E.idEquip "
                     L"INNER JOIN Usuari UC ON UC.identificador = C.identificador "
                     L"WHERE UA.correu_electronic = @correu "
+                    L"AND LOWER(T.estat) = 'encurs' "
                     L"AND C.telefonContacte IS NOT NULL AND C.telefonContacte <> '' "
                     L"ORDER BY L.nom, E.nom, UC.nom";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <string>
 
 using namespace System;
@@ -19,6 +19,7 @@ namespace Playcampus {
             List<Dictionary<String^, String^>^>^ ObtenirPartitsPerJornada(String^ idJornada);
             DataTable^ ObtenirPartitsFinalitzatsPerTemporada(String^ idTemporada);
             DataTable^ CercarPartitsFinalitzatsPerTemporada(String^ idTemporada, String^ textCerca);
+            DataTable^ CercarPartitsFinalitzats(String^ textCerca);
             List<Dictionary<String^, String^>^>^ ObtenirPartitsCapita(String^ correuCapita);
             List<Dictionary<String^, String^>^>^ ObtenirPartitsDeLEquip(String^ idEquip);
             List<Dictionary<String^, String^>^>^ ObtenirEstatConvocatoria(String^ idPartit, String^ idEquip);

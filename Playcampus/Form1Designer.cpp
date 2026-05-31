@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include "Form1Designer.h"
+#include "EstilInterficie.hxx"
 
 namespace CppCLRWinFormsProject {
 
@@ -18,6 +19,7 @@ namespace CppCLRWinFormsProject {
 		this->Padding = System::Windows::Forms::Padding(0);
 		this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 		this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
+		this->MinimumSize = System::Drawing::Size(1050, 700);
 		this->Resize += gcnew System::EventHandler(this, &Form1::Form1_Resize);
 
 		// pnlInici
@@ -33,7 +35,8 @@ namespace CppCLRWinFormsProject {
 
 		this->picLogoInici->ImageLocation = L"imatges\\logo.png";
 		this->picLogoInici->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-		this->picLogoInici->Size = System::Drawing::Size(150, 150);
+		this->picLogoInici->BackColor = System::Drawing::Color::Transparent;
+		this->picLogoInici->Size = System::Drawing::Size(320, 230);
 
 		this->btnShowLogin->Text = L"Iniciar Sessi\u00F3";
 		this->btnShowLogin->Location = System::Drawing::Point(100, 100);
@@ -69,33 +72,39 @@ namespace CppCLRWinFormsProject {
 
 		this->picLogoLogin->ImageLocation = L"imatges\\logo.png";
 		this->picLogoLogin->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-		this->picLogoLogin->Size = System::Drawing::Size(150, 150);
+		this->picLogoLogin->BackColor = System::Drawing::Color::Transparent;
+		this->picLogoLogin->Size = System::Drawing::Size(320, 230);
 
 		this->lblLoginTitle->Text = L"Iniciar Sessi\u00F3";
+		this->lblLoginTitle->AutoSize = false;
+		this->lblLoginTitle->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+		this->lblLoginTitle->Size = System::Drawing::Size(360, 34);
 		this->lblLoginTitle->Location = System::Drawing::Point(150, 20);
 
 		this->lblLoginUsuari->Text = L"Correu";
 		this->lblLoginUsuari->Location = System::Drawing::Point(50, 50);
-		this->lblLoginUsuari->Size = System::Drawing::Size(100, 20);
+		this->lblLoginUsuari->Size = System::Drawing::Size(110, 24);
 
 		this->txtLoginCorreu->Text = L"";
 		this->txtLoginCorreu->Location = System::Drawing::Point(150, 50);
-		this->txtLoginCorreu->Size = System::Drawing::Size(150, 20);
+		this->txtLoginCorreu->Size = System::Drawing::Size(270, 26);
 
 		this->lblLoginPass->Text = L"Contrasenya";
 		this->lblLoginPass->Location = System::Drawing::Point(50, 90);
-		this->lblLoginPass->Size = System::Drawing::Size(100, 20);
+		this->lblLoginPass->Size = System::Drawing::Size(110, 24);
 
 		this->txtLoginPass->Text = L"";
 		this->txtLoginPass->UseSystemPasswordChar = true;
 		this->txtLoginPass->Location = System::Drawing::Point(150, 90);
-		this->txtLoginPass->Size = System::Drawing::Size(150, 20);
+		this->txtLoginPass->Size = System::Drawing::Size(270, 26);
 
 		this->btnLoginAct->Text = L"Entrar";
+		this->btnLoginAct->Size = System::Drawing::Size(130, 38);
 		this->btnLoginAct->Location = System::Drawing::Point(50, 130);
 		this->btnLoginAct->Click += gcnew System::EventHandler(this, &Form1::btnLoginAct_Click);
 
 		this->btnLoginBack->Text = L"Registrar-se";
+		this->btnLoginBack->Size = System::Drawing::Size(150, 38);
 		this->btnLoginBack->Location = System::Drawing::Point(150, 130);
 		this->btnLoginBack->Click += gcnew System::EventHandler(this, &Form1::btnShowRegisterFromLogin_Click);
 
@@ -137,64 +146,70 @@ namespace CppCLRWinFormsProject {
 
 		this->picLogoRegister->ImageLocation = L"imatges\\logo.png";
 		this->picLogoRegister->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-		this->picLogoRegister->Size = System::Drawing::Size(150, 150);
+		this->picLogoRegister->BackColor = System::Drawing::Color::Transparent;
+		this->picLogoRegister->Size = System::Drawing::Size(280, 200);
 
 		this->lblRegTitle->Text = L"Registrar-se";
+		this->lblRegTitle->AutoSize = false;
+		this->lblRegTitle->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+		this->lblRegTitle->Size = System::Drawing::Size(360, 34);
 		this->lblRegTitle->Location = System::Drawing::Point(150, 10);
 
 		this->lblRegNom->Text = L"Nom";
 		this->lblRegNom->Location = System::Drawing::Point(50, 70);
-		this->lblRegNom->Size = System::Drawing::Size(100, 20);
+		this->lblRegNom->Size = System::Drawing::Size(110, 24);
 
 		this->txtRegNom->Text = L"";
 		this->txtRegNom->Location = System::Drawing::Point(150, 70);
-		this->txtRegNom->Size = System::Drawing::Size(150, 20);
+		this->txtRegNom->Size = System::Drawing::Size(270, 26);
 
 		this->lblRegCorreu->Text = L"Correu";
 		this->lblRegCorreu->Location = System::Drawing::Point(50, 100);
-		this->lblRegCorreu->Size = System::Drawing::Size(100, 20);
+		this->lblRegCorreu->Size = System::Drawing::Size(110, 24);
 
 		this->txtRegCorreu->Text = L"";
 		this->txtRegCorreu->Location = System::Drawing::Point(150, 100);
-		this->txtRegCorreu->Size = System::Drawing::Size(150, 20);
+		this->txtRegCorreu->Size = System::Drawing::Size(270, 26);
 
 		this->lblRegPass->Text = L"Contrasenya";
 		this->lblRegPass->Location = System::Drawing::Point(50, 130);
-		this->lblRegPass->Size = System::Drawing::Size(100, 20);
+		this->lblRegPass->Size = System::Drawing::Size(110, 24);
 
 		this->txtRegPass->Text = L"";
 		this->txtRegPass->UseSystemPasswordChar = true;
 		this->txtRegPass->Location = System::Drawing::Point(150, 130);
-		this->txtRegPass->Size = System::Drawing::Size(150, 20);
+		this->txtRegPass->Size = System::Drawing::Size(270, 26);
 
 		this->lblRegTipus->Text = L"Tipus";
 		this->lblRegTipus->Location = System::Drawing::Point(50, 160);
-		this->lblRegTipus->Size = System::Drawing::Size(100, 20);
+		this->lblRegTipus->Size = System::Drawing::Size(110, 24);
 
 		this->cmbRegTipus->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Estudiant", L"Capit\u00E0", L"Administrador" });
 		this->cmbRegTipus->SelectedIndex = 0;
 		this->cmbRegTipus->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 		this->cmbRegTipus->Location = System::Drawing::Point(150, 160);
-		this->cmbRegTipus->Size = System::Drawing::Size(150, 20);
+		this->cmbRegTipus->Size = System::Drawing::Size(270, 26);
 		this->cmbRegTipus->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbRegTipus_SelectedIndexChanged);
 
 		this->lblRegTelefon->Text = L"Tel\u00E8fon";
 		this->lblRegTelefon->Location = System::Drawing::Point(50, 190);
-		this->lblRegTelefon->Size = System::Drawing::Size(100, 20);
+		this->lblRegTelefon->Size = System::Drawing::Size(110, 24);
 		this->lblRegTelefon->Visible = false;
 
 		this->txtRegTelefon->Text = L"";
 		this->txtRegTelefon->Location = System::Drawing::Point(150, 190);
-		this->txtRegTelefon->Size = System::Drawing::Size(150, 20);
+		this->txtRegTelefon->Size = System::Drawing::Size(270, 26);
 		this->txtRegTelefon->Visible = false;
 		this->txtRegTelefon->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Form1::txtRegTelefon_KeyPress);
 		this->txtRegTelefon->TextChanged += gcnew System::EventHandler(this, &Form1::txtRegTelefon_TextChanged);
 
 		this->btnRegAct->Text = L"Registrar";
+		this->btnRegAct->Size = System::Drawing::Size(130, 38);
 		this->btnRegAct->Location = System::Drawing::Point(50, 230);
 		this->btnRegAct->Click += gcnew System::EventHandler(this, &Form1::btnRegAct_Click);
 
 		this->btnRegBack->Text = L"Tornar";
+		this->btnRegBack->Size = System::Drawing::Size(150, 38);
 		this->btnRegBack->Location = System::Drawing::Point(150, 230);
 		this->btnRegBack->Click += gcnew System::EventHandler(this, &Form1::btnBack_Click);
 
@@ -228,8 +243,9 @@ namespace CppCLRWinFormsProject {
 
 		this->picLogoMain->ImageLocation = L"imatges\\logo.png";
 		this->picLogoMain->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-		this->picLogoMain->Size = System::Drawing::Size(150, 100);
-		this->picLogoMain->Location = System::Drawing::Point(470, 50);
+		this->picLogoMain->Size = System::Drawing::Size(160, 105);
+		this->picLogoMain->Location = System::Drawing::Point(470, 20);
+		this->picLogoMain->Visible = true;
 
 		this->lblMainTitle->Text = L"PlayCampus";
 		this->lblMainTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
@@ -238,40 +254,40 @@ namespace CppCLRWinFormsProject {
 
 		this->btnProgPartits->Text = L"Programaci\u00F3 de partits";
 		this->btnProgPartits->Location = System::Drawing::Point(20, 60);
-		this->btnProgPartits->Size = System::Drawing::Size(130, 40);
+		this->btnProgPartits->Size = System::Drawing::Size(200, 42);
 		this->btnProgPartits->Click += gcnew System::EventHandler(this, &Form1::btnProgPartits_Click);
 
 		this->btnEstatLligues->Text = L"Estat de les Lligues";
 		this->btnEstatLligues->Location = System::Drawing::Point(160, 60);
-		this->btnEstatLligues->Size = System::Drawing::Size(130, 40);
+		this->btnEstatLligues->Size = System::Drawing::Size(200, 42);
 		this->btnEstatLligues->Click += gcnew System::EventHandler(this, &Form1::btnEstatLligues_Click);
 
 		this->btnEstadistiques->Text = L"Estad\u00EDstiques";
 		this->btnEstadistiques->Location = System::Drawing::Point(300, 60);
-		this->btnEstadistiques->Size = System::Drawing::Size(130, 40);
+		this->btnEstadistiques->Size = System::Drawing::Size(190, 42);
 		this->btnEstadistiques->Click += gcnew System::EventHandler(this, &Form1::btnEstadistiquesMenu_Click);
 
         this->btnConsultar->Text = L"Consultar calendari";
 		this->btnConsultar->Location = System::Drawing::Point(440, 60);
-      this->btnConsultar->Size = System::Drawing::Size(160, 40);
+      this->btnConsultar->Size = System::Drawing::Size(200, 42);
 		this->btnConsultar->Click += gcnew System::EventHandler(this, &Form1::btnConsultar_Click);
 
 		this->btnMenuConsultarTelefons->Text = L"Consultar tel\u00E8fons";
 		this->btnMenuConsultarTelefons->Location = System::Drawing::Point(610, 60);
-		this->btnMenuConsultarTelefons->Size = System::Drawing::Size(160, 40);
+		this->btnMenuConsultarTelefons->Size = System::Drawing::Size(200, 42);
 		this->btnMenuConsultarTelefons->Visible = false;
 		this->btnMenuConsultarTelefons->UseVisualStyleBackColor = true;
 		this->btnMenuConsultarTelefons->Click += gcnew System::EventHandler(this, &Form1::btnConsultarTelefons_Click);
 
 		this->picImatge->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-		this->picImatge->Location = System::Drawing::Point(20, 120);
-		this->picImatge->Size = System::Drawing::Size(550, 200);
+		this->picImatge->Location = System::Drawing::Point(50, 245);
+		this->picImatge->Size = System::Drawing::Size(550, 220);
 
      this->lblNoticies->Text = L"\u00DAltims fitxatges";
-		this->lblNoticies->Location = System::Drawing::Point(20, 330);
+		this->lblNoticies->Location = System::Drawing::Point(50, 485);
 		this->lblNoticies->AutoSize = true;
 
-		this->lstNoticies->Location = System::Drawing::Point(20, 350);
+		this->lstNoticies->Location = System::Drawing::Point(50, 510);
 		this->lstNoticies->Size = System::Drawing::Size(550, 80);
 
 		this->btnLogoutMainMenu->Text = L"Tancar Sessi\u00F3";
@@ -296,7 +312,7 @@ namespace CppCLRWinFormsProject {
 
 
 		this->btnCrearLligaMainMenu->Text = L"Crear Lliga";
-		this->btnCrearLligaMainMenu->Size = System::Drawing::Size(130, 40);
+		this->btnCrearLligaMainMenu->Size = System::Drawing::Size(170, 42);
 		this->btnCrearLligaMainMenu->Visible = false;
 		this->btnCrearLligaMainMenu->Click += gcnew System::EventHandler(this, &Form1::btnCrearLligaMainMenu_Click);
 		this->pnlConsultar->Dock = System::Windows::Forms::DockStyle::Fill;
@@ -1285,6 +1301,10 @@ namespace CppCLRWinFormsProject {
 
 		this->lblEstLligaInfo = gcnew System::Windows::Forms::Label();
 		this->lblEstLligaInfo->Visible = false;
+		this->lblEstLligaInfo->AutoSize = false;
+		this->lblEstLligaInfo->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+		this->lblEstLligaInfo->Font = gcnew System::Drawing::Font(L"Segoe UI", 12.0F, System::Drawing::FontStyle::Bold);
+		this->lblEstLligaInfo->ForeColor = System::Drawing::Color::FromArgb(21, 48, 79);
 
 		this->lblEstLligaBuscar = gcnew System::Windows::Forms::Label();
 		this->lblEstLligaBuscar->Text = L"Cercar lliga:";
@@ -1347,6 +1367,7 @@ namespace CppCLRWinFormsProject {
 		this->pnlEstadistiquesLligaDetail->Controls->Add(this->cmbEstLligaLligues);
 		this->pnlEstadistiquesLligaDetail->Controls->Add(this->lblEstLligaTemporada);
 		this->pnlEstadistiquesLligaDetail->Controls->Add(this->cmbEstLligaTemporades);
+		this->pnlEstadistiquesLligaDetail->Controls->Add(this->lblEstLligaInfo);
 		this->pnlEstadistiquesLligaDetail->Controls->Add(this->dgvEstLligaClassificacio);
 		this->pnlEstadistiquesLligaDetail->Controls->Add(this->btnEstLligaTornar);
 
@@ -1444,6 +1465,7 @@ namespace CppCLRWinFormsProject {
 		this->btnTornarEditarPartit->Click += gcnew System::EventHandler(this, &Form1::btnTornarEditarPartit_Click);
 
 		this->Controls->Add(this->pnlEditarPartit);
+		EstilInterficie::Aplicar(this);
 		this->pnlEditarPartit->ResumeLayout(false);
 		this->pnlEditarPartit->PerformLayout();
 		this->ResumeLayout(false);

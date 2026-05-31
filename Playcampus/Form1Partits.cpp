@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Form1Partits.h"
 
 namespace CppCLRWinFormsProject {
@@ -342,6 +342,8 @@ System::Void Form1::btnCPCancellar_Click(System::Object^ sender, System::EventAr
 			}
 			else {
 				pnlMain->Visible = true;
+		ActualitzarEstatSeguirLliga();
+		Form1_Resize(nullptr, nullptr);
 			}
 		}
 

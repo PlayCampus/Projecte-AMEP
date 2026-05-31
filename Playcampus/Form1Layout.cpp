@@ -22,6 +22,36 @@ namespace CppCLRWinFormsProject {
 		int centerX = cw / 2;
 		int centerY = ch / 2;
 
+		// Evitem que els botons de tornar quedin tallats quan Windows aplica escalat/DPI.
+		cli::array<System::Windows::Forms::Button^>^ botonsTornar = gcnew cli::array<System::Windows::Forms::Button^>(15) {
+			this->btnTornarConsultar,
+			this->btnCLTornar,
+			this->btnEstTornar,
+			this->btnEstEquipTornar,
+			this->btnGLTornar,
+			this->btnGETornar,
+			this->btnEPTornar,
+			this->btnEJTornar,
+			this->btnEETornar,
+			this->btnUELTornar,
+			this->btnEstLligaTornar,
+			this->btnTornarEditarPartit,
+			this->btnTornarConvocatoria,
+			this->btnEstPartitTornar,
+			this->btnRegBack
+		};
+		for (int i = 0; i < botonsTornar->Length; i++) {
+			System::Windows::Forms::Button^ b = botonsTornar[i];
+			if (b != nullptr) {
+				if (b->Width < 145) b->Width = 145;
+				if (b->Height < 38) b->Height = 38;
+				b->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+				b->FlatAppearance->BorderSize = 1;
+				b->BackColor = System::Drawing::Color::White;
+				b->ForeColor = System::Drawing::Color::FromArgb(21, 48, 79);
+			}
+		}
+
 		// 1. DISSENY DEL PANELL DE CONVOCATÒRIES
 		if (this->pnlConvocatoria != nullptr && this->pnlConvocatoria->Visible) {
 			// Ocupa gairebé tota la pantalla
@@ -66,50 +96,88 @@ namespace CppCLRWinFormsProject {
 		}
 	
 		// --- PANELS DE LOGIN/REGISTRE ---
-		this->picLogoInici->Location = System::Drawing::Point(centerX - this->picLogoInici->Width / 2, centerY - 250);
-		this->btnShowLogin->Location = System::Drawing::Point(centerX - this->btnShowLogin->Width / 2, centerY - 50);
-		this->btnShowRegister->Location = System::Drawing::Point(centerX - this->btnShowRegister->Width / 2, centerY + 10);
+		// Els logos es mostren amb una mida ampla perquè el text "playCampus" no quedi tallat.
+		this->picLogoInici->Size = System::Drawing::Size(320, 230);
+		this->picLogoLogin->Size = System::Drawing::Size(320, 230);
+		this->picLogoRegister->Size = System::Drawing::Size(280, 200);
 
-		int loginStartX = centerX - 125;
-		int loginStartY = centerY - 75;
-		this->picLogoLogin->Location = System::Drawing::Point(centerX - this->picLogoLogin->Width / 2, loginStartY - 160);
-		this->lblLoginTitle->Location = System::Drawing::Point(loginStartX + 90, loginStartY);
-		this->lblLoginUsuari->Location = System::Drawing::Point(loginStartX, loginStartY + 30);
-		this->txtLoginCorreu->Location = System::Drawing::Point(loginStartX + 100, loginStartY + 30);
-		this->lblLoginPass->Location = System::Drawing::Point(loginStartX, loginStartY + 70);
-		this->txtLoginPass->Location = System::Drawing::Point(loginStartX + 100, loginStartY + 70);
-		this->btnLoginAct->Location = System::Drawing::Point(loginStartX, loginStartY + 110);
-		this->btnLoginBack->Location = System::Drawing::Point(loginStartX + 100, loginStartY + 110);
+		int iniciBlockHeight = this->picLogoInici->Height + 110;
+		int iniciTop = centerY - iniciBlockHeight / 2;
+		if (iniciTop < 40) iniciTop = 40;
+		this->picLogoInici->Location = System::Drawing::Point(centerX - this->picLogoInici->Width / 2, iniciTop);
+		this->btnShowLogin->Location = System::Drawing::Point(centerX - this->btnShowLogin->Width / 2, this->picLogoInici->Bottom + 20);
+		this->btnShowRegister->Location = System::Drawing::Point(centerX - this->btnShowRegister->Width / 2, this->btnShowLogin->Bottom + 12);
 
-		int rgStartX = centerX - 125;
-		int rgStartY = centerY - 95;
-		this->picLogoRegister->Location = System::Drawing::Point(centerX - this->picLogoRegister->Width / 2, rgStartY - 160);
-		this->lblRegTitle->Location = System::Drawing::Point(rgStartX + 90, rgStartY);
-		this->lblRegNom->Location = System::Drawing::Point(rgStartX, rgStartY + 30);
-		this->txtRegNom->Location = System::Drawing::Point(rgStartX + 100, rgStartY + 30);
-		this->lblRegCorreu->Location = System::Drawing::Point(rgStartX, rgStartY + 60);
-		this->txtRegCorreu->Location = System::Drawing::Point(rgStartX + 100, rgStartY + 60);
-		this->lblRegPass->Location = System::Drawing::Point(rgStartX, rgStartY + 90);
-		this->txtRegPass->Location = System::Drawing::Point(rgStartX + 100, rgStartY + 90);
-		this->lblRegTipus->Location = System::Drawing::Point(rgStartX, rgStartY + 120);
-		this->cmbRegTipus->Location = System::Drawing::Point(rgStartX + 100, rgStartY + 120);
-		this->lblRegTelefon->Location = System::Drawing::Point(rgStartX, rgStartY + 150);
-		this->txtRegTelefon->Location = System::Drawing::Point(rgStartX + 100, rgStartY + 150);
-		this->btnRegAct->Location = System::Drawing::Point(rgStartX, rgStartY + 190);
-		this->btnRegBack->Location = System::Drawing::Point(rgStartX + 100, rgStartY + 190);
+		int loginFormWidth = 430;
+		int loginStartX = centerX - loginFormWidth / 2;
+		int loginBlockHeight = this->picLogoLogin->Height + 170;
+		int loginTop = centerY - loginBlockHeight / 2;
+		if (loginTop < 35) loginTop = 35;
+		this->picLogoLogin->Location = System::Drawing::Point(centerX - this->picLogoLogin->Width / 2, loginTop);
+
+		int loginStartY = this->picLogoLogin->Bottom + 8;
+		this->lblLoginTitle->Size = System::Drawing::Size(loginFormWidth, 34);
+		this->lblLoginTitle->Location = System::Drawing::Point(loginStartX, loginStartY);
+		this->lblLoginUsuari->Location = System::Drawing::Point(loginStartX, loginStartY + 48);
+		this->txtLoginCorreu->Location = System::Drawing::Point(loginStartX + 140, loginStartY + 45);
+		this->txtLoginCorreu->Size = System::Drawing::Size(270, 26);
+		this->lblLoginPass->Location = System::Drawing::Point(loginStartX, loginStartY + 88);
+		this->txtLoginPass->Location = System::Drawing::Point(loginStartX + 140, loginStartY + 85);
+		this->txtLoginPass->Size = System::Drawing::Size(270, 26);
+		this->btnLoginAct->Size = System::Drawing::Size(130, 38);
+		this->btnLoginBack->Size = System::Drawing::Size(150, 38);
+		this->btnLoginAct->Location = System::Drawing::Point(loginStartX, loginStartY + 130);
+		this->btnLoginBack->Location = System::Drawing::Point(this->btnLoginAct->Right + 14, loginStartY + 130);
+
+		int rgFormWidth = 430;
+		int rgStartX = centerX - rgFormWidth / 2;
+		int rgBlockHeight = this->picLogoRegister->Height + 265;
+		int rgTop = centerY - rgBlockHeight / 2;
+		if (rgTop < 25) rgTop = 25;
+		this->picLogoRegister->Location = System::Drawing::Point(centerX - this->picLogoRegister->Width / 2, rgTop);
+
+		int rgStartY = this->picLogoRegister->Bottom + 6;
+		this->lblRegTitle->Size = System::Drawing::Size(rgFormWidth, 34);
+		this->lblRegTitle->Location = System::Drawing::Point(rgStartX, rgStartY);
+		this->lblRegNom->Location = System::Drawing::Point(rgStartX, rgStartY + 45);
+		this->txtRegNom->Location = System::Drawing::Point(rgStartX + 140, rgStartY + 42);
+		this->txtRegNom->Size = System::Drawing::Size(270, 26);
+		this->lblRegCorreu->Location = System::Drawing::Point(rgStartX, rgStartY + 78);
+		this->txtRegCorreu->Location = System::Drawing::Point(rgStartX + 140, rgStartY + 75);
+		this->txtRegCorreu->Size = System::Drawing::Size(270, 26);
+		this->lblRegPass->Location = System::Drawing::Point(rgStartX, rgStartY + 111);
+		this->txtRegPass->Location = System::Drawing::Point(rgStartX + 140, rgStartY + 108);
+		this->txtRegPass->Size = System::Drawing::Size(270, 26);
+		this->lblRegTipus->Location = System::Drawing::Point(rgStartX, rgStartY + 144);
+		this->cmbRegTipus->Location = System::Drawing::Point(rgStartX + 140, rgStartY + 141);
+		this->cmbRegTipus->Size = System::Drawing::Size(270, 26);
+		this->lblRegTelefon->Location = System::Drawing::Point(rgStartX, rgStartY + 177);
+		this->txtRegTelefon->Location = System::Drawing::Point(rgStartX + 140, rgStartY + 174);
+		this->txtRegTelefon->Size = System::Drawing::Size(270, 26);
+		this->btnRegAct->Size = System::Drawing::Size(130, 38);
+		this->btnRegBack->Size = System::Drawing::Size(150, 38);
+		this->btnRegAct->Location = System::Drawing::Point(rgStartX, rgStartY + 220);
+		this->btnRegBack->Location = System::Drawing::Point(this->btnRegAct->Right + 14, rgStartY + 220);
 
 		// --- PANEL MAIN ---
 		this->lblMainTitle->Location = System::Drawing::Point(centerX - this->lblMainTitle->Width / 2, 20);
 
-		this->picLogoMain->Location = System::Drawing::Point(cw - this->picLogoMain->Width - 30, 20);
+		// Logo del panell inicial: visible a dalt a la dreta, sense tallar-se ni tapar els botons.
+		this->picLogoMain->Visible = true;
+		this->picLogoMain->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+		this->picLogoMain->Size = System::Drawing::Size(160, 105);
+		this->picLogoMain->Location = System::Drawing::Point(cw - this->picLogoMain->Width - 35, 25);
+		this->picLogoMain->BringToFront();
 		this->btnLogoutMainMenu->Location = System::Drawing::Point(20, 20);
 		this->btnLogoutMainMenu->BringToFront();
 
        // Botons del menú principal: els centrem segons els que estiguin visibles (per tipus d'usuari)
+		bool menuDuesFiles = false;
+		int visibleMenuButtons = 0;
 		{
 			const int menuBtnY = 80;
-			const int menuBtnH = 40;
-			const int gap = 15;
+			const int menuBtnH = 42;
+			const int gap = 14;
 
          System::Collections::Generic::List<System::Windows::Forms::Button^>^ btns =
 				gcnew System::Collections::Generic::List<System::Windows::Forms::Button^>();
@@ -124,26 +192,90 @@ namespace CppCLRWinFormsProject {
 				this->btnSeguirLligaMainMenu,
 				this->btnCrearLligaMainMenu
 			};
-			for each (auto b in candidates) {
-				if (b != nullptr && b->Visible) btns->Add(b);
+			for (int i = 0; i < candidates->Length; i++) {
+				System::Windows::Forms::Button^ b = candidates[i];
+				if (b != nullptr && b->Visible) {
+					visibleMenuButtons++;
+					b->Height = menuBtnH;
+					if (b->Text != nullptr && b->Text->Length > 23 && b->Width < 245) b->Width = 245;
+					else if (b->Text != nullptr && b->Text->Length > 18 && b->Width < 215) b->Width = 215;
+					else if (b->Width < 180) b->Width = 180;
+					btns->Add(b);
+				}
 			}
 
 			int totalW = 0;
 			for (int i = 0; i < btns->Count; i++) {
-				auto b = btns[i];
-				b->Height = menuBtnH;
+				System::Windows::Forms::Button^ b = btns[i];
 				totalW += b->Width;
 				if (i < btns->Count - 1) totalW += gap;
 			}
 
-			int x = System::Math::Max(20, (cw - totalW) / 2);
-			for each (auto b in btns) {
-				b->Location = System::Drawing::Point(x, menuBtnY);
-				x += b->Width + gap;
+			int ampleDisponible = cw - 80;
+			if (totalW <= ampleDisponible) {
+				int x = System::Math::Max(20, (cw - totalW) / 2);
+				for (int i = 0; i < btns->Count; i++) {
+					System::Windows::Forms::Button^ b = btns[i];
+					b->Location = System::Drawing::Point(x, menuBtnY);
+					x += b->Width + gap;
+				}
+			}
+			else {
+				menuDuesFiles = true;
+				int primeraFila = (btns->Count + 1) / 2;
+				int filaY = menuBtnY;
+				int iniciIndex = 0;
+				for (int fila = 0; fila < 2; fila++) {
+					int finalIndex = (fila == 0) ? primeraFila : btns->Count;
+					int filaW = 0;
+					for (int i = iniciIndex; i < finalIndex; i++) {
+						System::Windows::Forms::Button^ b = btns[i];
+						filaW += b->Width;
+						if (i < finalIndex - 1) filaW += gap;
+					}
+					int x = System::Math::Max(20, (cw - filaW) / 2);
+					for (int i = iniciIndex; i < finalIndex; i++) {
+						System::Windows::Forms::Button^ b = btns[i];
+						b->Location = System::Drawing::Point(x, filaY);
+						x += b->Width + gap;
+					}
+					iniciIndex = finalIndex;
+					filaY += menuBtnH + 10;
+				}
 			}
 		}
 
-		int picY = 140;
+		// Cal deixar prou espai sota els botons del menú.
+		// En pantalles amb dues files de botons, el panell de la lliga podia començar massa amunt
+		// i tapar/tallar visualment la segona fila. Per això calculem el límit inferior real.
+		int maxMenuBottom = 0;
+		cli::array<System::Windows::Forms::Button^>^ menuCandidates = gcnew cli::array<System::Windows::Forms::Button^>(9) {
+			this->btnUnirEquipLliga,
+			this->btnEnregistrarEquip,
+			this->btnProgPartits,
+			this->btnEstatLligues,
+			this->btnEstadistiques,
+			this->btnConsultar,
+			this->btnMenuConsultarTelefons,
+			this->btnSeguirLligaMainMenu,
+			this->btnCrearLligaMainMenu
+		};
+		for (int i = 0; i < menuCandidates->Length; i++) {
+			System::Windows::Forms::Button^ b = menuCandidates[i];
+			if (b != nullptr && b->Visible && b->Bottom > maxMenuBottom) {
+				maxMenuBottom = b->Bottom;
+			}
+		}
+		for (int i = 0; i < menuCandidates->Length; i++) {
+			System::Windows::Forms::Button^ b = menuCandidates[i];
+			if (b != nullptr && b->Visible) b->BringToFront();
+		}
+
+		// Si hi ha moltes opcions, deixem una franja lliure fixa sota el menú.
+		// Això evita que el dashboard de la lliga seguida tapi la segona fila de botons
+		// quan es torna des d'una altra pantalla o quan Windows aplica escalat.
+		bool menuRealmentDuesFiles = menuDuesFiles || visibleMenuButtons > 4;
+		int picY = System::Math::Max(menuRealmentDuesFiles ? 245 : 190, maxMenuBottom + 55);
 		int picBottomMargin = 160;
 		int picH = System::Math::Max(10, ch - picY - picBottomMargin);
 		this->picImatge->Location = System::Drawing::Point(50, picY);
@@ -151,7 +283,13 @@ namespace CppCLRWinFormsProject {
 		if (this->pnlDashboardLliga != nullptr) {
 			this->pnlDashboardLliga->Location = this->picImatge->Location;
 			this->pnlDashboardLliga->Size = this->picImatge->Size;
-			this->pnlDashboardLliga->BringToFront();
+			this->pnlDashboardLliga->SendToBack();
+			if (this->picLogoMain != nullptr) this->picLogoMain->BringToFront();
+			if (this->btnLogoutMainMenu != nullptr) this->btnLogoutMainMenu->BringToFront();
+			for (int i = 0; i < menuCandidates->Length; i++) {
+				System::Windows::Forms::Button^ b = menuCandidates[i];
+				if (b != nullptr && b->Visible) b->BringToFront();
+			}
 
 			int pad = 12;
 			int titleY = pad;
@@ -566,43 +704,84 @@ namespace CppCLRWinFormsProject {
 
 			this->btnGuardarEstadistiques->Location = System::Drawing::Point(centerX - this->btnGuardarEstadistiques->Width / 2, ch - 70);
 		}
+		// --- PANEL ESTADISTIQUES LLIGA ---
+		if (this->pnlEstadistiquesLligaDetail != nullptr && this->pnlEstadistiquesLligaDetail->Visible) {
+			this->pnlEstadistiquesLligaDetail->Location = System::Drawing::Point(0, 0);
+			this->pnlEstadistiquesLligaDetail->Size = System::Drawing::Size(cw, ch);
+
+			int ellStartX = centerX - 360;
+			if (ellStartX < 50) ellStartX = 50;
+			int ellStartY = 95;
+
+			this->btnEstLligaTornar->Location = System::Drawing::Point(30, 30);
+			this->lblEstLligaBuscar->Location = System::Drawing::Point(ellStartX, ellStartY);
+			this->txtEstLligaBuscar->Location = System::Drawing::Point(ellStartX + 130, ellStartY - 3);
+			this->txtEstLligaBuscar->Size = System::Drawing::Size(320, 25);
+			this->btnEstLligaExecutarCerca->Location = System::Drawing::Point(ellStartX + 470, ellStartY - 5);
+			this->btnEstLligaExecutarCerca->Size = System::Drawing::Size(100, 30);
+
+			this->lblEstLligaSeleccionar->Visible = false;
+			this->cmbEstLligaLligues->Visible = false;
+			this->lblEstLligaInfo->Location = System::Drawing::Point(ellStartX, ellStartY + 45);
+			this->lblEstLligaInfo->Size = System::Drawing::Size(cw - ellStartX - 50, 30);
+
+			this->lblEstLligaTemporada->Location = System::Drawing::Point(ellStartX, ellStartY + 85);
+			this->cmbEstLligaTemporades->Location = System::Drawing::Point(ellStartX + 130, ellStartY + 82);
+			this->cmbEstLligaTemporades->Size = System::Drawing::Size(350, 25);
+
+			int dgvY = ellStartY + 125;
+			int dgvH = ch - dgvY - 50;
+			if (dgvH < 180) dgvH = 180;
+			this->dgvEstLligaClassificacio->Location = System::Drawing::Point(50, dgvY);
+			this->dgvEstLligaClassificacio->Size = System::Drawing::Size(cw - 100, dgvH);
+		}
+
 		// --- PANEL ESTADISTIQUES PARTIT ---
 		if (this->pnlEstadistiquesPartitDetail != nullptr && this->pnlEstadistiquesPartitDetail->Visible) {
 			this->pnlEstadistiquesPartitDetail->Location = System::Drawing::Point(0, 0);
 			this->pnlEstadistiquesPartitDetail->Size = System::Drawing::Size(cw, ch);
 
+			this->btnEstPartitTornar->Text = L"Tornar";
 			this->btnEstPartitTornar->Location = System::Drawing::Point(30, 30);
+			this->btnEstPartitTornar->Size = System::Drawing::Size(145, 38);
+			this->btnEstPartitTornar->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnEstPartitTornar->FlatAppearance->BorderSize = 1;
+			this->btnEstPartitTornar->BackColor = System::Drawing::Color::White;
+			this->btnEstPartitTornar->ForeColor = System::Drawing::Color::FromArgb(21, 48, 79);
+			this->btnEstPartitTornar->BringToFront();
 			this->lblEstPartitTitle->Location = System::Drawing::Point(centerX - (this->lblEstPartitTitle->Width / 2), 40);
 
-			int estpStartX = centerX - 300;
-			int estpStartY = 100;
+			int estpStartX = centerX - 360;
+			if (estpStartX < 50) estpStartX = 50;
+			int estpStartY = 105;
 
-			this->lblEstPartitLliga->Location = System::Drawing::Point(estpStartX, estpStartY);
-			this->cmbEstPartitLligues->Location = System::Drawing::Point(estpStartX + 150, estpStartY - 3);
-			this->cmbEstPartitLligues->Size = System::Drawing::Size(200, 25);
+			this->lblEstPartitLliga->Visible = false;
+			this->cmbEstPartitLligues->Visible = false;
+			this->lblEstPartitTemporada->Visible = false;
+			this->cmbEstPartitTemporades->Visible = false;
+			// No amaguem el combo de resultats aquí: es mostra o s'amaga des de la cerca.
 
-			this->lblEstPartitTemporada->Location = System::Drawing::Point(estpStartX, estpStartY + 40);
-			this->cmbEstPartitTemporades->Location = System::Drawing::Point(estpStartX + 150, estpStartY + 37);
-			this->cmbEstPartitTemporades->Size = System::Drawing::Size(300, 25);
+			this->lblEstPartitBuscar->Location = System::Drawing::Point(estpStartX, estpStartY);
+			this->txtEstPartitBuscar->Location = System::Drawing::Point(estpStartX + 130, estpStartY - 3);
+			this->txtEstPartitBuscar->Size = System::Drawing::Size(380, 25);
+			this->btnEstPartitCercar->Location = System::Drawing::Point(estpStartX + 530, estpStartY - 5);
+			this->btnEstPartitCercar->Size = System::Drawing::Size(105, 32);
+			this->btnEstPartitNetejar->Location = System::Drawing::Point(estpStartX + 650, estpStartY - 5);
+			this->btnEstPartitNetejar->Size = System::Drawing::Size(105, 32);
 
-			this->lblEstPartitBuscar->Location = System::Drawing::Point(estpStartX, estpStartY + 80);
-			this->txtEstPartitBuscar->Location = System::Drawing::Point(estpStartX + 150, estpStartY + 77);
-			this->txtEstPartitBuscar->Size = System::Drawing::Size(300, 25);
-			this->btnEstPartitCercar->Location = System::Drawing::Point(estpStartX + 465, estpStartY + 75);
-			this->btnEstPartitCercar->Size = System::Drawing::Size(90, 30);
-			this->btnEstPartitNetejar->Location = System::Drawing::Point(estpStartX + 565, estpStartY + 75);
-			this->btnEstPartitNetejar->Size = System::Drawing::Size(90, 30);
+			this->lblEstPartitInfo->Location = System::Drawing::Point(estpStartX, estpStartY + 45);
+			this->lblEstPartitInfo->Size = System::Drawing::Size(cw - estpStartX - 50, 28);
+			this->lblEstPartitPartits->Location = System::Drawing::Point(estpStartX, estpStartY + 82);
+			this->cmbEstPartitPartits->Location = System::Drawing::Point(estpStartX + 130, estpStartY + 78);
+			this->cmbEstPartitPartits->Size = System::Drawing::Size(cw - estpStartX - 180, 28);
+			if (this->cmbEstPartitPartits->Width < 500) this->cmbEstPartitPartits->Width = 500;
+			this->lblEstPartitResultat->Location = System::Drawing::Point(estpStartX, estpStartY + 118);
+			this->lblEstPartitResultat->Size = System::Drawing::Size(cw - estpStartX - 50, 32);
 
-			this->lblEstPartitPartits->Location = System::Drawing::Point(estpStartX, estpStartY + 120);
-			this->cmbEstPartitPartits->Location = System::Drawing::Point(estpStartX + 150, estpStartY + 117);
-			this->cmbEstPartitPartits->Size = System::Drawing::Size(500, 25);
-
-			this->lblEstPartitInfo->Location = System::Drawing::Point(estpStartX, estpStartY + 155);
-			this->lblEstPartitResultat->Location = System::Drawing::Point(estpStartX, estpStartY + 180);
-
-			int dgvH = ch - (estpStartY + 220) - 40;
-			if (dgvH < 150) dgvH = 150;
-			this->dgvEstPartitDetalls->Location = System::Drawing::Point(50, estpStartY + 220);
+			int dgvY = estpStartY + 160;
+			int dgvH = ch - dgvY - 40;
+			if (dgvH < 180) dgvH = 180;
+			this->dgvEstPartitDetalls->Location = System::Drawing::Point(50, dgvY);
 			this->dgvEstPartitDetalls->Size = System::Drawing::Size(cw - 100, dgvH);
 		}
 

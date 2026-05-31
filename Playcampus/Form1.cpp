@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include "Form1.h"
+#include "EstilInterficie.hxx"
 
 namespace CppCLRWinFormsProject {
 
@@ -82,6 +83,7 @@ Form1::Form1(void) {
 			this->btnEstPartit->Text = L"Estad\u00EDstiques Partit";
 			this->btnEstPartit->Click += gcnew System::EventHandler(this, &Form1::btnEstPartit_Click);
 			this->btnEstPartitTornar->Text = L"Tornar";
+			this->btnEstPartitTornar->Size = System::Drawing::Size(145, 38);
 			this->btnEstPartitTornar->Click += gcnew System::EventHandler(this, &Form1::btnEstPartitTornar_Click);
 
 			this->lblEstPartitTitle->Text = L"ESTAD\u00CDSTIQUES DE PARTIT";
@@ -101,12 +103,22 @@ Form1::Form1(void) {
 			this->lblEstPartitTemporada->AutoSize = true;
 			this->lblEstPartitBuscar->AutoSize = true;
 			this->lblEstPartitPartits->AutoSize = true;
-			this->lblEstPartitInfo->AutoSize = true;
-			this->lblEstPartitResultat->AutoSize = true;
+			this->lblEstPartitInfo->AutoSize = false;
+			this->lblEstPartitResultat->AutoSize = false;
+			this->lblEstPartitInfo->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->lblEstPartitResultat->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+
+			this->lblEstPartitLliga->Visible = false;
+			this->cmbEstPartitLligues->Visible = false;
+			this->lblEstPartitTemporada->Visible = false;
+			this->cmbEstPartitTemporades->Visible = false;
+			this->lblEstPartitPartits->Visible = false;
+			this->cmbEstPartitPartits->Visible = false;
 
 			this->cmbEstPartitLligues->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 			this->cmbEstPartitTemporades->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 			this->cmbEstPartitPartits->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cmbEstPartitPartits->DropDownWidth = 900;
 
 			this->cmbEstPartitLligues->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbEstPartitLligues_SelectedIndexChanged);
 			this->cmbEstPartitTemporades->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbEstPartitTemporades_SelectedIndexChanged);
@@ -152,7 +164,7 @@ Form1::Form1(void) {
 			// --- INICI SEGUIR LLIGA (MENÚ PRINCIPAL) ---
 			this->btnSeguirLligaMainMenu = gcnew System::Windows::Forms::Button();
 			this->btnSeguirLligaMainMenu->Text = L"Seguir Lliga";
-			this->btnSeguirLligaMainMenu->Size = System::Drawing::Size(180, 40);
+			this->btnSeguirLligaMainMenu->Size = System::Drawing::Size(170, 42);
 			this->btnSeguirLligaMainMenu->Visible = false;
 			this->btnSeguirLligaMainMenu->Click += gcnew System::EventHandler(this, &Form1::btnSeguirLligaMainMenu_Click);
 			this->pnlMain->Controls->Add(this->btnSeguirLligaMainMenu);
@@ -161,6 +173,8 @@ Form1::Form1(void) {
 			this->pnlDashboardLliga->Visible = false;
 			this->pnlDashboardLliga->BackColor = System::Drawing::Color::White;
 			this->pnlDashboardLliga->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->pnlDashboardLliga->Location = System::Drawing::Point(50, 245);
+			this->pnlDashboardLliga->Size = System::Drawing::Size(550, 220);
 			this->pnlMain->Controls->Add(this->pnlDashboardLliga);
 
 			this->lblDashboardLliga = gcnew System::Windows::Forms::Label();
@@ -207,6 +221,7 @@ Form1::Form1(void) {
 			// --- FI SEGUIR LLIGA ---
 
 			Form1_Resize(nullptr, nullptr);
+			EstilInterficie::Aplicar(this);
 		}
 
 Form1::~Form1() {

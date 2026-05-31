@@ -28,6 +28,8 @@ namespace CppCLRWinFormsProject {
 		}
 		else {
 			pnlMain->Visible = true;
+		ActualitzarEstatSeguirLliga();
+		Form1_Resize(nullptr, nullptr);
 			pnlMain->BringToFront();
 		}
 		convocatoriaObertaDesDeGestionarEquip = false;

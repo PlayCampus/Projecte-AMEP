@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CtrlEstadistiquesPartit.hxx"
 #include "../Dades/CercadoraLliga.hxx"
 #include "../Dades/CercadoraTemporada.hxx"
@@ -45,6 +45,12 @@ namespace Playcampus {
 			}
 
 			return resultat;
+		}
+
+		DataTable^ CtrlEstadistiquesPartit::CercarPartitsFinalitzatsGlobal(String^ textCerca) {
+			String^ connStr = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
+			Playcampus::Dades::CercadoraPartit^ cercadora = gcnew Playcampus::Dades::CercadoraPartit(connStr);
+			return cercadora->CercarPartitsFinalitzats(textCerca->Trim());
 		}
 
 		DataTable^ CtrlEstadistiquesPartit::ObtenirDetallsPartit(String^ idPartit) {

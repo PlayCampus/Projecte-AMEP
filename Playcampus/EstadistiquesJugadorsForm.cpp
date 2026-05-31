@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "EstadistiquesJugadorsForm.h"
+#include "EstilInterficie.hxx"
 
 namespace CppCLRWinFormsProject {
 
@@ -143,7 +144,7 @@ namespace CppCLRWinFormsProject {
 	// PRE: els controls estan creats.
 	// POST: deixa preparat el disseny del formulari.
 	void EstadistiquesJugadorsForm::DesignForm() {
-		// Configuracio addicional de disseny si es necessaria.
+		EstilInterficie::Aplicar(this);
 	}
 
 	// PRE: cert.

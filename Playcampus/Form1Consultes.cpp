@@ -51,6 +51,8 @@ System::Void Form1::btnConsultar_Click(System::Object^ sender, System::EventArgs
 System::Void Form1::btnTornarConsultar_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlConsultar->Visible = false;
 		pnlMain->Visible = true;
+		ActualitzarEstatSeguirLliga();
+		Form1_Resize(nullptr, nullptr);
 		txtNomLliga->Text = L"";
 	}
 

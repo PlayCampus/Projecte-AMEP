@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "EditarJugadorForm.h"
+#include "EstilInterficie.hxx"
 #include "Domini/CtrlEditarJugador.hxx"
 
 namespace CppCLRWinFormsProject {
@@ -117,7 +118,7 @@ namespace CppCLRWinFormsProject {
 	}
 
 	void EditarJugadorForm::DesignForm() {
-		// Configuración adicional de diseño si es necesaria
+		EstilInterficie::Aplicar(this);
 	}
 
 	System::Void EditarJugadorForm::btnGuardar_Click(System::Object^ sender, System::EventArgs^ e) {

@@ -83,15 +83,15 @@ void PassarellaJornada::RetirarJornadesTemporada(String^ idTemp) {
     MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
     try {
         conn->Open();
-        // Actualizamos a 'Retirada' solo las jornadas que esten 'EnCurs' para esta temporada
-        String^ query = "UPDATE Jornada SET estat = 'Finalitzat' WHERE idTemporada = @idTemporada AND estat = 'EnCurs'";
+        // Pre: idTemp identifica la temporada que s'ha retirat.
+        // Post: totes les jornades no finalitzades de la temporada queden finalitzades.
+        // Si la temporada no tenia jornades, no es mostra cap error perquè la temporada ja s'ha retirat igualment.
+        String^ query = "UPDATE Jornada SET estat = 'Finalitzat' "
+            "WHERE idTemporada = @idTemporada "
+            "AND (estat IS NULL OR LOWER(estat) <> 'finalitzat')";
         MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
         cmd->Parameters->AddWithValue("@idTemporada", idTemp);
-
-        int filesInfectades = cmd->ExecuteNonQuery();
-        if (filesInfectades == 0) {
-            throw gcnew Exception("No s'ha trobat cap jornada en curs per a aquesta temporada.");
-        }
+        cmd->ExecuteNonQuery();
     }
     finally {
         conn->Close();

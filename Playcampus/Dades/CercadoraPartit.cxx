@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CercadoraPartit.hxx"
 
 using namespace System;
@@ -115,6 +115,43 @@ namespace Playcampus {
 
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idTemporada", idTemporada);
+                cmd->Parameters->AddWithValue("@textCerca", L"%" + textCerca + L"%");
+                MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
+                adapter->Fill(dt);
+            }
+            finally {
+                if (conn != nullptr) { conn->Close(); delete conn; }
+            }
+            return dt;
+        }
+
+        DataTable^ CercadoraPartit::CercarPartitsFinalitzats(String^ textCerca) {
+            DataTable^ dt = gcnew DataTable();
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query =
+                    "SELECT p.idPartit, el.nom AS EquipLocal, ev.nom AS EquipVisitant, "
+                    "DATE_FORMAT(p.dataHora, '%d/%m/%Y %H:%i') AS DataHora, "
+                    "p.golsLocal AS GolsLocal, p.golsVisitant AS GolsVisitant, p.ubicacio AS Ubicacio, "
+                    "L.nom AS Lliga, CONCAT(el.nom, ' vs ', ev.nom) AS NomPartit "
+                    "FROM Partit p "
+                    "INNER JOIN Jornada j ON p.idJornada = j.idJornada "
+                    "INNER JOIN Temporada t ON j.idTemporada = t.idTemporada "
+                    "INNER JOIN Lliga L ON t.idLliga = L.idLliga "
+                    "INNER JOIN Equip el ON p.idEquipLocal = el.idEquip "
+                    "INNER JOIN Equip ev ON p.idEquipVisitant = ev.idEquip "
+                    "WHERE p.estat = 'Finalitzat' "
+                    "AND (el.nom LIKE @textCerca OR ev.nom LIKE @textCerca "
+                    "OR CONCAT(el.nom, ' vs ', ev.nom) LIKE @textCerca "
+                    "OR L.nom LIKE @textCerca "
+                    "OR CAST(p.idPartit AS CHAR) LIKE @textCerca "
+                    "OR DATE_FORMAT(p.dataHora, '%d/%m/%Y %H:%i') LIKE @textCerca "
+                    "OR CONCAT(p.golsLocal, '-', p.golsVisitant) LIKE @textCerca "
+                    "OR p.ubicacio LIKE @textCerca) "
+                    "ORDER BY p.dataHora DESC";
+
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@textCerca", L"%" + textCerca + L"%");
                 MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
                 adapter->Fill(dt);
@@ -664,16 +701,31 @@ namespace Playcampus {
             try {
                 conn->Open();
                 String^ query =
-                    "SELECT pei.idJugador AS IdJugador, pei.nomJugador AS NomJugador, pei.posicio AS Posicio, "
-                    "pei.targetesgrogues AS TargetesGrogues, pei.targetesvermelles AS TargetesVermelles, pei.golsmarcat AS GolsMarcats, "
-                    "pei.asistencies AS Assistencies, pei.targetesgroguesobtenides AS TargetesGroguesObtenides, "
-                    "pei.targetesvermelllesobtenides AS TargetesVermelllesObtenides, pei.dataActualitzacio AS DataActualitzacio, "
-                    "e.nom AS Equip "
-                    "FROM PartitEstadisticaIndividual pei "
-                    "INNER JOIN Jugador j ON pei.idJugador = j.idJugador "
-                    "INNER JOIN Equip e ON j.idEquip = e.idEquip "
-                    "WHERE pei.idPartit = @idPartit "
-                    "ORDER BY e.nom";
+                    "SELECT ids.idJugador AS IdJugador, "
+                    "COALESCE(pei.nomJugador, u.nom, '') AS NomJugador, "
+                    "COALESCE(pei.posicio, j.posicio, '') AS Posicio, "
+                    "IFNULL(pei.targetesgrogues, 0) AS TargetesGrogues, "
+                    "IFNULL(pei.targetesvermelles, 0) AS TargetesVermelles, "
+                    "IFNULL(pei.golsmarcat, 0) AS GolsMarcats, "
+                    "IFNULL(pei.asistencies, 0) AS Assistencies, "
+                    "IFNULL(pei.targetesgroguesobtenides, 0) AS TargetesGroguesObtenides, "
+                    "IFNULL(pei.targetesvermelllesobtenides, 0) AS TargetesVermelllesObtenides, "
+                    "IFNULL(DATE_FORMAT(pei.dataActualitzacio, '%d/%m/%Y %H:%i'), '') AS DataActualitzacio, "
+                    "COALESCE(e.nom, '') AS Equip "
+                    "FROM ( "
+                    "   SELECT ajp.idJugador FROM AssignacioJugadorPartit ajp WHERE ajp.idPartit = @idPartit "
+                    "   UNION "
+                    "   SELECT pei2.idJugador FROM PartitEstadisticaIndividual pei2 WHERE pei2.idPartit = @idPartit "
+                    "   UNION "
+                    "   SELECT j2.idJugador FROM Jugador j2 "
+                    "   INNER JOIN Partit p2 ON (j2.idEquip = p2.idEquipLocal OR j2.idEquip = p2.idEquipVisitant) "
+                    "   WHERE p2.idPartit = @idPartit "
+                    ") ids "
+                    "LEFT JOIN Jugador j ON ids.idJugador = j.idJugador "
+                    "LEFT JOIN Usuari u ON ids.idJugador = u.identificador "
+                    "LEFT JOIN Equip e ON j.idEquip = e.idEquip "
+                    "LEFT JOIN PartitEstadisticaIndividual pei ON pei.idPartit = @idPartit AND pei.idJugador = ids.idJugador "
+                    "ORDER BY e.nom ASC, COALESCE(pei.nomJugador, u.nom, '') ASC";
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idPartit", idPartit);
                 MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);

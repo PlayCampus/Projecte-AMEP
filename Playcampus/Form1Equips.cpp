@@ -25,6 +25,8 @@ System::Void Form1::btnUnirEquipLligaAct_Click(System::Object^ sender, System::E
 
 					pnlMain->Visible = false;
 					pnlMain->Visible = true;
+		ActualitzarEstatSeguirLliga();
+		Form1_Resize(nullptr, nullptr);
 				}
 				catch (Exception^ ex) {
 					MessageBox::Show(L"Error al abandonar la lliga: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
@@ -48,6 +50,8 @@ System::Void Form1::btnUnirEquipLligaAct_Click(System::Object^ sender, System::E
 System::Void Form1::btnUELTornar_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlUnirEquipLliga->Visible = false;
 		pnlMain->Visible = true;
+		ActualitzarEstatSeguirLliga();
+		Form1_Resize(nullptr, nullptr);
 	}
 
 System::Void Form1::btnUELComprovar_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -96,6 +100,8 @@ System::Void Form1::btnUELUnir_Click(System::Object^ sender, System::EventArgs^ 
 
 				pnlUnirEquipLliga->Visible = false;
 				pnlMain->Visible = true;
+		ActualitzarEstatSeguirLliga();
+		Form1_Resize(nullptr, nullptr);
 			}
 			else {
 				MessageBox::Show(L"Contrasenya incorrecta. Torna a intentar-ho.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
@@ -141,6 +147,8 @@ System::Void Form1::btnEnregistrarEquip_Click(System::Object^ sender, System::Ev
 System::Void Form1::btnGETornar_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlGestionarEquip->Visible = false;
 		pnlMain->Visible = true;
+		ActualitzarEstatSeguirLliga();
+		Form1_Resize(nullptr, nullptr);
 	}
 
 System::Void Form1::btnGEEsborrarEquip_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -154,6 +162,8 @@ System::Void Form1::btnGEEsborrarEquip_Click(System::Object^ sender, System::Eve
 				btnEnregistrarEquip->Text = L"Enregistrar Equip";
 				pnlGestionarEquip->Visible = false;
 				pnlMain->Visible = true;
+		ActualitzarEstatSeguirLliga();
+		Form1_Resize(nullptr, nullptr);
 			} catch (Exception^ ex) {
 				MessageBox::Show(L"Error a l'esborrar l'equip: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
@@ -366,6 +376,8 @@ System::Void Form1::btnAJCancellar_Click(System::Object^ sender, System::EventAr
 System::Void Form1::btnEETornar_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlEnregistrarEquip->Visible = false;
 		pnlMain->Visible = true;
+		ActualitzarEstatSeguirLliga();
+		Form1_Resize(nullptr, nullptr);
 	}
 
 System::Void Form1::btnEEEnregistrar_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -391,6 +403,8 @@ System::Void Form1::btnEEEnregistrar_Click(System::Object^ sender, System::Event
 
 			pnlEnregistrarEquip->Visible = false;
 			pnlMain->Visible = true;
+		ActualitzarEstatSeguirLliga();
+		Form1_Resize(nullptr, nullptr);
 		}
 		catch (Exception^ ex) {
 			MessageBox::Show(L"Error al enregistrar equip: " + ex->Message, L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);

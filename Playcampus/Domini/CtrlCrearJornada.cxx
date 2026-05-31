@@ -80,12 +80,24 @@ void CtrlCrearJornada::CrearJornada(String^ idTemporada,int numero, DateTime dat
         }
 
         List<Dictionary<String^, String^>^>^ CtrlCrearJornada::ObtenirTemporadesLliga(String^ nomLliga) {
-    // 1. Obtener la cadena de conexión
+    // Pre: nomLliga identifica la lliga de l'administrador.
+    // Post: retorna només temporades no finalitzades, perquè no es puguin crear jornades en temporades acabades.
     String^ connStr = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
-
-    // 2. Instanciar pasarela temporada con la cadena de conexión usando su nuevo constructor
     Playcampus::Dades::PassarellaTemporada^ passTemporada = gcnew Playcampus::Dades::PassarellaTemporada(connStr);
 
-    // 3. Llamar a la pasarela y devolver el resultado
-    return passTemporada->ObtenirDictTemporadesPerLliga(nomLliga);
+    List<Dictionary<String^, String^>^>^ totes = passTemporada->ObtenirDictTemporadesPerLliga(nomLliga);
+    List<Dictionary<String^, String^>^>^ disponibles = gcnew List<Dictionary<String^, String^>^>();
+
+    for (int i = 0; i < totes->Count; i++) {
+        Dictionary<String^, String^>^ temp = totes[i];
+        String^ estat = L"";
+        if (temp->ContainsKey("estat") && temp["estat"] != nullptr) {
+            estat = temp["estat"]->ToLower();
+        }
+        if (estat != L"finalitzat" && estat != L"retirada") {
+            disponibles->Add(temp);
+        }
+    }
+
+    return disponibles;
 }
