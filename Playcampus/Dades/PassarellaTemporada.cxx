@@ -1,7 +1,8 @@
 ﻿#include "pch.h"
 #include "PassarellaTemporada.hxx"
 #include <stdexcept>
-#using <System.Data.dll>
+
+using namespace System::Data; 
 using namespace System::Collections::Generic;
 
 using namespace System;
