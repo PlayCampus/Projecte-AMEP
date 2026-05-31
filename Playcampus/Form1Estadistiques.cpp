@@ -388,7 +388,9 @@ namespace CppCLRWinFormsProject {
 		estPartitTemporadaIds->Clear();
 		cmbEstPartitPartits->Items->Clear();
 		estPartitIds->Clear();
+		txtEstPartitBuscar->Text = L"";
 		dgvEstPartitDetalls->DataSource = nullptr;
+		lblEstPartitInfo->Text = L"";
 		lblEstPartitResultat->Text = L"";
 
 		try {
@@ -418,6 +420,7 @@ namespace CppCLRWinFormsProject {
 		cmbEstPartitPartits->Items->Clear();
 		estPartitIds->Clear();
 		dgvEstPartitDetalls->DataSource = nullptr;
+		lblEstPartitInfo->Text = L"";
 		lblEstPartitResultat->Text = L"";
 
 		try {
@@ -442,33 +445,86 @@ namespace CppCLRWinFormsProject {
 	}
 
 	System::Void Form1::cmbEstPartitTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (cmbEstPartitTemporades->SelectedIndex < 0) return;
+		CarregarPartitsFinalitzatsEstadistiques(txtEstPartitBuscar->Text->Trim());
+	}
 
+	void Form1::CarregarPartitsFinalitzatsEstadistiques(String^ textCerca) {
 		cmbEstPartitPartits->Items->Clear();
 		estPartitIds->Clear();
 		dgvEstPartitDetalls->DataSource = nullptr;
+		lblEstPartitInfo->Text = L"";
 		lblEstPartitResultat->Text = L"";
 
-		try {
-			String^ idTemporada = estPartitTemporadaIds[cmbEstPartitTemporades->SelectedIndex];
-			Playcampus::Domini::CtrlEstadistiquesPartit^ ctrl = gcnew Playcampus::Domini::CtrlEstadistiquesPartit();
-			DataTable^ partits = ctrl->ObtenirPartitsFinalitzats(idTemporada);
+		if (cmbEstPartitTemporades->SelectedIndex >= 0 && cmbEstPartitTemporades->SelectedIndex < estPartitTemporadaIds->Count) {
+			try {
+				String^ idTemporada = estPartitTemporadaIds[cmbEstPartitTemporades->SelectedIndex];
+				Playcampus::Domini::CtrlEstadistiquesPartit^ ctrl = gcnew Playcampus::Domini::CtrlEstadistiquesPartit();
+				DataTable^ partits = ctrl->CercarPartitsFinalitzats(idTemporada, textCerca);
 
-			for (int i = 0; i < partits->Rows->Count; i++) {
-				estPartitIds->Add(partits->Rows[i]["idPartit"]->ToString());
-				String^ display = partits->Rows[i]["EquipLocal"]->ToString() + " vs " + partits->Rows[i]["EquipVisitant"]->ToString();
-				cmbEstPartitPartits->Items->Add(display);
+				OmplirComboPartitsEstadistiques(partits, textCerca);
 			}
-
-			if (cmbEstPartitPartits->Items->Count > 0) {
-				cmbEstPartitPartits->SelectedIndex = 0;
-			}
-			else {
-				lblEstPartitResultat->Text = L"No s'han jugat partits en aquesta temporada.";
+			catch (Exception^ ex) {
+				MessageBox::Show(L"Error carregant partits: " + ex->Message);
 			}
 		}
-		catch (Exception^ ex) {
-			MessageBox::Show(L"Error carregant partits: " + ex->Message);
+	}
+
+	void Form1::OmplirComboPartitsEstadistiques(DataTable^ partits, String^ textCerca) {
+		cmbEstPartitPartits->Items->Clear();
+		estPartitIds->Clear();
+		dgvEstPartitDetalls->DataSource = nullptr;
+		lblEstPartitInfo->Text = L"";
+		lblEstPartitResultat->Text = L"";
+
+		if (partits != nullptr) {
+			for (int i = 0; i < partits->Rows->Count; i++) {
+				DataRow^ row = partits->Rows[i];
+				estPartitIds->Add(row["idPartit"]->ToString());
+
+				String^ display = row["EquipLocal"]->ToString() + L" vs " + row["EquipVisitant"]->ToString();
+				if (partits->Columns->Contains("DataHora")) {
+					display += L" - " + row["DataHora"]->ToString();
+				}
+				if (partits->Columns->Contains("GolsLocal") && partits->Columns->Contains("GolsVisitant")) {
+					display += L" (" + row["GolsLocal"]->ToString() + L"-" + row["GolsVisitant"]->ToString() + L")";
+				}
+
+				cmbEstPartitPartits->Items->Add(display);
+			}
+		}
+
+		if (cmbEstPartitPartits->Items->Count > 0) {
+			cmbEstPartitPartits->SelectedIndex = 0;
+			if (String::IsNullOrWhiteSpace(textCerca)) {
+				lblEstPartitInfo->Text = cmbEstPartitPartits->Items->Count.ToString() + L" partit(s) carregats.";
+			}
+			else {
+				lblEstPartitInfo->Text = cmbEstPartitPartits->Items->Count.ToString() + L" resultat(s) trobats per: " + textCerca;
+			}
+		}
+		else {
+			if (String::IsNullOrWhiteSpace(textCerca)) {
+				lblEstPartitInfo->Text = L"No s'han jugat partits en aquesta temporada.";
+			}
+			else {
+				lblEstPartitInfo->Text = L"No s'ha trobat cap partit que coincideixi amb la cerca.";
+			}
+		}
+	}
+
+	System::Void Form1::btnEstPartitCercar_Click(System::Object^ sender, System::EventArgs^ e) {
+		CarregarPartitsFinalitzatsEstadistiques(txtEstPartitBuscar->Text->Trim());
+	}
+
+	System::Void Form1::btnEstPartitNetejar_Click(System::Object^ sender, System::EventArgs^ e) {
+		txtEstPartitBuscar->Text = L"";
+		CarregarPartitsFinalitzatsEstadistiques(L"");
+	}
+
+	System::Void Form1::txtEstPartitBuscar_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+		if (e->KeyCode == System::Windows::Forms::Keys::Enter) {
+			e->SuppressKeyPress = true;
+			CarregarPartitsFinalitzatsEstadistiques(txtEstPartitBuscar->Text->Trim());
 		}
 	}
 

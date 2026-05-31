@@ -32,6 +32,21 @@ namespace Playcampus {
 			return cercadora->ObtenirPartitsFinalitzatsPerTemporada(idTemporada);
 		}
 
+		DataTable^ CtrlEstadistiquesPartit::CercarPartitsFinalitzats(String^ idTemporada, String^ textCerca) {
+			String^ connStr = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
+			Playcampus::Dades::CercadoraPartit^ cercadora = gcnew Playcampus::Dades::CercadoraPartit(connStr);
+
+			DataTable^ resultat = nullptr;
+			if (String::IsNullOrWhiteSpace(textCerca)) {
+				resultat = cercadora->ObtenirPartitsFinalitzatsPerTemporada(idTemporada);
+			}
+			else {
+				resultat = cercadora->CercarPartitsFinalitzatsPerTemporada(idTemporada, textCerca->Trim());
+			}
+
+			return resultat;
+		}
+
 		DataTable^ CtrlEstadistiquesPartit::ObtenirDetallsPartit(String^ idPartit) {
 			Playcampus::Domini::CtrlVeureEstadistiquesJugadors^ cercadora = gcnew Playcampus::Domini::CtrlVeureEstadistiquesJugadors();
 			return cercadora->ObtenirDetallsPartit(idPartit);

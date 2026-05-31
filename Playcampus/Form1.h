@@ -334,8 +334,13 @@ namespace CppCLRWinFormsProject {
 			private: System::Windows::Forms::ComboBox^ cmbEstPartitLligues;
 			private: System::Windows::Forms::Label^ lblEstPartitTemporada;
 			private: System::Windows::Forms::ComboBox^ cmbEstPartitTemporades;
+			private: System::Windows::Forms::Label^ lblEstPartitBuscar;
+			private: System::Windows::Forms::TextBox^ txtEstPartitBuscar;
+			private: System::Windows::Forms::Button^ btnEstPartitCercar;
+			private: System::Windows::Forms::Button^ btnEstPartitNetejar;
 			private: System::Windows::Forms::Label^ lblEstPartitPartits;
 			private: System::Windows::Forms::ComboBox^ cmbEstPartitPartits;
+			private: System::Windows::Forms::Label^ lblEstPartitInfo;
 			private: System::Windows::Forms::Label^ lblEstPartitResultat;
 			private: System::Windows::Forms::DataGridView^ dgvEstPartitDetalls;
 			private: System::Windows::Forms::Button^ btnEstPartitTornar;
@@ -488,6 +493,11 @@ namespace CppCLRWinFormsProject {
 		System::Void cmbEstPartitLligues_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void cmbEstPartitTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void cmbEstPartitPartits_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnEstPartitCercar_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnEstPartitNetejar_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void txtEstPartitBuscar_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e);
+		void CarregarPartitsFinalitzatsEstadistiques(String^ textCerca);
+		void OmplirComboPartitsEstadistiques(DataTable^ partits, String^ textCerca);
 
 		void MostrarPanelInicialTask162(System::Windows::Forms::Panel^ panel);
 		void OcultarPantallesPrincipalsTask162();

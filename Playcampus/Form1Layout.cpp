@@ -585,15 +585,24 @@ namespace CppCLRWinFormsProject {
 			this->cmbEstPartitTemporades->Location = System::Drawing::Point(estpStartX + 150, estpStartY + 37);
 			this->cmbEstPartitTemporades->Size = System::Drawing::Size(300, 25);
 
-			this->lblEstPartitPartits->Location = System::Drawing::Point(estpStartX, estpStartY + 80);
-			this->cmbEstPartitPartits->Location = System::Drawing::Point(estpStartX + 150, estpStartY + 77);
-			this->cmbEstPartitPartits->Size = System::Drawing::Size(400, 25);
+			this->lblEstPartitBuscar->Location = System::Drawing::Point(estpStartX, estpStartY + 80);
+			this->txtEstPartitBuscar->Location = System::Drawing::Point(estpStartX + 150, estpStartY + 77);
+			this->txtEstPartitBuscar->Size = System::Drawing::Size(300, 25);
+			this->btnEstPartitCercar->Location = System::Drawing::Point(estpStartX + 465, estpStartY + 75);
+			this->btnEstPartitCercar->Size = System::Drawing::Size(90, 30);
+			this->btnEstPartitNetejar->Location = System::Drawing::Point(estpStartX + 565, estpStartY + 75);
+			this->btnEstPartitNetejar->Size = System::Drawing::Size(90, 30);
 
-			this->lblEstPartitResultat->Location = System::Drawing::Point(estpStartX, estpStartY + 120);
+			this->lblEstPartitPartits->Location = System::Drawing::Point(estpStartX, estpStartY + 120);
+			this->cmbEstPartitPartits->Location = System::Drawing::Point(estpStartX + 150, estpStartY + 117);
+			this->cmbEstPartitPartits->Size = System::Drawing::Size(500, 25);
 
-			int dgvH = ch - (estpStartY + 160) - 40;
+			this->lblEstPartitInfo->Location = System::Drawing::Point(estpStartX, estpStartY + 155);
+			this->lblEstPartitResultat->Location = System::Drawing::Point(estpStartX, estpStartY + 180);
+
+			int dgvH = ch - (estpStartY + 220) - 40;
 			if (dgvH < 150) dgvH = 150;
-			this->dgvEstPartitDetalls->Location = System::Drawing::Point(50, estpStartY + 160);
+			this->dgvEstPartitDetalls->Location = System::Drawing::Point(50, estpStartY + 220);
 			this->dgvEstPartitDetalls->Size = System::Drawing::Size(cw - 100, dgvH);
 		}
 

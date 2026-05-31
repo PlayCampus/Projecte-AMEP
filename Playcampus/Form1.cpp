@@ -64,8 +64,13 @@ Form1::Form1(void) {
 			this->cmbEstPartitLligues = gcnew System::Windows::Forms::ComboBox();
 			this->lblEstPartitTemporada = gcnew System::Windows::Forms::Label();
 			this->cmbEstPartitTemporades = gcnew System::Windows::Forms::ComboBox();
+			this->lblEstPartitBuscar = gcnew System::Windows::Forms::Label();
+			this->txtEstPartitBuscar = gcnew System::Windows::Forms::TextBox();
+			this->btnEstPartitCercar = gcnew System::Windows::Forms::Button();
+			this->btnEstPartitNetejar = gcnew System::Windows::Forms::Button();
 			this->lblEstPartitPartits = gcnew System::Windows::Forms::Label();
 			this->cmbEstPartitPartits = gcnew System::Windows::Forms::ComboBox();
+			this->lblEstPartitInfo = gcnew System::Windows::Forms::Label();
 			this->lblEstPartitResultat = gcnew System::Windows::Forms::Label();
 			this->dgvEstPartitDetalls = gcnew System::Windows::Forms::DataGridView();
 			this->btnEstPartitTornar = gcnew System::Windows::Forms::Button();
@@ -85,12 +90,18 @@ Form1::Form1(void) {
 
 			this->lblEstPartitLliga->Text = L"Selecciona Lliga:";
 			this->lblEstPartitTemporada->Text = L"Selecciona Temporada:";
+			this->lblEstPartitBuscar->Text = L"Cercar partit:";
+			this->btnEstPartitCercar->Text = L"Cercar";
+			this->btnEstPartitNetejar->Text = L"Netejar";
 			this->lblEstPartitPartits->Text = L"Selecciona Partit:";
+			this->lblEstPartitInfo->Text = L"";
 			this->lblEstPartitResultat->Text = L"";
 
 			this->lblEstPartitLliga->AutoSize = true;
 			this->lblEstPartitTemporada->AutoSize = true;
+			this->lblEstPartitBuscar->AutoSize = true;
 			this->lblEstPartitPartits->AutoSize = true;
+			this->lblEstPartitInfo->AutoSize = true;
 			this->lblEstPartitResultat->AutoSize = true;
 
 			this->cmbEstPartitLligues->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
@@ -100,6 +111,9 @@ Form1::Form1(void) {
 			this->cmbEstPartitLligues->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbEstPartitLligues_SelectedIndexChanged);
 			this->cmbEstPartitTemporades->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbEstPartitTemporades_SelectedIndexChanged);
 			this->cmbEstPartitPartits->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbEstPartitPartits_SelectedIndexChanged);
+			this->btnEstPartitCercar->Click += gcnew System::EventHandler(this, &Form1::btnEstPartitCercar_Click);
+			this->btnEstPartitNetejar->Click += gcnew System::EventHandler(this, &Form1::btnEstPartitNetejar_Click);
+			this->txtEstPartitBuscar->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::txtEstPartitBuscar_KeyDown);
 
 			this->dgvEstPartitDetalls->AllowUserToAddRows = false;
 			this->dgvEstPartitDetalls->ReadOnly = true;
@@ -120,8 +134,13 @@ Form1::Form1(void) {
 			this->pnlEstadistiquesPartitDetail->Controls->Add(this->cmbEstPartitLligues);
 			this->pnlEstadistiquesPartitDetail->Controls->Add(this->lblEstPartitTemporada);
 			this->pnlEstadistiquesPartitDetail->Controls->Add(this->cmbEstPartitTemporades);
+			this->pnlEstadistiquesPartitDetail->Controls->Add(this->lblEstPartitBuscar);
+			this->pnlEstadistiquesPartitDetail->Controls->Add(this->txtEstPartitBuscar);
+			this->pnlEstadistiquesPartitDetail->Controls->Add(this->btnEstPartitCercar);
+			this->pnlEstadistiquesPartitDetail->Controls->Add(this->btnEstPartitNetejar);
 			this->pnlEstadistiquesPartitDetail->Controls->Add(this->lblEstPartitPartits);
 			this->pnlEstadistiquesPartitDetail->Controls->Add(this->cmbEstPartitPartits);
+			this->pnlEstadistiquesPartitDetail->Controls->Add(this->lblEstPartitInfo);
 			this->pnlEstadistiquesPartitDetail->Controls->Add(this->lblEstPartitResultat);
 			this->pnlEstadistiquesPartitDetail->Controls->Add(this->dgvEstPartitDetalls);
 			this->pnlEstadistiquesPartitDetail->Controls->Add(this->btnEstPartitTornar);

@@ -71,7 +71,9 @@ namespace Playcampus {
                 conn->Open();
                 // Hacemos JOIN con Jornada para filtrar por temporada, y con Equip para sacar los nombres. Filtramos por estado 'Finalitzat'
                 String^ query =
-                    "SELECT p.idPartit, el.nom AS EquipLocal, ev.nom AS EquipVisitant "
+                    "SELECT p.idPartit, el.nom AS EquipLocal, ev.nom AS EquipVisitant, "
+                    "DATE_FORMAT(p.dataHora, '%d/%m/%Y %H:%i') AS DataHora, "
+                    "p.golsLocal AS GolsLocal, p.golsVisitant AS GolsVisitant, p.ubicacio AS Ubicacio "
                     "FROM Partit p "
                     "INNER JOIN Jornada j ON p.idJornada = j.idJornada "
                     "INNER JOIN Equip el ON p.idEquipLocal = el.idEquip "
@@ -81,6 +83,39 @@ namespace Playcampus {
 
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idTemporada", idTemporada);
+                MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
+                adapter->Fill(dt);
+            }
+            finally {
+                if (conn != nullptr) { conn->Close(); delete conn; }
+            }
+            return dt;
+        }
+
+        DataTable^ CercadoraPartit::CercarPartitsFinalitzatsPerTemporada(String^ idTemporada, String^ textCerca) {
+            DataTable^ dt = gcnew DataTable();
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query =
+                    "SELECT p.idPartit, el.nom AS EquipLocal, ev.nom AS EquipVisitant, "
+                    "DATE_FORMAT(p.dataHora, '%d/%m/%Y %H:%i') AS DataHora, "
+                    "p.golsLocal AS GolsLocal, p.golsVisitant AS GolsVisitant, p.ubicacio AS Ubicacio "
+                    "FROM Partit p "
+                    "INNER JOIN Jornada j ON p.idJornada = j.idJornada "
+                    "INNER JOIN Equip el ON p.idEquipLocal = el.idEquip "
+                    "INNER JOIN Equip ev ON p.idEquipVisitant = ev.idEquip "
+                    "WHERE j.idTemporada = @idTemporada AND p.estat = 'Finalitzat' "
+                    "AND (el.nom LIKE @textCerca OR ev.nom LIKE @textCerca "
+                    "OR CAST(p.idPartit AS CHAR) LIKE @textCerca "
+                    "OR DATE_FORMAT(p.dataHora, '%d/%m/%Y %H:%i') LIKE @textCerca "
+                    "OR CONCAT(p.golsLocal, '-', p.golsVisitant) LIKE @textCerca "
+                    "OR p.ubicacio LIKE @textCerca) "
+                    "ORDER BY p.dataHora DESC";
+
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idTemporada", idTemporada);
+                cmd->Parameters->AddWithValue("@textCerca", L"%" + textCerca + L"%");
                 MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
                 adapter->Fill(dt);
             }
