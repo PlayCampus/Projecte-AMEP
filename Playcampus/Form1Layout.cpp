@@ -22,23 +22,35 @@ namespace CppCLRWinFormsProject {
 		int centerX = cw / 2;
 		int centerY = ch / 2;
 
+		if (this->lblIdioma != nullptr && this->cmbIdioma != nullptr) {
+			int idiomaX = cw - 235;
+			int idiomaY = ch - 44;
+			if (idiomaX < 20) idiomaX = 20;
+			if (idiomaY < 20) idiomaY = 20;
+			this->lblIdioma->Location = System::Drawing::Point(idiomaX, idiomaY + 4);
+			this->cmbIdioma->Location = System::Drawing::Point(idiomaX + 70, idiomaY);
+			this->cmbIdioma->Size = System::Drawing::Size(145, 28);
+			this->lblIdioma->BringToFront();
+			this->cmbIdioma->BringToFront();
+		}
+
 		// Evitem que els botons de tornar quedin tallats quan Windows aplica escalat/DPI.
 		cli::array<System::Windows::Forms::Button^>^ botonsTornar = gcnew cli::array<System::Windows::Forms::Button^>(15) {
 			this->btnTornarConsultar,
-			this->btnCLTornar,
-			this->btnEstTornar,
-			this->btnEstEquipTornar,
-			this->btnGLTornar,
-			this->btnGETornar,
-			this->btnEPTornar,
-			this->btnEJTornar,
-			this->btnEETornar,
-			this->btnUELTornar,
-			this->btnEstLligaTornar,
-			this->btnTornarEditarPartit,
-			this->btnTornarConvocatoria,
-			this->btnEstPartitTornar,
-			this->btnRegBack
+				this->btnCLTornar,
+				this->btnEstTornar,
+				this->btnEstEquipTornar,
+				this->btnGLTornar,
+				this->btnGETornar,
+				this->btnEPTornar,
+				this->btnEJTornar,
+				this->btnEETornar,
+				this->btnUELTornar,
+				this->btnEstLligaTornar,
+				this->btnTornarEditarPartit,
+				this->btnTornarConvocatoria,
+				this->btnEstPartitTornar,
+				this->btnRegBack
 		};
 		for (int i = 0; i < botonsTornar->Length; i++) {
 			System::Windows::Forms::Button^ b = botonsTornar[i];
@@ -94,7 +106,7 @@ namespace CppCLRWinFormsProject {
 			if (ay < 0) ay = 0;
 			this->pnlAvisJugador->Location = System::Drawing::Point(ax, ay);
 		}
-	
+
 		// --- PANELS DE LOGIN/REGISTRE ---
 		// Els logos es mostren amb una mida ampla perquè el text "playCampus" no quedi tallat.
 		this->picLogoInici->Size = System::Drawing::Size(320, 230);
@@ -171,9 +183,9 @@ namespace CppCLRWinFormsProject {
 		this->btnLogoutMainMenu->Location = System::Drawing::Point(20, 20);
 		this->btnLogoutMainMenu->BringToFront();
 
-       // Botons del menú principal: els disposem en files centrades.
-		// Mantenim sempre un màxim de 3 botons per fila perquè el menú no entri sota el logo
-		// en ordinadors amb escalat/DPI diferent. Això deixa l'aspecte centrat com al disseny bo.
+		// Botons del menú principal: els disposem en files centrades.
+		 // Mantenim sempre un màxim de 3 botons per fila perquè el menú no entri sota el logo
+		 // en ordinadors amb escalat/DPI diferent. Això deixa l'aspecte centrat com al disseny bo.
 		bool menuDuesFiles = false;
 		int visibleMenuButtons = 0;
 		{
@@ -191,14 +203,14 @@ namespace CppCLRWinFormsProject {
 
 			cli::array<System::Windows::Forms::Button^>^ candidates = gcnew cli::array<System::Windows::Forms::Button^>(9) {
 				this->btnUnirEquipLliga,
-				this->btnEnregistrarEquip,
-				this->btnProgPartits,
-				this->btnEstatLligues,
-				this->btnEstadistiques,
-				this->btnConsultar,
-				this->btnMenuConsultarTelefons,
-				this->btnSeguirLligaMainMenu,
-				this->btnCrearLligaMainMenu
+					this->btnEnregistrarEquip,
+					this->btnProgPartits,
+					this->btnEstatLligues,
+					this->btnEstadistiques,
+					this->btnConsultar,
+					this->btnMenuConsultarTelefons,
+					this->btnSeguirLligaMainMenu,
+					this->btnCrearLligaMainMenu
 			};
 
 			for (int i = 0; i < candidates->Length; i++) {
@@ -252,14 +264,14 @@ namespace CppCLRWinFormsProject {
 		int maxMenuBottom = 0;
 		cli::array<System::Windows::Forms::Button^>^ menuCandidates = gcnew cli::array<System::Windows::Forms::Button^>(9) {
 			this->btnUnirEquipLliga,
-			this->btnEnregistrarEquip,
-			this->btnProgPartits,
-			this->btnEstatLligues,
-			this->btnEstadistiques,
-			this->btnConsultar,
-			this->btnMenuConsultarTelefons,
-			this->btnSeguirLligaMainMenu,
-			this->btnCrearLligaMainMenu
+				this->btnEnregistrarEquip,
+				this->btnProgPartits,
+				this->btnEstatLligues,
+				this->btnEstadistiques,
+				this->btnConsultar,
+				this->btnMenuConsultarTelefons,
+				this->btnSeguirLligaMainMenu,
+				this->btnCrearLligaMainMenu
 		};
 		for (int i = 0; i < menuCandidates->Length; i++) {
 			System::Windows::Forms::Button^ b = menuCandidates[i];
@@ -332,7 +344,7 @@ namespace CppCLRWinFormsProject {
 			}
 		}
 
-       int dashboardBottom = this->picImatge->Bottom;
+		int dashboardBottom = this->picImatge->Bottom;
 		if (this->pnlDashboardLliga != nullptr && this->pnlDashboardLliga->Visible) {
 			dashboardBottom = this->pnlDashboardLliga->Bottom;
 		}
@@ -341,10 +353,10 @@ namespace CppCLRWinFormsProject {
 		this->lstNoticies->Location = System::Drawing::Point(50, noticiesY + 25);
 		this->lstNoticies->Size = System::Drawing::Size(cw - 100, ch - (noticiesY + 25) - 20);
 
-      // --- PANEL CONSULTAR ---
+		// --- PANEL CONSULTAR ---
 		this->lblConsultarTitle->Location = System::Drawing::Point(centerX - this->lblConsultarTitle->Width / 2, 30);
 		this->btnTornarConsultar->Location = System::Drawing::Point(30, 30);
-        int quickY = centerY - 110;
+		int quickY = centerY - 110;
 		if (quickY < 80) quickY = 80;
 		if (this->lblAccesRapidCalendari != nullptr) {
 			this->lblAccesRapidCalendari->Location = System::Drawing::Point(centerX - 170, quickY);
@@ -665,12 +677,12 @@ namespace CppCLRWinFormsProject {
 			this->btnEstJugadors->Size = this->btnEstPartit->Size;
 			this->btnEstJugadors->Font = this->btnEstPartit->Font;
 		}
-		
+
 
 
 		// NOU: Posicionament del panell d'edició de partits
 
-		
+
 
 		if (this->pnlEditarPartit->Visible) {
 			int startX = 50;
@@ -742,7 +754,7 @@ namespace CppCLRWinFormsProject {
 			this->pnlEstadistiquesPartitDetail->Location = System::Drawing::Point(0, 0);
 			this->pnlEstadistiquesPartitDetail->Size = System::Drawing::Size(cw, ch);
 
-			this->btnEstPartitTornar->Text = L"Tornar";
+			this->btnEstPartitTornar->Text = Tr(L"Tornar");
 			this->btnEstPartitTornar->Location = System::Drawing::Point(30, 30);
 			this->btnEstPartitTornar->Size = System::Drawing::Size(145, 38);
 			this->btnEstPartitTornar->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
@@ -855,7 +867,7 @@ namespace CppCLRWinFormsProject {
 		Form1_Resize(nullptr, nullptr);
 	}
 
-   void Form1::MostrarPantallaConsultarInicial() {
+	void Form1::MostrarPantallaConsultarInicial() {
 		MostrarPanelInicialTask162(this->pnlConsultar);
 		ActualitzarAccesRapidCalendariLligaSeguida();
 	}
@@ -920,7 +932,7 @@ namespace CppCLRWinFormsProject {
 		if (this->pnlEstadistiquesEquipDetail != nullptr) this->pnlEstadistiquesEquipDetail->Visible = false;
 		if (this->pnlEstadistiquesLligaDetail != nullptr) this->pnlEstadistiquesLligaDetail->Visible = false;
 		if (this->pnlConvocatoria != nullptr) this->pnlConvocatoria->Visible = false;
-		
+
 		if (this->pnlEstadistiquesPartitDetail != nullptr) this->pnlEstadistiquesPartitDetail->Visible = false;
 	}
 

@@ -10,7 +10,7 @@ namespace CppCLRWinFormsProject {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-void Form1::ConfigurarLabelsEditarPartitSegonsEsport(System::String^ disciplina) {
+	void Form1::ConfigurarLabelsEditarPartitSegonsEsport(System::String^ disciplina) {
 		// Pre: disciplina indica l'esport del partit seleccionat o pot ser buida.
 		// Post: les etiquetes visibles del panell d'editar partit queden adaptades a l'esport.
 		etiquetesEditarPartitActual = Playcampus::Domini::EtiquetesEditarPartit::ObtenirEtiquetesEditarPartit(disciplina);
@@ -169,7 +169,7 @@ void Form1::ConfigurarLabelsEditarPartitSegonsEsport(System::String^ disciplina)
 		}
 
 		if (dadesValides) {
-			for each (DataGridViewRow^ row in dgvEstadistiquesJugadors->Rows) {
+			for each (DataGridViewRow ^ row in dgvEstadistiquesJugadors->Rows) {
 				if (!row->IsNewRow && estadistiquesValides) {
 					String^ idJugador = row->Cells[0]->Value == nullptr ? L"" : row->Cells[0]->Value->ToString();
 					String^ nom = row->Cells[1]->Value == nullptr ? L"" : row->Cells[1]->Value->ToString();
@@ -231,61 +231,61 @@ void Form1::ConfigurarLabelsEditarPartitSegonsEsport(System::String^ disciplina)
 	}
 
 	System::Void Form1::btnGLAfegirPartit_Click(System::Object^ sender, System::EventArgs^ e) {
-			pnlGestionarLliga->Visible = false;
-			pnlCrearPartit->Visible = true;
+		pnlGestionarLliga->Visible = false;
+		pnlCrearPartit->Visible = true;
 
-			// Netejem tot 
-			// txtCPNomLliga is no longer required
+		// Netejem tot 
+		// txtCPNomLliga is no longer required
+		cmbCPTemporada->Items->Clear();
+		cmbCPJornada->Items->Clear();
+		cmbCPEquipLocal->Items->Clear();
+		cmbCPEquipVisitant->Items->Clear();
+		txtCPUbicacio->Text = L"";
+		dtpCPData->Value = DateTime::Now;
+
+		cmbCPTemporada->Enabled = false;
+		cmbCPJornada->Enabled = false;
+		cmbCPEquipLocal->Enabled = false;
+		cmbCPEquipVisitant->Enabled = false;
+
+		try {
+			Playcampus::Domini::CtrlCrearPartit^ ctrl = gcnew Playcampus::Domini::CtrlCrearPartit();
+			String^ nomLliga = ctrl->ObtenirNomLligaAdministrador(currentUsuariCorreu);
+
+			if (String::IsNullOrEmpty(nomLliga)) {
+				MessageBox::Show(L"No ets administrador de cap lliga.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				return;
+			}
+
+			auto temporades = ctrl->ObtenirTemporadesLliga(nomLliga);
 			cmbCPTemporada->Items->Clear();
-			cmbCPJornada->Items->Clear();
-			cmbCPEquipLocal->Items->Clear();
-			cmbCPEquipVisitant->Items->Clear();
-			txtCPUbicacio->Text = L"";
-			dtpCPData->Value = DateTime::Now;
+			cpTemporadesIds->Clear();
 
-			cmbCPTemporada->Enabled = false;
-			cmbCPJornada->Enabled = false;
-			cmbCPEquipLocal->Enabled = false;
-			cmbCPEquipVisitant->Enabled = false;
-
-			try {
-				Playcampus::Domini::CtrlCrearPartit^ ctrl = gcnew Playcampus::Domini::CtrlCrearPartit();
-				String^ nomLliga = ctrl->ObtenirNomLligaAdministrador(currentUsuariCorreu);
-
-				if (String::IsNullOrEmpty(nomLliga)) {
-					MessageBox::Show(L"No ets administrador de cap lliga.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-					return;
-				}
-
-				auto temporades = ctrl->ObtenirTemporadesLliga(nomLliga);
-				cmbCPTemporada->Items->Clear();
-				cpTemporadesIds->Clear();
-
-				for each(auto temp in temporades) {
-					String^ txt = temp["dataInici"] + L" a " + temp["dataFi"];
-					cmbCPTemporada->Items->Add(txt);
-					cpTemporadesIds->Add(temp["idTemporada"]);
-				}
-
-				cmbCPTemporada->Enabled = true;
-
-				if (cmbCPTemporada->Items->Count > 0) cmbCPTemporada->SelectedIndex = 0;
-
+			for each (auto temp in temporades) {
+				String^ txt = temp["dataInici"] + L" a " + temp["dataFi"];
+				cmbCPTemporada->Items->Add(txt);
+				cpTemporadesIds->Add(temp["idTemporada"]);
 			}
-			catch (Exception^ ex) {
-				MessageBox::Show(L"Error al carregar les dades de la lliga: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
-			}
+
+			cmbCPTemporada->Enabled = true;
+
+			if (cmbCPTemporada->Items->Count > 0) cmbCPTemporada->SelectedIndex = 0;
+
 		}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error al carregar les dades de la lliga: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
 
-System::Void Form1::btnGLEditarPartit_Click(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::btnGLEditarPartit_Click(System::Object^ sender, System::EventArgs^ e) {
 		MostrarPantallaEditarPartit();
 	}
 
-System::Void Form1::btnCPValidarLliga_Click(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::btnCPValidarLliga_Click(System::Object^ sender, System::EventArgs^ e) {
 		// Aquest botó ja no fa res, l'obtenció és automàtica en obrir el panel
 	}
 
-System::Void Form1::cmbCPTemporada_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::cmbCPTemporada_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (cmbCPTemporada->SelectedIndex == -1) return;
 
 		try {
@@ -299,14 +299,14 @@ System::Void Form1::cmbCPTemporada_SelectedIndexChanged(System::Object^ sender, 
 			cmbCPEquipLocal->Items->Clear();
 			cmbCPEquipVisitant->Items->Clear();
 
-			for each(auto jorn in jornades) {
+			for each (auto jorn in jornades) {
 				String^ text = L"Jornada " + jorn["numero"] + L" (" + jorn["dataInici"] + L")";
 				cmbCPJornada->Items->Add(text);
 				cpJornadesIds->Add(jorn["idJornada"]); // Guardar la ID
 			}
 
 			auto equips = ctrl->ObtenirNomsEquipsPerTemporada(idTempSeleccionada);
-			for each(String ^ nom in equips) {
+			for each (String ^ nom in equips) {
 				cmbCPEquipLocal->Items->Add(nom);
 				cmbCPEquipVisitant->Items->Add(nom);
 			}
@@ -328,78 +328,78 @@ System::Void Form1::cmbCPTemporada_SelectedIndexChanged(System::Object^ sender, 
 		}
 	}
 
-System::Void Form1::btnCPCancellar_Click(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::btnCPCancellar_Click(System::Object^ sender, System::EventArgs^ e) {
+		pnlCrearPartit->Visible = false;
+
+		// Netegem els combos quan marxem
+		cmbCPJornada->Items->Clear();
+		cmbCPEquipLocal->Items->Clear();
+		cmbCPEquipVisitant->Items->Clear();
+		txtCPUbicacio->Text = L"";
+
+		if (btnCrearLligaMainMenu->Tag != nullptr && System::Convert::ToString(btnCrearLligaMainMenu->Tag) == L"Gestionar Lliga") {
+			pnlGestionarLliga->Visible = true;
+		}
+		else {
+			pnlMain->Visible = true;
+			ActualitzarEstatSeguirLliga();
+			Form1_Resize(nullptr, nullptr);
+		}
+	}
+
+	System::Void Form1::btnCPConfirmar_Click(System::Object^ sender, System::EventArgs^ e) {
+		// Validar dades
+		if (cmbCPJornada->SelectedIndex == -1 || cmbCPEquipLocal->SelectedIndex == -1 || cmbCPEquipVisitant->SelectedIndex == -1 || String::IsNullOrWhiteSpace(txtCPUbicacio->Text)) {
+			MessageBox::Show(L"Si us plau, valida la lliga i omple tots els camps.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		String^ equipLocal = cmbCPEquipLocal->SelectedItem->ToString();
+		String^ equipVisit = cmbCPEquipVisitant->SelectedItem->ToString();
+
+		if (String::Equals(equipLocal, equipVisit, StringComparison::Ordinal)) {
+			MessageBox::Show(L"L'equip local i visitant no poden ser el mateix.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		DateTime dataPartit = dtpCPData->Value;
+		String^ ubicacioStr = txtCPUbicacio->Text;
+
+		// Agafar la ID de la jornada que hem guardat prèviament al omplir el ComboBox
+		int indexJornada = cmbCPJornada->SelectedIndex;
+		if (indexJornada < 0 || indexJornada >= cpJornadesIds->Count) {
+			MessageBox::Show(L"No s'ha pogut determinar la jornada seleccionada", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
+		}
+		String^ idJornada = cpJornadesIds[indexJornada];
+
+		try {
+			Playcampus::Domini::CtrlCrearPartit^ ctrl = gcnew Playcampus::Domini::CtrlCrearPartit();
+
+			// Passem l'ID de la jornada (String) en el 5\u00E8 par\u00E0metre
+			ctrl->CrearPartit(dataPartit, ubicacioStr, equipLocal, equipVisit, idJornada, currentUsuariTipus);
+
+			MessageBox::Show(L"Partit creat i desat a la base de dades correctament!", L"\u00C8xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			pnlCrearPartit->Visible = false;
-
-			// Netegem els combos quan marxem
-			cmbCPJornada->Items->Clear();
-			cmbCPEquipLocal->Items->Clear();
-			cmbCPEquipVisitant->Items->Clear();
-			txtCPUbicacio->Text = L"";
-
-			if (btnCrearLligaMainMenu->Text == L"Gestionar Lliga") {
-				pnlGestionarLliga->Visible = true;
-			}
-			else {
-				pnlMain->Visible = true;
-		ActualitzarEstatSeguirLliga();
-		Form1_Resize(nullptr, nullptr);
-			}
+			pnlGestionarLliga->Visible = true;
 		}
-
-System::Void Form1::btnCPConfirmar_Click(System::Object^ sender, System::EventArgs^ e) {
-			// Validar dades
-			if (cmbCPJornada->SelectedIndex == -1 || cmbCPEquipLocal->SelectedIndex == -1 || cmbCPEquipVisitant->SelectedIndex == -1 || String::IsNullOrWhiteSpace(txtCPUbicacio->Text)) {
-				MessageBox::Show(L"Si us plau, valida la lliga i omple tots els camps.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-				return;
-			}
-
-			String^ equipLocal = cmbCPEquipLocal->SelectedItem->ToString();
-			String^ equipVisit = cmbCPEquipVisitant->SelectedItem->ToString();
-
-			if (String::Equals(equipLocal, equipVisit, StringComparison::Ordinal)) {
-				MessageBox::Show(L"L'equip local i visitant no poden ser el mateix.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-				return;
-			}
-
-			DateTime dataPartit = dtpCPData->Value;
-			String^ ubicacioStr = txtCPUbicacio->Text;
-
-			// Agafar la ID de la jornada que hem guardat prèviament al omplir el ComboBox
-			int indexJornada = cmbCPJornada->SelectedIndex;
-			if (indexJornada < 0 || indexJornada >= cpJornadesIds->Count) {
-				MessageBox::Show(L"No s'ha pogut determinar la jornada seleccionada", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-				return;
-			}
-			String^ idJornada = cpJornadesIds[indexJornada];
-
-			try {
-				Playcampus::Domini::CtrlCrearPartit^ ctrl = gcnew Playcampus::Domini::CtrlCrearPartit();
-
-				// Passem l'ID de la jornada (String) en el 5\u00E8 par\u00E0metre
-				ctrl->CrearPartit(dataPartit, ubicacioStr, equipLocal, equipVisit, idJornada, currentUsuariTipus);
-
-				MessageBox::Show(L"Partit creat i desat a la base de dades correctament!", L"\u00C8xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
-				pnlCrearPartit->Visible = false;
-				pnlGestionarLliga->Visible = true;
-			}
-			catch (Exception^ ex) {
-				MessageBox::Show(L"Error al desar el partit: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
-			}
+		catch (Exception^ ex) {
+			MessageBox::Show(L"Error al desar el partit: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
+	}
 
-System::Void Form1::btnGLEsborrarPartit_Click(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::btnGLEsborrarPartit_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlGestionarLliga->Visible = false;
 		pnlEsborrarPartit->Visible = true;
 		CarregarTemporadesEsborrar();
 	}
 
-System::Void Form1::btnEPTornar_Click(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::btnEPTornar_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlEsborrarPartit->Visible = false;
 		pnlGestionarLliga->Visible = true;
 	}
 
-void Form1::CarregarTemporadesEsborrar() {
+	void Form1::CarregarTemporadesEsborrar() {
 		cmbEPTemporades->Items->Clear();
 		epTemporadaIds->Clear();
 		cmbEPJornades->Items->Clear();
@@ -411,7 +411,7 @@ void Form1::CarregarTemporadesEsborrar() {
 			Playcampus::Domini::CtrlEsborrarPartit^ ctrl = gcnew Playcampus::Domini::CtrlEsborrarPartit();
 			auto temporades = ctrl->ObtenirTemporadesAdmin(currentUsuariCorreu);
 
-			for each(auto dict in temporades) {
+			for each (auto dict in temporades) {
 				String^ display = dict["dataInici"] + L" a " + dict["dataFi"] + L" [" + dict["estat"] + L"]";
 				cmbEPTemporades->Items->Add(display);
 				epTemporadaIds->Add(dict["idTemporada"]);
@@ -424,7 +424,7 @@ void Form1::CarregarTemporadesEsborrar() {
 		}
 	}
 
-System::Void Form1::cmbEPTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::cmbEPTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 		cmbEPJornades->Items->Clear();
 		epJornadaIds->Clear();
 		cmbEPPartits->Items->Clear();
@@ -437,7 +437,7 @@ System::Void Form1::cmbEPTemporades_SelectedIndexChanged(System::Object^ sender,
 				Playcampus::Domini::CtrlEsborrarPartit^ ctrl = gcnew Playcampus::Domini::CtrlEsborrarPartit();
 				auto jornades = ctrl->ObtenirJornadesPerTemporada(idTemporadaStr);
 
-				for each(auto dict in jornades) {
+				for each (auto dict in jornades) {
 					// AFEGIM dataFi i estat per Jornada
 					String^ display = L"Jornada " + dict["numero"] + L" | " + dict["dataInici"] + L" a " + dict["dataFi"] + L" [" + dict["estat"] + L"]";
 					cmbEPJornades->Items->Add(display);
@@ -452,7 +452,7 @@ System::Void Form1::cmbEPTemporades_SelectedIndexChanged(System::Object^ sender,
 		}
 	}
 
-System::Void Form1::cmbEPJornades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::cmbEPJornades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 		cmbEPPartits->Items->Clear();
 		epPartitIds->Clear();
 
@@ -463,7 +463,7 @@ System::Void Form1::cmbEPJornades_SelectedIndexChanged(System::Object^ sender, S
 				Playcampus::Domini::CtrlEsborrarPartit^ ctrl = gcnew Playcampus::Domini::CtrlEsborrarPartit();
 				auto partits = ctrl->ObtenirPartitsPerJornada(idJornadaStr);
 
-				for each(auto dict in partits) {
+				for each (auto dict in partits) {
 					String^ ubicacio = String::IsNullOrWhiteSpace(dict["ubicacio"]) ? L"Sense ubi" : dict["ubicacio"];
 					// AFEGIM Els noms dels equips: local vs visitant
 					String^ display = dict["dataHora"] + L" | " + dict["equipLocal"] + L" vs " + dict["equipVisitant"] + L" (Ubi: " + ubicacio + L") [" + dict["estat"] + L"]";
@@ -479,7 +479,7 @@ System::Void Form1::cmbEPJornades_SelectedIndexChanged(System::Object^ sender, S
 		}
 	}
 
-System::Void Form1::btnEPEsborrarFinal_Click(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::btnEPEsborrarFinal_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (cmbEPPartits->SelectedIndex < 0) {
 			MessageBox::Show(L"Si us plau, selecciona una temporada, una jornada i finalment un partit per a esborrar.", L"Av\u00EDs", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
@@ -487,12 +487,12 @@ System::Void Form1::btnEPEsborrarFinal_Click(System::Object^ sender, System::Eve
 
 		String^ idPartit = epPartitIds[cmbEPPartits->SelectedIndex];
 		String^ displayPartit = cmbEPPartits->SelectedItem->ToString();
-			System::Windows::Forms::DialogResult confirm = MessageBox::Show(
-				L"Est\u00E0s segur d'eliminar definitivament el partit: \n\n" + displayPartit +
-				L"?\n\nTamb\u00E9 s'eliminaran les estad\u00EDstiques individuals del partit i es restaran de les estad\u00EDstiques acumulades dels equips i jugadors.",
-				L"Confirmaci\u00F3 de borrat",
-				MessageBoxButtons::YesNo,
-				MessageBoxIcon::Exclamation);
+		System::Windows::Forms::DialogResult confirm = MessageBox::Show(
+			L"Est\u00E0s segur d'eliminar definitivament el partit: \n\n" + displayPartit +
+			L"?\n\nTamb\u00E9 s'eliminaran les estad\u00EDstiques individuals del partit i es restaran de les estad\u00EDstiques acumulades dels equips i jugadors.",
+			L"Confirmaci\u00F3 de borrat",
+			MessageBoxButtons::YesNo,
+			MessageBoxIcon::Exclamation);
 
 		if (confirm == System::Windows::Forms::DialogResult::Yes) {
 			try {

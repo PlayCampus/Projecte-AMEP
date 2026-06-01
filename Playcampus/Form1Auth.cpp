@@ -95,10 +95,12 @@ namespace CppCLRWinFormsProject {
 					btnCrearLligaMainMenu->Visible = true;
 					Playcampus::Domini::CtrlCrearLliga^ ctrlCrear = gcnew Playcampus::Domini::CtrlCrearLliga();
 					if (ctrlCrear->TeLligaActiva(currentUsuariCorreu)) {
-						btnCrearLligaMainMenu->Text = L"Gestionar Lliga";
+						btnCrearLligaMainMenu->Tag = L"Gestionar Lliga";
+						btnCrearLligaMainMenu->Text = Tr(L"Gestionar Lliga");
 					}
 					else {
-						btnCrearLligaMainMenu->Text = L"Crear Lliga";
+						btnCrearLligaMainMenu->Tag = L"Crear Lliga";
+						btnCrearLligaMainMenu->Text = Tr(L"Crear Lliga");
 					}
 				}
 				else {
@@ -116,17 +118,21 @@ namespace CppCLRWinFormsProject {
 					}
 
 					if (ctrlInici->CapitaTeEquip(currentUsuariCorreu)) {
-						btnEnregistrarEquip->Text = L"Gestionar Equip";
+						btnEnregistrarEquip->Tag = L"Gestionar Equip";
+						btnEnregistrarEquip->Text = Tr(L"Gestionar Equip");
 					}
 					else {
-						btnEnregistrarEquip->Text = L"Enregistrar Equip";
+						btnEnregistrarEquip->Tag = L"Enregistrar Equip";
+						btnEnregistrarEquip->Text = Tr(L"Enregistrar Equip");
 					}
 
 					if (ctrlInici->EquipEstaEnLliga(currentUsuariCorreu)) {
-						btnUnirEquipLliga->Text = L"Abandonar Lliga";
+						btnUnirEquipLliga->Tag = L"Abandonar Lliga";
+						btnUnirEquipLliga->Text = Tr(L"Abandonar Lliga");
 					}
 					else {
-						btnUnirEquipLliga->Text = L"Unir equip a lliga";
+						btnUnirEquipLliga->Tag = L"Unir equip a lliga";
+						btnUnirEquipLliga->Text = Tr(L"Unir equip a lliga");
 					}
 
 				}
@@ -179,11 +185,11 @@ namespace CppCLRWinFormsProject {
 				Form1_Resize(nullptr, nullptr);
 			}
 			else {
-				MessageBox::Show(L"Credencials incorrectes.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				MessageBox::Show(Tr(L"Credencials incorrectes."), Tr(L"Error"), MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
 		}
 		catch (Exception^ ex) {
-			MessageBox::Show(L"Error en iniciar sessi\u00F3: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			MessageBox::Show(Tr(L"Error en iniciar sessi\u00F3: ") + ex->Message, Tr(L"Error BD"), MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
 
@@ -195,11 +201,11 @@ namespace CppCLRWinFormsProject {
 		String^ telefon = txtRegTelefon->Text;
 
 		if (String::IsNullOrEmpty(nom) || String::IsNullOrEmpty(correu) || String::IsNullOrEmpty(pass)) {
-			MessageBox::Show(L"Omple tots els camps.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show(Tr(L"Omple tots els camps."), Tr(L"Error"), MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 		if ((tipus == L"Capita" || tipus == L"Capit\u00E0" || tipus == L"Administrador") && String::IsNullOrEmpty(telefon)) {
-			MessageBox::Show(L"Cal introduir el tel\u00E8fon per al capit\u00E0 i administrador.", L"Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			MessageBox::Show(Tr(L"Cal introduir el tel\u00E8fon per al capit\u00E0 i administrador."), Tr(L"Error"), MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
 
@@ -207,7 +213,7 @@ namespace CppCLRWinFormsProject {
 			Playcampus::Domini::CtrlRegistrarUsuari^ ctrlReg = gcnew Playcampus::Domini::CtrlRegistrarUsuari();
 			String^ tipusGuardar = (tipus == L"Capit\u00E0") ? L"Capita" : tipus;
 			ctrlReg->CrearUsuari(nom, pass, DateTime::Now, correu, tipusGuardar, telefon);
-			MessageBox::Show(L"Usuari registrat correctament!", L"\u00C8xit", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			MessageBox::Show(Tr(L"Usuari registrat correctament!"), Tr(L"\u00C8xit"), MessageBoxButtons::OK, MessageBoxIcon::Information);
 
 			pnlRegister->Visible = false;
 			pnlInici->Visible = true;
@@ -219,7 +225,7 @@ namespace CppCLRWinFormsProject {
 			txtRegTelefon->Text = L"";
 		}
 		catch (Exception^ ex) {
-			MessageBox::Show(L"Error al registrar: " + ex->Message, L"Error BD", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			MessageBox::Show(Tr(L"Error al registrar: ") + ex->Message, Tr(L"Error BD"), MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
 
@@ -244,9 +250,10 @@ namespace CppCLRWinFormsProject {
 		if (this->btnGEConsultarTelefons != nullptr) this->btnGEConsultarTelefons->Visible = false;
 		if (this->btnGLConsultarTelefons != nullptr) this->btnGLConsultarTelefons->Visible = false;
 
-       if (this->btnSeguirLligaMainMenu != nullptr) {
+		if (this->btnSeguirLligaMainMenu != nullptr) {
 			this->btnSeguirLligaMainMenu->Visible = false;
-			this->btnSeguirLligaMainMenu->Text = L"Seguir Lliga";
+			this->btnSeguirLligaMainMenu->Tag = L"Seguir Lliga";
+			this->btnSeguirLligaMainMenu->Text = Tr(L"Seguir Lliga");
 		}
 		if (this->pnlDashboardLliga != nullptr) this->pnlDashboardLliga->Visible = false;
 		if (this->picImatge != nullptr) this->picImatge->Visible = true;
@@ -255,7 +262,7 @@ namespace CppCLRWinFormsProject {
 	System::String^ Form1::DemanarNomLliga(System::String^ titol, System::String^ missatge) {
 		Form^ dlg = gcnew Form();
 		dlg->Text = titol;
-        dlg->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
+		dlg->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
 		dlg->StartPosition = FormStartPosition::CenterParent;
 		dlg->MinimizeBox = false;
 		dlg->MaximizeBox = false;
@@ -272,13 +279,13 @@ namespace CppCLRWinFormsProject {
 		txt->Location = System::Drawing::Point(15, 55);
 
 		Button^ ok = gcnew Button();
-		ok->Text = L"OK";
+		ok->Text = Tr(L"OK");
 		ok->DialogResult = System::Windows::Forms::DialogResult::OK;
 		ok->Location = System::Drawing::Point(235, 95);
 		ok->Size = System::Drawing::Size(80, 30);
 
 		Button^ cancel = gcnew Button();
-		cancel->Text = L"Cancel\u00B7lar";
+		cancel->Text = Tr(L"Cancel\u00B7lar");
 		cancel->DialogResult = System::Windows::Forms::DialogResult::Cancel;
 		cancel->Location = System::Drawing::Point(325, 95);
 		cancel->Size = System::Drawing::Size(80, 30);
@@ -290,9 +297,9 @@ namespace CppCLRWinFormsProject {
 		dlg->Controls->Add(ok);
 		dlg->Controls->Add(cancel);
 
-     System::Windows::Forms::DialogResult r = dlg->ShowDialog(this);
+		System::Windows::Forms::DialogResult r = dlg->ShowDialog(this);
 		String^ value = nullptr;
-        if (r == System::Windows::Forms::DialogResult::OK) {
+		if (r == System::Windows::Forms::DialogResult::OK) {
 			value = txt->Text;
 		}
 		delete dlg;
@@ -304,7 +311,7 @@ namespace CppCLRWinFormsProject {
 		Playcampus::Domini::CtrlSeguirLliga^ ctrl = gcnew Playcampus::Domini::CtrlSeguirLliga();
 		String^ nom = ctrl->ObtenirNomLligaPerId(idLliga);
 		if (this->lblDashboardLliga != nullptr) {
-			this->lblDashboardLliga->Text = String::IsNullOrEmpty(nom) ? L"" : (L"Lliga: " + nom);
+			this->lblDashboardLliga->Text = String::IsNullOrEmpty(nom) ? L"" : (Tr(L"Lliga: ") + nom);
 		}
 		if (this->dgvDashboardClassificacio != nullptr) {
 			this->dgvDashboardClassificacio->DataSource = ctrl->ObtenirClassificacioLliga(idLliga);
@@ -327,17 +334,20 @@ namespace CppCLRWinFormsProject {
 			Playcampus::Domini::CtrlSeguirLliga^ ctrl = gcnew Playcampus::Domini::CtrlSeguirLliga();
 			String^ id = ctrl->ObtenirIdLligaSeguida(currentUsuariCorreu);
 			if (!String::IsNullOrEmpty(id)) {
-				this->btnSeguirLligaMainMenu->Text = L"Deixar de seguir lliga actual";
+				this->btnSeguirLligaMainMenu->Tag = L"Deixar de seguir lliga actual";
+				this->btnSeguirLligaMainMenu->Text = Tr(L"Deixar de seguir lliga actual");
 				CarregarDashboardLliga(id);
 			}
 			else {
-				this->btnSeguirLligaMainMenu->Text = L"Seguir Lliga";
+				this->btnSeguirLligaMainMenu->Tag = L"Seguir Lliga";
+				this->btnSeguirLligaMainMenu->Text = Tr(L"Seguir Lliga");
 				if (this->pnlDashboardLliga != nullptr) this->pnlDashboardLliga->Visible = false;
 				if (this->picImatge != nullptr) this->picImatge->Visible = true;
 			}
 		}
 		catch (Exception^) {
-			this->btnSeguirLligaMainMenu->Text = L"Seguir Lliga";
+			this->btnSeguirLligaMainMenu->Tag = L"Seguir Lliga";
+			this->btnSeguirLligaMainMenu->Text = Tr(L"Seguir Lliga");
 			if (this->pnlDashboardLliga != nullptr) this->pnlDashboardLliga->Visible = false;
 			if (this->picImatge != nullptr) this->picImatge->Visible = true;
 		}
@@ -350,7 +360,7 @@ namespace CppCLRWinFormsProject {
 			String^ idActual = ctrl->ObtenirIdLligaSeguida(currentUsuariCorreu);
 
 			if (!String::IsNullOrEmpty(idActual)) {
-				auto r = MessageBox::Show(L"Est\u00E0s segur que vols deixar de seguir la lliga?", L"Confirmaci\u00F3", MessageBoxButtons::YesNo, MessageBoxIcon::Question);
+				auto r = MessageBox::Show(Tr(L"Est\u00E0s segur que vols deixar de seguir la lliga?"), Tr(L"Confirmaci\u00F3"), MessageBoxButtons::YesNo, MessageBoxIcon::Question);
 				if (r == System::Windows::Forms::DialogResult::Yes) {
 					ctrl->DeixarDeSeguir(currentUsuariCorreu);
 					ActualitzarEstatSeguirLliga();
@@ -358,16 +368,17 @@ namespace CppCLRWinFormsProject {
 				return;
 			}
 
-			String^ nomLliga = DemanarNomLliga(L"Seguir Lliga", L"Introdueix el nom de la lliga que vols seguir:");
+			String^ nomLliga = DemanarNomLliga(Tr(L"Seguir Lliga"), Tr(L"Introdueix el nom de la lliga que vols seguir:"));
 			if (String::IsNullOrWhiteSpace(nomLliga)) return;
 
 			ctrl->SeguirLliga(currentUsuariCorreu, nomLliga->Trim());
 			String^ id = ctrl->ObtenirIdLligaPerNom(nomLliga->Trim());
-			this->btnSeguirLligaMainMenu->Text = L"Deixar de seguir lliga actual";
+			this->btnSeguirLligaMainMenu->Tag = L"Deixar de seguir lliga actual";
+			this->btnSeguirLligaMainMenu->Text = Tr(L"Deixar de seguir lliga actual");
 			CarregarDashboardLliga(id);
 		}
 		catch (Exception^ ex) {
-			MessageBox::Show(L"Error: " + ex->Message, L"Seguir Lliga", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			MessageBox::Show(Tr(L"Error: ") + ex->Message, Tr(L"Seguir Lliga"), MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
 

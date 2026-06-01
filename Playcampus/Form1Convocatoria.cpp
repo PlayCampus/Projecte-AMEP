@@ -12,7 +12,7 @@ namespace CppCLRWinFormsProject {
 
 	System::Void Form1::btnGestionarConvocatoria_Click(System::Object^ sender, System::EventArgs^ e) {
 		convocatoriaObertaDesDeGestionarEquip = false;
-		btnTornarConvocatoria->Text = L"Tornar al Men\u00FA";
+		btnTornarConvocatoria->Text = Tr(L"Tornar al Menú");
 		pnlMain->Visible = false;
 		pnlConvocatoria->Visible = true;
 		pnlConvocatoria->BringToFront();
@@ -28,8 +28,8 @@ namespace CppCLRWinFormsProject {
 		}
 		else {
 			pnlMain->Visible = true;
-		ActualitzarEstatSeguirLliga();
-		Form1_Resize(nullptr, nullptr);
+			ActualitzarEstatSeguirLliga();
+			Form1_Resize(nullptr, nullptr);
 			pnlMain->BringToFront();
 		}
 		convocatoriaObertaDesDeGestionarEquip = false;
@@ -54,7 +54,7 @@ namespace CppCLRWinFormsProject {
 			else {
 				dgvConvocatoria->Columns->Clear();
 				dgvConvocatoria->Rows->Clear();
-				MessageBox::Show(L"No hi ha partits pendents per gestionar convocat\u00F2ries.", L"Convocat\u00F2ries", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				MessageBox::Show(Tr(L"No hi ha partits pendents per gestionar convocatòries."), Tr(L"Convocatòries"), MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
 		}
 		catch (Exception^ ex) {
@@ -155,7 +155,7 @@ namespace CppCLRWinFormsProject {
 		if (tipus == "no_convocat") {
 			// Un único botón de aceptación para los no convocados
 			System::Windows::Forms::Button^ btnOk = gcnew System::Windows::Forms::Button();
-			btnOk->Text = L"D'acord";
+			btnOk->Text = Tr(L"D'acord");
 			btnOk->Size = System::Drawing::Size(120, 35);
 			btnOk->Location = System::Drawing::Point(190, 160); // Centrado horizontalmente
 			btnOk->BackColor = System::Drawing::Color::LightGray;
@@ -167,14 +167,14 @@ namespace CppCLRWinFormsProject {
 		else {
 			// El diseño original de Sí/No para los jugadores que SÍ están convocados
 			System::Windows::Forms::Button^ btnSi = gcnew System::Windows::Forms::Button();
-			btnSi->Text = L"S\u00ED, hi anir\u00E9";
+			btnSi->Text = Tr(L"Sí, hi aniré");
 			btnSi->Size = System::Drawing::Size(100, 35);
 			btnSi->Location = System::Drawing::Point(140, 160);
 			btnSi->BackColor = System::Drawing::Color::LightGreen;
 			btnSi->Click += gcnew System::EventHandler(this, &Form1::btnConfirmarSi_Click);
 
 			System::Windows::Forms::Button^ btnNo = gcnew System::Windows::Forms::Button();
-			btnNo->Text = L"No puc";
+			btnNo->Text = Tr(L"No puc");
 			btnNo->Size = System::Drawing::Size(100, 35);
 			btnNo->Location = System::Drawing::Point(260, 160);
 			btnNo->BackColor = System::Drawing::Color::Salmon;
@@ -204,7 +204,7 @@ namespace CppCLRWinFormsProject {
 			Playcampus::Domini::CtlrConvocarJugadors^ ctrl = gcnew Playcampus::Domini::CtlrConvocarJugadors();
 			ctrl->ConfirmarAssistencia(idPartitPendentConfirmar, idJugador, assisteix);
 
-			MessageBox::Show(L"S'ha guardat la teva resposta correctament.");
+			MessageBox::Show(Tr(L"S'ha guardat la teva resposta correctament."));
 			this->Controls->Remove(pnlAvisJugador);
 		}
 		catch (Exception^ ex) {
