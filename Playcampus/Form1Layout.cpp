@@ -400,7 +400,9 @@ namespace CppCLRWinFormsProject {
 
 			this->lblEstEquipBuscar->Location = System::Drawing::Point(eeStartX, 105);
 			this->txtEstEquipBuscar->Location = System::Drawing::Point(eeStartX + 130, 102);
-			this->btnEstEquipCercar->Location = System::Drawing::Point(eeStartX + 405, 99);
+			this->txtEstEquipBuscar->Size = System::Drawing::Size(260, 22);
+			this->btnEstEquipCercar->Location = System::Drawing::Point(eeStartX + 400, 99);
+			this->btnEstEquipCercar->Size = System::Drawing::Size(90, 28);
 
 			this->lblEstEquipLliga->Location = System::Drawing::Point(eeStartX, 150);
 			this->cmbEstEquipLligues->Location = System::Drawing::Point(eeStartX + 130, 147);
