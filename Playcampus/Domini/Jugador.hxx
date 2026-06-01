@@ -11,6 +11,7 @@ namespace Playcampus {
             int dorsal;
             int edat;
             DateTime antiguitat;
+            DateTime dataNaixement;
 
             // Atributs genèrics d'estadístiques (compatibles amb totes les disciplines)
             int anotacions;    // Futbol: Gols, Bàsquet/Voley: Punts
@@ -22,7 +23,7 @@ namespace Playcampus {
             String^ posicio;
 
         public:
-            Jugador(String^ identificador, String^ nom, String^ contrasenya, DateTime data_registre, String^ correu_electronic, String^ posicio, int dorsal, int edat, DateTime antiguitat);
+            Jugador(String^ identificador, String^ nom, String^ contrasenya, DateTime data_registre, String^ correu_electronic, String^ posicio, int dorsal, int edat, DateTime antiguitat, DateTime dataNaixement);
 
             String^ GetPosicio();
             void SetPosicio(String^ posicio);
@@ -35,6 +36,9 @@ namespace Playcampus {
 
             DateTime GetAntiguitat();
             void SetAntiguitat(DateTime antiguitat);
+
+            DateTime GetDataNaixement();
+            void SetDataNaixement(DateTime dataNaixement);
 
             // Getters i Setters Estadístiques
             int GetAnotacions();
@@ -59,6 +63,8 @@ namespace Playcampus {
                         bool ValidarDorsal();
                         bool ValidarEdat();
                         bool ValidarAntiguitat();
+                        bool ValidarDataNaixement();
+                        bool ValidarEstadistiques();
                     };
                 }
             }

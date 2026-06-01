@@ -44,6 +44,9 @@ namespace Playcampus {
             void Modifica(String^ idJugador);
             void Esborra(String^ idJugador);
             static PassarellaJugador^ Llegeix(String^ connStr, String^ idJ);
+            void ActualitzarDorsalIPosicio(String^ idJugador, int dorsal, String^ posicio);
+            void EliminarJugadorDeEquip(String^ idJugador, String^ idEquip);
+            void ExpulsarJugadorDeEquip(String^ idJugador, String^ idEquip);
         };
     }
 }

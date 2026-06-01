@@ -1,128 +1,123 @@
 ﻿#include "pch.h"
 #include "CtrlUnirEquipLliga.hxx"
 #include "../Dades/ConnexioBD.hxx"
-#include "../Dades/PassarellaLliga.hxx"
+#include "../Dades/CercadoraLliga.hxx"
+#include "../Dades/CercadoraEquip.hxx"
+#include "../Dades/CercadoraEquipTemporada.hxx"
 #include "../Dades/PassarellaTemporada.hxx"
 #include "../Dades/PassarellaEquip.hxx"
+#include "../Dades/PassarellaEquipTemporada.hxx"
 #include <stdexcept>
 
 using namespace System;
-using namespace MySql::Data::MySqlClient;
+using namespace Playcampus::Dades;
+
+static String^ NormalitzarDisciplinaVinculacioLocal(String^ disciplina) {
+    String^ resultat = nullptr;
+
+    if (!String::IsNullOrWhiteSpace(disciplina)) {
+        String^ disciplinaNeta = disciplina->Trim()->ToLower();
+
+        if (disciplinaNeta == "futbol") {
+            resultat = "Futbol";
+        }
+        else if (disciplinaNeta == "basquet" || disciplinaNeta == L"bàsquet") {
+            resultat = "Basquet";
+        }
+        else if (disciplinaNeta == "voley" || disciplinaNeta == "volei" || disciplinaNeta == L"vòlei") {
+            resultat = "Voley";
+        }
+    }
+
+    return resultat;
+}
 
 namespace Playcampus {
     namespace Domini {
 
         CtrlUnirEquipLliga::CtrlUnirEquipLliga() {
-            connectionString = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
+            connectionString = ConnexioBD::ObtenirConnectionString();
         }
 
         String^ CtrlUnirEquipLliga::ComprovarSiLligaExisteix(String^ nomLliga) {
-            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
-            String^ idLliga = nullptr;
-
-            try {
-                conn->Open();
-
-                String^ query = "SELECT idLliga FROM Lliga WHERE nom = @nomLliga";
-                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                cmd->Parameters->AddWithValue("@nomLliga", nomLliga);
-
-                Object^ result = cmd->ExecuteScalar();
-                if (result != nullptr && result != DBNull::Value) {
-                    idLliga = result->ToString();
-                }
-            }
-            finally {
-                if (conn != nullptr) {
-                    conn->Close();
-                    delete conn;
-                }
-            }
-            return idLliga;
+            CercadoraLliga^ cercadoraLliga = gcnew CercadoraLliga(connectionString);
+            return cercadoraLliga->ObtenirIdLligaPerNom(nomLliga);
         }
 
         bool CtrlUnirEquipLliga::ValidarContrasenyaLliga(String^ nomLliga, String^ pass) {
-            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
-            bool isValid = false;
-
-            try {
-                conn->Open();
-
-                String^ query = "SELECT contrasenya FROM Lliga WHERE nom = @nomLliga";
-                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                cmd->Parameters->AddWithValue("@nomLliga", nomLliga);
-
-                Object^ result = cmd->ExecuteScalar();
-                if (result != nullptr && result != DBNull::Value) {
-                    String^ currentPass = result->ToString();
-                    isValid = (currentPass == pass);
-                }
-            }
-            finally {
-                if (conn != nullptr) {
-                    conn->Close();
-                    delete conn;
-                }
-            }
-            return isValid;
+            CercadoraLliga^ cercadoraLliga = gcnew CercadoraLliga(connectionString);
+            String^ currentPass = cercadoraLliga->ObtenirContrasenyaLliga(nomLliga);
+            return currentPass != nullptr && currentPass == pass;
         }
 
         String^ CtrlUnirEquipLliga::VincularEquip(String^ correuCapita, String^ nomLliga) {
-            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
-            String^ missatgeExit = "";
+            CercadoraEquip^ cercadoraEquip = gcnew CercadoraEquip(connectionString);
+            String^ idEquipRecuperat = cercadoraEquip->ObtenirIdEquipCapita(correuCapita);
 
-            try {
-                conn->Open();
-
-                String^ queryCap = "SELECT C.idEquip FROM Capita C JOIN Usuari U ON C.identificador = U.identificador WHERE U.correu_electronic = @correu";
-                MySqlCommand^ cmdCap = gcnew MySqlCommand(queryCap, conn);
-                cmdCap->Parameters->AddWithValue("@correu", correuCapita);
-                Object^ idEquipObj = cmdCap->ExecuteScalar();
-
-                if (idEquipObj == nullptr || idEquipObj == DBNull::Value || String::IsNullOrWhiteSpace(idEquipObj->ToString())) {
-                    throw gcnew Exception("Aquest capita no te un equip actiu. Primer enregistra't un.");
-                }
-
-                String^ idEquipRecuperat = idEquipObj->ToString()->Trim();
-
-                String^ idLligaEncontrado = ComprovarSiLligaExisteix(nomLliga);
-                if (idLligaEncontrado == nullptr) {
-                    throw gcnew Exception("La lliga no existeix.");
-                }
-
-                // 3. Obtenir l'ID de la Temporada mÃ©s recent de la Lliga
-                Playcampus::Dades::PassarellaTemporada^ passTemporada = gcnew Playcampus::Dades::PassarellaTemporada(connectionString);
-                String^ idTemporadaMesRecent = passTemporada->ObtenirIdTemporadaMesRecent(idLligaEncontrado);
-
-                if (idTemporadaMesRecent == nullptr || String::IsNullOrWhiteSpace(idTemporadaMesRecent)) {
-                    throw gcnew Exception("La lliga no te cap temporada associada. Primer cal crear una temporada.");
-                }
-
-                // 4. Modificar l'Equip mitjancant la seva Passarella
-                Playcampus::Dades::PassarellaEquip^ equipDB = Playcampus::Dades::PassarellaEquip::Llegeix(connectionString, idEquipRecuperat);
-                if (equipDB != nullptr) {
-                    equipDB->SetIdTemporada(idTemporadaMesRecent);
-                    equipDB->Modifica();
-
-                    // 5. Comprovar que la modificacio s'ha guardat realment a la BD
-                    Playcampus::Dades::PassarellaEquip^ equipComprovat = Playcampus::Dades::PassarellaEquip::Llegeix(connectionString, idEquipRecuperat);
-                    if (equipComprovat == nullptr || String::IsNullOrEmpty(equipComprovat->GetIdTemporada()) || !equipComprovat->GetIdTemporada()->Equals(idTemporadaMesRecent, StringComparison::OrdinalIgnoreCase)) {
-                        throw gcnew Exception("La base de dades no ha confirmat la vinculacio de l'equip amb la temporada.");
-                    }
-
-                    missatgeExit = "L'equip " + equipDB->GetNom() + " ha sigut enregistrat amb exit a la lliga " + nomLliga + ".";
-                }
-                else {
-                    throw gcnew Exception("Equip no trobat a la base de dades. (" + idEquipRecuperat + ")");
-                }
+            if (String::IsNullOrWhiteSpace(idEquipRecuperat)) {
+                throw gcnew Exception(L"Aquest capit\u00E0 no t\u00E9 un equip actiu. Primer enregistra't un.");
             }
-            finally {
-                if (conn != nullptr) {
-                    conn->Close();
-                    delete conn;
-                }
+
+            String^ idLligaEncontrado = ComprovarSiLligaExisteix(nomLliga);
+            if (idLligaEncontrado == nullptr) {
+                throw gcnew Exception("La lliga no existeix.");
             }
-            return missatgeExit;
+
+            PassarellaTemporada^ passTemporada = gcnew PassarellaTemporada(connectionString);
+            String^ idTemporadaMesRecent = passTemporada->ObtenirIdTemporadaMesRecent(idLligaEncontrado);
+
+            if (idTemporadaMesRecent == nullptr || String::IsNullOrWhiteSpace(idTemporadaMesRecent)) {
+                throw gcnew Exception(L"La lliga no t\u00E9 cap temporada associada. Primer cal crear una temporada.");
+            }
+
+            // Comprobar que la temporada obtenida est� "EnCurs"
+            PassarellaTemporada^ dbTemporadaMesRecent = PassarellaTemporada::Llegeix(connectionString, idTemporadaMesRecent);
+            if (dbTemporadaMesRecent == nullptr || dbTemporadaMesRecent->GetEstat() == "Finalitzat") {
+                throw gcnew Exception(L"La temporada m\u00E9s recent est\u00E0 finalitzada o ha estat retirada. Cal obrir una nova temporada.");
+            }
+
+            PassarellaEquip^ equipDB = PassarellaEquip::Llegeix(connectionString, idEquipRecuperat);
+            if (equipDB == nullptr) {
+                throw gcnew Exception("Equip no trobat a la base de dades. (" + idEquipRecuperat + ")");
+            }
+
+            // RIT22: l'esport de l'equip ha de coincidir amb la disciplina de la lliga de la temporada.
+            String^ disciplinaLliga = (gcnew CercadoraLliga(connectionString))->ObtenirDisciplinaLliga(idLligaEncontrado);
+            String^ esportEquip = equipDB->GetEsport();
+            String^ disciplinaNormalitzada = NormalitzarDisciplinaVinculacioLocal(disciplinaLliga);
+            String^ esportNormalitzat = NormalitzarDisciplinaVinculacioLocal(esportEquip);
+
+            if (String::IsNullOrWhiteSpace(disciplinaNormalitzada) || String::IsNullOrWhiteSpace(esportNormalitzat) || disciplinaNormalitzada != esportNormalitzat) {
+                throw gcnew Exception("L'equip no es pot vincular a aquesta lliga perque l'esport de l'equip no coincideix amb la disciplina de la lliga.");
+            }
+
+            // Usar Llegeix para veure si la vinculacio ja existeix.
+            PassarellaEquipTemporada^ vinculacioExistent = PassarellaEquipTemporada::Llegeix(connectionString, idEquipRecuperat, idTemporadaMesRecent);
+            if (vinculacioExistent != nullptr) {
+                throw gcnew Exception(L"Aquest equip ja esta vinculat a la temporada mes recent d'aquesta lliga.");
+            }
+
+            // RIT26: dins d'una mateixa temporada no poden existir dos equips amb el mateix nom.
+            CercadoraEquipTemporada^ cercadoraEquipTemporada = gcnew CercadoraEquipTemporada(connectionString);
+            if (cercadoraEquipTemporada->ExisteixNomEquipEnTemporada(equipDB->GetNom(), idTemporadaMesRecent, idEquipRecuperat)) {
+                throw gcnew Exception("Ja existeix un equip amb aquest nom dins d'aquesta temporada.");
+            }
+
+            // Crear la associacio amb el segon constructor i guardar-la amb Insereix().
+            PassarellaEquipTemporada^ equipTempDB = gcnew PassarellaEquipTemporada(connectionString, idEquipRecuperat, idTemporadaMesRecent);
+            equipTempDB->Insereix();
+
+      
+
+       
+
+            // Comprobar
+            PassarellaEquipTemporada^ equipComprovat = PassarellaEquipTemporada::Llegeix(connectionString, idEquipRecuperat, idTemporadaMesRecent);
+            if (equipComprovat == nullptr || String::IsNullOrEmpty(equipComprovat->GetIdTemporada()) || !equipComprovat->GetIdTemporada()->Equals(idTemporadaMesRecent, StringComparison::OrdinalIgnoreCase)) {
+                throw gcnew Exception("La base de dades no ha confirmat la vinculacio de l'equip amb la temporada.");
+            }
+
+            return "L'equip " + equipDB->GetNom() + " ha sigut enregistrat amb exit a la lliga " + nomLliga + ".";
         }
     }
 }

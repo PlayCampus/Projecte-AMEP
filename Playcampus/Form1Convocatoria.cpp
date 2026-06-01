@@ -10,7 +10,9 @@ namespace CppCLRWinFormsProject {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-System::Void Form1::btnGestionarConvocatoria_Click(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::btnGestionarConvocatoria_Click(System::Object^ sender, System::EventArgs^ e) {
+		convocatoriaObertaDesDeGestionarEquip = false;
+		btnTornarConvocatoria->Text = Tr(L"Tornar al Menú");
 		pnlMain->Visible = false;
 		pnlConvocatoria->Visible = true;
 		pnlConvocatoria->BringToFront();
@@ -18,12 +20,23 @@ System::Void Form1::btnGestionarConvocatoria_Click(System::Object^ sender, Syste
 		Form1_Resize(nullptr, nullptr);
 	}
 
-System::Void Form1::btnTornarConvocatoria_Click(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::btnTornarConvocatoria_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlConvocatoria->Visible = false;
-		pnlMain->Visible = true;
+		if (convocatoriaObertaDesDeGestionarEquip) {
+			pnlGestionarEquip->Visible = true;
+			pnlGestionarEquip->BringToFront();
+		}
+		else {
+			pnlMain->Visible = true;
+			ActualitzarEstatSeguirLliga();
+			Form1_Resize(nullptr, nullptr);
+			pnlMain->BringToFront();
+		}
+		convocatoriaObertaDesDeGestionarEquip = false;
+		Form1_Resize(nullptr, nullptr);
 	}
 
-System::Void Form1::CarregarPartitsConvocatoria() {
+	System::Void Form1::CarregarPartitsConvocatoria() {
 		try {
 			cbPartitsConvocatoria->Items->Clear();
 			convocatoriaPartitIds->Clear();
@@ -38,13 +51,18 @@ System::Void Form1::CarregarPartitsConvocatoria() {
 				}
 				cbPartitsConvocatoria->SelectedIndex = 0;
 			}
+			else {
+				dgvConvocatoria->Columns->Clear();
+				dgvConvocatoria->Rows->Clear();
+				MessageBox::Show(Tr(L"No hi ha partits pendents per gestionar convocatòries."), Tr(L"Convocatòries"), MessageBoxButtons::OK, MessageBoxIcon::Information);
+			}
 		}
 		catch (Exception^ ex) {
 			MessageBox::Show(L"Error: " + ex->Message);
 		}
 	}
 
-System::Void Form1::cbPartitsConvocatoria_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::cbPartitsConvocatoria_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (cbPartitsConvocatoria->SelectedIndex < 0) return;
 
 		try {
@@ -60,9 +78,9 @@ System::Void Form1::cbPartitsConvocatoria_SelectedIndexChanged(System::Object^ s
 			dgvConvocatoria->Columns->Clear();
 			dgvConvocatoria->Columns->Add("ID", "ID Jugador");
 			dgvConvocatoria->Columns->Add("Nom", "Nom");
-			dgvConvocatoria->Columns->Add("Pos", "Posició");
-			dgvConvocatoria->Columns->Add("Estat", "Estat Convocatòria");
-			dgvConvocatoria->Columns->Add("Conf", "Confirmació");
+			dgvConvocatoria->Columns->Add("Pos", L"Posici\u00F3");
+			dgvConvocatoria->Columns->Add("Estat", L"Estat Convocat\u00F2ria");
+			dgvConvocatoria->Columns->Add("Conf", L"Confirmaci\u00F3");
 
 			dgvConvocatoria->Columns["ID"]->Visible = false; // Ocultem l'ID
 
@@ -77,7 +95,7 @@ System::Void Form1::cbPartitsConvocatoria_SelectedIndexChanged(System::Object^ s
 		}
 	}
 
-System::Void Form1::dgvConvocatoria_CellClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+	System::Void Form1::dgvConvocatoria_CellClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 		if (e->RowIndex < 0) return;
 
 		try {
@@ -85,12 +103,23 @@ System::Void Form1::dgvConvocatoria_CellClick(System::Object^ sender, System::Wi
 			String^ estatActual = dgvConvocatoria->Rows[e->RowIndex]->Cells["Estat"]->Value->ToString();
 			String^ idPartit = convocatoriaPartitIds[cbPartitsConvocatoria->SelectedIndex];
 
-			bool nouEstat = (estatActual == "No Convocat"); // Invertim l'estat
+			Nullable<bool> nouEstat;
+
+			// NUEVA LÓGICA CÍCLICA: Sense establir -> No Convocat -> Convocat -> Sense establir
+			if (estatActual == "Sense establir" || estatActual == "") {
+				nouEstat = false; // Pasa de NULL a 'No Convocat' (0)
+			}
+			else if (estatActual == "No Convocat") {
+				nouEstat = true;  // Pasa de 'No Convocat' a 'Convocat' (1)
+			}
+			else {
+				nouEstat = Nullable<bool>(); // Pasa de 'Convocat' de vuelta a 'Sense establir' (NULL)
+			}
 
 			Playcampus::Domini::CtlrConvocarJugadors^ ctrl = gcnew Playcampus::Domini::CtlrConvocarJugadors();
 			ctrl->ActualitzarConvocatoria(idPartit, idJugador, nouEstat);
 
-			// Recarreguem la taula
+			// Recarreguem la taula per veure els canvis reflectits immediatament
 			cbPartitsConvocatoria_SelectedIndexChanged(nullptr, nullptr);
 		}
 		catch (Exception^ ex) {
@@ -98,68 +127,85 @@ System::Void Form1::dgvConvocatoria_CellClick(System::Object^ sender, System::Wi
 		}
 	}
 
-System::Void Form1::MostrarAvisJugador(String^ missatge) {
-		if (pnlAvisJugador != nullptr) pnlMain->Controls->Remove(pnlAvisJugador);
+	System::Void Form1::MostrarAvisJugador(String^ missatge, String^ tipus) {
+		// El cartell s'ha de mostrar per sobre de qualsevol element del menú principal
+		// (p.ex. el dashboard de la lliga seguida). Per això el pengem directament del
+		// Form en lloc de pnlMain.
+		if (pnlAvisJugador != nullptr) this->Controls->Remove(pnlAvisJugador);
 
 		pnlAvisJugador = gcnew System::Windows::Forms::Panel();
-		// 1. FEM EL PANELL MÉS ALT (Abans era 150, ara 220)
 		pnlAvisJugador->Size = System::Drawing::Size(500, 220);
 		pnlAvisJugador->BackColor = System::Drawing::Color::LightYellow;
 		pnlAvisJugador->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-
-		// 2. EL POSEM A DALT A L'ESQUERRA (Marge de 20 píxels perquè no toqui la vora)
-		pnlAvisJugador->Location = System::Drawing::Point(20, 20);
+		int x = (this->ClientSize.Width - pnlAvisJugador->Width) / 2;
+		int y = (this->ClientSize.Height - pnlAvisJugador->Height) / 2;
+		if (x < 0) x = 0;
+		if (y < 0) y = 0;
+		pnlAvisJugador->Location = System::Drawing::Point(x, y);
 
 		System::Windows::Forms::Label^ lblMissatge = gcnew System::Windows::Forms::Label();
 		lblMissatge->Text = missatge;
-		// 3. FEM L'ESPAI DEL TEXT MÉS GRAN (Abans era 80, ara 140)
 		lblMissatge->Size = System::Drawing::Size(480, 140);
-		lblMissatge->Location = System::Drawing::Point(10, 10); // Una mica més amunt
+		lblMissatge->Location = System::Drawing::Point(10, 10);
 		lblMissatge->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 		lblMissatge->Font = gcnew System::Drawing::Font("Arial", 11, System::Drawing::FontStyle::Bold);
-
-		System::Windows::Forms::Button^ btnSi = gcnew System::Windows::Forms::Button();
-		btnSi->Text = L"Sí, hi aniré";
-		btnSi->Size = System::Drawing::Size(100, 35);
-		// 4. BAIXEM ELS BOTONS PERQUÈ NO TREPITGIN EL TEXT (Abans Y era 100, ara 160)
-		btnSi->Location = System::Drawing::Point(140, 160);
-		btnSi->BackColor = System::Drawing::Color::LightGreen;
-		btnSi->Click += gcnew System::EventHandler(this, &Form1::btnConfirmarSi_Click);
-
-		System::Windows::Forms::Button^ btnNo = gcnew System::Windows::Forms::Button();
-		btnNo->Text = L"No puc";
-		btnNo->Size = System::Drawing::Size(100, 35);
-		// BAIXEM TAMBÉ AQUEST BOTÓ (Y = 160)
-		btnNo->Location = System::Drawing::Point(260, 160);
-		btnNo->BackColor = System::Drawing::Color::Salmon;
-		btnNo->Click += gcnew System::EventHandler(this, &Form1::btnConfirmarNo_Click);
-
 		pnlAvisJugador->Controls->Add(lblMissatge);
-		pnlAvisJugador->Controls->Add(btnSi);
-		pnlAvisJugador->Controls->Add(btnNo);
 
-		pnlMain->Controls->Add(pnlAvisJugador);
+		// EVALUAMOS EL TIPO DE AVISO
+		if (tipus == "no_convocat") {
+			// Un único botón de aceptación para los no convocados
+			System::Windows::Forms::Button^ btnOk = gcnew System::Windows::Forms::Button();
+			btnOk->Text = Tr(L"D'acord");
+			btnOk->Size = System::Drawing::Size(120, 35);
+			btnOk->Location = System::Drawing::Point(190, 160); // Centrado horizontalmente
+			btnOk->BackColor = System::Drawing::Color::LightGray;
+			// Reutiliza tu lógica existente: al hacer clic guardará un '0' quitando el estado Pendent
+			btnOk->Click += gcnew System::EventHandler(this, &Form1::btnConfirmarNo_Click);
+
+			pnlAvisJugador->Controls->Add(btnOk);
+		}
+		else {
+			// El diseño original de Sí/No para los jugadores que SÍ están convocados
+			System::Windows::Forms::Button^ btnSi = gcnew System::Windows::Forms::Button();
+			btnSi->Text = Tr(L"Sí, hi aniré");
+			btnSi->Size = System::Drawing::Size(100, 35);
+			btnSi->Location = System::Drawing::Point(140, 160);
+			btnSi->BackColor = System::Drawing::Color::LightGreen;
+			btnSi->Click += gcnew System::EventHandler(this, &Form1::btnConfirmarSi_Click);
+
+			System::Windows::Forms::Button^ btnNo = gcnew System::Windows::Forms::Button();
+			btnNo->Text = Tr(L"No puc");
+			btnNo->Size = System::Drawing::Size(100, 35);
+			btnNo->Location = System::Drawing::Point(260, 160);
+			btnNo->BackColor = System::Drawing::Color::Salmon;
+			btnNo->Click += gcnew System::EventHandler(this, &Form1::btnConfirmarNo_Click);
+
+			pnlAvisJugador->Controls->Add(btnSi);
+			pnlAvisJugador->Controls->Add(btnNo);
+		}
+
+		this->Controls->Add(pnlAvisJugador);
 		pnlAvisJugador->BringToFront();
 	}
 
-System::Void Form1::btnConfirmarSi_Click(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::btnConfirmarSi_Click(System::Object^ sender, System::EventArgs^ e) {
 		ProcessarConfirmacio(true);
 	}
 
-System::Void Form1::btnConfirmarNo_Click(System::Object^ sender, System::EventArgs^ e) {
+	System::Void Form1::btnConfirmarNo_Click(System::Object^ sender, System::EventArgs^ e) {
 		ProcessarConfirmacio(false);
 	}
 
-System::Void Form1::ProcessarConfirmacio(bool assisteix) {
+	System::Void Form1::ProcessarConfirmacio(bool assisteix) {
 		try {
 			Playcampus::Domini::CtrlIniciSessio^ ctrlInici = gcnew Playcampus::Domini::CtrlIniciSessio();
-			String^ idJugador = ctrlInici->ObtenirIdUsuari(currentUsuariCorreu); // Necessites aquest mètode
+			String^ idJugador = ctrlInici->ObtenirIdUsuari(currentUsuariCorreu);
 
 			Playcampus::Domini::CtlrConvocarJugadors^ ctrl = gcnew Playcampus::Domini::CtlrConvocarJugadors();
 			ctrl->ConfirmarAssistencia(idPartitPendentConfirmar, idJugador, assisteix);
 
-			MessageBox::Show(L"S'ha guardat la teva resposta correctament.");
-			pnlMain->Controls->Remove(pnlAvisJugador); // Amaguem el cartell
+			MessageBox::Show(Tr(L"S'ha guardat la teva resposta correctament."));
+			this->Controls->Remove(pnlAvisJugador);
 		}
 		catch (Exception^ ex) {
 			MessageBox::Show(L"Error al confirmar: " + ex->Message);

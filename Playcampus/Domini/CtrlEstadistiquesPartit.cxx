@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CtrlEstadistiquesPartit.hxx"
 #include "../Dades/CercadoraLliga.hxx"
 #include "../Dades/CercadoraTemporada.hxx"
@@ -30,6 +30,27 @@ namespace Playcampus {
 			String^ connStr = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
 			Playcampus::Dades::CercadoraPartit^ cercadora = gcnew Playcampus::Dades::CercadoraPartit(connStr);
 			return cercadora->ObtenirPartitsFinalitzatsPerTemporada(idTemporada);
+		}
+
+		DataTable^ CtrlEstadistiquesPartit::CercarPartitsFinalitzats(String^ idTemporada, String^ textCerca) {
+			String^ connStr = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
+			Playcampus::Dades::CercadoraPartit^ cercadora = gcnew Playcampus::Dades::CercadoraPartit(connStr);
+
+			DataTable^ resultat = nullptr;
+			if (String::IsNullOrWhiteSpace(textCerca)) {
+				resultat = cercadora->ObtenirPartitsFinalitzatsPerTemporada(idTemporada);
+			}
+			else {
+				resultat = cercadora->CercarPartitsFinalitzatsPerTemporada(idTemporada, textCerca->Trim());
+			}
+
+			return resultat;
+		}
+
+		DataTable^ CtrlEstadistiquesPartit::CercarPartitsFinalitzatsGlobal(String^ textCerca) {
+			String^ connStr = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
+			Playcampus::Dades::CercadoraPartit^ cercadora = gcnew Playcampus::Dades::CercadoraPartit(connStr);
+			return cercadora->CercarPartitsFinalitzats(textCerca->Trim());
 		}
 
 		DataTable^ CtrlEstadistiquesPartit::ObtenirDetallsPartit(String^ idPartit) {

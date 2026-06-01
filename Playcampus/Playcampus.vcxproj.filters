@@ -1,524 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="app.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Form1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\Usuari.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\Administrador.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\Capita.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\Estudiant.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dades\PassarellaUsuari.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dades\ConnexioBD.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlIniciSessio.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlRegistrarUsuari.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlTancarSessio.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\Disciplina.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\Lliga.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\Equip.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\Jugador.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\Temporada.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\Jornada.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\Partit.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dades\PassarellaLliga.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlCrearLliga.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dades\PassarellaPartit.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlCrearPartit.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dades\PassarellaEquip.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlEnregistrarEquip.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlUnirEquipLliga.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dades\PassarellaTemporada.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlCrearTemporada.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlCrearJornada.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dades\PassarellaJornada.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlEsborrarEquip.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dades\CercadoraJornada.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dades\CercadoraPartit.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dades\CercadoraUsuari.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlEditarPartit.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dades\PassarellaJugador.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dades\CercadoraJugador.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlAfegirJugador.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlAssignarJugador.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlConsultes.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlVeurePlantilla.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlEliminarJugador.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dades\CercadoraTemporada.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlEsborrarPartit.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlVeureEstadistiquesLliga.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlVeureEstadistiquesEquip.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlRetirarTemporada.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dades\CercadoraLliga.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtlrConvocarJugadors.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlEditarJugador.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Form1Designer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Form1Layout.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Form1Auth.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Form1Consultes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Form1Lligues.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Form1TemporadesJornades.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Form1Partits.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Form1Equips.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Form1Estadistiques.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Form1Convocatoria.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dades\CercadoraEquip.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dades\PassarellaCapita.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlVeureEstadistiquesJugadors.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EditarJugadorForm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlEstadistiquesPartit.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-    <ClInclude Include="Form1Designer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Form1Layout.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Form1Auth.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Form1Consultes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Form1Lligues.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Form1TemporadesJornades.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Form1Partits.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Form1Equips.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Form1Estadistiques.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Form1Convocatoria.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dades\CercadoraEquip.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dades\PassarellaCapita.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Domini\CtrlVeureEstadistiquesJugadors.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EditarJugadorForm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EstadistiquesJugadorsForm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="CppCLR_WinFormsProject.cpp" />
+    <ClCompile Include="Dades\CercadoraEquip.cxx" />
+    <ClCompile Include="Dades\CercadoraJornada.cxx" />
+    <ClCompile Include="Dades\CercadoraJugador.cxx" />
+    <ClCompile Include="Dades\CercadoraLliga.cxx" />
+    <ClCompile Include="Dades\CercadoraPartit.cxx" />
+    <ClCompile Include="Dades\CercadoraTemporada.cxx" />
+    <ClCompile Include="Dades\CercadoraUsuari.cxx" />
+    <ClCompile Include="Dades\PassarellaCapita.cxx" />
+    <ClCompile Include="Dades\PassarellaEquip.cxx" />
+    <ClCompile Include="Dades\PassarellaJornada.cxx" />
+    <ClCompile Include="Dades\PassarellaJugador.cxx" />
+    <ClCompile Include="Dades\PassarellaLliga.cxx" />
+    <ClCompile Include="Dades\PassarellaPartit.cxx" />
+    <ClCompile Include="Dades\PassarellaTemporada.cxx" />
+    <ClCompile Include="Dades\PassarellaUsuari.cxx" />
+    <ClCompile Include="Dades\ConnexioBD.cxx" />
+    <ClCompile Include="Domini\CtlrConvocarJugadors.cxx" />
+    <ClCompile Include="Domini\CtrlAfegirJugador.cxx" />
+    <ClCompile Include="Domini\CtrlAssignarJugador.cxx" />
+    <ClCompile Include="Domini\CtrlConsultes.cxx" />
+    <ClCompile Include="Domini\CtrlConsultaFitxatges.cxx" />
+    <ClCompile Include="Domini\CtrlConsultaLligues.cxx" />
+    <ClCompile Include="Domini\CtrlConsultaPartits.cxx" />
+    <ClCompile Include="Domini\CtrlConsultaTelefons.cxx" />
+    <ClCompile Include="Domini\CtrlCrearJornada.cxx" />
+    <ClCompile Include="Domini\CtrlCrearLliga.cxx" />
+    <ClCompile Include="Domini\CtrlCrearPartit.cxx" />
+    <ClCompile Include="Domini\CtrlCrearTemporada.cxx" />
+    <ClCompile Include="Domini\CtrlEditarJugador.cxx" />
+    <ClCompile Include="Domini\CtrlEditarPartit.cxx" />
+    <ClCompile Include="Domini\EtiquetesEditarPartit.cxx" />
+    <ClCompile Include="Domini\CtrlEliminarJugador.cxx" />
+    <ClCompile Include="Domini\CtrlEnregistrarEquip.cxx" />
+    <ClCompile Include="Domini\CtrlEsborrarEquip.cxx" />
+    <ClCompile Include="Domini\CtrlEsborrarPartit.cxx" />
+    <ClCompile Include="Domini\CtrlEsborrarJornada.cxx" />
+    <ClCompile Include="Domini\CtrlEstadistiquesPartit.cxx" />
+    <ClCompile Include="Domini\CtrlIniciSessio.cxx" />
+    <ClCompile Include="Domini\CtrlRegistrarUsuari.cxx" />
+    <ClCompile Include="Domini\CtrlRetirarTemporada.cxx" />
+    <ClCompile Include="Domini\CtrlTancarSessio.cxx" />
+    <ClCompile Include="Domini\Administrador.cxx" />
+    <ClCompile Include="Domini\Capita.cxx" />
+    <ClCompile Include="Domini\CtrlUnirEquipLliga.cxx" />
+    <ClCompile Include="Domini\CtrlVeureEstadistiquesJugadors.cxx" />
+    <ClCompile Include="Domini\CtrlVeureEstadistiquesEquip.cxx" />
+    <ClCompile Include="Domini\CtrlVeureEstadistiquesLliga.cxx" />
+    <ClCompile Include="Domini\CtrlVeurePlantilla.cxx" />
+    <ClCompile Include="Domini\Equip.cxx" />
+    <ClCompile Include="Domini\Estudiant.cxx" />
+    <ClCompile Include="Domini\Jornada.cxx" />
+    <ClCompile Include="Domini\Jugador.cxx" />
+    <ClCompile Include="Domini\Lliga.cxx" />
+    <ClCompile Include="Domini\Partit.cxx" />
+    <ClCompile Include="Domini\Temporada.cxx" />
+    <ClCompile Include="Domini\Usuari.cxx" />
+    <ClCompile Include="EditarJugadorForm.cpp" />
+    <ClCompile Include="EstadistiquesJugadorsForm.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Form1.cpp" />
+    <ClCompile Include="Form1Designer.cpp" />
+    <ClCompile Include="Form1Layout.cpp" />
+    <ClCompile Include="Form1Auth.cpp" />
+    <ClCompile Include="Form1Consultes.cpp" />
+    <ClCompile Include="Form1Lligues.cpp" />
+    <ClCompile Include="Form1TemporadesJornades.cpp" />
+    <ClCompile Include="Form1Partits.cpp" />
+    <ClCompile Include="Form1Equips.cpp" />
+    <ClCompile Include="Form1Estadistiques.cpp" />
+    <ClCompile Include="Form1Convocatoria.cpp" />
+    <ClCompile Include="Domini\CtrlSeguirLliga.cxx" />
+    <ClCompile Include="Domini\CtrlAbandonarLliga.cxx" />
+    <ClCompile Include="Dades\PassarellaEquipTemporada.cxx" />
+    <ClCompile Include="Dades\CercadoraEquipTemporada.cxx" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CppCLR_WinFormsProject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AssemblyInfo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\Usuari.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\Administrador.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\Capita.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\Estudiant.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dades\PassarellaUsuari.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dades\ConnexioBD.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlIniciSessio.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlRegistrarUsuari.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlTancarSessio.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\Lliga.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\Equip.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\Jugador.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\Temporada.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\Jornada.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\Partit.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dades\PassarellaLliga.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlCrearLliga.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dades\PassarellaPartit.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlCrearPartit.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dades\PassarellaEquip.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlEnregistrarEquip.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlUnirEquipLliga.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dades\PassarellaTemporada.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlCrearTemporada.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlCrearJornada.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dades\PassarellaJornada.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlEsborrarEquip.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dades\CercadoraJornada.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dades\CercadoraPartit.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dades\CercadoraUsuari.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlEditarPartit.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dades\PassarellaJugador.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dades\CercadoraJugador.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlAfegirJugador.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlAssignarJugador.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlConsultes.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlVeurePlantilla.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlEliminarJugador.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dades\CercadoraTemporada.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlEsborrarPartit.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlVeureEstadistiquesLliga.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlVeureEstadistiquesEquip.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlRetirarTemporada.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dades\CercadoraLliga.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtlrConvocarJugadors.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlVeureEstadistiquesLliga.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlEditarJugador.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form1Designer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form1Layout.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form1Auth.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form1Consultes.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form1Lligues.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form1TemporadesJornades.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form1Partits.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form1Equips.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form1Estadistiques.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form1Convocatoria.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dades\CercadoraEquip.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dades\PassarellaCapita.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlVeureEstadistiquesJugadors.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EditarJugadorForm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlEstadistiquesPartit.cxx">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-    <ClCompile Include="Form1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form1Designer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form1Layout.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form1Auth.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form1Consultes.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form1Lligues.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form1TemporadesJornades.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form1Partits.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form1Equips.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form1Estadistiques.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form1Convocatoria.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dades\CercadoraEquip.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dades\PassarellaCapita.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Domini\CtrlVeureEstadistiquesJugadors.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EditarJugadorForm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EstadistiquesJugadorsForm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="Dades\CercadoraEquip.hxx" />
+    <ClInclude Include="Dades\CercadoraJornada.hxx" />
+    <ClInclude Include="Dades\CercadoraJugador.hxx" />
+    <ClInclude Include="Dades\CercadoraLliga.hxx" />
+    <ClInclude Include="Dades\CercadoraPartit.hxx" />
+    <ClInclude Include="Dades\CercadoraTemporada.hxx" />
+    <ClInclude Include="Dades\CercadoraUsuari.hxx" />
+    <ClInclude Include="Dades\PassarellaCapita.hxx" />
+    <ClInclude Include="Dades\PassarellaEquip.hxx" />
+    <ClInclude Include="Dades\PassarellaJornada.hxx" />
+    <ClInclude Include="Dades\PassarellaJugador.hxx" />
+    <ClInclude Include="Dades\PassarellaLliga.hxx" />
+    <ClInclude Include="Dades\PassarellaPartit.hxx" />
+    <ClInclude Include="Dades\PassarellaTemporada.hxx" />
+    <ClInclude Include="Dades\PassarellaUsuari.hxx" />
+    <ClInclude Include="Dades\ConnexioBD.hxx" />
+    <ClInclude Include="Domini\CtlrConvocarJugadors.hxx" />
+    <ClInclude Include="Domini\CtrlAfegirJugador.hxx" />
+    <ClInclude Include="Domini\CtrlAssignarJugador.hxx" />
+    <ClInclude Include="Domini\CtrlConsultes.hxx" />
+    <ClInclude Include="Domini\CtrlConsultaFitxatges.hxx" />
+    <ClInclude Include="Domini\CtrlConsultaLligues.hxx" />
+    <ClInclude Include="Domini\CtrlConsultaPartits.hxx" />
+    <ClInclude Include="Domini\CtrlConsultaTelefons.hxx" />
+    <ClInclude Include="Domini\CtrlCrearJornada.hxx" />
+    <ClInclude Include="Domini\CtrlCrearLliga.hxx" />
+    <ClInclude Include="Domini\CtrlCrearPartit.hxx" />
+    <ClInclude Include="Domini\CtrlCrearTemporada.hxx" />
+    <ClInclude Include="Domini\CtrlEditarJugador.hxx" />
+    <ClInclude Include="Domini\CtrlEditarPartit.hxx" />
+    <ClInclude Include="Domini\EtiquetesEditarPartit.hxx" />
+    <ClInclude Include="Domini\CtrlEliminarJugador.hxx" />
+    <ClInclude Include="Domini\CtrlEnregistrarEquip.hxx" />
+    <ClInclude Include="Domini\CtrlEsborrarEquip.hxx" />
+    <ClInclude Include="Domini\CtrlEsborrarPartit.hxx" />
+    <ClInclude Include="Domini\CtrlEsborrarJornada.hxx" />
+    <ClInclude Include="Domini\CtrlEstadistiquesPartit.hxx" />
+    <ClInclude Include="Domini\CtrlIniciSessio.hxx" />
+    <ClInclude Include="Domini\CtrlRegistrarUsuari.hxx" />
+    <ClInclude Include="Domini\CtrlRetirarTemporada.hxx" />
+    <ClInclude Include="Domini\CtrlTancarSessio.hxx" />
+    <ClInclude Include="Domini\Administrador.hxx" />
+    <ClInclude Include="Domini\Capita.hxx" />
+    <ClInclude Include="Domini\CtrlUnirEquipLliga.hxx" />
+    <ClInclude Include="Domini\CtrlVeureEstadistiquesJugadors.hxx" />
+    <ClInclude Include="Domini\CtrlVeureEstadistiquesEquip.hxx" />
+    <ClInclude Include="Domini\CtrlVeureEstadistiquesLliga.hxx" />
+    <ClInclude Include="Domini\CtrlVeurePlantilla.hxx" />
+    <ClInclude Include="Domini\Disciplina.hxx" />
+    <ClInclude Include="Domini\Equip.hxx" />
+    <ClInclude Include="Domini\Estudiant.hxx" />
+    <ClInclude Include="Domini\Jornada.hxx" />
+    <ClInclude Include="Domini\Jugador.hxx" />
+    <ClInclude Include="Domini\Lliga.hxx" />
+    <ClInclude Include="Domini\Partit.hxx" />
+    <ClInclude Include="Domini\Temporada.hxx" />
+    <ClInclude Include="Domini\Usuari.hxx" />
+    <ClInclude Include="EditarJugadorForm.h" />
+    <ClInclude Include="EstadistiquesJugadorsForm.h" />
+    <ClInclude Include="Form1.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="Form1Designer.h" />
+    <ClInclude Include="Form1Layout.h" />
+    <ClInclude Include="Form1Auth.h" />
+    <ClInclude Include="Form1Consultes.h" />
+    <ClInclude Include="Form1Lligues.h" />
+    <ClInclude Include="Form1TemporadesJornades.h" />
+    <ClInclude Include="Form1Partits.h" />
+    <ClInclude Include="Form1Equips.h" />
+    <ClInclude Include="Form1Estadistiques.h" />
+    <ClInclude Include="Form1Convocatoria.h" />
+    <ClInclude Include="Domini\CtrlSeguirLliga.hxx" />
+    <ClInclude Include="Domini\CtrlAbandonarLliga.hxx" />
+    <ClInclude Include="Dades\PassarellaEquipTemporada.hxx" />
+    <ClInclude Include="Dades\CercadoraEquipTemporada.hxx" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="app.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
+    <ResourceCompile Include="app.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="app.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="schemajugador.sql" />
     <None Include="schema_assignacio_jugador_partit.sql" />
     <None Include="schema_partit_estadistica_individual.sql" />
+    <None Include="schema_seguir_lliga.sql" />
+    <None Include="schemadadesEquipTemporada.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Dades\SQL_UsuariSegueixLliga_README.txt" />
   </ItemGroup>
 </Project>

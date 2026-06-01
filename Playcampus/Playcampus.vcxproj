@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dades\CercadoraEquip.hxx" />
+    <ClInclude Include="Dades\CercadoraEquipTemporada.hxx" />
     <ClInclude Include="Dades\CercadoraJornada.hxx" />
     <ClInclude Include="Dades\CercadoraJugador.hxx" />
     <ClInclude Include="Dades\CercadoraLliga.hxx" />
@@ -139,6 +140,7 @@
     <ClInclude Include="Dades\CercadoraUsuari.hxx" />
     <ClInclude Include="Dades\PassarellaCapita.hxx" />
     <ClInclude Include="Dades\PassarellaEquip.hxx" />
+    <ClInclude Include="Dades\PassarellaEquipTemporada.hxx" />
     <ClInclude Include="Dades\PassarellaJornada.hxx" />
     <ClInclude Include="Dades\PassarellaJugador.hxx" />
     <ClInclude Include="Dades\PassarellaLliga.hxx" />
@@ -147,23 +149,31 @@
     <ClInclude Include="Dades\PassarellaUsuari.hxx" />
     <ClInclude Include="Dades\ConnexioBD.hxx" />
     <ClInclude Include="Domini\CtlrConvocarJugadors.hxx" />
+    <ClInclude Include="Domini\CtrlAbandonarLliga.hxx" />
     <ClInclude Include="Domini\CtrlAfegirJugador.hxx" />
     <ClInclude Include="Domini\CtrlAssignarJugador.hxx" />
     <ClInclude Include="Domini\CtrlConsultes.hxx" />
+    <ClInclude Include="Domini\CtrlConsultaFitxatges.hxx" />
+    <ClInclude Include="Domini\CtrlConsultaLligues.hxx" />
+    <ClInclude Include="Domini\CtrlConsultaPartits.hxx" />
+    <ClInclude Include="Domini\CtrlConsultaTelefons.hxx" />
     <ClInclude Include="Domini\CtrlCrearJornada.hxx" />
     <ClInclude Include="Domini\CtrlCrearLliga.hxx" />
     <ClInclude Include="Domini\CtrlCrearPartit.hxx" />
     <ClInclude Include="Domini\CtrlCrearTemporada.hxx" />
     <ClInclude Include="Domini\CtrlEditarJugador.hxx" />
     <ClInclude Include="Domini\CtrlEditarPartit.hxx" />
+    <ClInclude Include="Domini\EtiquetesEditarPartit.hxx" />
     <ClInclude Include="Domini\CtrlEliminarJugador.hxx" />
     <ClInclude Include="Domini\CtrlEnregistrarEquip.hxx" />
     <ClInclude Include="Domini\CtrlEsborrarEquip.hxx" />
     <ClInclude Include="Domini\CtrlEsborrarPartit.hxx" />
+    <ClInclude Include="Domini\CtrlEsborrarJornada.hxx" />
     <ClInclude Include="Domini\CtrlEstadistiquesPartit.hxx" />
     <ClInclude Include="Domini\CtrlIniciSessio.hxx" />
     <ClInclude Include="Domini\CtrlRegistrarUsuari.hxx" />
     <ClInclude Include="Domini\CtrlRetirarTemporada.hxx" />
+    <ClInclude Include="Domini\CtrlSeguirLliga.hxx" />
     <ClInclude Include="Domini\CtrlTancarSessio.hxx" />
     <ClInclude Include="Domini\Administrador.hxx" />
     <ClInclude Include="Domini\Capita.hxx" />
@@ -203,6 +213,7 @@
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="CppCLR_WinFormsProject.cpp" />
     <ClCompile Include="Dades\CercadoraEquip.cxx" />
+    <ClCompile Include="Dades\CercadoraEquipTemporada.cxx" />
     <ClCompile Include="Dades\CercadoraJornada.cxx" />
     <ClCompile Include="Dades\CercadoraJugador.cxx" />
     <ClCompile Include="Dades\CercadoraLliga.cxx" />
@@ -211,6 +222,7 @@
     <ClCompile Include="Dades\CercadoraUsuari.cxx" />
     <ClCompile Include="Dades\PassarellaCapita.cxx" />
     <ClCompile Include="Dades\PassarellaEquip.cxx" />
+    <ClCompile Include="Dades\PassarellaEquipTemporada.cxx" />
     <ClCompile Include="Dades\PassarellaJornada.cxx" />
     <ClCompile Include="Dades\PassarellaJugador.cxx" />
     <ClCompile Include="Dades\PassarellaLliga.cxx" />
@@ -219,23 +231,31 @@
     <ClCompile Include="Dades\PassarellaUsuari.cxx" />
     <ClCompile Include="Dades\ConnexioBD.cxx" />
     <ClCompile Include="Domini\CtlrConvocarJugadors.cxx" />
+    <ClCompile Include="Domini\CtrlAbandonarLliga.cxx" />
     <ClCompile Include="Domini\CtrlAfegirJugador.cxx" />
     <ClCompile Include="Domini\CtrlAssignarJugador.cxx" />
     <ClCompile Include="Domini\CtrlConsultes.cxx" />
+    <ClCompile Include="Domini\CtrlConsultaFitxatges.cxx" />
+    <ClCompile Include="Domini\CtrlConsultaLligues.cxx" />
+    <ClCompile Include="Domini\CtrlConsultaPartits.cxx" />
+    <ClCompile Include="Domini\CtrlConsultaTelefons.cxx" />
     <ClCompile Include="Domini\CtrlCrearJornada.cxx" />
     <ClCompile Include="Domini\CtrlCrearLliga.cxx" />
     <ClCompile Include="Domini\CtrlCrearPartit.cxx" />
     <ClCompile Include="Domini\CtrlCrearTemporada.cxx" />
     <ClCompile Include="Domini\CtrlEditarJugador.cxx" />
     <ClCompile Include="Domini\CtrlEditarPartit.cxx" />
+    <ClCompile Include="Domini\EtiquetesEditarPartit.cxx" />
     <ClCompile Include="Domini\CtrlEliminarJugador.cxx" />
     <ClCompile Include="Domini\CtrlEnregistrarEquip.cxx" />
     <ClCompile Include="Domini\CtrlEsborrarEquip.cxx" />
     <ClCompile Include="Domini\CtrlEsborrarPartit.cxx" />
+    <ClCompile Include="Domini\CtrlEsborrarJornada.cxx" />
     <ClCompile Include="Domini\CtrlEstadistiquesPartit.cxx" />
     <ClCompile Include="Domini\CtrlIniciSessio.cxx" />
     <ClCompile Include="Domini\CtrlRegistrarUsuari.cxx" />
     <ClCompile Include="Domini\CtrlRetirarTemporada.cxx" />
+    <ClCompile Include="Domini\CtrlSeguirLliga.cxx" />
     <ClCompile Include="Domini\CtrlTancarSessio.cxx" />
     <ClCompile Include="Domini\Administrador.cxx" />
     <ClCompile Include="Domini\Capita.cxx" />
@@ -286,9 +306,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="schemadadesEquipTemporada.sql" />
     <None Include="schemajugador.sql" />
     <None Include="schema_assignacio_jugador_partit.sql" />
     <None Include="schema_partit_estadistica_individual.sql" />
+    <None Include="schema_seguir_lliga.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Dades\SQL_UsuariSegueixLliga_README.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,7 +1,9 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "CercadoraJugador.hxx"
 
 using namespace System;
+using namespace System::Collections::Generic;
+using namespace System::Data;
 using namespace MySql::Data::MySqlClient;
 
 namespace Playcampus {
@@ -139,5 +141,155 @@ namespace Playcampus {
                 conn->Close();
             }
         }
+
+        bool CercadoraJugador::JugadorPertanyAEquip(String^ idJugador, String^ idEquip) {
+            bool pertany = false;
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query = "SELECT COUNT(*) FROM Jugador WHERE idJugador = @idJugador AND idEquip = @idEquip";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idJugador", Convert::ToInt32(idJugador));
+                cmd->Parameters->AddWithValue("@idEquip", idEquip);
+                pertany = Convert::ToInt32(cmd->ExecuteScalar()) > 0;
+            }
+            finally {
+                conn->Close();
+            }
+            return pertany;
+        }
+
+        bool CercadoraJugador::JugadorPertanyAEquipDelCapita(String^ correuCapita, String^ idJugador) {
+            bool pertany = false;
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query =
+                    "SELECT COUNT(*) "
+                    "FROM Jugador J "
+                    "INNER JOIN Capita C ON J.idEquip = C.idEquip "
+                    "INNER JOIN Usuari U ON C.identificador = U.identificador "
+                    "WHERE U.correu_electronic = @correuCapita AND J.idJugador = @idJugador";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@correuCapita", correuCapita);
+                cmd->Parameters->AddWithValue("@idJugador", Convert::ToInt32(idJugador));
+                pertany = Convert::ToInt32(cmd->ExecuteScalar()) > 0;
+            }
+            finally {
+                conn->Close();
+            }
+            return pertany;
+        }
+
+        DataTable^ CercadoraJugador::ObtenirEstadistiquesJugador(String^ idJugador) {
+            DataTable^ dt = gcnew DataTable();
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query =
+                    "SELECT u.identificador AS IdJugador, u.nom AS Nom, u.correu_electronic AS Correu, "
+                    "COALESCE(e.nom, 'Sense equip') AS Equip, COALESCE(e.esport, '') AS Esport, "
+                    "j.dorsal AS Dorsal, COALESCE(j.posicio, '') AS Posicio, "
+                    "IFNULL(DATE_FORMAT(j.data_naixement, '%d/%m/%Y'), '') AS DataNaixement, "
+                    "j.partitsJugats AS PartitsJugats, j.anotacions AS Anotacions, j.assistencies AS Assistencies, "
+                    "j.faltesLleus AS FaltesLleus, j.faltesGreus AS FaltesGreus, j.minutsJugats AS MinutsJugats "
+                    "FROM Jugador j INNER JOIN Usuari u ON j.idJugador = u.identificador "
+                    "LEFT JOIN Equip e ON j.idEquip = e.idEquip "
+                    "WHERE j.idJugador = @idJugador";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idJugador", idJugador);
+                MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
+                adapter->Fill(dt);
+            }
+            finally {
+                conn->Close();
+            }
+            return dt;
+        }
+
+        DataTable^ CercadoraJugador::ObtenirTotesEstadistiquesJugadors() {
+            DataTable^ dt = gcnew DataTable();
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query =
+                    "SELECT u.identificador AS IdJugador, u.nom AS Nom, u.correu_electronic AS Correu, "
+                    "COALESCE(e.nom, 'Sense equip') AS Equip, COALESCE(e.esport, '') AS Esport, "
+                    "j.dorsal AS Dorsal, COALESCE(j.posicio, '') AS Posicio, "
+                    "IFNULL(DATE_FORMAT(j.data_naixement, '%d/%m/%Y'), '') AS DataNaixement, "
+                    "j.partitsJugats AS PartitsJugats, j.anotacions AS Anotacions, j.assistencies AS Assistencies, "
+                    "j.faltesLleus AS FaltesLleus, j.faltesGreus AS FaltesGreus, j.minutsJugats AS MinutsJugats "
+                    "FROM Jugador j INNER JOIN Usuari u ON j.idJugador = u.identificador "
+                    "LEFT JOIN Equip e ON j.idEquip = e.idEquip "
+                    "ORDER BY u.nom ASC, e.nom ASC, j.dorsal ASC";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
+                adapter->Fill(dt);
+            }
+            finally {
+                conn->Close();
+            }
+            return dt;
+        }
+
+        DataTable^ CercadoraJugador::CercarEstadistiquesJugadors(String^ textCerca) {
+            DataTable^ dt = gcnew DataTable();
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query =
+                    "SELECT u.identificador AS IdJugador, u.nom AS Nom, u.correu_electronic AS Correu, "
+                    "COALESCE(e.nom, 'Sense equip') AS Equip, COALESCE(e.esport, '') AS Esport, "
+                    "j.dorsal AS Dorsal, COALESCE(j.posicio, '') AS Posicio, "
+                    "IFNULL(DATE_FORMAT(j.data_naixement, '%d/%m/%Y'), '') AS DataNaixement, "
+                    "j.partitsJugats AS PartitsJugats, j.anotacions AS Anotacions, j.assistencies AS Assistencies, "
+                    "j.faltesLleus AS FaltesLleus, j.faltesGreus AS FaltesGreus, j.minutsJugats AS MinutsJugats "
+                    "FROM Jugador j INNER JOIN Usuari u ON j.idJugador = u.identificador "
+                    "LEFT JOIN Equip e ON j.idEquip = e.idEquip "
+                    "WHERE u.nom LIKE @textCerca OR u.correu_electronic LIKE @textCerca "
+                    "OR COALESCE(e.nom, '') LIKE @textCerca OR COALESCE(e.esport, '') LIKE @textCerca "
+                    "OR COALESCE(j.posicio, '') LIKE @textCerca OR CAST(j.dorsal AS CHAR) LIKE @textCerca "
+                    "OR CAST(u.identificador AS CHAR) LIKE @textCerca "
+                    "ORDER BY u.nom ASC, e.nom ASC, j.dorsal ASC";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@textCerca", L"%" + textCerca + L"%");
+                MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
+                adapter->Fill(dt);
+            }
+            finally {
+                conn->Close();
+            }
+            return dt;
+        }
+
+        DataTable^ CercadoraJugador::ObtenirUltimsFitxatges(int limit) {
+            if (limit <= 0) limit = 10;
+            DataTable^ dt = gcnew DataTable();
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query =
+                    "SELECT DATE_FORMAT(U.data_registre, '%d/%m/%Y') AS Data, "
+                    "U.nom AS Jugador, "
+                    "COALESCE(E.nom, '(Sense equip)') AS Equip, "
+                    "COALESCE(E.esport, '') AS Esport "
+                    "FROM Jugador J "
+                    "INNER JOIN Usuari U ON J.idJugador = U.identificador "
+                    "LEFT JOIN Equip E ON J.idEquip = E.idEquip "
+                    "WHERE J.idEquip IS NOT NULL "
+                    "ORDER BY U.data_registre DESC, U.identificador DESC "
+                    "LIMIT @limit";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@limit", limit);
+                MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
+                adapter->Fill(dt);
+            }
+            finally {
+                conn->Close();
+            }
+            return dt;
+        }
+
+        
     }
 }

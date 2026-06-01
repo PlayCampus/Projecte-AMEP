@@ -4,6 +4,7 @@
 
 using namespace System;
 using namespace System::Collections::Generic;
+using namespace System::Data;
 
 namespace Playcampus {
     namespace Dades {
@@ -18,6 +19,12 @@ namespace Playcampus {
             PassarellaJugador^ LlegeixPerDorsalEquip(int dorsal, String^ idEquip);
             List<PassarellaJugador^>^ LlegeixTsPerEquip(String^ idEquip);
             bool ExisteixDorsalEnEquip(int dorsal, String^ idEquip);
+            bool JugadorPertanyAEquip(String^ idJugador, String^ idEquip);
+            bool JugadorPertanyAEquipDelCapita(String^ correuCapita, String^ idJugador);
+            DataTable^ ObtenirEstadistiquesJugador(String^ idJugador);
+            DataTable^ ObtenirTotesEstadistiquesJugadors();
+            DataTable^ CercarEstadistiquesJugadors(String^ textCerca);
+            DataTable^ ObtenirUltimsFitxatges(int limit);
         };
     }
 }

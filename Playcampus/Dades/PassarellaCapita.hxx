@@ -17,6 +17,7 @@ namespace Playcampus {
             PassarellaCapita(String^ connStr);
 
             void DesassignarEquip(String^ idEquip);
+            void AssignarEquip(String^ idCapita, String^ idEquip);
 
         };
     }

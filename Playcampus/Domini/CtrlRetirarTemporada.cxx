@@ -38,7 +38,7 @@ namespace Playcampus {
             String^ idLliga = cercLliga->ObtenirLligaActivaAdmin(idAdmin);
 
             if (String::IsNullOrEmpty(idLliga)) {
-                throw gcnew Exception("Aquest administrador no té cap lliga assignada.");
+                throw gcnew Exception("Aquest administrador no t  cap lliga assignada.");
             }
 
             // 3. Obtenir l'ID de la temporada en curs abans de retirar-la
@@ -46,27 +46,30 @@ namespace Playcampus {
             String^ idTemporada = cercTemporada->ObtenirIdTemporadaEnCurs(idLliga);
 
             if (String::IsNullOrEmpty(idTemporada)) {
-                // No hi ha temporada "En Curs", no cal fer res més.
+                // No hi ha temporada "En Curs", no cal fer res m s.
                 return;
             }
 
-            // 4. Fer servir PassarellaTemporada per utilitzar mètode UPDATE per retirar la temporada (EnCurs) d'aquesta lliga
+            // 4. Fer servir PassarellaTemporada per utilitzar m tode UPDATE per retirar la temporada (EnCurs) d'aquesta lliga
             Playcampus::Dades::PassarellaTemporada^ passTemp = gcnew Playcampus::Dades::PassarellaTemporada(connectionString);
             passTemp->RetirarTemporada(idLliga);
+            passTemp->InicialitzarEquipsTemporadaSeguent(idLliga, idTemporada);
 
-            // 5. Obtenir tots els equips de la temporada retirada
+            /* con la nueva implementaci n de EquipTemporada no hace falta hacer esto
+             5. Obtenir tots els equips de la temporada retirada
             Playcampus::Dades::CercadoraEquip^ cercEquip = gcnew Playcampus::Dades::CercadoraEquip(connectionString);
             List<String^>^ idsEquips = cercEquip->ObtenirIdsEquipsPerTemporada(idTemporada);
 
-           
-            // 6. Per a cada equip, desassignar el capità
+
+             6. Per a cada equip, desassignar el capit
             Playcampus::Dades::PassarellaCapita^ passCapita = gcnew Playcampus::Dades::PassarellaCapita(connectionString);
             for each (String ^ idEquip in idsEquips) {
                 passCapita->DesassignarEquip(idEquip);
             }
+            */
 
             // 7. Retirar totes les jornades de la temporada
-            Playcampus::Dades::PassarellaJornada^ passJornada =  gcnew Playcampus::Dades::PassarellaJornada(connectionString);
+            Playcampus::Dades::PassarellaJornada^ passJornada = gcnew Playcampus::Dades::PassarellaJornada(connectionString);
 
             passJornada->RetirarJornadesTemporada(idTemporada);
 

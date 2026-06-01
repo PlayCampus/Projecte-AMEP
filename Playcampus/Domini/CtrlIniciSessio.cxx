@@ -1,134 +1,61 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "CtrlIniciSessio.hxx"
 #include "../Dades/PassarellaUsuari.hxx"
 #include "../Dades/PassarellaJornada.hxx"
 #include "../Dades/PassarellaTemporada.hxx"
 #include "../Dades/CercadoraUsuari.hxx"
+#include "../Dades/CercadoraEquip.hxx"
 #include "../Dades/ConnexioBD.hxx"
 
 using namespace System;
+using namespace Playcampus::Dades;
 
 namespace Playcampus {
     namespace Domini {
+
         CtrlIniciSessio::CtrlIniciSessio() {
-            connectionString = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
+            connectionString = ConnexioBD::ObtenirConnectionString();
         }
 
         bool CtrlIniciSessio::IniciarSessio(String^ correu, String^ contrasenya) {
-            Playcampus::Dades::PassarellaUsuari^ pu = (gcnew Playcampus::Dades::CercadoraUsuari(connectionString))->LlegeixPerCorreu( correu);
-            if (pu != nullptr) {
-                if (pu->GetContrasenya() == contrasenya) {
-                    //actualitzar estats temporada i jornada 
-                     // Actualitzar estats de temporades
-                    Playcampus::Dades::PassarellaTemporada^ pt =
-                        gcnew Playcampus::Dades::PassarellaTemporada(connectionString);
+            CercadoraUsuari^ cercadora = gcnew CercadoraUsuari(connectionString);
+            PassarellaUsuari^ usuari = cercadora->LlegeixPerCorreu(correu);
 
-                    pt->ActualitzarEstats(connectionString);
-
-                    // Actualitzar estats de jornades
-                    Playcampus::Dades::PassarellaJornada^ pj =
-                        gcnew Playcampus::Dades::PassarellaJornada(connectionString);
-
-                    pj->ActualitzarEstats(connectionString);
-                    return true;
-         
-                }
+            bool correcte = false;
+            if (usuari != nullptr && usuari->GetContrasenya() == contrasenya) {
+                PassarellaTemporada::ActualitzarEstats(connectionString);
+                PassarellaJornada::ActualitzarEstats(connectionString);
+                correcte = true;
             }
-            return false;
+            return correcte;
         }
 
         String^ CtrlIniciSessio::ObtenirTipusUsuari(String^ correu) {
-            Playcampus::Dades::PassarellaUsuari^ pu = (gcnew Playcampus::Dades::CercadoraUsuari(connectionString))->LlegeixPerCorreu( correu);
-            if (pu != nullptr) {
-                return pu->GetTipus();
-            }
-            return "";
+            CercadoraUsuari^ cercadora = gcnew CercadoraUsuari(connectionString);
+            PassarellaUsuari^ usuari = cercadora->LlegeixPerCorreu(correu);
+            return usuari != nullptr ? usuari->GetTipus() : "";
         }
 
         bool CtrlIniciSessio::CapitaTeEquip(String^ correu) {
-            MySql::Data::MySqlClient::MySqlConnection^ conn = gcnew MySql::Data::MySqlClient::MySqlConnection(connectionString);
-            try {
-                conn->Open();
-                String^ query = "SELECT C.idEquip FROM Capita C JOIN Usuari U ON C.identificador = U.identificador WHERE U.correu_electronic = @correu";
-                MySql::Data::MySqlClient::MySqlCommand^ cmd = gcnew MySql::Data::MySqlClient::MySqlCommand(query, conn);
-                cmd->Parameters->AddWithValue("@correu", correu);
-                Object^ result = cmd->ExecuteScalar();
-                
-                if (result != nullptr && result != DBNull::Value && !String::IsNullOrWhiteSpace(result->ToString())) {
-                    return true;
-                }
-            }
-            finally {
-                if(conn != nullptr) {
-                    conn->Close();
-                    delete conn;
-                }
-            }
-            return false;
+            CercadoraUsuari^ cercadora = gcnew CercadoraUsuari(connectionString);
+            return cercadora->CapitaTeEquip(correu);
         }
 
         bool CtrlIniciSessio::EquipEstaEnLliga(String^ correu) {
-            MySql::Data::MySqlClient::MySqlConnection^ conn = gcnew MySql::Data::MySqlClient::MySqlConnection(connectionString);
-            try {
-                conn->Open();
-                String^ query = "SELECT E.idTemporada FROM Equip E JOIN Capita C ON E.idEquip = C.idEquip JOIN Usuari U ON C.identificador = U.identificador WHERE U.correu_electronic = @correu";
-                MySql::Data::MySqlClient::MySqlCommand^ cmd = gcnew MySql::Data::MySqlClient::MySqlCommand(query, conn);
-                cmd->Parameters->AddWithValue("@correu", correu);
-                Object^ result = cmd->ExecuteScalar();
-
-                if (result != nullptr && result != DBNull::Value && !String::IsNullOrWhiteSpace(result->ToString())) {
-                    return true;
-                }
-            }
-            finally {
-                if (conn != nullptr) {
-                    conn->Close();
-                    delete conn;
-                }
-            }
-            return false;
+            CercadoraUsuari^ cercadora = gcnew CercadoraUsuari(connectionString);
+            return cercadora->EquipEstaEnLliga(correu);
         }
+
         String^ CtrlIniciSessio::ObtenirIdEquipDeCapita(String^ correu) {
-            String^ idEquip = "";
-            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
-            try {
-                conn->Open();
-
-                // Buscamos el idEquip directamente en el perfil del usuario/capitán
-                String ^ query = "SELECT c.idEquip "
-                    "FROM Capita c "
-                    "JOIN Usuari u ON c.identificador = u.identificador "
-                    "WHERE u.correu_electronic = @correu "
-                    "LIMIT 1";
-
-                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                cmd->Parameters->AddWithValue("@correu", correu);
-
-                Object^ result = cmd->ExecuteScalar();
-                if (result != nullptr && result != DBNull::Value) {
-                    idEquip = result->ToString();
-                }
-            }
-            finally { conn->Close(); }
-            return idEquip;
+            CercadoraEquip^ cercadora = gcnew CercadoraEquip(connectionString);
+            String^ idEquip = cercadora->ObtenirIdEquipCapita(correu);
+            return idEquip == nullptr ? "" : idEquip;
         }
-        String^ CtrlIniciSessio::ObtenirIdUsuari(String^ correu) {
-            String^ idUsuari = "";
-            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
-            try {
-                conn->Open();
-                // CAMBIO AQUÍ: correu_electronic en lugar de correu
-                String^ query = "SELECT identificador FROM Usuari WHERE correu_electronic = @correu LIMIT 1";
-                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
-                cmd->Parameters->AddWithValue("@correu", correu);
 
-                Object^ result = cmd->ExecuteScalar();
-                if (result != nullptr) {
-                    idUsuari = result->ToString();
-                }
-            }
-            finally { conn->Close(); }
-            return idUsuari;
+        String^ CtrlIniciSessio::ObtenirIdUsuari(String^ correu) {
+            CercadoraUsuari^ cercadora = gcnew CercadoraUsuari(connectionString);
+            String^ idUsuari = cercadora->ObtenirIdUsuariStringPerCorreu(correu);
+            return idUsuari == nullptr ? "" : idUsuari;
         }
     }
 }

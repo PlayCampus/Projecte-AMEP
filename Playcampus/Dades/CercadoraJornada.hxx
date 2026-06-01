@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <string>
 #include "PassarellaJornada.hxx"
 
@@ -15,6 +15,7 @@ namespace Playcampus {
             CercadoraJornada(String^ connStr);
 
             List<Dictionary<String^, String^>^>^ ObtenirDictJornadesPerTemporada(String^ idTemporada);
+            String^ ObtenirIdTemporadaPerJornada(String^ idJornada);
         };
     }
 }

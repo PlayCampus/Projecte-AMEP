@@ -9,7 +9,7 @@ namespace Playcampus {
         public:
             CtrlAfegirJugador();
 
-            String^ AfegirJugador(String^ correuEstudiant, int dorsal, String^ posicio, String^ correuCapita);
+            String^ AfegirJugador(String^ correuEstudiant, int dorsal, String^ posicio, String^ correuCapita, DateTime dataNaixement);
         };
     }
 }

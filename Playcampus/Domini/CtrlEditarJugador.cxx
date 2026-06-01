@@ -3,9 +3,11 @@
 #include "../Dades/ConnexioBD.hxx"
 #include "../Dades/CercadoraUsuari.hxx"
 #include "../Dades/PassarellaUsuari.hxx"
+#include "../Dades/CercadoraEquip.hxx"
+#include "../Dades/CercadoraJugador.hxx"
+#include "../Dades/PassarellaJugador.hxx"
 
 using namespace System;
-using namespace MySql::Data::MySqlClient;
 using namespace Playcampus::Dades;
 
 namespace Playcampus {
@@ -23,7 +25,6 @@ namespace Playcampus {
                 throw gcnew Exception("Cal seleccionar un jugador.");
             }
 
-            // Validar capita
             CercadoraUsuari^ cercadoraUsuari = gcnew CercadoraUsuari(connectionString);
             PassarellaUsuari^ usuariCapita = cercadoraUsuari->LlegeixPerCorreu(correuCapita);
 
@@ -32,47 +33,22 @@ namespace Playcampus {
             }
 
             if (String::IsNullOrWhiteSpace(usuariCapita->GetTipus()) || usuariCapita->GetTipus()->ToLower() != "capita") {
-                throw gcnew UnauthorizedAccessException("NomÃ©s els capitans poden eliminar jugadors.");
+                throw gcnew UnauthorizedAccessException(L"Nom\u00E9s els capitans poden eliminar jugadors.");
             }
 
-            // Obtenir idEquip del capita
-            String^ idEquip = nullptr;
-            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
-            try {
-                conn->Open();
+            CercadoraEquip^ cercadoraEquip = gcnew CercadoraEquip(connectionString);
+            String^ idEquip = cercadoraEquip->ObtenirIdEquipCapita(correuCapita);
 
-                String^ queryEquip = "SELECT idEquip FROM Capita WHERE identificador = @identificador LIMIT 1";
-                MySqlCommand^ cmdEquip = gcnew MySqlCommand(queryEquip, conn);
-                cmdEquip->Parameters->AddWithValue("@identificador", usuariCapita->GetIdentificador());
-
-                Object^ resEquip = cmdEquip->ExecuteScalar();
-                if (resEquip != nullptr && resEquip != DBNull::Value) {
-                    idEquip = resEquip->ToString();
-                }
-
-                if (String::IsNullOrWhiteSpace(idEquip)) {
-                    throw gcnew Exception("El capità  no té cap equip registrat.");
-                }
-
-                // Comprovar que el jugador pertany a l'equip del capitÃ 
-                String^ queryPertany = "SELECT COUNT(*) FROM Jugador WHERE idJugador = @idJugador AND idEquip = @idEquip";
-                MySqlCommand^ cmdPertany = gcnew MySqlCommand(queryPertany, conn);
-                cmdPertany->Parameters->AddWithValue("@idJugador", idJugador);
-                cmdPertany->Parameters->AddWithValue("@idEquip", idEquip);
-
-                int count = Convert::ToInt32(cmdPertany->ExecuteScalar());
-                if (count <= 0) {
-                    throw gcnew Exception("El jugador seleccionat no pertany al teu equip.");
-                }
-
-                // Aquí se dejará la lógica de edición; por ahora comprobamos pertenencia y devolvemos OK.
-                // Si se requiere modificar campos concretos, implementarlo según requisitos.
-            }
-            finally {
-                conn->Close();
+            if (String::IsNullOrWhiteSpace(idEquip)) {
+                throw gcnew Exception(L"El capit\u00E0 no t\u00E9 cap equip registrat.");
             }
 
-            return "Validació d'edició realitzada correctament.";
+            CercadoraJugador^ cercadoraJugador = gcnew CercadoraJugador(connectionString);
+            if (!cercadoraJugador->JugadorPertanyAEquip(idJugador, idEquip)) {
+                throw gcnew Exception("El jugador seleccionat no pertany al teu equip.");
+            }
+
+            return L"Validaci\u00F3 d'edici\u00F3 realitzada correctament.";
         }
 
         String^ CtrlEditarJugador::ActualitzarJugador(String^ correuCapita, String^ idJugador, int dorsal, String^ posicio) {
@@ -84,7 +60,6 @@ namespace Playcampus {
                 throw gcnew Exception("Cal seleccionar un jugador.");
             }
 
-            // Validar capita
             CercadoraUsuari^ cercadoraUsuari = gcnew CercadoraUsuari(connectionString);
             PassarellaUsuari^ usuariCapita = cercadoraUsuari->LlegeixPerCorreu(correuCapita);
 
@@ -93,53 +68,25 @@ namespace Playcampus {
             }
 
             if (String::IsNullOrWhiteSpace(usuariCapita->GetTipus()) || usuariCapita->GetTipus()->ToLower() != "capita") {
-                throw gcnew UnauthorizedAccessException("Només els capitans poden editar jugadors.");
+                throw gcnew UnauthorizedAccessException(L"Nom\u00E9s els capitans poden editar jugadors.");
             }
 
-            // Obtenir idEquip del capita
-            String^ idEquip = nullptr;
-            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
-            try {
-                conn->Open();
+            CercadoraEquip^ cercadoraEquip = gcnew CercadoraEquip(connectionString);
+            String^ idEquip = cercadoraEquip->ObtenirIdEquipCapita(correuCapita);
 
-                String^ queryEquip = "SELECT idEquip FROM Capita WHERE identificador = @identificador LIMIT 1";
-                MySqlCommand^ cmdEquip = gcnew MySqlCommand(queryEquip, conn);
-                cmdEquip->Parameters->AddWithValue("@identificador", usuariCapita->GetIdentificador());
-
-                Object^ resEquip = cmdEquip->ExecuteScalar();
-                if (resEquip != nullptr && resEquip != DBNull::Value) {
-                    idEquip = resEquip->ToString();
-                }
-
-                if (String::IsNullOrWhiteSpace(idEquip)) {
-                    throw gcnew Exception("El capità no té cap equip registrat.");
-                }
-
-                // Comprovar que el jugador pertany a l'equip del capita
-                String^ queryPertany = "SELECT COUNT(*) FROM Jugador WHERE idJugador = @idJugador AND idEquip = @idEquip";
-                MySqlCommand^ cmdPertany = gcnew MySqlCommand(queryPertany, conn);
-                cmdPertany->Parameters->AddWithValue("@idJugador", idJugador);
-                cmdPertany->Parameters->AddWithValue("@idEquip", idEquip);
-
-                int count = Convert::ToInt32(cmdPertany->ExecuteScalar());
-                if (count <= 0) {
-                    throw gcnew Exception("El jugador seleccionat no pertany al teu equip.");
-                }
-
-                // Actualizar els dades del jugador
-                String^ queryUpdate = "UPDATE Jugador SET dorsal = @dorsal, posicio = @posicio WHERE idJugador = @idJugador";
-                MySqlCommand^ cmdUpdate = gcnew MySqlCommand(queryUpdate, conn);
-                cmdUpdate->Parameters->AddWithValue("@dorsal", dorsal);
-                cmdUpdate->Parameters->AddWithValue("@posicio", posicio);
-                cmdUpdate->Parameters->AddWithValue("@idJugador", idJugador);
-
-                cmdUpdate->ExecuteNonQuery();
-
-                return "Jugador actualitzat correctament.";
+            if (String::IsNullOrWhiteSpace(idEquip)) {
+                throw gcnew Exception(L"El capit\u00E0 no t\u00E9 cap equip registrat.");
             }
-            finally {
-                conn->Close();
+
+            CercadoraJugador^ cercadoraJugador = gcnew CercadoraJugador(connectionString);
+            if (!cercadoraJugador->JugadorPertanyAEquip(idJugador, idEquip)) {
+                throw gcnew Exception("El jugador seleccionat no pertany al teu equip.");
             }
+
+            PassarellaJugador^ passJugador = gcnew PassarellaJugador(connectionString);
+            passJugador->ActualitzarDorsalIPosicio(idJugador, dorsal, posicio);
+
+            return "Jugador actualitzat correctament.";
         }
     }
 }

@@ -20,8 +20,24 @@ namespace Playcampus {
 
         // Delegació a CercadoraTemporada
         List<Dictionary<String^, String^>^>^ CtrlEsborrarPartit::ObtenirTemporadesAdmin(String^ correuAdmin) {
+            // Pre: correuAdmin identifica l'administrador actual.
+            // Post: retorna només temporades no finalitzades perquè no es puguin esborrar partits de temporades tancades.
             Playcampus::Dades::CercadoraTemporada^ cercaT = gcnew Playcampus::Dades::CercadoraTemporada(connectionString);
-            return cercaT->ObtenirTemporadesAdmin(correuAdmin);
+            List<Dictionary<String^, String^>^>^ totes = cercaT->ObtenirTemporadesAdmin(correuAdmin);
+            List<Dictionary<String^, String^>^>^ disponibles = gcnew List<Dictionary<String^, String^>^>();
+
+            for (int i = 0; i < totes->Count; i++) {
+                Dictionary<String^, String^>^ temp = totes[i];
+                String^ estat = L"";
+                if (temp->ContainsKey("estat") && temp["estat"] != nullptr) {
+                    estat = temp["estat"]->ToLower();
+                }
+                if (estat != L"finalitzat" && estat != L"retirada") {
+                    disponibles->Add(temp);
+                }
+            }
+
+            return disponibles;
         }
 
         // Delegació a CercadoraJornada

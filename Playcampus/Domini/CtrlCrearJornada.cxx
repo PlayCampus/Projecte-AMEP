@@ -1,50 +1,103 @@
 ﻿#include "pch.h"
 #include "CtrlCrearJornada.hxx"
 #include "../Dades/ConnexioBD.hxx"
+#include "../Dades/CercadoraTemporada.hxx"
+#include "../Dades/CercadoraJornada.hxx"
+#include "../Dades/CercadoraLliga.hxx"
 
 using namespace Playcampus::Domini;
 using namespace System;
 
 CtrlCrearJornada::CtrlCrearJornada() {}
 
-bool CtrlCrearJornada::ValidarAdministradorLliga(String^ nomLliga, String^ correuAdmin) {
+String^ CtrlCrearJornada::ObtenirNomLligaAdministrador(String^ correuAdmin) {
     String^ connStr = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
-    Playcampus::Dades::PassarellaLliga^ passLliga = gcnew Playcampus::Dades::PassarellaLliga(connStr);
-
-    return passLliga->EsAdministradorLliga(nomLliga, correuAdmin);
+    Playcampus::Dades::CercadoraLliga^ cercadora = gcnew Playcampus::Dades::CercadoraLliga(connStr);
+    return cercadora->ObtenirNomLligaAdministrador(correuAdmin);
 }
-
 
 
 void CtrlCrearJornada::CrearJornada(String^ idTemporada,int numero, DateTime dataInici, DateTime dataFi, String^ estat) {
-    // 1. Obtener string de conexión
+            // RIT14 (j : Jornada): el número d’una jornada ha de ser més gran que 0.
+            if (numero <= 0) {
+                throw gcnew ArgumentException(L"El n\u00FAmero de jornada ha de ser m\u00E9s gran que 0.");
+            }
+
+            // RIT15 (j : Jornada): la dataInici d’una jornada ha de ser anterior a la dataFi.
+            if (dataInici >= dataFi) {
+                throw gcnew ArgumentException("La data d'inici de la jornada ha de ser anterior a la data final.");
+            }
+
+            // 1. Obtener string de conexión
+            String^ connStr = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
+
+            // RIT16 (j : Jornada, t : Temporada): les dates d’una jornada han d’estar dins de l’interval de dates de la temporada a la qual pertany.
+            Playcampus::Dades::CercadoraTemporada^ cercadoraTemp = gcnew Playcampus::Dades::CercadoraTemporada(connStr);
+            Dictionary<String^, String^>^ temporadaInfo = cercadoraTemp->ObtenirTemporadaPerId(idTemporada);
+            if (temporadaInfo != nullptr) {
+                DateTime tempInici = Convert::ToDateTime(temporadaInfo["dataInici"]);
+                DateTime tempFi = Convert::ToDateTime(temporadaInfo["dataFi"]);
+                if (dataInici < tempInici || dataFi > tempFi) {
+                    throw gcnew ArgumentException("Les dates de la jornada han d'estar dins de l'interval de la temporada (" + 
+                        tempInici.ToString("dd/MM/yyyy") + " - " + tempFi.ToString("dd/MM/yyyy") + ").");
+                }
+            }
+
+            Playcampus::Dades::CercadoraJornada^ cercadoraJornada = gcnew Playcampus::Dades::CercadoraJornada(connStr);
+            List<Dictionary<String^, String^>^>^ jornades = cercadoraJornada->ObtenirDictJornadesPerTemporada(idTemporada);
+            
+            for each(Dictionary<String^, String^>^ j in jornades) {
+                // RIT17 (j1, j2 : Jornada, t : Temporada): dins d’una mateixa temporada no poden existir dues jornades amb el mateix número.
+                if (Convert::ToInt32(j["numero"]) == numero) {
+                    throw gcnew ArgumentException(L"Ja existeix una jornada amb aquest n\u00FAmero en la temporada.");
+                }
+                
+                // RIT18 (j1, j2 : Jornada, t : Temporada): dues jornades d’una mateixa temporada no es poden solapar en dates.
+                DateTime jInici = Convert::ToDateTime(j["dataInici"]);
+                DateTime jFi = Convert::ToDateTime(j["dataFi"]);
+                
+                if (dataInici < jFi && dataFi > jInici) {
+                    throw gcnew ArgumentException("Les dates de la jornada es solapen amb una altra jornada existent.");
+                }
+            }
+
+            // 2. Generar el ID de la Jornada
+            String^ idJornada = "J-" + Guid::NewGuid().ToString()->Substring(0, 8);
+
+            // 3. Crear la pasarela enviant tots els atributs segons el model correcte
+            Playcampus::Dades::PassarellaJornada^ passJornada = gcnew Playcampus::Dades::PassarellaJornada(
+                connStr,
+                idJornada,
+                idTemporada,
+                numero,
+                dataInici,
+                dataFi,
+                estat
+            );
+
+            // 4. Insertar en la BD utilitzant el estat de la pasarela
+            passJornada->Insereix();
+        }
+
+        List<Dictionary<String^, String^>^>^ CtrlCrearJornada::ObtenirTemporadesLliga(String^ nomLliga) {
+    // Pre: nomLliga identifica la lliga de l'administrador.
+    // Post: retorna només temporades no finalitzades, perquè no es puguin crear jornades en temporades acabades.
     String^ connStr = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
-
-    // 2. Generar el ID de la Jornada
-    String^ idJornada = "J-" + Guid::NewGuid().ToString()->Substring(0, 8);
-
-    // 3. Crear la pasarela enviando todos los atributos según el modelo correcto
-    Playcampus::Dades::PassarellaJornada^ passJornada = gcnew Playcampus::Dades::PassarellaJornada(
-        connStr,
-        idJornada,
-        idTemporada,
-        numero,
-        dataInici,
-        dataFi,
-        estat
-    );
-
-    // 4. Insertar en la BD utilizando el estado de la pasarela
-    passJornada->Insereix();
-}
-
-List<Dictionary<String^, String^>^>^ CtrlCrearJornada::ObtenirTemporadesLliga(String^ nomLliga) {
-    // 1. Obtener la cadena de conexión
-    String^ connStr = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
-
-    // 2. Instanciar pasarela temporada con la cadena de conexión usando su nuevo constructor
     Playcampus::Dades::PassarellaTemporada^ passTemporada = gcnew Playcampus::Dades::PassarellaTemporada(connStr);
 
-    // 3. Llamar a la pasarela y devolver el resultado
-    return passTemporada->ObtenirDictTemporadesPerLliga(nomLliga);
+    List<Dictionary<String^, String^>^>^ totes = passTemporada->ObtenirDictTemporadesPerLliga(nomLliga);
+    List<Dictionary<String^, String^>^>^ disponibles = gcnew List<Dictionary<String^, String^>^>();
+
+    for (int i = 0; i < totes->Count; i++) {
+        Dictionary<String^, String^>^ temp = totes[i];
+        String^ estat = L"";
+        if (temp->ContainsKey("estat") && temp["estat"] != nullptr) {
+            estat = temp["estat"]->ToLower();
+        }
+        if (estat != L"finalitzat" && estat != L"retirada") {
+            disponibles->Add(temp);
+        }
+    }
+
+    return disponibles;
 }

@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2a2370b0-2045-4349-b56b-fd6ca47e6070}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <CLRSupport>true</CLRSupport>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <CLRSupport>true</CLRSupport>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>X64;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>$(SolutionDir)Playcampus;$(SolutionDir)Playcampus\Domini;$(SolutionDir)Playcampus\Dades;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>X64;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>$(SolutionDir)Playcampus;$(SolutionDir)Playcampus\Domini;$(SolutionDir)Playcampus\Dades;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="TestSupport.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Playcampus\Dades\CercadoraEquip.cxx" />
+    <ClCompile Include="..\Playcampus\Dades\CercadoraEquipTemporada.cxx" />
+    <ClCompile Include="..\Playcampus\Dades\CercadoraJornada.cxx" />
+    <ClCompile Include="..\Playcampus\Dades\CercadoraJugador.cxx" />
+    <ClCompile Include="..\Playcampus\Dades\CercadoraLliga.cxx" />
+    <ClCompile Include="..\Playcampus\Dades\CercadoraPartit.cxx" />
+    <ClCompile Include="..\Playcampus\Dades\CercadoraTemporada.cxx" />
+    <ClCompile Include="..\Playcampus\Dades\CercadoraUsuari.cxx" />
+    <ClCompile Include="..\Playcampus\Dades\ConnexioBD.cxx" />
+    <ClCompile Include="..\Playcampus\Dades\PassarellaCapita.cxx" />
+    <ClCompile Include="..\Playcampus\Dades\PassarellaEquip.cxx" />
+    <ClCompile Include="..\Playcampus\Dades\PassarellaEquipTemporada.cxx" />
+    <ClCompile Include="..\Playcampus\Dades\PassarellaJornada.cxx" />
+    <ClCompile Include="..\Playcampus\Dades\PassarellaJugador.cxx" />
+    <ClCompile Include="..\Playcampus\Dades\PassarellaLliga.cxx" />
+    <ClCompile Include="..\Playcampus\Dades\PassarellaPartit.cxx" />
+    <ClCompile Include="..\Playcampus\Dades\PassarellaTemporada.cxx" />
+    <ClCompile Include="..\Playcampus\Dades\PassarellaUsuari.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\Administrador.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\Capita.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtlrConvocarJugadors.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlAbandonarLliga.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlAfegirJugador.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlAssignarJugador.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlConsultaFitxatges.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlConsultaLligues.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlConsultaPartits.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlConsultaTelefons.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlConsultes.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlCrearJornada.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlCrearLliga.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlCrearPartit.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlCrearTemporada.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlEditarJugador.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlEditarPartit.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlEliminarJugador.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlEnregistrarEquip.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlEsborrarEquip.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlEsborrarJornada.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlEsborrarPartit.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlEstadistiquesPartit.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlIniciSessio.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlRegistrarUsuari.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlRetirarTemporada.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlSeguirLliga.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlTancarSessio.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlUnirEquipLliga.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlUsuari.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlVeureEstadistiquesEquip.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlVeureEstadistiquesJugadors.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlVeureEstadistiquesLliga.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\CtrlVeurePlantilla.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\Equip.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\EtiquetesEditarPartit.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\Jornada.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\Jugador.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\Lliga.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\Partit.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\Temporada.cxx" />
+    <ClCompile Include="..\Playcampus\Domini\Usuari.cxx" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="GTestLinkFix.cpp" />
+    <ClCompile Include="test.cpp" />
+    <ClCompile Include="test_controladors_playcampus.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\..\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\Microsoft.googletest.v140.windesktop.msvcstl.dyn.rt-dyn.1.8.1.7\build\native\Microsoft.googletest.v140.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('..\packages\Microsoft.googletest.v140.windesktop.msvcstl.dyn.rt-dyn.1.8.1.7\build\native\Microsoft.googletest.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.googletest.v140.windesktop.msvcstl.dyn.rt-dyn.1.8.1.7\build\native\Microsoft.googletest.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.googletest.v140.windesktop.msvcstl.dyn.rt-dyn.1.8.1.7\build\native\Microsoft.googletest.v140.windesktop.msvcstl.dyn.rt-dyn.targets'))" />
+  </Target>
+</Project>

@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include "Form1Designer.h"
+#include "EstilInterficie.hxx"
 
 namespace CppCLRWinFormsProject {
 
@@ -18,6 +19,7 @@ namespace CppCLRWinFormsProject {
 		this->Padding = System::Windows::Forms::Padding(0);
 		this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 		this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
+		this->MinimumSize = System::Drawing::Size(1050, 700);
 		this->Resize += gcnew System::EventHandler(this, &Form1::Form1_Resize);
 
 		// pnlInici
@@ -33,9 +35,10 @@ namespace CppCLRWinFormsProject {
 
 		this->picLogoInici->ImageLocation = L"imatges\\logo.png";
 		this->picLogoInici->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-		this->picLogoInici->Size = System::Drawing::Size(150, 150);
+		this->picLogoInici->BackColor = System::Drawing::Color::Transparent;
+		this->picLogoInici->Size = System::Drawing::Size(320, 230);
 
-		this->btnShowLogin->Text = L"Iniciar Sessió";
+		this->btnShowLogin->Text = L"Iniciar Sessi\u00F3";
 		this->btnShowLogin->Location = System::Drawing::Point(100, 100);
 		this->btnShowLogin->Size = System::Drawing::Size(200, 40);
 		this->btnShowLogin->Click += gcnew System::EventHandler(this, &Form1::btnShowLogin_Click);
@@ -69,33 +72,39 @@ namespace CppCLRWinFormsProject {
 
 		this->picLogoLogin->ImageLocation = L"imatges\\logo.png";
 		this->picLogoLogin->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-		this->picLogoLogin->Size = System::Drawing::Size(150, 150);
+		this->picLogoLogin->BackColor = System::Drawing::Color::Transparent;
+		this->picLogoLogin->Size = System::Drawing::Size(320, 230);
 
-		this->lblLoginTitle->Text = L"Iniciar Sessió";
+		this->lblLoginTitle->Text = L"Iniciar Sessi\u00F3";
+		this->lblLoginTitle->AutoSize = false;
+		this->lblLoginTitle->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+		this->lblLoginTitle->Size = System::Drawing::Size(360, 34);
 		this->lblLoginTitle->Location = System::Drawing::Point(150, 20);
 
 		this->lblLoginUsuari->Text = L"Correu";
 		this->lblLoginUsuari->Location = System::Drawing::Point(50, 50);
-		this->lblLoginUsuari->Size = System::Drawing::Size(100, 20);
+		this->lblLoginUsuari->Size = System::Drawing::Size(110, 24);
 
 		this->txtLoginCorreu->Text = L"";
 		this->txtLoginCorreu->Location = System::Drawing::Point(150, 50);
-		this->txtLoginCorreu->Size = System::Drawing::Size(150, 20);
+		this->txtLoginCorreu->Size = System::Drawing::Size(270, 26);
 
 		this->lblLoginPass->Text = L"Contrasenya";
 		this->lblLoginPass->Location = System::Drawing::Point(50, 90);
-		this->lblLoginPass->Size = System::Drawing::Size(100, 20);
+		this->lblLoginPass->Size = System::Drawing::Size(110, 24);
 
 		this->txtLoginPass->Text = L"";
 		this->txtLoginPass->UseSystemPasswordChar = true;
 		this->txtLoginPass->Location = System::Drawing::Point(150, 90);
-		this->txtLoginPass->Size = System::Drawing::Size(150, 20);
+		this->txtLoginPass->Size = System::Drawing::Size(270, 26);
 
 		this->btnLoginAct->Text = L"Entrar";
+		this->btnLoginAct->Size = System::Drawing::Size(130, 38);
 		this->btnLoginAct->Location = System::Drawing::Point(50, 130);
 		this->btnLoginAct->Click += gcnew System::EventHandler(this, &Form1::btnLoginAct_Click);
 
 		this->btnLoginBack->Text = L"Registrar-se";
+		this->btnLoginBack->Size = System::Drawing::Size(150, 38);
 		this->btnLoginBack->Location = System::Drawing::Point(150, 130);
 		this->btnLoginBack->Click += gcnew System::EventHandler(this, &Form1::btnShowRegisterFromLogin_Click);
 
@@ -137,62 +146,70 @@ namespace CppCLRWinFormsProject {
 
 		this->picLogoRegister->ImageLocation = L"imatges\\logo.png";
 		this->picLogoRegister->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-		this->picLogoRegister->Size = System::Drawing::Size(150, 150);
+		this->picLogoRegister->BackColor = System::Drawing::Color::Transparent;
+		this->picLogoRegister->Size = System::Drawing::Size(280, 200);
 
 		this->lblRegTitle->Text = L"Registrar-se";
+		this->lblRegTitle->AutoSize = false;
+		this->lblRegTitle->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+		this->lblRegTitle->Size = System::Drawing::Size(360, 34);
 		this->lblRegTitle->Location = System::Drawing::Point(150, 10);
 
 		this->lblRegNom->Text = L"Nom";
 		this->lblRegNom->Location = System::Drawing::Point(50, 70);
-		this->lblRegNom->Size = System::Drawing::Size(100, 20);
+		this->lblRegNom->Size = System::Drawing::Size(110, 24);
 
 		this->txtRegNom->Text = L"";
 		this->txtRegNom->Location = System::Drawing::Point(150, 70);
-		this->txtRegNom->Size = System::Drawing::Size(150, 20);
+		this->txtRegNom->Size = System::Drawing::Size(270, 26);
 
 		this->lblRegCorreu->Text = L"Correu";
 		this->lblRegCorreu->Location = System::Drawing::Point(50, 100);
-		this->lblRegCorreu->Size = System::Drawing::Size(100, 20);
+		this->lblRegCorreu->Size = System::Drawing::Size(110, 24);
 
 		this->txtRegCorreu->Text = L"";
 		this->txtRegCorreu->Location = System::Drawing::Point(150, 100);
-		this->txtRegCorreu->Size = System::Drawing::Size(150, 20);
+		this->txtRegCorreu->Size = System::Drawing::Size(270, 26);
 
 		this->lblRegPass->Text = L"Contrasenya";
 		this->lblRegPass->Location = System::Drawing::Point(50, 130);
-		this->lblRegPass->Size = System::Drawing::Size(100, 20);
+		this->lblRegPass->Size = System::Drawing::Size(110, 24);
 
 		this->txtRegPass->Text = L"";
 		this->txtRegPass->UseSystemPasswordChar = true;
 		this->txtRegPass->Location = System::Drawing::Point(150, 130);
-		this->txtRegPass->Size = System::Drawing::Size(150, 20);
+		this->txtRegPass->Size = System::Drawing::Size(270, 26);
 
 		this->lblRegTipus->Text = L"Tipus";
 		this->lblRegTipus->Location = System::Drawing::Point(50, 160);
-		this->lblRegTipus->Size = System::Drawing::Size(100, 20);
+		this->lblRegTipus->Size = System::Drawing::Size(110, 24);
 
-		this->cmbRegTipus->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Estudiant", L"Capita", L"Administrador" });
+		this->cmbRegTipus->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Estudiant", L"Capit\u00E0", L"Administrador" });
 		this->cmbRegTipus->SelectedIndex = 0;
 		this->cmbRegTipus->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 		this->cmbRegTipus->Location = System::Drawing::Point(150, 160);
-		this->cmbRegTipus->Size = System::Drawing::Size(150, 20);
+		this->cmbRegTipus->Size = System::Drawing::Size(270, 26);
 		this->cmbRegTipus->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbRegTipus_SelectedIndexChanged);
 
-		this->lblRegTelefon->Text = L"Telèfon";
+		this->lblRegTelefon->Text = L"Tel\u00E8fon";
 		this->lblRegTelefon->Location = System::Drawing::Point(50, 190);
-		this->lblRegTelefon->Size = System::Drawing::Size(100, 20);
+		this->lblRegTelefon->Size = System::Drawing::Size(110, 24);
 		this->lblRegTelefon->Visible = false;
 
 		this->txtRegTelefon->Text = L"";
 		this->txtRegTelefon->Location = System::Drawing::Point(150, 190);
-		this->txtRegTelefon->Size = System::Drawing::Size(150, 20);
+		this->txtRegTelefon->Size = System::Drawing::Size(270, 26);
 		this->txtRegTelefon->Visible = false;
+		this->txtRegTelefon->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Form1::txtRegTelefon_KeyPress);
+		this->txtRegTelefon->TextChanged += gcnew System::EventHandler(this, &Form1::txtRegTelefon_TextChanged);
 
 		this->btnRegAct->Text = L"Registrar";
+		this->btnRegAct->Size = System::Drawing::Size(130, 38);
 		this->btnRegAct->Location = System::Drawing::Point(50, 230);
 		this->btnRegAct->Click += gcnew System::EventHandler(this, &Form1::btnRegAct_Click);
 
 		this->btnRegBack->Text = L"Tornar";
+		this->btnRegBack->Size = System::Drawing::Size(150, 38);
 		this->btnRegBack->Location = System::Drawing::Point(150, 230);
 		this->btnRegBack->Click += gcnew System::EventHandler(this, &Form1::btnBack_Click);
 
@@ -203,6 +220,7 @@ namespace CppCLRWinFormsProject {
 		this->btnEstatLligues = gcnew System::Windows::Forms::Button();
 		this->btnEstadistiques = gcnew System::Windows::Forms::Button();
 		this->btnConsultar = gcnew System::Windows::Forms::Button();
+		this->btnMenuConsultarTelefons = gcnew System::Windows::Forms::Button();
 		this->picImatge = gcnew System::Windows::Forms::PictureBox();
 		this->lblNoticies = gcnew System::Windows::Forms::Label();
 		this->lstNoticies = gcnew System::Windows::Forms::ListBox();
@@ -214,6 +232,7 @@ namespace CppCLRWinFormsProject {
 		this->pnlMain->Controls->Add(this->btnEstatLligues);
 		this->pnlMain->Controls->Add(this->btnEstadistiques);
 		this->pnlMain->Controls->Add(this->btnConsultar);
+		this->pnlMain->Controls->Add(this->btnMenuConsultarTelefons);
 		this->pnlMain->Controls->Add(this->picImatge);
 		this->pnlMain->Controls->Add(this->lblNoticies);
 		this->pnlMain->Controls->Add(this->lstNoticies);
@@ -224,46 +243,54 @@ namespace CppCLRWinFormsProject {
 
 		this->picLogoMain->ImageLocation = L"imatges\\logo.png";
 		this->picLogoMain->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-		this->picLogoMain->Size = System::Drawing::Size(150, 100);
-		this->picLogoMain->Location = System::Drawing::Point(470, 50);
+		this->picLogoMain->Size = System::Drawing::Size(160, 105);
+		this->picLogoMain->Location = System::Drawing::Point(470, 20);
+		this->picLogoMain->Visible = true;
 
 		this->lblMainTitle->Text = L"PlayCampus";
 		this->lblMainTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
 		this->lblMainTitle->Location = System::Drawing::Point(230, 20);
 		this->lblMainTitle->AutoSize = true;
 
-		this->btnProgPartits->Text = L"Programació de partits";
+		this->btnProgPartits->Text = L"Programaci\u00F3 de partits";
 		this->btnProgPartits->Location = System::Drawing::Point(20, 60);
-		this->btnProgPartits->Size = System::Drawing::Size(130, 40);
+		this->btnProgPartits->Size = System::Drawing::Size(200, 42);
 		this->btnProgPartits->Click += gcnew System::EventHandler(this, &Form1::btnProgPartits_Click);
 
 		this->btnEstatLligues->Text = L"Estat de les Lligues";
 		this->btnEstatLligues->Location = System::Drawing::Point(160, 60);
-		this->btnEstatLligues->Size = System::Drawing::Size(130, 40);
+		this->btnEstatLligues->Size = System::Drawing::Size(200, 42);
 		this->btnEstatLligues->Click += gcnew System::EventHandler(this, &Form1::btnEstatLligues_Click);
 
-		this->btnEstadistiques->Text = L"Estadístiques";
+		this->btnEstadistiques->Text = L"Estad\u00EDstiques";
 		this->btnEstadistiques->Location = System::Drawing::Point(300, 60);
-		this->btnEstadistiques->Size = System::Drawing::Size(130, 40);
+		this->btnEstadistiques->Size = System::Drawing::Size(190, 42);
 		this->btnEstadistiques->Click += gcnew System::EventHandler(this, &Form1::btnEstadistiquesMenu_Click);
 
-		this->btnConsultar->Text = L"Consultar";
+        this->btnConsultar->Text = L"Consultar calendari";
 		this->btnConsultar->Location = System::Drawing::Point(440, 60);
-		this->btnConsultar->Size = System::Drawing::Size(130, 40);
+      this->btnConsultar->Size = System::Drawing::Size(200, 42);
 		this->btnConsultar->Click += gcnew System::EventHandler(this, &Form1::btnConsultar_Click);
 
-		this->picImatge->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-		this->picImatge->Location = System::Drawing::Point(20, 120);
-		this->picImatge->Size = System::Drawing::Size(550, 200);
+		this->btnMenuConsultarTelefons->Text = L"Consultar tel\u00E8fons";
+		this->btnMenuConsultarTelefons->Location = System::Drawing::Point(610, 60);
+		this->btnMenuConsultarTelefons->Size = System::Drawing::Size(200, 42);
+		this->btnMenuConsultarTelefons->Visible = false;
+		this->btnMenuConsultarTelefons->UseVisualStyleBackColor = true;
+		this->btnMenuConsultarTelefons->Click += gcnew System::EventHandler(this, &Form1::btnConsultarTelefons_Click);
 
-		this->lblNoticies->Text = L"Notícies Generals";
-		this->lblNoticies->Location = System::Drawing::Point(20, 330);
+		this->picImatge->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+		this->picImatge->Location = System::Drawing::Point(50, 245);
+		this->picImatge->Size = System::Drawing::Size(550, 220);
+
+     this->lblNoticies->Text = L"\u00DAltims fitxatges";
+		this->lblNoticies->Location = System::Drawing::Point(50, 485);
 		this->lblNoticies->AutoSize = true;
 
-		this->lstNoticies->Location = System::Drawing::Point(20, 350);
+		this->lstNoticies->Location = System::Drawing::Point(50, 510);
 		this->lstNoticies->Size = System::Drawing::Size(550, 80);
 
-		this->btnLogoutMainMenu->Text = L"Tancar Sessió";
+		this->btnLogoutMainMenu->Text = L"Tancar Sessi\u00F3";
 		this->btnLogoutMainMenu->Location = System::Drawing::Point(470, 20);
 		this->btnLogoutMainMenu->Size = System::Drawing::Size(100, 25);
 		this->btnLogoutMainMenu->Click += gcnew System::EventHandler(this, &Form1::btnLogout_Click);
@@ -272,6 +299,8 @@ namespace CppCLRWinFormsProject {
 		this->pnlConsultar = gcnew System::Windows::Forms::Panel();
 		this->lblConsultarTitle = gcnew System::Windows::Forms::Label();
 		this->btnTornarConsultar = gcnew System::Windows::Forms::Button();
+      this->lblAccesRapidCalendari = gcnew System::Windows::Forms::Label();
+		this->btnCalendariLligaSeguida = gcnew System::Windows::Forms::Button();
 		this->lblNomLliga = gcnew System::Windows::Forms::Label();
 		this->txtNomLliga = gcnew System::Windows::Forms::TextBox();
 		this->btnComprovarLliga = gcnew System::Windows::Forms::Button();
@@ -283,18 +312,20 @@ namespace CppCLRWinFormsProject {
 
 
 		this->btnCrearLligaMainMenu->Text = L"Crear Lliga";
-		this->btnCrearLligaMainMenu->Size = System::Drawing::Size(130, 40);
+		this->btnCrearLligaMainMenu->Size = System::Drawing::Size(170, 42);
 		this->btnCrearLligaMainMenu->Visible = false;
 		this->btnCrearLligaMainMenu->Click += gcnew System::EventHandler(this, &Form1::btnCrearLligaMainMenu_Click);
 		this->pnlConsultar->Dock = System::Windows::Forms::DockStyle::Fill;
 		this->pnlConsultar->Visible = false;
 		this->pnlConsultar->Controls->Add(this->lblConsultarTitle);
 		this->pnlConsultar->Controls->Add(this->btnTornarConsultar);
+       this->pnlConsultar->Controls->Add(this->lblAccesRapidCalendari);
+		this->pnlConsultar->Controls->Add(this->btnCalendariLligaSeguida);
 		this->pnlConsultar->Controls->Add(this->lblNomLliga);
 		this->pnlConsultar->Controls->Add(this->txtNomLliga);
 		this->pnlConsultar->Controls->Add(this->btnComprovarLliga);
 
-		this->lblConsultarTitle->Text = L"Consultar";
+       this->lblConsultarTitle->Text = L"Consultar calendari";
 		this->lblConsultarTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
 		this->lblConsultarTitle->AutoSize = true;
 		this->lblConsultarTitle->Location = System::Drawing::Point(350, 30);
@@ -304,18 +335,30 @@ namespace CppCLRWinFormsProject {
 		this->btnTornarConsultar->Location = System::Drawing::Point(30, 30);
 		this->btnTornarConsultar->Click += gcnew System::EventHandler(this, &Form1::btnTornarConsultar_Click);
 
+		this->lblAccesRapidCalendari->Text = L"Acc\u00E9s r\u00E0pid";
+		this->lblAccesRapidCalendari->AutoSize = true;
+		this->lblAccesRapidCalendari->Location = System::Drawing::Point(300, 85);
+		this->lblAccesRapidCalendari->Visible = false;
+
+		this->btnCalendariLligaSeguida->Text = L"Veure calendari de la lliga seguida";
+		this->btnCalendariLligaSeguida->Location = System::Drawing::Point(430, 80);
+		this->btnCalendariLligaSeguida->Size = System::Drawing::Size(250, 35);
+		this->btnCalendariLligaSeguida->UseVisualStyleBackColor = true;
+		this->btnCalendariLligaSeguida->Visible = false;
+		this->btnCalendariLligaSeguida->Click += gcnew System::EventHandler(this, &Form1::btnCalendariLligaSeguida_Click);
+
 		this->lblNomLliga->Text = L"Nom de la lliga";
-		this->lblNomLliga->Location = System::Drawing::Point(300, 140);
+     this->lblNomLliga->Location = System::Drawing::Point(300, 150);
 		this->lblNomLliga->Size = System::Drawing::Size(120, 20);
 		this->lblNomLliga->Visible = true;
 
 		this->txtNomLliga->Text = L"";
-		this->txtNomLliga->Location = System::Drawing::Point(430, 140);
+     this->txtNomLliga->Location = System::Drawing::Point(430, 150);
 		this->txtNomLliga->Size = System::Drawing::Size(200, 20);
 		this->txtNomLliga->Visible = true;
 
-		this->btnComprovarLliga->Text = L"Comprovar lliga";
-		this->btnComprovarLliga->Location = System::Drawing::Point(430, 180);
+     this->btnComprovarLliga->Text = L"Veure calendari";
+		this->btnComprovarLliga->Location = System::Drawing::Point(430, 190);
 		this->btnComprovarLliga->Size = System::Drawing::Size(200, 35);
 		this->btnComprovarLliga->UseVisualStyleBackColor = true;
 		this->btnComprovarLliga->Visible = true;
@@ -363,7 +406,7 @@ namespace CppCLRWinFormsProject {
 		this->lblCLEsport->Text = L"Esport:";
 		this->lblCLEsport->Size = System::Drawing::Size(100, 20);
 
-		this->cmbCLEsport->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Futbol", L"Basquet", L"Voley" });
+		this->cmbCLEsport->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Futbol", L"B\u00E0squet", L"V\u00F2lei" });
 		this->cmbCLEsport->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 		this->cmbCLEsport->Size = System::Drawing::Size(150, 20);
 
@@ -404,6 +447,7 @@ namespace CppCLRWinFormsProject {
 		this->btnGLCrearJornada = gcnew System::Windows::Forms::Button();
 		this->btnGLCrearTemporada = gcnew System::Windows::Forms::Button();
 		this->btnGLTornar = gcnew System::Windows::Forms::Button();
+		this->btnGLConsultarTelefons = gcnew System::Windows::Forms::Button();
 
 		this->picLogoGL = gcnew System::Windows::Forms::PictureBox();
 		this->pnlGestionarLliga->Dock = System::Windows::Forms::DockStyle::Fill;
@@ -416,6 +460,7 @@ namespace CppCLRWinFormsProject {
 		this->pnlGestionarLliga->Controls->Add(this->btnGLCrearJornada);
 		this->pnlGestionarLliga->Controls->Add(this->btnGLCrearTemporada);
 		this->pnlGestionarLliga->Controls->Add(this->btnGLTornar);
+		this->pnlGestionarLliga->Controls->Add(this->btnGLConsultarTelefons);
 		this->pnlGestionarLliga->Controls->Add(this->picLogoGL);
 
 		this->picLogoGL->ImageLocation = L"imatges\\logo.png";
@@ -474,6 +519,13 @@ namespace CppCLRWinFormsProject {
 		this->btnGLRetirarTemporada->Cursor = System::Windows::Forms::Cursors::Hand;
 		this->btnGLRetirarTemporada->Click += gcnew System::EventHandler(this, &Form1::btnGLRetirarTemporada_Click);
 
+		this->btnGLConsultarTelefons->Text = L"Consultar tel\u00E8fons";
+		this->btnGLConsultarTelefons->Size = System::Drawing::Size(220, 60);
+		this->btnGLConsultarTelefons->Font = actionBtnFont;
+		this->btnGLConsultarTelefons->Cursor = System::Windows::Forms::Cursors::Hand;
+		this->btnGLConsultarTelefons->UseVisualStyleBackColor = true;
+		this->btnGLConsultarTelefons->Click += gcnew System::EventHandler(this, &Form1::btnConsultarTelefons_Click);
+
 		this->btnGLTornar->Text = L"Tornar";
 		this->btnGLTornar->Size = System::Drawing::Size(100, 30);
 		this->btnGLTornar->Click += gcnew System::EventHandler(this, &Form1::btnGLTornar_Click);
@@ -496,11 +548,11 @@ namespace CppCLRWinFormsProject {
 		this->picLogoEst->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 		this->picLogoEst->Size = System::Drawing::Size(150, 100);
 
-		this->lblEstTitle->Text = L"Estadístiques";
+		this->lblEstTitle->Text = L"Estad\u00EDstiques";
 		this->lblEstTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
 		this->lblEstTitle->AutoSize = true;
 
-		this->btnEstEquips->Text = L"Estadístiques equips";
+		this->btnEstEquips->Text = L"Estad\u00EDstiques equips";
 		this->btnEstEquips->Size = System::Drawing::Size(220, 60);
 		this->btnEstEquips->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
 		this->btnEstEquips->Cursor = System::Windows::Forms::Cursors::Hand;
@@ -556,6 +608,14 @@ namespace CppCLRWinFormsProject {
 		this->btnGLEsborrarPartit->Cursor = System::Windows::Forms::Cursors::Hand;
 		this->btnGLEsborrarPartit->Click += gcnew System::EventHandler(this, &Form1::btnGLEsborrarPartit_Click);
 
+		this->btnGLEsborrarJornada = gcnew System::Windows::Forms::Button();
+		this->pnlGestionarLliga->Controls->Add(this->btnGLEsborrarJornada);
+		this->btnGLEsborrarJornada->Text = L"Esborrar jornada";
+		this->btnGLEsborrarJornada->Size = System::Drawing::Size(220, 60);
+		this->btnGLEsborrarJornada->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
+		this->btnGLEsborrarJornada->Cursor = System::Windows::Forms::Cursors::Hand;
+		this->btnGLEsborrarJornada->Click += gcnew System::EventHandler(this, &Form1::btnGLEsborrarJornada_Click);
+
 		// --- Añadir todos los controles al Panel ---
 		this->pnlCrearPartit->Controls->Add(this->lblCPTitle);
 		this->pnlCrearPartit->Controls->Add(this->lblCPNomLliga);     // AFEGIT
@@ -583,11 +643,14 @@ namespace CppCLRWinFormsProject {
 		// --- Propiedades NOU CAMPS Lliga i Temporada ---
 		this->lblCPNomLliga->Text = L"Nom Lliga:";
 		this->lblCPNomLliga->Size = System::Drawing::Size(100, 20);
+		this->lblCPNomLliga->Visible = false;
 		this->txtCPNomLliga->Size = System::Drawing::Size(100, 20);
+		this->txtCPNomLliga->Visible = false;
 
 		this->btnCPValidarLliga->Text = L"Validar Lliga";
 		this->btnCPValidarLliga->Size = System::Drawing::Size(100, 25);
 		this->btnCPValidarLliga->Click += gcnew System::EventHandler(this, &Form1::btnCPValidarLliga_Click);
+		this->btnCPValidarLliga->Visible = false;
 
 		this->lblCPTemporada->Text = L"Temporada:";
 		this->lblCPTemporada->Size = System::Drawing::Size(100, 20);
@@ -606,7 +669,7 @@ namespace CppCLRWinFormsProject {
 		this->dtpCPData->Size = System::Drawing::Size(150, 20);
 		this->dtpCPData->Format = System::Windows::Forms::DateTimePickerFormat::Short;
 
-		this->lblCPUbicacio->Text = L"Ubicació:";
+		this->lblCPUbicacio->Text = L"Ubicaci\u00F3:";
 		this->lblCPUbicacio->Size = System::Drawing::Size(100, 20);
 		this->txtCPUbicacio->Size = System::Drawing::Size(150, 20);
 
@@ -624,7 +687,7 @@ namespace CppCLRWinFormsProject {
 		this->btnCPConfirmar->Size = System::Drawing::Size(100, 30);
 		this->btnCPConfirmar->Click += gcnew System::EventHandler(this, &Form1::btnCPConfirmar_Click);
 
-		this->btnCPCancellar->Text = L"Cancel·lar";
+		this->btnCPCancellar->Text = L"Cancel\u00B7lar";
 		this->btnCPCancellar->Size = System::Drawing::Size(100, 30);
 		this->btnCPCancellar->Click += gcnew System::EventHandler(this, &Form1::btnCPCancellar_Click);
 
@@ -658,7 +721,9 @@ namespace CppCLRWinFormsProject {
 
 		this->lblCTNomLliga->Text = L"Nom de la Lliga:";
 		this->lblCTNomLliga->Size = System::Drawing::Size(100, 20);
+		this->lblCTNomLliga->Visible = false;
 		this->txtCTNomLliga->Size = System::Drawing::Size(150, 20);
+		this->txtCTNomLliga->Visible = false;
 
 
 		this->lblCTDataInici->Text = L"Data d'Inici:";
@@ -670,7 +735,7 @@ namespace CppCLRWinFormsProject {
 		this->btnCTConfirmar->Text = L"Confirmar";
 		this->btnCTConfirmar->Click += gcnew System::EventHandler(this, &Form1::btnCTConfirmar_Click);
 
-		this->btnCTCancellar->Text = L"Cancel·lar";
+		this->btnCTCancellar->Text = L"Cancel\u00B7lar";
 		this->btnCTCancellar->Click += gcnew System::EventHandler(this, &Form1::btnCTCancellar_Click);
 
 		this->Controls->Add(this->pnlCrearTemporada);
@@ -719,13 +784,16 @@ namespace CppCLRWinFormsProject {
 		this->lblCJTitle->AutoSize = true;
 
 		this->lblCJNomLliga->Text = L"Nom Lliga:";
+		this->lblCJNomLliga->Visible = false;
+		this->txtCJNomLliga->Visible = false;
 		this->btnCJBuscarTemporades->Text = L"Cercar Temporades";
 		this->btnCJBuscarTemporades->Click += gcnew System::EventHandler(this, &Form1::btnCJBuscarTemporades_Click);
+		this->btnCJBuscarTemporades->Visible = false;
 
 		this->lblCJTemporada->Text = L"Temporada:";
 		this->cmbCJTemporada->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 
-		this->lblCJNumero->Text = L"Número Jornada:";
+		this->lblCJNumero->Text = L"N\u00FAmero Jornada:";
 
 		this->lblCJDataInici->Text = L"Data d'Inici:";
 		this->dtpCJDataInici->Format = System::Windows::Forms::DateTimePickerFormat::Short;
@@ -736,7 +804,7 @@ namespace CppCLRWinFormsProject {
 		this->btnCJConfirmar->Text = L"Confirmar";
 		this->btnCJConfirmar->Click += gcnew System::EventHandler(this, &Form1::btnCJConfirmar_Click);
 
-		this->btnCJCancellar->Text = L"Cancel·lar";
+		this->btnCJCancellar->Text = L"Cancel\u00B7lar";
 		this->btnCJCancellar->Click += gcnew System::EventHandler(this, &Form1::btnCJCancellar_Click);
 
 		// AFEGIR pnlCrearJornada AL FORMULARi
@@ -775,7 +843,7 @@ namespace CppCLRWinFormsProject {
 
 		this->txtEENom->Size = System::Drawing::Size(150, 20);
 
-		this->lblEEData->Text = L"Data Fundació:";
+		this->lblEEData->Text = L"Data Fundaci\u00F3:";
 		this->lblEEData->Size = System::Drawing::Size(100, 20);
 
 		this->dtpEEData->Size = System::Drawing::Size(150, 20);
@@ -784,7 +852,7 @@ namespace CppCLRWinFormsProject {
 		this->lblEEEscollirEsport->Text = L"Esport:";
 		this->lblEEEscollirEsport->Size = System::Drawing::Size(100, 20);
 
-		this->cmbEEEscollirEsport->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Futbol", L"Basquet", L"Voley" });
+		this->cmbEEEscollirEsport->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Futbol", L"B\u00E0squet", L"V\u00F2lei" });
 		this->cmbEEEscollirEsport->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 		this->cmbEEEscollirEsport->Size = System::Drawing::Size(150, 20);
 
@@ -805,7 +873,7 @@ namespace CppCLRWinFormsProject {
 		this->btnGEEsborrarEquip = gcnew System::Windows::Forms::Button();
 		this->btnGEAfegirJugador = gcnew System::Windows::Forms::Button();
 		this->btnGEEliminarJugador = gcnew System::Windows::Forms::Button();
-		this->btnGEAssignarJugador = gcnew System::Windows::Forms::Button();
+		this->btnGEConvocarJugador = gcnew System::Windows::Forms::Button();
 		this->btnGETornar = gcnew System::Windows::Forms::Button();
 			// pnlGestionarEquip
 			this->pnlGestionarEquip = gcnew System::Windows::Forms::Panel();
@@ -814,8 +882,9 @@ namespace CppCLRWinFormsProject {
 			this->btnGEEsborrarEquip = gcnew System::Windows::Forms::Button();
 			this->btnGEAfegirJugador = gcnew System::Windows::Forms::Button();
 			this->btnGEEliminarJugador = gcnew System::Windows::Forms::Button();
-			this->btnGEAssignarJugador = gcnew System::Windows::Forms::Button();
+			this->btnGEConvocarJugador = gcnew System::Windows::Forms::Button();
 			this->btnGEEditarJugador = gcnew System::Windows::Forms::Button();
+			this->btnGEConsultarTelefons = gcnew System::Windows::Forms::Button();
 			this->btnGETornar = gcnew System::Windows::Forms::Button();
 
 		this->pnlGestionarEquip->Dock = System::Windows::Forms::DockStyle::Fill;
@@ -825,7 +894,7 @@ namespace CppCLRWinFormsProject {
 		this->pnlGestionarEquip->Controls->Add(this->btnGEEsborrarEquip);
 		this->pnlGestionarEquip->Controls->Add(this->btnGEAfegirJugador);
 		this->pnlGestionarEquip->Controls->Add(this->btnGEEliminarJugador);
-		this->pnlGestionarEquip->Controls->Add(this->btnGEAssignarJugador);
+		this->pnlGestionarEquip->Controls->Add(this->btnGEConvocarJugador);
 		this->pnlGestionarEquip->Controls->Add(this->btnGETornar);
 			this->pnlGestionarEquip->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->pnlGestionarEquip->Visible = false;
@@ -834,8 +903,9 @@ namespace CppCLRWinFormsProject {
 			this->pnlGestionarEquip->Controls->Add(this->btnGEEsborrarEquip);
 			this->pnlGestionarEquip->Controls->Add(this->btnGEAfegirJugador);
 		 this->pnlGestionarEquip->Controls->Add(this->btnGEEliminarJugador);
-			this->pnlGestionarEquip->Controls->Add(this->btnGEAssignarJugador);
+			this->pnlGestionarEquip->Controls->Add(this->btnGEConvocarJugador);
 			this->pnlGestionarEquip->Controls->Add(this->btnGEEditarJugador);
+			this->pnlGestionarEquip->Controls->Add(this->btnGEConsultarTelefons);
 			this->pnlGestionarEquip->Controls->Add(this->btnGETornar);
 
 		this->lblGETitle->Text = L"Gestionar Equip";
@@ -870,17 +940,24 @@ namespace CppCLRWinFormsProject {
 		this->btnGEEliminarJugador->Cursor = System::Windows::Forms::Cursors::Hand;
 		this->btnGEEliminarJugador->Click += gcnew System::EventHandler(this, &Form1::btnGEEliminarJugador_Click);
 
-		this->btnGEAssignarJugador->Text = L"Assignar jugador a partit";
-		this->btnGEAssignarJugador->Size = System::Drawing::Size(220, 60);
-		this->btnGEAssignarJugador->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
-		this->btnGEAssignarJugador->Cursor = System::Windows::Forms::Cursors::Hand;
-		this->btnGEAssignarJugador->Click += gcnew System::EventHandler(this, &Form1::btnGEAssignarJugador_Click);
+		this->btnGEConvocarJugador->Text = L"Convocar jugador";
+		this->btnGEConvocarJugador->Size = System::Drawing::Size(220, 60);
+		this->btnGEConvocarJugador->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
+		this->btnGEConvocarJugador->Cursor = System::Windows::Forms::Cursors::Hand;
+		this->btnGEConvocarJugador->Click += gcnew System::EventHandler(this, &Form1::btnGEConvocarJugador_Click);
 
 			this->btnGEEditarJugador->Text = L"Editar Jugador";
 			this->btnGEEditarJugador->Size = System::Drawing::Size(220, 60);
 			this->btnGEEditarJugador->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
 			this->btnGEEditarJugador->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->btnGEEditarJugador->Click += gcnew System::EventHandler(this, &Form1::btnGEEditarJugador_Click);
+
+			this->btnGEConsultarTelefons->Text = L"Consultar tel\u00E8fons";
+			this->btnGEConsultarTelefons->Size = System::Drawing::Size(220, 60);
+			this->btnGEConsultarTelefons->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
+			this->btnGEConsultarTelefons->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnGEConsultarTelefons->UseVisualStyleBackColor = true;
+			this->btnGEConsultarTelefons->Click += gcnew System::EventHandler(this, &Form1::btnConsultarTelefons_Click);
 
 			this->btnGETornar->Text = L"Tornar";
 			this->btnGETornar->Size = System::Drawing::Size(100, 30);
@@ -897,6 +974,8 @@ namespace CppCLRWinFormsProject {
 		this->txtAJDorsal = gcnew System::Windows::Forms::TextBox();
 		this->lblAJPosicio = gcnew System::Windows::Forms::Label();
 		this->txtAJPosicio = gcnew System::Windows::Forms::TextBox();
+		this->lblAJDataNaixement = gcnew System::Windows::Forms::Label();
+		this->dtpAJDataNaixement = gcnew System::Windows::Forms::DateTimePicker();
 		this->btnAJConfirmar = gcnew System::Windows::Forms::Button();
 		this->btnAJCancellar = gcnew System::Windows::Forms::Button();
 
@@ -909,6 +988,8 @@ namespace CppCLRWinFormsProject {
 		this->pnlAfegirJugador->Controls->Add(this->txtAJDorsal);
 		this->pnlAfegirJugador->Controls->Add(this->lblAJPosicio);
 		this->pnlAfegirJugador->Controls->Add(this->txtAJPosicio);
+		this->pnlAfegirJugador->Controls->Add(this->lblAJDataNaixement);
+		this->pnlAfegirJugador->Controls->Add(this->dtpAJDataNaixement);
 		this->pnlAfegirJugador->Controls->Add(this->btnAJConfirmar);
 		this->pnlAfegirJugador->Controls->Add(this->btnAJCancellar);
 
@@ -926,16 +1007,23 @@ namespace CppCLRWinFormsProject {
 
 		this->txtAJDorsal->Size = System::Drawing::Size(200, 20);
 
-		this->lblAJPosicio->Text = L"Posició (Opcional):";
+		this->lblAJPosicio->Text = L"Posici\u00F3 (Opcional):";
 		this->lblAJPosicio->Size = System::Drawing::Size(120, 20);
 
 		this->txtAJPosicio->Size = System::Drawing::Size(200, 20);
+
+		this->lblAJDataNaixement->Text = L"Data Naixement:";
+		this->lblAJDataNaixement->Size = System::Drawing::Size(120, 20);
+
+		this->dtpAJDataNaixement->Size = System::Drawing::Size(200, 20);
+		this->dtpAJDataNaixement->Format = System::Windows::Forms::DateTimePickerFormat::Short;
+		this->dtpAJDataNaixement->Value = System::DateTime::Now.AddYears(-20);
 
 		this->btnAJConfirmar->Text = L"Confirmar";
 		this->btnAJConfirmar->Size = System::Drawing::Size(100, 30);
 		this->btnAJConfirmar->Click += gcnew System::EventHandler(this, &Form1::btnAJConfirmar_Click);
 
-		this->btnAJCancellar->Text = L"Cancel·lar";
+		this->btnAJCancellar->Text = L"Cancel\u00B7lar";
 		this->btnAJCancellar->Size = System::Drawing::Size(100, 30);
 		this->btnAJCancellar->Click += gcnew System::EventHandler(this, &Form1::btnAJCancellar_Click);
 
@@ -1034,7 +1122,7 @@ namespace CppCLRWinFormsProject {
 		this->pnlEsborrarPartit->Controls->Add(this->cmbEPPartits);
 		this->pnlEsborrarPartit->Controls->Add(this->btnEPEsborrarFinal);
 
-		this->lblEPTitle->Text = L"Esborrar Partit - Selecció";
+		this->lblEPTitle->Text = L"Esborrar Partit - Selecci\u00F3";
 		this->lblEPTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
 		this->lblEPTitle->AutoSize = true;
 
@@ -1069,6 +1157,54 @@ namespace CppCLRWinFormsProject {
 
 		this->Controls->Add(this->pnlEsborrarPartit);
 
+		// pnlEsborrarJornada
+		this->pnlEsborrarJornada = gcnew System::Windows::Forms::Panel();
+		this->lblEJTitle = gcnew System::Windows::Forms::Label();
+		this->btnEJTornar = gcnew System::Windows::Forms::Button();
+		this->lblEJTemporada = gcnew System::Windows::Forms::Label();
+		this->cmbEJTemporades = gcnew System::Windows::Forms::ComboBox();
+		this->ejTemporadaIds = gcnew System::Collections::Generic::List<String^>();
+		this->lblEJJornada = gcnew System::Windows::Forms::Label();
+		this->cmbEJJornades = gcnew System::Windows::Forms::ComboBox();
+		this->ejJornadaIds = gcnew System::Collections::Generic::List<String^>();
+		this->btnEJEsborrarFinal = gcnew System::Windows::Forms::Button();
+
+		this->pnlEsborrarJornada->Dock = System::Windows::Forms::DockStyle::Fill;
+		this->pnlEsborrarJornada->Visible = false;
+		this->pnlEsborrarJornada->Controls->Add(this->lblEJTitle);
+		this->pnlEsborrarJornada->Controls->Add(this->btnEJTornar);
+		this->pnlEsborrarJornada->Controls->Add(this->lblEJTemporada);
+		this->pnlEsborrarJornada->Controls->Add(this->cmbEJTemporades);
+		this->pnlEsborrarJornada->Controls->Add(this->lblEJJornada);
+		this->pnlEsborrarJornada->Controls->Add(this->cmbEJJornades);
+		this->pnlEsborrarJornada->Controls->Add(this->btnEJEsborrarFinal);
+
+		this->lblEJTitle->Text = L"Esborrar Jornada - Selecci\u00F3";
+		this->lblEJTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold);
+		this->lblEJTitle->AutoSize = true;
+
+		this->btnEJTornar->Text = L"Tornar";
+		this->btnEJTornar->Click += gcnew System::EventHandler(this, &Form1::btnEJTornar_Click);
+
+		this->lblEJTemporada->Text = L"Tria una Temporada:";
+		this->lblEJTemporada->AutoSize = true;
+		this->cmbEJTemporades->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+		this->cmbEJTemporades->Size = System::Drawing::Size(450, 24);
+		this->cmbEJTemporades->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbEJTemporades_SelectedIndexChanged);
+
+		this->lblEJJornada->Text = L"Tria la Jornada a esborrar:";
+		this->lblEJJornada->AutoSize = true;
+		this->cmbEJJornades->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+		this->cmbEJJornades->Size = System::Drawing::Size(450, 24);
+
+		this->btnEJEsborrarFinal->Text = L"Esborrar Jornada";
+		this->btnEJEsborrarFinal->BackColor = System::Drawing::Color::Red;
+		this->btnEJEsborrarFinal->ForeColor = System::Drawing::Color::White;
+		this->btnEJEsborrarFinal->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.0F, System::Drawing::FontStyle::Bold);
+		this->btnEJEsborrarFinal->Click += gcnew System::EventHandler(this, &Form1::btnEJEsborrarFinal_Click);
+
+		this->Controls->Add(this->pnlEsborrarJornada);
+
 		// Panel detallat d'estadístiques d'equips
 		this->pnlEstadistiquesEquipDetail = gcnew System::Windows::Forms::Panel();
 		this->lblEstEquipTitle = gcnew System::Windows::Forms::Label();
@@ -1088,7 +1224,7 @@ namespace CppCLRWinFormsProject {
 		this->pnlEstadistiquesEquipDetail->Visible = false;
 		this->pnlEstadistiquesEquipDetail->BackColor = System::Drawing::Color::White;
 
-		this->lblEstEquipTitle->Text = L"Estadístiques d'equip";
+		this->lblEstEquipTitle->Text = L"Estad\u00EDstiques d'equip";
 		this->lblEstEquipTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.0F, System::Drawing::FontStyle::Bold);
 		this->lblEstEquipTitle->AutoSize = true;
 
@@ -1143,7 +1279,7 @@ namespace CppCLRWinFormsProject {
 		this->Controls->Add(this->pnlEstadistiquesEquipDetail);
 
 		this->btnEstLliga = gcnew System::Windows::Forms::Button();
-		this->btnEstLliga->Text = L"Estadístiques Lliga";
+		this->btnEstLliga->Text = L"Estad\u00EDstiques Lliga";
 		this->btnEstLliga->Size = System::Drawing::Size(220, 60);
 		this->btnEstLliga->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.0F, System::Drawing::FontStyle::Regular);
 		this->btnEstLliga->Cursor = System::Windows::Forms::Cursors::Hand;
@@ -1154,62 +1290,87 @@ namespace CppCLRWinFormsProject {
 		this->btnEstLliga->Click += gcnew System::EventHandler(this, &Form1::btnEstLliga_Click);
 		this->pnlEstadistiques->Controls->Add(this->btnEstLliga);
 
-		// 2. Panel de Detalle (el que se abre al pulsar el botón)
+		// 2. Panel de detalle de estadísticas de liga
 		this->pnlEstadistiquesLligaDetail = gcnew System::Windows::Forms::Panel();
 		this->pnlEstadistiquesLligaDetail->Dock = System::Windows::Forms::DockStyle::Fill;
 		this->pnlEstadistiquesLligaDetail->Visible = false;
 		this->pnlEstadistiquesLligaDetail->BackColor = System::Drawing::Color::White;
 
-		// 3. Elementos de Búsqueda (Estudiante)
+		this->estLligaIds = gcnew System::Collections::Generic::List<String^>();
+		this->estLligaTemporadaIds = gcnew System::Collections::Generic::List<String^>();
+
+		this->lblEstLligaInfo = gcnew System::Windows::Forms::Label();
+		this->lblEstLligaInfo->Visible = false;
+		this->lblEstLligaInfo->AutoSize = false;
+		this->lblEstLligaInfo->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+		this->lblEstLligaInfo->Font = gcnew System::Drawing::Font(L"Segoe UI", 12.0F, System::Drawing::FontStyle::Bold);
+		this->lblEstLligaInfo->ForeColor = System::Drawing::Color::FromArgb(21, 48, 79);
+
 		this->lblEstLligaBuscar = gcnew System::Windows::Forms::Label();
-		this->lblEstLligaBuscar->Text = L"Escriu el nom de la Lliga:";
-		this->lblEstLligaBuscar->Location = System::Drawing::Point(50, 40);
+		this->lblEstLligaBuscar->Text = L"Cercar lliga:";
+		this->lblEstLligaBuscar->Location = System::Drawing::Point(50, 25);
 		this->lblEstLligaBuscar->AutoSize = true;
 
 		this->txtEstLligaBuscar = gcnew System::Windows::Forms::TextBox();
-		this->txtEstLligaBuscar->Location = System::Drawing::Point(200, 38);
-		this->txtEstLligaBuscar->Size = System::Drawing::Size(200, 20);
+		this->txtEstLligaBuscar->Location = System::Drawing::Point(170, 22);
+		this->txtEstLligaBuscar->Size = System::Drawing::Size(230, 20);
 
 		this->btnEstLligaExecutarCerca = gcnew System::Windows::Forms::Button();
 		this->btnEstLligaExecutarCerca->Text = L"Cercar";
-		this->btnEstLligaExecutarCerca->Location = System::Drawing::Point(410, 36);
+		this->btnEstLligaExecutarCerca->Location = System::Drawing::Point(415, 20);
+		this->btnEstLligaExecutarCerca->Size = System::Drawing::Size(90, 26);
 		this->btnEstLligaExecutarCerca->Click += gcnew System::EventHandler(this, &Form1::btnEstLligaExecutarCerca_Click);
 
-		// 4. Temporada y Tabla
+		this->lblEstLligaSeleccionar = gcnew System::Windows::Forms::Label();
+		this->lblEstLligaSeleccionar->Text = L"Selecciona una lliga:";
+		this->lblEstLligaSeleccionar->Location = System::Drawing::Point(50, 65);
+		this->lblEstLligaSeleccionar->AutoSize = true;
+
+		this->cmbEstLligaLligues = gcnew System::Windows::Forms::ComboBox();
+		this->cmbEstLligaLligues->Location = System::Drawing::Point(170, 62);
+		this->cmbEstLligaLligues->Size = System::Drawing::Size(335, 24);
+		this->cmbEstLligaLligues->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+		this->cmbEstLligaLligues->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbEstLligaLligues_SelectedIndexChanged);
+
 		this->lblEstLligaTemporada = gcnew System::Windows::Forms::Label();
 		this->lblEstLligaTemporada->Text = L"Temporada:";
-		this->lblEstLligaTemporada->Location = System::Drawing::Point(50, 80);
+		this->lblEstLligaTemporada->Location = System::Drawing::Point(50, 105);
+		this->lblEstLligaTemporada->AutoSize = true;
 		this->lblEstLligaTemporada->Visible = false;
 
 		this->cmbEstLligaTemporades = gcnew System::Windows::Forms::ComboBox();
-		this->cmbEstLligaTemporades->Location = System::Drawing::Point(150, 78);
+		this->cmbEstLligaTemporades->Location = System::Drawing::Point(170, 102);
+		this->cmbEstLligaTemporades->Size = System::Drawing::Size(335, 24);
 		this->cmbEstLligaTemporades->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 		this->cmbEstLligaTemporades->Visible = false;
+		this->cmbEstLligaTemporades->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbEstLligaTemporades_SelectedIndexChanged);
 
 		this->dgvEstLligaClassificacio = gcnew System::Windows::Forms::DataGridView();
-		this->dgvEstLligaClassificacio->Location = System::Drawing::Point(50, 120);
-		this->dgvEstLligaClassificacio->Size = System::Drawing::Size(700, 350);
+		this->dgvEstLligaClassificacio->Location = System::Drawing::Point(50, 145);
+		this->dgvEstLligaClassificacio->Size = System::Drawing::Size(760, 290);
 		this->dgvEstLligaClassificacio->Visible = false;
 		this->dgvEstLligaClassificacio->AllowUserToAddRows = false;
 		this->dgvEstLligaClassificacio->ReadOnly = true;
+		this->dgvEstLligaClassificacio->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
 		this->dgvEstLligaClassificacio->AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode::Fill;
 
-		// 5. Botón Volver
 		this->btnEstLligaTornar = gcnew System::Windows::Forms::Button();
 		this->btnEstLligaTornar->Text = L"<- Tornar";
-		this->btnEstLligaTornar->Location = System::Drawing::Point(50, 490);
+		this->btnEstLligaTornar->Location = System::Drawing::Point(50, 450);
+		this->btnEstLligaTornar->Size = System::Drawing::Size(100, 30);
 		this->btnEstLligaTornar->Click += gcnew System::EventHandler(this, &Form1::btnEstLligaTornar_Click);
 
-		// Agregar todo al panel de detalle
 		this->pnlEstadistiquesLligaDetail->Controls->Add(this->lblEstLligaBuscar);
 		this->pnlEstadistiquesLligaDetail->Controls->Add(this->txtEstLligaBuscar);
 		this->pnlEstadistiquesLligaDetail->Controls->Add(this->btnEstLligaExecutarCerca);
+		this->pnlEstadistiquesLligaDetail->Controls->Add(this->lblEstLligaSeleccionar);
+		this->pnlEstadistiquesLligaDetail->Controls->Add(this->cmbEstLligaLligues);
 		this->pnlEstadistiquesLligaDetail->Controls->Add(this->lblEstLligaTemporada);
 		this->pnlEstadistiquesLligaDetail->Controls->Add(this->cmbEstLligaTemporades);
+		this->pnlEstadistiquesLligaDetail->Controls->Add(this->lblEstLligaInfo);
 		this->pnlEstadistiquesLligaDetail->Controls->Add(this->dgvEstLligaClassificacio);
 		this->pnlEstadistiquesLligaDetail->Controls->Add(this->btnEstLligaTornar);
 
-		// Agregar el panel de detalle al formulario principal
 		this->Controls->Add(this->pnlEstadistiquesLligaDetail);
 		this->pnlEstadistiquesLligaDetail->BringToFront();
 		String^ logoPath = L"imatges\\logo.png";
@@ -1265,7 +1426,7 @@ namespace CppCLRWinFormsProject {
 		this->pnlEditarPartit->Controls->Add(this->dtpDataPartit);
 
 		// Títol
-		this->lblEditarPartitTitle->Text = L"Editar Partit i Estadístiques";
+		this->lblEditarPartitTitle->Text = L"Editar Partit i Estad\u00EDstiques";
 		this->lblEditarPartitTitle->Font = gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16, System::Drawing::FontStyle::Bold);
 		this->lblEditarPartitTitle->AutoSize = true;
 
@@ -1277,13 +1438,13 @@ namespace CppCLRWinFormsProject {
 		this->cmbPartitsAEditar->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbPartitsAEditar_SelectedIndexChanged);
 
 		// Resultats i Estat
-		this->lblResultatLocal->Text = L"Gols Local:";
+		this->lblResultatLocal->Text = L"Marcador local:";
 		this->txtResultatLocal->Size = System::Drawing::Size(50, 20);
-		this->lblResultatVisitant->Text = L"Gols Visitant:";
+		this->lblResultatVisitant->Text = L"Marcador visitant:";
 		this->txtResultatVisitant->Size = System::Drawing::Size(50, 20);
 		this->lblEstatPartit->Text = L"Estat:";
 		this->cmbEstatPartit->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
-		this->cmbEstatPartit->Items->AddRange(gcnew cli::array< System::Object^  >(5) { L"Pendent", L"En joc", L"Finalitzat", L"Aplaçat", L"Cancel·lat" });
+		this->cmbEstatPartit->Items->AddRange(gcnew cli::array< System::Object^  >(5) { L"Pendent", L"En joc", L"Finalitzat", L"Apla\u00E7at", L"Cancel\u00B7lat" });
 		this->cmbEstatPartit->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::cmbEstatPartit_SelectedIndexChanged);
 
 		// Data partit (per si s'aplaça)
@@ -1304,6 +1465,7 @@ namespace CppCLRWinFormsProject {
 		this->btnTornarEditarPartit->Click += gcnew System::EventHandler(this, &Form1::btnTornarEditarPartit_Click);
 
 		this->Controls->Add(this->pnlEditarPartit);
+		EstilInterficie::Aplicar(this);
 		this->pnlEditarPartit->ResumeLayout(false);
 		this->pnlEditarPartit->PerformLayout();
 		this->ResumeLayout(false);

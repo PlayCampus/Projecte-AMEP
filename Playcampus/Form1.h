@@ -7,16 +7,21 @@
 #include "Domini/CtrlUnirEquipLliga.hxx"
 #include "Domini/CtrlCrearPartit.hxx"
 #include "Domini/CtrlEditarPartit.hxx"
+#include "Domini/EtiquetesEditarPartit.hxx"
 #include "Domini/CtrlCrearTemporada.hxx"
 #include "Domini/CtrlCrearJornada.hxx"
 #include "Dades/ConnexioBD.hxx"
 #include "Domini/CtrlEsborrarEquip.hxx"
 #include "Domini/CtrlAfegirJugador.hxx"
-#include "Domini/CtrlAssignarJugador.hxx"
 #include "Domini/CtrlVeurePlantilla.hxx"
 #include "Domini/CtrlEliminarJugador.hxx"
 #include "Domini/CtrlConsultes.hxx"
+#include "Domini/CtrlConsultaPartits.hxx"
+#include "Domini/CtrlConsultaLligues.hxx"
+#include "Domini/CtrlConsultaFitxatges.hxx"
+#include "Domini/CtrlConsultaTelefons.hxx"
 #include "Domini/CtrlEsborrarPartit.hxx"
+#include "Domini/CtrlEsborrarJornada.hxx"
 #include "Domini/CtrlVeureEstadistiquesLliga.hxx"
 #include "Domini/CtrlVeureEstadistiquesEquip.hxx"
 #include "Domini/CtrlVeureEstadistiquesJugadors.hxx"
@@ -24,6 +29,7 @@
 #include "Domini/Administrador.hxx"
 #include "Domini/CtrlRetirarTemporada.hxx"
 #include "Domini/CtrlEstadistiquesPartit.hxx"
+#include "Domini/CtrlSeguirLliga.hxx"
 #include "EstadistiquesJugadorsForm.h"
 
 namespace CppCLRWinFormsProject {
@@ -48,6 +54,8 @@ namespace CppCLRWinFormsProject {
 
 	private:
 		System::ComponentModel::Container^ components;
+		System::Windows::Forms::Label^ lblIdioma;
+		System::Windows::Forms::ComboBox^ cmbIdioma;
 
 	private:
 		System::Windows::Forms::Panel^ pnlInici;
@@ -86,8 +94,18 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Button^ btnEstatLligues;
 		System::Windows::Forms::Button^ btnEstadistiques;
 		System::Windows::Forms::Button^ btnConsultar;
+		System::Windows::Forms::Button^ btnMenuConsultarTelefons;
 		System::Windows::Forms::Button^ btnEnregistrarEquip;
 		System::Windows::Forms::Button^ btnUnirEquipLliga;
+		System::Windows::Forms::Button^ btnSeguirLligaMainMenu;
+		System::Windows::Forms::Panel^ pnlDashboardLliga;
+		System::Windows::Forms::Label^ lblDashboardLliga;
+		System::Windows::Forms::Label^ lblDashboardClassificacio;
+		System::Windows::Forms::DataGridView^ dgvDashboardClassificacio;
+		System::Windows::Forms::Label^ lblDashboardProximsPartits;
+		System::Windows::Forms::DataGridView^ dgvDashboardProximsPartits;
+		System::Windows::Forms::Label^ lblDashboardUltimsResultats;
+		System::Windows::Forms::DataGridView^ dgvDashboardUltimsResultats;
 		System::Windows::Forms::Panel^ pnlEstadistiques;
 		System::Windows::Forms::Label^ lblEstTitle;
 		System::Windows::Forms::Button^ btnEstEquips;
@@ -102,6 +120,8 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Panel^ pnlConsultar;
 		System::Windows::Forms::Label^ lblConsultarTitle;
 		System::Windows::Forms::Button^ btnTornarConsultar;
+		System::Windows::Forms::Label^ lblAccesRapidCalendari;
+		System::Windows::Forms::Button^ btnCalendariLligaSeguida;
 		System::Windows::Forms::Label^ lblNomLliga;
 		System::Windows::Forms::TextBox^ txtNomLliga;
 		System::Windows::Forms::Button^ btnComprovarLliga;
@@ -158,8 +178,9 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Button^ btnGEEsborrarEquip;
 		System::Windows::Forms::Button^ btnGEAfegirJugador;
 		System::Windows::Forms::Button^ btnGEEliminarJugador;
-		System::Windows::Forms::Button^ btnGEAssignarJugador;
+		System::Windows::Forms::Button^ btnGEConvocarJugador;
 		System::Windows::Forms::Button^ btnGEEditarJugador;
+		System::Windows::Forms::Button^ btnGEConsultarTelefons;
 		System::Windows::Forms::Button^ btnGETornar;
 		System::Windows::Forms::Panel^ pnlAfegirJugador;
 		System::Windows::Forms::Label^ lblAJTitle;
@@ -169,6 +190,8 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::TextBox^ txtAJDorsal;
 		System::Windows::Forms::Label^ lblAJPosicio;
 		System::Windows::Forms::TextBox^ txtAJPosicio;
+		System::Windows::Forms::Label^ lblAJDataNaixement;
+		System::Windows::Forms::DateTimePicker^ dtpAJDataNaixement;
 		System::Windows::Forms::Button^ btnAJConfirmar;
 		System::Windows::Forms::Button^ btnAJCancellar;
 		System::Windows::Forms::Panel^ pnlUnirEquipLliga;
@@ -191,6 +214,7 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::Button^ btnGLCrearJornada;
 		System::Windows::Forms::Button^ btnGLCrearTemporada;
 		System::Windows::Forms::Button^ btnGLRetirarTemporada;
+		System::Windows::Forms::Button^ btnGLConsultarTelefons;
 		System::Windows::Forms::Button^ btnGLTornar;
 		System::Windows::Forms::PictureBox^ picLogoGL;
 		System::Windows::Forms::Panel^ pnlCrearPartit;
@@ -230,12 +254,26 @@ namespace CppCLRWinFormsProject {
 		System::Windows::Forms::ComboBox^ cmbEPPartits;
 		System::Collections::Generic::List<String^>^ epPartitIds;
 		System::Windows::Forms::Button^ btnEPEsborrarFinal;
+		System::Windows::Forms::Button^ btnGLEsborrarJornada;
+		System::Windows::Forms::Panel^ pnlEsborrarJornada;
+		System::Windows::Forms::Label^ lblEJTitle;
+		System::Windows::Forms::Button^ btnEJTornar;
+		System::Windows::Forms::Label^ lblEJTemporada;
+		System::Windows::Forms::ComboBox^ cmbEJTemporades;
+		System::Collections::Generic::List<String^>^ ejTemporadaIds;
+		System::Windows::Forms::Label^ lblEJJornada;
+		System::Windows::Forms::ComboBox^ cmbEJJornades;
+		System::Collections::Generic::List<String^>^ ejJornadaIds;
+		System::Windows::Forms::Button^ btnEJEsborrarFinal;
 		// Nou panell per la cerca i la taula
 		System::Windows::Forms::Button^ btnEstLliga;
 		System::Windows::Forms::Panel^ pnlEstadistiquesLligaDetail;
+		System::Windows::Forms::Label^ lblEstLligaInfo;
 		System::Windows::Forms::Label^ lblEstLligaBuscar;
 		System::Windows::Forms::TextBox^ txtEstLligaBuscar;
 		System::Windows::Forms::Button^ btnEstLligaExecutarCerca;
+		System::Windows::Forms::Label^ lblEstLligaSeleccionar;
+		System::Windows::Forms::ComboBox^ cmbEstLligaLligues;
 		System::Windows::Forms::Label^ lblEstLligaTemporada;
 		System::Windows::Forms::ComboBox^ cmbEstLligaTemporades;
 		System::Windows::Forms::DataGridView^ dgvEstLligaClassificacio;
@@ -244,13 +282,17 @@ namespace CppCLRWinFormsProject {
 	private: System::Windows::Forms::Button^ btnGestionarConvocatoria;
 	private: System::Windows::Forms::Button^ btnTornarConvocatoria;
 	private: System::Windows::Forms::ComboBox^ cbPartitsConvocatoria;
+	private: System::Windows::Forms::Label^ lblConvocatoriaInfo;
 	private: System::Windows::Forms::DataGridView^ dgvConvocatoria;
 	private: System::Collections::Generic::List<System::String^>^ convocatoriaPartitIds;
 		   // Variables pel cartell del jugador
 	private: System::Windows::Forms::Panel^ pnlAvisJugador;
 	private: System::String^ idPartitPendentConfirmar;
+	private: bool convocatoriaObertaDesDeGestionarEquip;
 		   String^ currentIdLligaEstadistiques;
 		   // Per guardar la ID de la lliga cercada
+		   System::Collections::Generic::List<String^>^ estLligaIds;
+		   System::Collections::Generic::List<String^>^ estLligaTemporadaIds;
 
 		   System::Windows::Forms::Panel^ pnlEstadistiquesEquipDetail;
 		   System::Windows::Forms::Label^ lblEstEquipTitle;
@@ -267,40 +309,47 @@ namespace CppCLRWinFormsProject {
 		   System::Collections::Generic::List<String^>^ estEquipTemporadaIds;
 
 		   // NOU: Components per al panell d'edició de partits
-			private: System::Windows::Forms::Panel^ pnlEditarPartit;
-			private: System::Windows::Forms::Label^ lblEditarPartitTitle;
-			private: System::Windows::Forms::ComboBox^ cmbPartitsAEditar;
-			private: System::Windows::Forms::Label^ lblPartitsAEditar;
-			private: System::Windows::Forms::DataGridView^ dgvEstadistiquesJugadors;
-			private: System::Windows::Forms::Button^ btnGuardarEstadistiques;
-			private: System::Windows::Forms::Button^ btnTornarEditarPartit;
-			private: System::Windows::Forms::Label^ lblResultatLocal;
-			private: System::Windows::Forms::TextBox^ txtResultatLocal;
-			private: System::Windows::Forms::Label^ lblResultatVisitant;
-			private: System::Windows::Forms::TextBox^ txtResultatVisitant;
-			private: System::Windows::Forms::Label^ lblEstatPartit;
-			private: System::Windows::Forms::ComboBox^ cmbEstatPartit;
-			private: System::Windows::Forms::Label^ lblDataPartit;
-			private: System::Windows::Forms::DateTimePicker^ dtpDataPartit;
-			private: System::Collections::Generic::Dictionary<String^, String^>^ partitPerId;
+	private: System::Windows::Forms::Panel^ pnlEditarPartit;
+	private: System::Windows::Forms::Label^ lblEditarPartitTitle;
+	private: System::Windows::Forms::ComboBox^ cmbPartitsAEditar;
+	private: System::Windows::Forms::Label^ lblPartitsAEditar;
+	private: System::Windows::Forms::DataGridView^ dgvEstadistiquesJugadors;
+	private: System::Windows::Forms::Button^ btnGuardarEstadistiques;
+	private: System::Windows::Forms::Button^ btnTornarEditarPartit;
+	private: System::Windows::Forms::Label^ lblResultatLocal;
+	private: System::Windows::Forms::TextBox^ txtResultatLocal;
+	private: System::Windows::Forms::Label^ lblResultatVisitant;
+	private: System::Windows::Forms::TextBox^ txtResultatVisitant;
+	private: System::Windows::Forms::Label^ lblEstatPartit;
+	private: System::Windows::Forms::ComboBox^ cmbEstatPartit;
+	private: System::Windows::Forms::Label^ lblDataPartit;
+	private: System::Windows::Forms::DateTimePicker^ dtpDataPartit;
+	private: System::Collections::Generic::Dictionary<String^, String^>^ partitPerId;
+	private: System::Collections::Generic::Dictionary<String^, String^>^ etiquetesEditarPartitActual;
+	private: System::String^ disciplinaPartitEditarActual;
 
 		   //Panell Estadístiques partit 
-			private: System::Windows::Forms::Button^ btnEstPartit;
-			private: System::Windows::Forms::Panel^ pnlEstadistiquesPartitDetail;
-			private: System::Windows::Forms::Label^ lblEstPartitTitle;
-			private: System::Windows::Forms::Label^ lblEstPartitLliga;
-			private: System::Windows::Forms::ComboBox^ cmbEstPartitLligues;
-			private: System::Windows::Forms::Label^ lblEstPartitTemporada;
-			private: System::Windows::Forms::ComboBox^ cmbEstPartitTemporades;
-			private: System::Windows::Forms::Label^ lblEstPartitPartits;
-			private: System::Windows::Forms::ComboBox^ cmbEstPartitPartits;
-			private: System::Windows::Forms::Label^ lblEstPartitResultat;
-			private: System::Windows::Forms::DataGridView^ dgvEstPartitDetalls;
-			private: System::Windows::Forms::Button^ btnEstPartitTornar;
+	private: System::Windows::Forms::Button^ btnEstPartit;
+	private: System::Windows::Forms::Panel^ pnlEstadistiquesPartitDetail;
+	private: System::Windows::Forms::Label^ lblEstPartitTitle;
+	private: System::Windows::Forms::Label^ lblEstPartitLliga;
+	private: System::Windows::Forms::ComboBox^ cmbEstPartitLligues;
+	private: System::Windows::Forms::Label^ lblEstPartitTemporada;
+	private: System::Windows::Forms::ComboBox^ cmbEstPartitTemporades;
+	private: System::Windows::Forms::Label^ lblEstPartitBuscar;
+	private: System::Windows::Forms::TextBox^ txtEstPartitBuscar;
+	private: System::Windows::Forms::Button^ btnEstPartitCercar;
+	private: System::Windows::Forms::Button^ btnEstPartitNetejar;
+	private: System::Windows::Forms::Label^ lblEstPartitPartits;
+	private: System::Windows::Forms::ComboBox^ cmbEstPartitPartits;
+	private: System::Windows::Forms::Label^ lblEstPartitInfo;
+	private: System::Windows::Forms::Label^ lblEstPartitResultat;
+	private: System::Windows::Forms::DataGridView^ dgvEstPartitDetalls;
+	private: System::Windows::Forms::Button^ btnEstPartitTornar;
 
-			private: System::Collections::Generic::List<String^>^ estPartitLligaIds;
-			private: System::Collections::Generic::List<String^>^ estPartitTemporadaIds;
-			private: System::Collections::Generic::List<String^>^ estPartitIds;
+	private: System::Collections::Generic::List<String^>^ estPartitLligaIds;
+	private: System::Collections::Generic::List<String^>^ estPartitTemporadaIds;
+	private: System::Collections::Generic::List<String^>^ estPartitIds;
 
 	public:
 		System::Void MostrarPantallaEditarPartit();
@@ -319,7 +368,7 @@ namespace CppCLRWinFormsProject {
 		void MostrarPantallaEnregistrarEquipInicial();
 		void MostrarPantallaGestionarEquipInicial();
 		void MostrarPantallaAfegirJugadorInicial();
-		void MostrarPantallaAssignarJugadorPartitInicial();
+		void MostrarPantallaConvocarJugadorInicial();
 		void MostrarPantallaUnirEquipLligaInicial();
 		void MostrarPantallaEstadistiquesInicial();
 		void MostrarPantallaEstadistiquesLligaInicial();
@@ -327,6 +376,10 @@ namespace CppCLRWinFormsProject {
 
 	private:
 		void InitializeComponent(void);
+		void InicialitzarSelectorIdioma();
+		void AplicarIdioma();
+		System::String^ Tr(System::String^ textCa);
+		System::Void cmbIdioma_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void Form1_Resize(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnUnirEquipLligaAct_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnUELTornar_Click(System::Object^ sender, System::EventArgs^ e);
@@ -336,16 +389,28 @@ namespace CppCLRWinFormsProject {
 		System::Void btnShowRegister_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnShowRegisterFromLogin_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void cmbRegTipus_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
+		System::Void txtRegTelefon_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e);
+		System::Void txtRegTelefon_TextChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnBack_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnLoginAct_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnSeguirLligaMainMenu_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void cmbPartitsAEditar_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGuardarEstadistiques_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnTornarEditarPartit_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void cmbEstatPartit_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
+		void ConfigurarLabelsEditarPartitSegonsEsport(System::String^ disciplina);
+		System::String^ ObtenirIdPartitEditarSeleccionat();
+		System::Boolean ValidarEnterNoNegatiuEditarPartit(System::String^ textValor, System::String^ etiquetaCamp, int% valorNumeric);
 		System::Void btnRegAct_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnLogout_Click(System::Object^ sender, System::EventArgs^ e);
+		void ActualitzarEstatSeguirLliga();
+		void CarregarDashboardLliga(System::String^ idLliga);
+		System::String^ DemanarNomLliga(System::String^ titol, System::String^ missatge);
 		System::Void btnConsultar_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnTornarConsultar_Click(System::Object^ sender, System::EventArgs^ e);
+		void ActualitzarAccesRapidCalendariLligaSeguida();
+		System::Void btnCalendariLligaSeguida_Click(System::Object^ sender, System::EventArgs^ e);
+		void CarregarUltimsFitxatges();
 		System::Void btnComprovarLliga_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnCrearLligaMainMenu_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGLTornar_Click(System::Object^ sender, System::EventArgs^ e);
@@ -364,6 +429,8 @@ namespace CppCLRWinFormsProject {
 		System::Void btnCPConfirmar_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void MostrarTaulaConsulta(System::String^ titol, System::Data::DataTable^ dades);
 		System::Void MostrarConsultaGeneral(System::String^ titol, System::Data::DataTable^ dades);
+		System::Void MostrarTelefonsContacteUsuariActual();
+		System::Void btnConsultarTelefons_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnProgPartits_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnEstatLligues_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnEstadistiquesMenu_Click(System::Object^ sender, System::EventArgs^ e);
@@ -385,7 +452,7 @@ namespace CppCLRWinFormsProject {
 		System::Void btnGETornar_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGEEsborrarEquip_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGLRetirarTemporada_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnGEAssignarJugador_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnGEConvocarJugador_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGEAfegirJugador_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGEEliminarJugador_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnGEEditarJugador_Click(System::Object^ sender, System::EventArgs^ e);
@@ -397,19 +464,32 @@ namespace CppCLRWinFormsProject {
 		System::Void btnEPTornar_Click(System::Object^ sender, System::EventArgs^ e);
 		void CarregarTemporadesEsborrar();
 		System::Void btnEstLliga_Click(System::Object^ sender, System::EventArgs^ e);
+		void ResetEstadistiquesLligaPanel();
+		void CarregarLliguesEstadistiques();
+		void OmplirComboLliguesEstadistiques(System::Data::DataTable^ lligues);
+		void CarregarTemporadesEstadistiquesLligaSeleccionada();
+		void CarregarClassificacioLligaSeleccionada();
 		void CarregarDadesLligaDirecte(Playcampus::Domini::CtrlVeureEstadistiquesLliga^ ctrl, String^ idLliga);
 		System::Void btnEstLligaExecutarCerca_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void cmbEstLligaLligues_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
+		System::Void cmbEstLligaTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void cmbEPTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnEstLligaTornar_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnEstJugadors_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void cmbEPJornades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnEPEsborrarFinal_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnGLEsborrarJornada_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnEJTornar_Click(System::Object^ sender, System::EventArgs^ e);
+		void CarregarTemporadesEsborrarJornada();
+		System::Void cmbEJTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnEJEsborrarFinal_Click(System::Object^ sender, System::EventArgs^ e);
+		bool ConfirmarEsborrarJornadaPermanent();
 		System::Void btnGestionarConvocatoria_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnTornarConvocatoria_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void CarregarPartitsConvocatoria();
 		System::Void cbPartitsConvocatoria_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void dgvConvocatoria_CellClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e);
-		System::Void MostrarAvisJugador(String^ missatge);
+		System::Void MostrarAvisJugador(System::String^ missatge, System::String^ tipus);
 		System::Void btnConfirmarSi_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnConfirmarNo_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void ProcessarConfirmacio(bool assisteix);
@@ -419,6 +499,11 @@ namespace CppCLRWinFormsProject {
 		System::Void cmbEstPartitLligues_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void cmbEstPartitTemporades_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 		System::Void cmbEstPartitPartits_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnEstPartitCercar_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnEstPartitNetejar_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void txtEstPartitBuscar_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e);
+		void CarregarPartitsFinalitzatsEstadistiques(String^ textCerca);
+		void OmplirComboPartitsEstadistiques(DataTable^ partits, String^ textCerca);
 
 		void MostrarPanelInicialTask162(System::Windows::Forms::Panel^ panel);
 		void OcultarPantallesPrincipalsTask162();

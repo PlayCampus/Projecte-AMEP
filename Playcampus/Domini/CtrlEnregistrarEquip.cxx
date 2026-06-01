@@ -4,66 +4,81 @@
 #include "../Dades/PassarellaEquip.hxx"
 #include "../Dades/PassarellaUsuari.hxx"
 #include "../Dades/CercadoraUsuari.hxx"
+#include "../Dades/PassarellaCapita.hxx"
 #include <stdexcept>
 
 using namespace System;
+using namespace Playcampus::Dades;
+
+static String^ NormalitzarDisciplinaEquipLocal(String^ esport) {
+    String^ resultat = nullptr;
+
+    if (!String::IsNullOrWhiteSpace(esport)) {
+        String^ esportNet = esport->Trim()->ToLower();
+
+        if (esportNet == "futbol") {
+            resultat = "Futbol";
+        }
+        else if (esportNet == "basquet" || esportNet == L"bàsquet") {
+            resultat = "Basquet";
+        }
+        else if (esportNet == "voley" || esportNet == "volei" || esportNet == L"vòlei") {
+            resultat = "Voley";
+        }
+    }
+
+    return resultat;
+}
 
 namespace Playcampus {
     namespace Domini {
         CtrlEnregistrarEquip::CtrlEnregistrarEquip() {
-            connectionString = Playcampus::Dades::ConnexioBD::ObtenirConnectionString();
+            connectionString = ConnexioBD::ObtenirConnectionString();
         }
 
         void CtrlEnregistrarEquip::EnregistrarEquip(String^ idEquip, String^ nom, DateTime dataFundacio, String^ esport, String^ tipusUsuari, String^ correuUsuari) {
-            // Verificar que l'usuari és un capità
-            if (tipusUsuari->ToLower() != "capita" && tipusUsuari->ToLower() != "capità") {
-                throw gcnew UnauthorizedAccessException("Només els capitans poden enregistrar un equip.");
+            if (tipusUsuari->ToLower() != "capita" && tipusUsuari->ToLower() != L"capit\u00E0") {
+                throw gcnew UnauthorizedAccessException(L"Nom\u00E9s els capitans poden enregistrar un equip.");
             }
+
+            // RIT19: el nom d'un equip no pot ser buit.
+            if (String::IsNullOrWhiteSpace(nom)) {
+                throw gcnew ArgumentException("El nom de l'equip no pot ser buit.");
+            }
+
+            // RIT20: la data de fundacio d'un equip ha de ser anterior o igual a la data actual.
+            if (dataFundacio.Date > DateTime::Now.Date) {
+                throw gcnew ArgumentException("La data de fundacio de l'equip no pot ser posterior a la data actual.");
+            }
+
+            // RIT21: l'esport d'un equip nomes pot ser Futbol, Voley o Basquet.
+            String^ esportNormalitzat = NormalitzarDisciplinaEquipLocal(esport);
+            if (String::IsNullOrWhiteSpace(esportNormalitzat)) {
+                throw gcnew ArgumentException("L'esport de l'equip ha de ser Futbol, Voley o Basquet.");
+            }
+            esport = esportNormalitzat;
+            nom = nom->Trim();
 
             String^ idCapita = nullptr;
             if (!String::IsNullOrEmpty(correuUsuari)) {
-                Playcampus::Dades::PassarellaUsuari^ capUser = (gcnew Playcampus::Dades::CercadoraUsuari(connectionString))->LlegeixPerCorreu( correuUsuari);
+                PassarellaUsuari^ capUser = (gcnew CercadoraUsuari(connectionString))->LlegeixPerCorreu(correuUsuari);
                 if (capUser != nullptr && capUser->GetIdentificador() != nullptr) {
                     idCapita = capUser->GetIdentificador()->Trim();
                 }
             }
 
-            // Guardar a la base de dades utilitzant la passarella
             try {
-                Playcampus::Dades::PassarellaEquip^ pe = gcnew Playcampus::Dades::PassarellaEquip(connectionString, idEquip, nom, dataFundacio, esport);
+                PassarellaEquip^ pe = gcnew PassarellaEquip(connectionString, idEquip, nom, dataFundacio, esport);
                 pe->Insereix();
-                
-                // Actualitzem l'ID de l'equip al Capita a la base de dades
-                if (idCapita != nullptr) {
-                    MySql::Data::MySqlClient::MySqlConnection^ conn = gcnew MySql::Data::MySqlClient::MySqlConnection(connectionString);
-                    try {
-                        conn->Open();
-                        // Assegurem que s'agafa el ID generat
-                        String^ realIdEquip = pe->GetIdEquip();
-                        if (String::IsNullOrEmpty(realIdEquip)) {
-                            realIdEquip = idEquip;
-                        }
-                        String^ queryUpdateCapita = "UPDATE Capita SET idEquip = @idEquip WHERE identificador = @idCapita";
-                        MySql::Data::MySqlClient::MySqlCommand^ cmd = gcnew MySql::Data::MySqlClient::MySqlCommand(queryUpdateCapita, conn);
-                        cmd->Parameters->AddWithValue("@idEquip", realIdEquip);
-                        cmd->Parameters->AddWithValue("@idCapita", idCapita);
-                        int filesAfectades = cmd->ExecuteNonQuery();
-                        if (filesAfectades != 1) {
-                            throw gcnew Exception("No s'ha pogut actualitzar el capita amb l'equip creat.");
-                        }
 
-                        String^ queryVerificacio = "SELECT COUNT(*) FROM Capita WHERE identificador = @idCapita AND idEquip = @idEquip";
-                        MySql::Data::MySqlClient::MySqlCommand^ cmdVerificacio = gcnew MySql::Data::MySqlClient::MySqlCommand(queryVerificacio, conn);
-                        cmdVerificacio->Parameters->AddWithValue("@idCapita", idCapita);
-                        cmdVerificacio->Parameters->AddWithValue("@idEquip", realIdEquip);
-                        int filesVerificades = Convert::ToInt32(cmdVerificacio->ExecuteScalar());
-                        if (filesVerificades != 1) {
-                            throw gcnew Exception("La base de dades no ha confirmat l'assignacio de l'equip al capita.");
-                        }
+                if (idCapita != nullptr) {
+                    String^ realIdEquip = pe->GetIdEquip();
+                    if (String::IsNullOrEmpty(realIdEquip)) {
+                        realIdEquip = idEquip;
                     }
-                    finally {
-                        delete conn;
-                    }
+
+                    PassarellaCapita^ passCapita = gcnew PassarellaCapita(connectionString);
+                    passCapita->AssignarEquip(idCapita, realIdEquip);
                 }
             }
             catch (Exception^ ex) {
