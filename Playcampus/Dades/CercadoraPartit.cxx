@@ -501,10 +501,10 @@ namespace Playcampus {
 
                 String^ queryJugadors =
                     "SELECT u.identificador AS idJugador, u.nom AS nomJugador, j.idEquip, "
-                    "IFNULL(pei.targetesgrogues, 0) AS estadistica1, "
-                    "IFNULL(pei.targetesvermelles, 0) AS estadistica2, "
-                    "IFNULL(pei.golsmarcat, 0) AS estadistica3, "
-                    "IFNULL(pei.asistencies, 0) AS estadistica4 "
+                    "IFNULL(pei.golsmarcat, 0) AS estadistica1, "
+                    "IFNULL(pei.asistencies, 0) AS estadistica2, "
+                    "IFNULL(pei.targetesgrogues, 0) AS estadistica3, "
+                    "IFNULL(pei.targetesvermelles, 0) AS estadistica4 "
                     "FROM Jugador j "
                     "INNER JOIN Usuari u ON j.idJugador = u.identificador "
                     "LEFT JOIN PartitEstadisticaIndividual pei ON pei.idJugador = j.idJugador AND pei.idPartit = @idPartit "
@@ -563,7 +563,7 @@ namespace Playcampus {
             return dt;
         }
 
-        
+
         DataTable^ CercadoraPartit::ObtenirCalendariCompletLligaPerId(String^ idLliga) {
             DataTable^ dt = gcnew DataTable();
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
@@ -603,7 +603,7 @@ namespace Playcampus {
             return dt;
         }
 
-        
+
         DataTable^ CercadoraPartit::ObtenirUltimsResultats(String^ idLliga, String^ idTemporada, int limit) {
             DataTable^ dt = gcnew DataTable();
             MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
