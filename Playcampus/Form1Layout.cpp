@@ -386,9 +386,37 @@ namespace CppCLRWinFormsProject {
 		this->lblEstTitle->Location = System::Drawing::Point(centerX - this->lblEstTitle->Width / 2, 40);
 		this->btnEstTornar->Location = System::Drawing::Point(30, 30);
 
-		int estStartY = centerY - 20;
-		this->btnEstEquips->Location = System::Drawing::Point(centerX - (this->btnEstEquips->Width / 2), estStartY);
-		this->picLogoEst->Location = System::Drawing::Point(centerX - (this->picLogoEst->Width / 2), estStartY - this->picLogoEst->Height - 40);
+		int estButtonWidth = 220;
+		int estButtonHeight = 60;
+		int estGapX = 30;
+		int estGapY = 25;
+		int estGridWidth = estButtonWidth * 2 + estGapX;
+		int estGridStartX = centerX - estGridWidth / 2;
+		int estGridStartY = centerY - 20;
+
+		this->picLogoEst->Location = System::Drawing::Point(centerX - (this->picLogoEst->Width / 2), estGridStartY - this->picLogoEst->Height - 40);
+
+		if (this->btnEstEquips != nullptr) {
+			this->btnEstEquips->Size = System::Drawing::Size(estButtonWidth, estButtonHeight);
+			this->btnEstEquips->Location = System::Drawing::Point(estGridStartX, estGridStartY);
+		}
+
+		if (this->btnEstLliga != nullptr) {
+			this->btnEstLliga->Size = System::Drawing::Size(estButtonWidth, estButtonHeight);
+			this->btnEstLliga->Location = System::Drawing::Point(estGridStartX + estButtonWidth + estGapX, estGridStartY);
+		}
+
+		if (this->btnEstPartit != nullptr) {
+			this->btnEstPartit->Size = System::Drawing::Size(estButtonWidth, estButtonHeight);
+			this->btnEstPartit->Font = this->btnEstEquips->Font;
+			this->btnEstPartit->Location = System::Drawing::Point(estGridStartX, estGridStartY + estButtonHeight + estGapY);
+		}
+
+		if (this->btnEstJugadors != nullptr) {
+			this->btnEstJugadors->Size = System::Drawing::Size(estButtonWidth, estButtonHeight);
+			this->btnEstJugadors->Font = this->btnEstEquips->Font;
+			this->btnEstJugadors->Location = System::Drawing::Point(estGridStartX + estButtonWidth + estGapX, estGridStartY + estButtonHeight + estGapY);
+		}
 
 		// --- PANEL ESTADISTIQUES EQUIP ---
 		if (this->pnlEstadistiquesEquipDetail != nullptr && this->pnlEstadistiquesEquipDetail->Visible) {
@@ -654,33 +682,26 @@ namespace CppCLRWinFormsProject {
 		this->btnCJCancellar->Size = System::Drawing::Size(100, 30);
 
 		if (this->btnEstEquips != nullptr) {
-			// Centramos el botón de Equipos (un poco más arriba del centro de la pantalla)
-			this->btnEstEquips->Location = System::Drawing::Point(centerX - (this->btnEstEquips->Width / 2), centerY - 60);
+			this->btnEstEquips->Size = System::Drawing::Size(estButtonWidth, estButtonHeight);
+			this->btnEstEquips->Location = System::Drawing::Point(estGridStartX, estGridStartY);
 		}
 
-		if (this->btnEstLliga != nullptr && this->btnEstEquips != nullptr) {
-			// Ponemos el botón de la Liga exactamente debajo del de Equipos
-			this->btnEstLliga->Location = System::Drawing::Point(this->btnEstEquips->Location.X, this->btnEstEquips->Location.Y + this->btnEstEquips->Height + 20);
-		}
-		if (this->btnEstPartit != nullptr && this->btnEstLliga != nullptr) {
-			// Posicionamos exactamente debajo del botón de Estadísticas Liga
-			this->btnEstPartit->Location = System::Drawing::Point(this->btnEstLliga->Location.X, this->btnEstLliga->Location.Y + this->btnEstLliga->Height + 20);
-
-			// Copiamos el tamaño y la fuente EXACTA del botón anterior
-			this->btnEstPartit->Size = this->btnEstLliga->Size;
-			this->btnEstPartit->Font = this->btnEstLliga->Font;
+		if (this->btnEstLliga != nullptr) {
+			this->btnEstLliga->Size = System::Drawing::Size(estButtonWidth, estButtonHeight);
+			this->btnEstLliga->Location = System::Drawing::Point(estGridStartX + estButtonWidth + estGapX, estGridStartY);
 		}
 
-		if (this->btnEstJugadors != nullptr && this->btnEstPartit != nullptr) {
-			// Posicionamos exactamente debajo del botón de Estadísticas Partit
-			this->btnEstJugadors->Location = System::Drawing::Point(this->btnEstPartit->Location.X, this->btnEstPartit->Location.Y + this->btnEstPartit->Height + 20);
-
-			// Copiamos el tamaño y la fuente EXACTA del botón anterior
-			this->btnEstJugadors->Size = this->btnEstPartit->Size;
-			this->btnEstJugadors->Font = this->btnEstPartit->Font;
+		if (this->btnEstPartit != nullptr) {
+			this->btnEstPartit->Size = System::Drawing::Size(estButtonWidth, estButtonHeight);
+			this->btnEstPartit->Font = this->btnEstEquips->Font;
+			this->btnEstPartit->Location = System::Drawing::Point(estGridStartX, estGridStartY + estButtonHeight + estGapY);
 		}
 
-
+		if (this->btnEstJugadors != nullptr) {
+			this->btnEstJugadors->Size = System::Drawing::Size(estButtonWidth, estButtonHeight);
+			this->btnEstJugadors->Font = this->btnEstEquips->Font;
+			this->btnEstJugadors->Location = System::Drawing::Point(estGridStartX + estButtonWidth + estGapX, estGridStartY + estButtonHeight + estGapY);
+		}
 
 		// NOU: Posicionament del panell d'edició de partits
 
