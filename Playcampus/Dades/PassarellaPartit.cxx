@@ -288,7 +288,7 @@ namespace Playcampus {
                 readerEstadistiques->Close();
 
                 if (partitFinalitzat) {
-                    for each(Dictionary<String^, int> ^ fila in estadistiquesJugadors) {
+                    for each (Dictionary<String^, int> ^ fila in estadistiquesJugadors) {
                         String^ queryDesferJugador =
                             "UPDATE Jugador SET "
                             "partitsJugats = GREATEST(partitsJugats - 1, 0), "
@@ -330,6 +330,29 @@ namespace Playcampus {
                 if (conn != nullptr) {
                     conn->Close();
                 }
+            }
+        }
+
+        void PassarellaPartit::RetirarPartitsNoDisputatsTemporada(String^ idTemporada) {
+            if (String::IsNullOrWhiteSpace(idTemporada)) {
+                throw gcnew ArgumentException(L"La temporada no \u00E9s v\u00E0lida.");
+            }
+
+            MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
+            try {
+                conn->Open();
+                String^ query =
+                    "UPDATE Partit p "
+                    "INNER JOIN Jornada j ON p.idJornada = j.idJornada "
+                    "SET p.estat = 'Cancel\u00B7lat' "
+                    "WHERE j.idTemporada = @idTemporada "
+                    "AND (p.estat IS NULL OR LOWER(p.estat) <> 'finalitzat')";
+                MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
+                cmd->Parameters->AddWithValue("@idTemporada", idTemporada);
+                cmd->ExecuteNonQuery();
+            }
+            finally {
+                conn->Close();
             }
         }
 

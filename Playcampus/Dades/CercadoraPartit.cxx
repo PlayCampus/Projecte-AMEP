@@ -657,12 +657,15 @@ namespace Playcampus {
                     "INNER JOIN Temporada t ON j.idTemporada = t.idTemporada "
                     "LEFT JOIN Equip el ON p.idEquipLocal = el.idEquip "
                     "LEFT JOIN Equip ev ON p.idEquipVisitant = ev.idEquip "
-                    "WHERE t.idLliga = @idLliga AND p.estat = 'Pendent' "
+                    "WHERE t.idLliga = @idLliga "
+                    "AND t.idTemporada = @idTemporada "
+                    "AND p.estat = 'Pendent' "
                     "ORDER BY p.dataHora ASC "
                     "LIMIT " + limit.ToString();
 
                 MySqlCommand^ cmd = gcnew MySqlCommand(query, conn);
                 cmd->Parameters->AddWithValue("@idLliga", idLliga);
+                cmd->Parameters->AddWithValue("@idTemporada", idTemporada);
                 MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter(cmd);
                 adapter->Fill(dt);
             }

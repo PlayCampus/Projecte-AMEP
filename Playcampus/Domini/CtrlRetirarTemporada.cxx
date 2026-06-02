@@ -7,6 +7,7 @@
 #include "../Dades/CercadoraTemporada.hxx"
 #include "../Dades/PassarellaTemporada.hxx"
 #include "../Dades/PassarellaJornada.hxx"
+#include "../Dades/PassarellaPartit.hxx"
 #include "../Dades/CercadoraJornada.hxx"
 #include "../Dades/CercadoraEquip.hxx"
 #include "../Dades/PassarellaCapita.hxx"
@@ -68,9 +69,12 @@ namespace Playcampus {
             }
             */
 
-            // 7. Retirar totes les jornades de la temporada
-            Playcampus::Dades::PassarellaJornada^ passJornada = gcnew Playcampus::Dades::PassarellaJornada(connectionString);
+            // 7. Cancel·lar tots els partits no disputats de la temporada retirada
+            Playcampus::Dades::PassarellaPartit^ passPartit = gcnew Playcampus::Dades::PassarellaPartit(connectionString);
+            passPartit->RetirarPartitsNoDisputatsTemporada(idTemporada);
 
+            // 8. Retirar totes les jornades de la temporada
+            Playcampus::Dades::PassarellaJornada^ passJornada = gcnew Playcampus::Dades::PassarellaJornada(connectionString);
             passJornada->RetirarJornadesTemporada(idTemporada);
 
         }
