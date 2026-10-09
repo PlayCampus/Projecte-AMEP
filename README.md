@@ -1,67 +1,65 @@
 # Playcampus
 
-PlayCampus es una aplicación de escritorio desarrollada como proyecto académico
-para la gestión de competiciones deportivas universitarias.
+PlayCampus is a desktop application developed as an academic project
+for managing college sports competitions.
 
-El sistema permite gestionar ligas, equipos, jugadores, partidos y jornadas,
-además de ofrecer funcionalidades de seguimiento y consulta de estadísticas.
+The system allows users to manage leagues, teams, players, games, and matchdays,
+in addition to offering functionality for tracking and viewing player and team statistics.
 
-## Funcionalidades
+## Features
 
-La aplicación contempla diferentes roles de usuario:
+The app supports different user roles:
 
-- Administrador
-- Capitán
-- Estudiante / Jugador
+- Administrator
+- Captain
+- Student / Player
 
-Entre las principales funcionalidades se encuentran:
+Some of the main features are:
 
-- Registro e inicio de sesión
-- Gestión de equipos y jugadores
-- Creación y gestión de ligas y temporadas
-- Gestión de jornadas y partidos
-- Convocatoria y asignación de jugadores
-- Consulta de estadísticas
-- Seguimiento de ligas
-- Consulta de calendarios
-- Gestión de jugadores y fichajes
-- Abandono y seguimiento de ligas
+- Registration and login
+- Team and player management
+- Creation and management of leagues and seasons
+- Management of matchdays and games
+- Player selection and assignment
+- Viewing statistics
+- Viewing schedules
+- Player and recruitment management
+- Leave and league tracking
 
-## Tecnologías
+## Technologies
 
-- **Lenguaje:** C++/CLI
-- **Interfaz:** Windows Forms
-- **Base de datos:** MariaDB
-- **Control de versiones:** Git / GitHub
-- **Gestión del proyecto:** Taiga
+- **Language:** C++/CLI
+- **User Interface:** Windows Forms
+- **Database:** MariaDB
+- **Version Control:** Git / GitHub
+- **Project Management:** Taiga
 - **Testing:** Google Test
-- **Análisis de código:** SonarCloud
+- **Code Analysis:** SonarCloud
 
-## Arquitectura
+## Architecture
 
-El sistema utiliza una arquitectura por capas:
+The system uses a layered architecture:
 
-### Capa de presentación
-Formularios desarrollados con Windows Forms encargados de la
-interacción con el usuario.
+### Presentation Layer
+Responsible for user interaction.
 
-### Capa de dominio
-Contiene los controladores de los casos de uso y las principales
-clases del dominio.
+### Domain Layer
+Contains the use-case controllers and the main
+domain classes.
 
-### Capa de acceso a datos
-Incluye las clases encargadas de comunicarse con la base de datos
-MariaDB mediante buscadores y pasarelas.
+### Data Access Layer
+Includes the classes responsible for communicating with the
+MariaDB database through query engines and gateways.
 
-Esta separación permite mantener responsabilidades diferenciadas
-y facilita el mantenimiento y evolución del sistema.
+This separation allows for distinct responsibilities
+and facilitates the maintenance and evolution of the system.
 
-## Metodología de trabajo
+## Work Methodology
 
-El proyecto fue desarrollado por un equipo de 7 estudiantes siguiendo
-una metodología ágil basada en iteraciones.
+The project was developed by a team of 7 students following
+an agile methodology based on iterations.
 
-Para la gestión del proyecto se utilizó **Taiga**, donde se gestionaron:
+**Taiga** was used for project management, where the following were managed:
 
 - Product backlog
 - Iteration backlog
@@ -69,39 +67,21 @@ Para la gestión del proyecto se utilizó **Taiga**, donde se gestionaron:
 - Tasks
 - Acceptance criteria
 
-Para el control de versiones se utilizó **GitHub**, utilizando una
-estrategia de ramas basada en:
+**GitHub** was used for version control, employing a
+branching strategy based on:
 
 - `main`
 - `develop`
-- ramas específicas para funcionalidades y tareas
+- specific branches for features and tasks
 
-## Calidad y testing
+## Quality and Testing
 
-Durante el desarrollo se utilizaron diferentes herramientas y técnicas
-para mejorar la calidad del software:
+During development, various tools and techniques were used
+to improve software quality:
 
-- Pruebas unitarias y funcionales con **Google Test**
-- Pruebas manuales de diferentes flujos de la aplicación
-- Análisis de calidad del código mediante **SonarCloud**
-- Revisión de la separación de responsabilidades entre las diferentes capas
-- Corrección de errores de integración
-- Reducción de código duplicado
-
-## Contexto
-
-Proyecto académico desarrollado en equipo en la asignatura
-**Ampliación a la Ingeniería del Programario — UPC**.
-
-Equipo formado por 7 estudiantes.
-
-## Capturas
-
-### Inicio de sesión
-![Login](images/login.png)
-
-### Gestión de ligas
-![Ligas](images/ligas.png)
-
-### Gestión de equipos
-![Equipos](images/equipos.png)
+- Unit and functional testing with **Google Test**
+- Manual testing of different application workflows
+- Code quality analysis using **SonarCloud**
+- Review of the separation of responsibilities among the different layers
+- Correction of integration errors
+- Reduction of duplicate code
